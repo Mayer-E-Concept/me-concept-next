@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 
 export function ContactSection() {
   const [hovered, setHovered] = useState(false);
@@ -74,11 +75,16 @@ export function ContactSection() {
           </p>
 
           {/* Contact details */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 40 }}>
             {[
               {
                 label: "Adresă",
-                value: "Strada Măslinului nr. 9, Sibiu",
+                value: "Str. Autogarii, nr. 1, Sibiu, Județ: Sibiu",
+              },
+              {
+                label: "Telefon",
+                value: "+40 752 129 500",
+                href: "tel:+40752129500",
               },
               {
                 label: "Email",
@@ -130,6 +136,49 @@ export function ContactSection() {
               </div>
             ))}
           </div>
+
+          {/* Certification badges */}
+          <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
+            <a
+              href="https://anpc.ro/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                background: "rgba(255,255,255,0.08)",
+                borderRadius: 8,
+                padding: "8px 12px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                src="/uploads/images.png"
+                alt="ANPC SAL"
+                width={80}
+                height={50}
+                style={{ objectFit: "contain", display: "block" }}
+              />
+            </a>
+            <div
+              style={{
+                background: "rgba(255,255,255,0.08)",
+                borderRadius: 8,
+                padding: "8px 12px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                src="/uploads/SKYCERT9001.png"
+                alt="ISO 9001:2015 SKYCERT"
+                width={80}
+                height={50}
+                style={{ objectFit: "contain", display: "block" }}
+              />
+            </div>
+          </div>
         </div>
 
         {/* Right — form */}
@@ -137,53 +186,56 @@ export function ContactSection() {
           onSubmit={(e) => e.preventDefault()}
           style={{ display: "flex", flexDirection: "column", gap: 16 }}
         >
-          {[
-            { name: "name", label: "Nume", type: "text", placeholder: "Numele tău" },
-            { name: "email", label: "Email", type: "email", placeholder: "email@exemplu.com" },
-          ].map((field) => (
-            <div key={field.name} style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-              <label
-                htmlFor={field.name}
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "11.5px",
-                  fontWeight: 600,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "rgba(244,242,236,0.65)",
-                }}
-              >
-                {field.label}
-              </label>
-              <input
-                id={field.name}
-                name={field.name}
-                type={field.type}
-                placeholder={field.placeholder}
-                style={{
-                  background: "rgba(255,255,255,0.06)",
-                  border: "1px solid rgba(255,255,255,0.16)",
-                  borderRadius: 4,
-                  color: "#fff",
-                  padding: "14px 16px",
-                  fontFamily: "var(--font-body)",
-                  fontSize: 15,
-                  outline: "none",
-                  transition: "border-color .2s ease, background .2s ease",
-                  width: "100%",
-                  boxSizing: "border-box",
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = "#1A6F7A";
-                  e.target.style.background = "rgba(255,255,255,0.10)";
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = "rgba(255,255,255,0.16)";
-                  e.target.style.background = "rgba(255,255,255,0.06)";
-                }}
-              />
-            </div>
-          ))}
+          {/* Name + Email on same row */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            {[
+              { name: "name", label: "Nume", type: "text", placeholder: "Numele tău" },
+              { name: "email", label: "Email", type: "email", placeholder: "email@exemplu.com" },
+            ].map((field) => (
+              <div key={field.name} style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                <label
+                  htmlFor={field.name}
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "11.5px",
+                    fontWeight: 600,
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "rgba(244,242,236,0.65)",
+                  }}
+                >
+                  {field.label}
+                </label>
+                <input
+                  id={field.name}
+                  name={field.name}
+                  type={field.type}
+                  placeholder={field.placeholder}
+                  style={{
+                    background: "rgba(255,255,255,0.06)",
+                    border: "1px solid rgba(255,255,255,0.16)",
+                    borderRadius: 4,
+                    color: "#fff",
+                    padding: "14px 16px",
+                    fontFamily: "var(--font-body)",
+                    fontSize: 15,
+                    outline: "none",
+                    transition: "border-color .2s ease, background .2s ease",
+                    width: "100%",
+                    boxSizing: "border-box",
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = "#1A6F7A";
+                    e.target.style.background = "rgba(255,255,255,0.10)";
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = "rgba(255,255,255,0.16)";
+                    e.target.style.background = "rgba(255,255,255,0.06)";
+                  }}
+                />
+              </div>
+            ))}
+          </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             <label
@@ -255,7 +307,7 @@ export function ContactSection() {
               minWidth: 200,
             }}
           >
-            Trimite Mesaj
+            ÎNAINTEAZĂ
           </button>
         </form>
       </div>

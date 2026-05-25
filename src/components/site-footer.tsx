@@ -10,6 +10,14 @@ const NAV = [
   { label: "Contact", href: "#contact" },
 ];
 
+const LEGAL = [
+  { label: "Politică cookie-uri (UE)", href: "#" },
+  { label: "Termeni și condiții", href: "#" },
+  { label: "Politică de confidențialitate", href: "#" },
+  { label: "Blog", href: "#blog" },
+  { label: "Cariere", href: "#" },
+];
+
 export function SiteFooter() {
   return (
     <footer
@@ -109,19 +117,41 @@ export function SiteFooter() {
             borderTop: "1px solid rgba(255,255,255,0.06)",
             padding: "18px 0",
             display: "flex",
-            justifyContent: "center",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: 12,
           }}
         >
           <p
             style={{
               fontFamily: "var(--font-body)",
               fontSize: 13,
-              color: "rgba(255,255,255,0.50)",
+              color: "rgba(255,255,255,0.35)",
               margin: 0,
             }}
           >
             © {new Date().getFullYear()} Mayer E-Concept SRL. Toate drepturile rezervate.
           </p>
+          <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+            {LEGAL.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: 12,
+                  color: "rgba(255,255,255,0.35)",
+                  textDecoration: "none",
+                  transition: "color .2s ease",
+                }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#C5895B")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.35)")}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 
 export function TrustSection() {
@@ -14,160 +15,131 @@ export function TrustSection() {
           maxWidth: "1240px",
           margin: "0 auto",
           padding: "0 clamp(20px, 5vw, 60px)",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "clamp(40px, 6vw, 100px)",
-          alignItems: "center",
         }}
       >
-        {/* Left — text */}
-        <div>
-          <h2
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "clamp(28px, 3.4vw, 42px)",
-              fontWeight: 700,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.12,
-              color: "#0E323D",
-              maxWidth: "18ch",
-              marginBottom: 28,
-            }}
-          >
-            Încredere și Calitate
-          </h2>
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 16,
-              lineHeight: 1.7,
-              color: "#335058",
-              marginBottom: 24,
-              maxWidth: "52ch",
-            }}
-          >
-            Mayer E-Concept operează cu un sistem de management al calității
-            certificat ISO 9001:2015 de SKYCERT. Fiecare proiect urmează
-            procese documentate, cu trasabilitate completă de la documentație
-            la recepție finală.
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 16,
-              lineHeight: 1.7,
-              color: "#335058",
-              maxWidth: "52ch",
-            }}
-          >
-            Respectăm standardele HOAI, DIN și VDE, asigurând compatibilitatea
-            documentației cu cerințele clienților din Germania, Austria și
-            România. Comunicăm fluent în română și germană pe tot parcursul
-            colaborării.
-          </p>
-        </div>
-
-        {/* Right — certification badges */}
+        {/* Top — heading + text + button */}
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 32,
-            alignItems: "flex-start",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "clamp(40px, 6vw, 100px)",
+            alignItems: "start",
+            marginBottom: "clamp(40px, 5vw, 64px)",
           }}
         >
-          <div
-            style={{
-              background: "#FFFFFF",
-              border: "1px solid #D8DCDE",
-              borderRadius: 12,
-              padding: "32px 40px",
-              display: "flex",
-              alignItems: "center",
-              gap: 24,
-              width: "100%",
-              maxWidth: 420,
-            }}
-          >
+          <div>
+            <h2
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "clamp(28px, 3.4vw, 42px)",
+                fontWeight: 700,
+                letterSpacing: "-0.02em",
+                lineHeight: 1.12,
+                color: "#0E323D",
+                marginBottom: 28,
+              }}
+            >
+              Încredere și Calitate în Proiectarea Instalațiilor Electrice!
+            </h2>
+          </div>
+          <div>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: 16,
+                lineHeight: 1.7,
+                color: "#335058",
+                marginBottom: 28,
+              }}
+            >
+              Dacă sunteți în căutarea unei firme de proiectare electrică cu adevărat pricepută,
+              capabilă să transforme complexitatea instalațiilor într-o soluție sigură și eficientă,
+              suntem partenerul de care aveți nevoie. Cu o experiența vastă în spate și o echipă
+              dedicată excelenței, oferim servicii de proiectare electrică personalizate, la cele mai
+              înalte standarde, orientate către succesul proiectului dumneavoastră.
+            </p>
+            <a
+              href="#despre"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: 56,
+                padding: "0 30px",
+                background: "#0E323D",
+                color: "#ffffff",
+                border: "1.5px solid #0E323D",
+                borderRadius: 4,
+                fontFamily: "var(--font-sans)",
+                fontSize: "12.5px",
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                textDecoration: "none",
+                transition: "background .2s ease, border-color .2s ease",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background = "#C5895B";
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = "#C5895B";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background = "#0E323D";
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = "#0E323D";
+              }}
+            >
+              Despre Mayer E-Concept
+            </a>
+          </div>
+        </div>
+
+        {/* Bottom — two images side by side */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "clamp(16px, 3vw, 32px)",
+          }}
+        >
+          {/* Left — person photo */}
+          <div style={{ borderRadius: 12, overflow: "hidden", aspectRatio: "4/3" }}>
             <Image
-              src="/uploads/SKYCERT9001.png"
-              alt="ISO 9001:2015 SKYCERT"
-              width={120}
-              height={80}
-              style={{ objectFit: "contain", maxHeight: 80, width: "auto" }}
+              src="/uploads/me-concept-proiectare-instalatii-electrice-romania.jpg"
+              alt="Mayer E-Concept — echipa"
+              width={600}
+              height={450}
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             />
-            <div>
-              <div
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  letterSpacing: "0.16em",
-                  textTransform: "uppercase",
-                  color: "#1A6F7A",
-                  marginBottom: 6,
-                }}
-              >
-                Certificat
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "18px",
-                  fontWeight: 800,
-                  color: "#0E323D",
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                ISO 9001:2015
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "13px",
-                  color: "#5E6B70",
-                  marginTop: 4,
-                }}
-              >
-                Management al Calității · SKYCERT
-              </div>
-            </div>
           </div>
 
-          {/* Stats */}
-          <div style={{ display: "flex", gap: 32, flexWrap: "wrap" }}>
-            {[
-              { value: "20+", label: "Ani experiență" },
-              { value: "80+", label: "Proiecte finalizate" },
-              { value: "4+", label: "Angajați specialiști" },
-            ].map(({ value, label }) => (
-              <div key={label}>
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "clamp(28px, 3vw, 38px)",
-                    fontWeight: 800,
-                    color: "#1A6F7A",
-                    lineHeight: 1,
-                    marginBottom: 6,
-                  }}
-                >
-                  {value}
-                </div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "11px",
-                    fontWeight: 600,
-                    letterSpacing: "0.14em",
-                    textTransform: "uppercase",
-                    color: "#5E6B70",
-                  }}
-                >
-                  {label}
-                </div>
-              </div>
-            ))}
+          {/* Right — blueprint plan with ISO cert overlay */}
+          <div style={{ position: "relative", borderRadius: 12, overflow: "hidden", aspectRatio: "4/3" }}>
+            <Image
+              src="/uploads/Plan-Exemplu-2.png"
+              alt="Plan instalații electrice"
+              width={600}
+              height={450}
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            />
+            {/* SKYCERT badge overlay */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: 16,
+                right: 16,
+                background: "rgba(255,255,255,0.92)",
+                borderRadius: 8,
+                padding: "8px 12px",
+                boxShadow: "0 4px 16px rgba(14,50,61,0.12)",
+              }}
+            >
+              <Image
+                src="/uploads/SKYCERT9001.png"
+                alt="ISO 9001:2015 SKYCERT"
+                width={90}
+                height={60}
+                style={{ objectFit: "contain", display: "block" }}
+              />
+            </div>
           </div>
         </div>
       </div>

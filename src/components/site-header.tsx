@@ -4,10 +4,10 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const navItems = [
-  { label: "Acasă", href: "/" },
-  { label: "Servicii", href: "#servicii" },
-  { label: "Portfolio", href: "#portfolio" },
+  { label: "Proiectare Instalații Electrice", href: "/" },
   { label: "Despre noi", href: "#despre" },
+  { label: "Portofoliu", href: "#portfolio" },
+  { label: "Blog", href: "#blog" },
   { label: "Contact", href: "#contact" },
 ];
 

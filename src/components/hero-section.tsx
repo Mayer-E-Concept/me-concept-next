@@ -56,6 +56,30 @@ export function HeroSection() {
         }}
       />
 
+      {/* Brand name label above mark */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: "clamp(44px, 5.5vh, 90px)",
+          left: "clamp(-30px, 1vw, 40px)",
+          width: "clamp(0px, calc((100vw - 800px) * 0.22), 480px)",
+          textAlign: "center",
+          fontFamily: "var(--font-sans)",
+          fontWeight: 600,
+          fontSize: "clamp(11px, 0.65vw, 14px)",
+          letterSpacing: "0.20em",
+          textTransform: "uppercase",
+          color: "#5E6B70",
+          opacity: 0.55,
+          zIndex: 0,
+          pointerEvents: "none",
+          lineHeight: 1.3,
+        }}
+      >
+        Mayer E-Concept SRL
+      </div>
+
       {/* Brand mark watermark — top-left, multiply blend */}
       <Image
         src="/assets/brand-mark.png"
@@ -113,14 +137,13 @@ export function HeroSection() {
             textAlign: "left",
           }}
         >
-          Inginerie electrică{" "}
-          <span style={{ color: "#1A6F7A" }}>de precizie</span>
+          Instalații electrice sigure, eficiente, proiectate cu grijă
         </h1>
 
-        {/* Buttons row */}
-        <div style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center" }}>
-          <HeroButton href="#contact">Solicită Consultanță</HeroButton>
-          <HeroButton href="#portfolio">Vezi Portfolio</HeroButton>
+        {/* Buttons — stacked vertically like WP */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start" }}>
+          <HeroButton href="#despre">Despre noi</HeroButton>
+          <HeroButton href="#contact">Contactați-ne</HeroButton>
         </div>
 
         <HeroStatsStrip />

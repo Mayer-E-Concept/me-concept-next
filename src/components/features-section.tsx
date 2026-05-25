@@ -3,28 +3,28 @@ import { useState } from "react";
 
 const FEATURES = [
   {
-    title: "Proiectare BIM nativă în Revit",
-    desc: "Planificare electrică completă în Autodesk Revit — modele 3D coordonate cu arhitectura și HVAC, documentație LP 1–5 conform normativelor în vigoare.",
+    title: "Consultanța Personalizata",
+    desc: "Îți oferim soluții electrice personalizate care se potrivesc perfect proiectului tău. Fie că este vorba de un sistem rezidențial, comercial sau industrial, îți stăm alături de la concept până la implementare.",
   },
   {
-    title: "Certificare ISO 9001:2015",
-    desc: "Sistem de management al calității certificat SKYCERT. Procese documentate, trasabilitate completă, audituri periodice — garanția unui partener de încredere.",
+    title: "Proiectare la Standard Înalt",
+    desc: "Avem o echipă experimentată care folosește cele mai recente tehnologii și respectă toate reglementările locale și internaționale, inclusiv HOAI, DIN și VDE. Proiectele noastre îmbină siguranța, eficiența și inovația pentru rezultate de top.",
   },
   {
-    title: "Standarde HOAI · DIN · VDE",
-    desc: "Proiecte conform standardelor germane și europene. Experiență directă cu clienți din Germania, Austria și Elveția — comunicare fluentă în română și germană.",
+    title: "Certificări de Calitate",
+    desc: "Suntem certificați ISO 9001:2015, ceea ce atestă calitatea și profesionalismul lucrărilor noastre. Clienții noștri beneficiază de standarde ridicate și de un angajament constant pentru perfecțiune.",
   },
   {
-    title: "Rezidențial & Comercial",
-    desc: "De la case individuale la ansambluri de 300+ unități. Proiecte rezidențiale, retail, birouri, grădinițe, clădiri de patrimoniu — toate fazele LP.",
+    title: "Eficiență și Precizie",
+    desc: "Știm că timpul este esențial, de aceea ne angajăm să respectăm termenele stabilite și să oferim soluții care optimizează costurile și resursele.",
   },
   {
-    title: "Calcul tehnic Dialux & Simaris",
-    desc: "Simulări de iluminat cu Dialux Evo și calcul de protecții cu Siemens Simaris. Rezultate certificate, optimizate energetic, documentate complet.",
+    title: "Experiența Solidă",
+    desc: "Cu peste 20 de ani de experiență în proiectarea instalațiilor electrice, suntem pregătiți să transformăm orice proiect în realitate, având o viziune clară asupra siguranței și fiabilității.",
   },
   {
-    title: "Smart Home & KNX",
-    desc: "Automatizare KNX, integrare fotovoltaică, planificare tuburi goale pentru upgrade ulterior. Clădiri inteligente livrate la cheie.",
+    title: "Încredere și Transparență",
+    desc: "În fiecare proiect, colaborăm strâns cu clienții noștri, asigurând transparență totală și comunicare deschisă, astfel încât să asigurăm satisfacția dorită și să construim relații de durată.",
   },
 ];
 
@@ -60,6 +60,23 @@ export function FeaturesSection() {
       </div>
 
       <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
+        {/* Intro paragraph */}
+        <p
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: 19,
+            lineHeight: 1.6,
+            color: "#0E323D",
+            textAlign: "center",
+            maxWidth: "72ch",
+            margin: "0 auto clamp(40px, 5vw, 64px)",
+          }}
+        >
+          Proiectarea instalațiilor pentru construcții reprezintă activitatea noastră de bază, activitate
+          care este într-un continuu proces de îmbunătățire și progres, pentru a putea răspunde prompt și
+          pe măsura așteptărilor clienților noștri.
+        </p>
+
         <div
           style={{
             display: "grid",

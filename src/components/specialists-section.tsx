@@ -3,35 +3,41 @@ import { useState } from "react";
 import Image from "next/image";
 
 const BULLETS = [
-  "Proiectare electrică faze LP 1–5 pentru clădiri rezidențiale și comerciale",
-  "Coordonare interdisciplinară BIM: electric, HVAC, arhitectură în Revit 3D",
-  "Calcul iluminat (Dialux Evo) și protecții (Siemens Simaris) certificate",
-  "Livrare documentație conform HOAI, DIN 18015, VDE 0100 pentru piața germană",
+  "Soluții tehnice inovatoare",
+  "Standarde de calitate recunoscute",
+  "Expertiză extinsă",
+  "Practică Certificată ISO 9001:2015",
 ];
 
 const TABS = [
   {
-    label: "Rezidențial",
+    label: "Proiecte instalații",
+    tabTitle: "Proiectare de Sisteme Electrice",
+    tabDesc: "La Mayer E-CONCEPT, proiectăm sisteme electrice eficiente și personalizate, adaptate cerințelor specifice ale clienților noștri. Cu acreditarea ISO 9001, garantăm calitatea, siguranța și profesionalismul în fiecare etapă a proiectului.",
     images: [
       "/uploads/ME-CONCEPT-021.jpg",
-      "/uploads/ME-CONCEPT-035.jpg",
-      "/uploads/ME-CONCEPT-045.jpg",
+      "/uploads/ME-CONCEPT-162.jpg",
+      "/uploads/electrician_31.jpg",
     ],
   },
   {
-    label: "Comercial",
+    label: "Echipa",
+    tabTitle: "Specialiști cu experiență",
+    tabDesc: "Echipa noastră este formată din ingineri cu experiență vastă în proiectarea instalațiilor electrice, pregătiți să ofere soluții complete și personalizate pentru orice tip de proiect.",
     images: [
-      "/uploads/ME-CONCEPT-083.jpg",
-      "/uploads/ME-CONCEPT-089.jpg",
-      "/uploads/ME-CONCEPT-137.jpg",
+      "/uploads/Design-fara-titlu-32.jpg",
+      "/uploads/ME-CONCEPT-083-1.jpg",
+      "/uploads/electrician_34.jpg",
     ],
   },
   {
-    label: "BIM & Revit",
+    label: "Certificări",
+    tabTitle: "Calitate Certificată ISO 9001",
+    tabDesc: "Suntem certificați ISO 9001:2015 de SKYCERT. Fiecare proiect este realizat conform unui sistem de management al calității documentat și auditat periodic.",
     images: [
-      "/uploads/PROIECTARE-Revit-1.jpg",
-      "/uploads/PROIECTARE-Revit-2.jpg",
-      "/uploads/PROIECTARE-Revit-3.jpg",
+      "/uploads/SKYCERT9001.png",
+      "/uploads/PROIECTARE-INSTALATII-ELECTRICE.jpg",
+      "/uploads/PROIECTARE-MAYER-E-CONCEPT.jpg",
     ],
   },
 ];
@@ -103,9 +109,11 @@ export function SpecialistsSection() {
               maxWidth: "50ch",
             }}
           >
-            Cu sediul în Sibiu și colaborări active în Germania, proiectăm
-            instalații electrice de la faza de concept până la documentația
-            de execuție — rezidențial, comercial, industrial.
+            Cu o experiență vastă și procese stricte de control al calității, ne asigurăm că fiecare
+            proiect este executat cu profesionalism și meticulozitate. Alege Mayer E-Concept pentru
+            siguranța și eficiența instalațiilor electrice!{" "}
+            <br />
+            Contactează-ne astăzi pentru o consultanță gratuită!
           </p>
 
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
@@ -182,35 +190,55 @@ export function SpecialistsSection() {
             ))}
           </div>
 
-          {/* Tab panel — 3 images */}
-          <div
+          {/* Tab title + description */}
+          <h3
             style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gridTemplateRows: "auto auto",
-              gap: 12,
+              fontFamily: "var(--font-sans)",
+              fontSize: "clamp(22px, 2.4vw, 32px)",
+              fontWeight: 700,
+              letterSpacing: "-0.015em",
+              color: "#0E323D",
+              marginBottom: 12,
+              lineHeight: 1.2,
             }}
           >
-            {TABS[activeTab].images.map((src, i) => (
-              <div
-                key={src}
-                style={{
-                  gridColumn: i === 0 ? "1 / span 2" : "auto",
-                  borderRadius: 12,
-                  overflow: "hidden",
-                  aspectRatio: i === 0 ? "16/9" : "4/3",
-                }}
-              >
+            {TABS[activeTab].tabTitle}
+          </h3>
+
+          {/* Tab panel — main image + secondary + description */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
+            <div style={{ borderRadius: 12, overflow: "hidden", aspectRatio: "4/3" }}>
+              <Image
+                src={TABS[activeTab].images[0]}
+                alt={TABS[activeTab].tabTitle}
+                width={600}
+                height={450}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <div style={{ borderRadius: 12, overflow: "hidden", flex: 1 }}>
                 <Image
-                  src={src}
-                  alt={`${TABS[activeTab].label} ${i + 1}`}
-                  width={800}
-                  height={i === 0 ? 450 : 300}
+                  src={TABS[activeTab].images[1]}
+                  alt={`${TABS[activeTab].tabTitle} 2`}
+                  width={600}
+                  height={300}
                   style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                 />
               </div>
-            ))}
+            </div>
           </div>
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: 14,
+              lineHeight: 1.65,
+              color: "#335058",
+              margin: 0,
+            }}
+          >
+            {TABS[activeTab].tabDesc}
+          </p>
         </div>
       </div>
     </section>
