@@ -22,7 +22,7 @@ export function HeroSection() {
           .hero-section .hero-content {
             padding-right: clamp(20px, 5vw, 40px) !important;
             padding-top: 110px !important;
-            padding-bottom: 100px !important;
+            padding-bottom: 140px !important;
             align-items: center !important;
           }
           .hero-section .hero-h1 {
@@ -34,9 +34,12 @@ export function HeroSection() {
           .hero-section .hero-buttons {
             align-items: center !important;
           }
-          .hero-section .hero-brand-mark {
-            width: 58vw !important;
-            bottom: 80px !important;
+          .hero-section .hero-brand-group {
+            top: auto !important;
+            bottom: 24px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 54vw !important;
           }
         }
       `}</style>
@@ -81,28 +84,50 @@ export function HeroSection() {
         }}
       />
 
-      {/* Brand mark watermark — centered lower, larger */}
-      <Image
-        src="/assets/brand-mark.png"
-        alt=""
-        aria-hidden
-        className="hero-brand-mark"
-        width={600}
-        height={600}
+      {/* Brand mark group — left column, vertically centered-lower, like WP */}
+      <div
+        className="hero-brand-group"
         style={{
           position: "absolute",
-          bottom: "clamp(50px, 8vh, 140px)",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "clamp(240px, 30vw, 560px)",
-          height: "auto",
+          top: "clamp(260px, 50vh, 58vh)",
+          left: "clamp(40px, 18vw, 340px)",
+          width: "clamp(260px, 28vw, 500px)",
           zIndex: 0,
           pointerEvents: "none",
-          opacity: 0.40,
-          mixBlendMode: "multiply",
         }}
-        priority
-      />
+      >
+        <div
+          aria-hidden
+          style={{
+            textAlign: "center",
+            fontFamily: "var(--font-sans)",
+            fontWeight: 600,
+            fontSize: "clamp(10px, 0.65vw, 13px)",
+            letterSpacing: "0.20em",
+            textTransform: "uppercase",
+            color: "#5E6B70",
+            opacity: 0.55,
+            marginBottom: 10,
+            lineHeight: 1.3,
+          }}
+        >
+          Mayer E-Concept SRL
+        </div>
+        <Image
+          src="/assets/brand-mark.png"
+          alt=""
+          aria-hidden
+          width={500}
+          height={500}
+          style={{
+            width: "100%",
+            height: "auto",
+            opacity: 0.42,
+            mixBlendMode: "multiply",
+            display: "block",
+          }}
+        />
+      </div>
 
       {/* Three.js 3D canvas — fills entire section behind text */}
       <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
