@@ -22,7 +22,7 @@ const TABS = [
   },
   {
     label: "Echipa",
-    tabTitle: "Specialiști cu experiență",
+    tabTitle: "Specialiști cu Experiență",
     tabDesc: "Echipa noastră este formată din ingineri cu experiență vastă în proiectarea instalațiilor electrice, pregătiți să ofere soluții complete și personalizate pentru orice tip de proiect.",
     images: [
       "/uploads/Design-fara-titlu-32.jpg",
@@ -49,7 +49,7 @@ export function SpecialistsSection() {
     <section
       id="despre"
       style={{
-        background: "#FFFFFF",
+        background: "#F6F7F7",
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
       }}
@@ -57,6 +57,7 @@ export function SpecialistsSection() {
       <style>{`
         @media (max-width: 767px) {
           .specialists-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+          .specialists-tabs-overflow { overflow-x: auto; }
         }
       `}</style>
 
@@ -77,15 +78,12 @@ export function SpecialistsSection() {
           <div
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: "12px",
+              fontSize: "11px",
               fontWeight: 700,
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              color: "#0F4C5C",
-              marginBottom: 18,
-              paddingBottom: 12,
-              borderBottom: "1px solid #D8DCDE",
-              display: "inline-block",
+              color: "#C5895B",
+              marginBottom: 20,
             }}
           >
             Mayer E-Concept
@@ -95,9 +93,9 @@ export function SpecialistsSection() {
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: "clamp(30px, 3.4vw, 44px)",
-              fontWeight: 700,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.12,
+              fontWeight: 800,
+              letterSpacing: "-0.025em",
+              lineHeight: 1.1,
               color: "#0E323D",
               maxWidth: "22ch",
               marginBottom: 24,
@@ -109,17 +107,16 @@ export function SpecialistsSection() {
           <p
             style={{
               fontFamily: "var(--font-body)",
-              fontSize: 16,
-              lineHeight: 1.7,
+              fontSize: "clamp(14px, 1.1vw, 16px)",
+              lineHeight: 1.75,
               color: "#335058",
-              marginBottom: 32,
+              marginBottom: 36,
               maxWidth: "50ch",
             }}
           >
             Cu o experiență vastă și procese stricte de control al calității, ne asigurăm că fiecare
             proiect este executat cu profesionalism și meticulozitate. Alege Mayer E-Concept pentru
             siguranța și eficiența instalațiilor electrice!{" "}
-            <br />
             Contactează-ne astăzi pentru o consultanță gratuită!
           </p>
 
@@ -129,26 +126,28 @@ export function SpecialistsSection() {
                 key={b}
                 style={{
                   position: "relative",
-                  paddingLeft: 28,
-                  marginBottom: 12,
+                  paddingLeft: 24,
+                  marginBottom: 14,
                   fontFamily: "var(--font-body)",
-                  fontSize: 16,
+                  fontSize: "clamp(14px, 1.05vw, 16px)",
                   color: "#0E323D",
                   lineHeight: 1.55,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
                 }}
               >
                 <span
                   style={{
                     position: "absolute",
                     left: 0,
-                    top: 0,
-                    color: "#1A6F7A",
-                    fontWeight: 700,
-                    fontFamily: "var(--font-sans)",
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: "#C5895B",
+                    flexShrink: 0,
                   }}
-                >
-                  →
-                </span>
+                />
                 {b}
               </li>
             ))}
@@ -159,12 +158,12 @@ export function SpecialistsSection() {
         <div id="portfolio">
           {/* Tab controls */}
           <div
+            className="specialists-tabs-overflow"
             style={{
               display: "flex",
               gap: 0,
               borderBottom: "1px solid #D8DCDE",
               marginBottom: 24,
-              overflowX: "auto",
             }}
           >
             {TABS.map((tab, i) => (
@@ -175,14 +174,14 @@ export function SpecialistsSection() {
                   background: "none",
                   border: "none",
                   borderBottom: activeTab === i ? "2px solid #C5895B" : "2px solid transparent",
-                  padding: "14px 20px",
+                  padding: "12px 20px",
                   marginBottom: -1,
                   fontFamily: "var(--font-sans)",
-                  fontSize: "13px",
-                  fontWeight: 600,
-                  letterSpacing: "0.10em",
+                  fontSize: "12px",
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: activeTab === i ? "#0E323D" : "#5E6B70",
+                  color: activeTab === i ? "#0E323D" : "#8A9498",
                   cursor: "pointer",
                   transition: "color .2s ease",
                   whiteSpace: "nowrap",
@@ -192,7 +191,7 @@ export function SpecialistsSection() {
                   if (activeTab !== i) (e.currentTarget as HTMLButtonElement).style.color = "#C5895B";
                 }}
                 onMouseLeave={(e) => {
-                  if (activeTab !== i) (e.currentTarget as HTMLButtonElement).style.color = "#5E6B70";
+                  if (activeTab !== i) (e.currentTarget as HTMLButtonElement).style.color = "#8A9498";
                 }}
               >
                 {tab.label}
@@ -203,19 +202,19 @@ export function SpecialistsSection() {
           <h3
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: "clamp(22px, 2.4vw, 32px)",
+              fontSize: "clamp(20px, 2vw, 28px)",
               fontWeight: 700,
               letterSpacing: "-0.015em",
               color: "#0E323D",
-              marginBottom: 12,
+              marginBottom: 16,
               lineHeight: 1.2,
             }}
           >
             {TABS[activeTab].tabTitle}
           </h3>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
-            <div style={{ borderRadius: 12, overflow: "hidden", aspectRatio: "4/3" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 16 }}>
+            <div style={{ borderRadius: 10, overflow: "hidden", aspectRatio: "4/3" }}>
               <Image
                 src={TABS[activeTab].images[0]}
                 alt={TABS[activeTab].tabTitle}
@@ -224,22 +223,20 @@ export function SpecialistsSection() {
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <div style={{ borderRadius: 12, overflow: "hidden", flex: 1 }}>
-                <Image
-                  src={TABS[activeTab].images[1]}
-                  alt={`${TABS[activeTab].tabTitle} 2`}
-                  width={600}
-                  height={300}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                />
-              </div>
+            <div style={{ borderRadius: 10, overflow: "hidden", aspectRatio: "4/3" }}>
+              <Image
+                src={TABS[activeTab].images[1]}
+                alt={`${TABS[activeTab].tabTitle} 2`}
+                width={600}
+                height={300}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
             </div>
           </div>
           <p
             style={{
               fontFamily: "var(--font-body)",
-              fontSize: 14,
+              fontSize: "14px",
               lineHeight: 1.65,
               color: "#335058",
               margin: 0,

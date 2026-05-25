@@ -3,28 +3,34 @@ import { useState } from "react";
 
 const FEATURES = [
   {
-    title: "Consultanța Personalizata",
+    title: "Consultanță Personalizată",
     desc: "Îți oferim soluții electrice personalizate care se potrivesc perfect proiectului tău. Fie că este vorba de un sistem rezidențial, comercial sau industrial, îți stăm alături de la concept până la implementare.",
+    icon: "01",
   },
   {
     title: "Proiectare la Standard Înalt",
     desc: "Avem o echipă experimentată care folosește cele mai recente tehnologii și respectă toate reglementările locale și internaționale, inclusiv HOAI, DIN și VDE. Proiectele noastre îmbină siguranța, eficiența și inovația pentru rezultate de top.",
+    icon: "02",
   },
   {
     title: "Certificări de Calitate",
     desc: "Suntem certificați ISO 9001:2015, ceea ce atestă calitatea și profesionalismul lucrărilor noastre. Clienții noștri beneficiază de standarde ridicate și de un angajament constant pentru perfecțiune.",
+    icon: "03",
   },
   {
     title: "Eficiență și Precizie",
     desc: "Știm că timpul este esențial, de aceea ne angajăm să respectăm termenele stabilite și să oferim soluții care optimizează costurile și resursele.",
+    icon: "04",
   },
   {
-    title: "Experiența Solidă",
+    title: "Experiență Solidă",
     desc: "Cu peste 20 de ani de experiență în proiectarea instalațiilor electrice, suntem pregătiți să transformăm orice proiect în realitate, având o viziune clară asupra siguranței și fiabilității.",
+    icon: "05",
   },
   {
     title: "Încredere și Transparență",
     desc: "În fiecare proiect, colaborăm strâns cu clienții noștri, asigurând transparență totală și comunicare deschisă, astfel încât să asigurăm satisfacția dorită și să construim relații de durată.",
+    icon: "06",
   },
 ];
 
@@ -36,52 +42,80 @@ export function FeaturesSection() {
       id="servicii"
       style={{
         position: "relative",
-        background: "#FFFFFF",
+        background: "#F6F7F7",
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
       }}
     >
-      {/* Eyebrow label */}
-      <div
-        style={{
-          position: "absolute",
-          top: "clamp(40px, 5vw, 70px)",
-          left: "50%",
-          transform: "translateX(-50%)",
-          fontFamily: "var(--font-sans)",
-          fontSize: "11.5px",
-          fontWeight: 600,
-          letterSpacing: "0.22em",
-          color: "#0F4C5C",
-          whiteSpace: "nowrap",
-        }}
-      >
-        PUNCTE FORTE
-      </div>
+      <style>{`
+        @media (max-width: 767px) {
+          .features-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
 
       <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
-        {/* Intro paragraph */}
-        <p
+        {/* Header row */}
+        <div
           style={{
-            fontFamily: "var(--font-body)",
-            fontSize: 19,
-            lineHeight: 1.6,
-            color: "#0E323D",
-            textAlign: "center",
-            maxWidth: "72ch",
-            margin: "0 auto clamp(40px, 5vw, 64px)",
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            gap: 40,
+            marginBottom: "clamp(40px, 5vw, 64px)",
+            flexWrap: "wrap",
           }}
         >
-          Proiectarea instalațiilor pentru construcții reprezintă activitatea noastră de bază, activitate
-          care este într-un continuu proces de îmbunătățire și progres, pentru a putea răspunde prompt și
-          pe măsura așteptărilor clienților noștri.
-        </p>
+          <div>
+            <div
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                color: "#C5895B",
+                marginBottom: 14,
+              }}
+            >
+              Puncte forte
+            </div>
+            <h2
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "clamp(28px, 3.2vw, 42px)",
+                fontWeight: 800,
+                letterSpacing: "-0.02em",
+                lineHeight: 1.1,
+                color: "#0E323D",
+                maxWidth: "22ch",
+                margin: 0,
+              }}
+            >
+              De ce să alegi Mayer E-Concept
+            </h2>
+          </div>
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "clamp(14px, 1.1vw, 16px)",
+              lineHeight: 1.7,
+              color: "#335058",
+              maxWidth: "46ch",
+              margin: 0,
+            }}
+          >
+            Proiectarea instalațiilor pentru construcții reprezintă activitatea noastră de bază, activitate
+            care este într-un continuu proces de îmbunătățire și progres, pentru a putea răspunde prompt
+            și pe măsura așteptărilor clienților noștri.
+          </p>
+        </div>
 
         <div
+          className="features-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: 24,
+            gap: 2,
           }}
         >
           {FEATURES.map((f, i) => (
@@ -91,20 +125,21 @@ export function FeaturesSection() {
               onMouseLeave={() => setHoveredIdx(null)}
               style={{
                 position: "relative",
-                background: "#F6F7F7",
-                border: `1px solid ${hoveredIdx === i ? "#C5895B" : "#D8DCDE"}`,
-                borderRadius: 12,
-                padding: "36px 32px",
+                background: hoveredIdx === i ? "#FFFFFF" : "#FFFFFF",
+                border: "1px solid #E2E5E6",
+                borderRadius: 0,
+                padding: "36px 32px 32px",
                 overflow: "hidden",
                 transition: "transform .25s ease, box-shadow .25s ease, border-color .25s ease",
-                transform: hoveredIdx === i ? "translateY(-6px)" : "translateY(0)",
+                transform: hoveredIdx === i ? "translateY(-4px)" : "translateY(0)",
                 boxShadow: hoveredIdx === i
-                  ? "0 1px 2px rgba(20,24,31,0.04), 0 12px 32px rgba(20,24,31,0.08)"
+                  ? "0 8px 32px rgba(14,50,61,0.10)"
                   : "none",
                 cursor: "default",
+                borderColor: hoveredIdx === i ? "#C5895B" : "#E2E5E6",
               }}
             >
-              {/* Copper top border line on hover */}
+              {/* Copper top accent */}
               <div
                 style={{
                   position: "absolute",
@@ -116,14 +151,28 @@ export function FeaturesSection() {
                   transition: "width .35s ease",
                 }}
               />
+              {/* Number */}
+              <div
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  letterSpacing: "0.18em",
+                  color: hoveredIdx === i ? "#C5895B" : "#8A9498",
+                  marginBottom: 20,
+                  transition: "color .25s ease",
+                }}
+              >
+                {f.icon}
+              </div>
               <h3
                 style={{
                   fontFamily: "var(--font-sans)",
-                  fontSize: 19,
+                  fontSize: "clamp(16px, 1.3vw, 19px)",
                   fontWeight: 700,
                   letterSpacing: "-0.01em",
                   color: "#0E323D",
-                  marginBottom: 14,
+                  marginBottom: 12,
                   lineHeight: 1.25,
                 }}
               >
@@ -132,7 +181,7 @@ export function FeaturesSection() {
               <p
                 style={{
                   fontFamily: "var(--font-body)",
-                  fontSize: "14.5px",
+                  fontSize: "14px",
                   lineHeight: 1.65,
                   color: "#335058",
                   fontWeight: 400,

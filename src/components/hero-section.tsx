@@ -1,5 +1,5 @@
 "use client";
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import Image from "next/image";
 import { Hero3DCanvas } from "@/components/hero-3d-canvas";
 import { HeroStatsStrip } from "@/components/hero-stats-strip";
@@ -13,7 +13,7 @@ export function HeroSection() {
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        backgroundColor: "#F6F7F7",
+        backgroundColor: "#051E27",
         overflow: "hidden",
       }}
     >
@@ -44,7 +44,7 @@ export function HeroSection() {
         }
       `}</style>
 
-      {/* PCB circuit pattern background with horizontal fade mask */}
+      {/* PCB circuit pattern — white on dark */}
       <div
         aria-hidden="true"
         style={{
@@ -52,39 +52,16 @@ export function HeroSection() {
           inset: 0,
           zIndex: 0,
           pointerEvents: "none",
-          backgroundImage:
-            'url("/assets/circuit-pattern.svg"), url("/assets/circuit-overlay.svg")',
+          backgroundImage: 'url("/assets/circuit-pattern.svg"), url("/assets/circuit-overlay.svg")',
           backgroundRepeat: "repeat, repeat",
           backgroundSize: "320px 320px, 200px 200px",
           backgroundPosition: "0 0, 80px 60px",
-          maskImage: `
-            linear-gradient(to right,
-              #000 0%, #000 22%,
-              rgba(0,0,0,0.55) 50%,
-              rgba(0,0,0,0.18) 75%,
-              transparent 95%),
-            linear-gradient(to bottom,
-              transparent 0%, rgba(0,0,0,0.55) 8%,
-              #000 18%, #000 82%,
-              rgba(0,0,0,0.55) 92%, transparent 100%)
-          `,
-          WebkitMaskImage: `
-            linear-gradient(to right,
-              #000 0%, #000 22%,
-              rgba(0,0,0,0.55) 50%,
-              rgba(0,0,0,0.18) 75%,
-              transparent 95%),
-            linear-gradient(to bottom,
-              transparent 0%, rgba(0,0,0,0.55) 8%,
-              #000 18%, #000 82%,
-              rgba(0,0,0,0.55) 92%, transparent 100%)
-          `,
-          maskComposite: "intersect" as CSSProperties["maskComposite"],
-          WebkitMaskComposite: "source-in",
+          filter: "invert(1)",
+          opacity: 0.055,
         }}
       />
 
-      {/* Brand mark group — left column, upper area, large */}
+      {/* Brand mark — inverted subtle watermark */}
       <div
         className="hero-brand-group"
         style={{
@@ -105,8 +82,7 @@ export function HeroSection() {
             fontSize: "clamp(10px, 0.65vw, 13px)",
             letterSpacing: "0.20em",
             textTransform: "uppercase",
-            color: "#5E6B70",
-            opacity: 0.55,
+            color: "rgba(255,255,255,0.18)",
             marginBottom: 10,
             lineHeight: 1.3,
           }}
@@ -122,14 +98,14 @@ export function HeroSection() {
           style={{
             width: "100%",
             height: "auto",
-            opacity: 0.42,
-            mixBlendMode: "multiply",
+            opacity: 0.07,
+            filter: "invert(1)",
             display: "block",
           }}
         />
       </div>
 
-      {/* Three.js 3D canvas — fills entire section behind text */}
+      {/* Three.js 3D canvas */}
       <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
         <Hero3DCanvas />
       </div>
@@ -152,6 +128,21 @@ export function HeroSection() {
           alignItems: "flex-start",
         }}
       >
+        {/* Eyebrow */}
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "11px",
+            fontWeight: 700,
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "#C5895B",
+            marginBottom: 20,
+          }}
+        >
+          Mayer E-Concept · Sibiu &amp; Germania
+        </div>
+
         <h1
           className="hero-h1"
           style={{
@@ -160,10 +151,9 @@ export function HeroSection() {
             fontWeight: 800,
             letterSpacing: "-0.026em",
             lineHeight: 1.06,
-            color: "#0E323D",
+            color: "#F4F2EC",
             maxWidth: "26ch",
             margin: "0 0 36px 0",
-            textShadow: "none",
             textAlign: "left",
           }}
         >
@@ -174,8 +164,8 @@ export function HeroSection() {
           className="hero-buttons"
           style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start" }}
         >
-          <HeroButton href="#despre">Despre noi</HeroButton>
-          <HeroButton href="#contact">Contactați-ne</HeroButton>
+          <HeroButton href="#despre" variant="copper">Despre noi</HeroButton>
+          <HeroButton href="#contact" variant="outline">Contactați-ne</HeroButton>
         </div>
 
         <HeroStatsStrip />
@@ -184,39 +174,76 @@ export function HeroSection() {
   );
 }
 
-function HeroButton({ href, children }: { href: string; children: ReactNode }) {
+function HeroButton({
+  href,
+  children,
+  variant = "copper",
+}: {
+  href: string;
+  children: ReactNode;
+  variant?: "copper" | "outline";
+}) {
+  const base: React.CSSProperties = {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 240,
+    height: 56,
+    borderRadius: 4,
+    fontFamily: "var(--font-sans)",
+    fontSize: "12.5px",
+    fontWeight: 700,
+    letterSpacing: "0.14em",
+    textTransform: "uppercase",
+    textDecoration: "none",
+    whiteSpace: "nowrap",
+    transition: "background .2s ease, border-color .2s ease, transform .2s ease, color .2s ease",
+    boxSizing: "border-box",
+  };
+
+  if (variant === "copper") {
+    return (
+      <a
+        href={href}
+        style={{ ...base, background: "#C5895B", color: "#fff", border: "1.5px solid #C5895B" }}
+        onMouseEnter={(e) => {
+          const el = e.currentTarget as HTMLAnchorElement;
+          el.style.background = "#b37a50";
+          el.style.borderColor = "#b37a50";
+          el.style.transform = "translateY(-2px)";
+        }}
+        onMouseLeave={(e) => {
+          const el = e.currentTarget as HTMLAnchorElement;
+          el.style.background = "#C5895B";
+          el.style.borderColor = "#C5895B";
+          el.style.transform = "translateY(0)";
+        }}
+      >
+        {children}
+      </a>
+    );
+  }
+
   return (
     <a
       href={href}
       style={{
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: 240,
-        height: 56,
-        background: "#0E323D",
-        color: "#ffffff",
-        border: "1.5px solid #0E323D",
-        borderRadius: 4,
-        fontFamily: "var(--font-sans)",
-        fontSize: "12.5px",
-        fontWeight: 700,
-        letterSpacing: "0.14em",
-        textTransform: "uppercase",
-        textDecoration: "none",
-        whiteSpace: "nowrap",
-        transition: "background .2s ease, border-color .2s ease, transform .2s ease",
-        boxSizing: "border-box",
+        ...base,
+        background: "transparent",
+        color: "rgba(255,255,255,0.75)",
+        border: "1.5px solid rgba(255,255,255,0.28)",
       }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLAnchorElement).style.background = "#C5895B";
-        (e.currentTarget as HTMLAnchorElement).style.borderColor = "#C5895B";
-        (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)";
+        const el = e.currentTarget as HTMLAnchorElement;
+        el.style.borderColor = "rgba(255,255,255,0.65)";
+        el.style.color = "#fff";
+        el.style.transform = "translateY(-2px)";
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLAnchorElement).style.background = "#0E323D";
-        (e.currentTarget as HTMLAnchorElement).style.borderColor = "#0E323D";
-        (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
+        const el = e.currentTarget as HTMLAnchorElement;
+        el.style.borderColor = "rgba(255,255,255,0.28)";
+        el.style.color = "rgba(255,255,255,0.75)";
+        el.style.transform = "translateY(0)";
       }}
     >
       {children}

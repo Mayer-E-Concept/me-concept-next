@@ -36,17 +36,14 @@ export function ServicesSection() {
       onMouseLeave={() => setHovered(null)}
       style={{
         position: "relative",
-        padding: "16px 0 16px 44px",
-        borderBottom: "1px solid #D8DCDE",
-        fontFamily: "var(--font-body)",
-        fontSize: 15,
-        lineHeight: 1.55,
-        color: hovered === idx ? "#C5895B" : "#0E323D",
-        transition: "color .2s ease, padding-left .25s ease",
-        paddingLeft: hovered === idx ? 48 : 44,
+        padding: "18px 0 18px 48px",
+        borderBottom: "1px solid rgba(255,255,255,0.07)",
         cursor: "default",
+        transition: "padding-left .2s ease",
+        paddingLeft: hovered === idx ? 52 : 48,
       }}
     >
+      {/* Bullet */}
       <span
         style={{
           position: "absolute",
@@ -55,7 +52,7 @@ export function ServicesSection() {
           transform: "translateY(-50%)",
           width: 28,
           height: 28,
-          background: hovered === idx ? "#C5895B" : "rgba(15,76,92,0.10)",
+          background: hovered === idx ? "#C5895B" : "rgba(197,137,91,0.15)",
           borderRadius: 6,
           transition: "background .25s ease",
           display: "block",
@@ -75,7 +72,7 @@ export function ServicesSection() {
           fontFamily: "var(--font-sans)",
           fontWeight: 700,
           fontSize: 16,
-          color: hovered === idx ? "#fff" : "#1A6F7A",
+          color: hovered === idx ? "#fff" : "#C5895B",
           lineHeight: 1,
           transition: "color .25s ease",
           zIndex: 1,
@@ -83,8 +80,32 @@ export function ServicesSection() {
       >
         +
       </span>
-      <strong style={{ fontWeight: 600, display: "block", marginBottom: 2 }}>{item.title}:</strong>
-      <span style={{ fontWeight: 400, color: hovered === idx ? "#C5895B" : "#335058" }}>{item.desc}</span>
+      <strong
+        style={{
+          fontFamily: "var(--font-sans)",
+          fontWeight: 600,
+          fontSize: "clamp(13px, 1vw, 14.5px)",
+          color: hovered === idx ? "#C5895B" : "#F4F2EC",
+          display: "block",
+          marginBottom: 2,
+          transition: "color .2s ease",
+          lineHeight: 1.35,
+        }}
+      >
+        {item.title}
+      </strong>
+      <span
+        style={{
+          fontFamily: "var(--font-body)",
+          fontWeight: 400,
+          fontSize: "13px",
+          color: hovered === idx ? "rgba(197,137,91,0.80)" : "rgba(244,242,236,0.45)",
+          lineHeight: 1.55,
+          transition: "color .2s ease",
+        }}
+      >
+        {item.desc}
+      </span>
     </li>
   );
 
@@ -92,37 +113,42 @@ export function ServicesSection() {
     <section
       style={{
         position: "relative",
-        background: "#ECEFF0",
+        background: "#051E27",
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
+        overflow: "hidden",
       }}
     >
       <style>{`
         @media (max-width: 767px) {
-          .services-top-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+          .services-top-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
           .services-lists-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
         }
       `}</style>
 
-      {/* Eyebrow */}
+      {/* Subtle circuit overlay */}
       <div
+        aria-hidden
         style={{
           position: "absolute",
-          top: "clamp(40px, 5vw, 70px)",
-          left: "50%",
-          transform: "translateX(-50%)",
-          fontFamily: "var(--font-sans)",
-          fontSize: "11.5px",
-          fontWeight: 600,
-          letterSpacing: "0.22em",
-          color: "#0F4C5C",
-          whiteSpace: "nowrap",
+          inset: 0,
+          backgroundImage: 'url("/assets/circuit-pattern.svg")',
+          backgroundSize: "240px 240px",
+          filter: "invert(1)",
+          opacity: 0.035,
+          pointerEvents: "none",
+        }}
+      />
+
+      <div
+        style={{
+          maxWidth: "1240px",
+          margin: "0 auto",
+          padding: "0 clamp(20px, 5vw, 60px)",
+          position: "relative",
+          zIndex: 1,
         }}
       >
-        SERVICII COMPLETE
-      </div>
-
-      <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
         {/* Top row: heading left, diagram image right */}
         <div
           className="services-top-grid"
@@ -131,41 +157,44 @@ export function ServicesSection() {
             gridTemplateColumns: "1fr 1fr",
             gap: "clamp(24px, 4vw, 60px)",
             alignItems: "center",
-            marginBottom: "clamp(32px, 4vw, 56px)",
+            marginBottom: "clamp(40px, 5vw, 64px)",
           }}
         >
           <div>
             <div
               style={{
                 fontFamily: "var(--font-sans)",
-                fontSize: "12px",
+                fontSize: "11px",
                 fontWeight: 700,
-                letterSpacing: "0.18em",
+                letterSpacing: "0.22em",
                 textTransform: "uppercase",
-                color: "#0F4C5C",
-                marginBottom: 14,
-                paddingBottom: 14,
-                borderBottom: "1px solid #D8DCDE",
-                display: "inline-block",
+                color: "#C5895B",
+                marginBottom: 18,
               }}
             >
-              Ce oferim
+              Servicii complete
             </div>
             <h2
               style={{
                 fontFamily: "var(--font-sans)",
-                fontSize: "clamp(28px, 3.2vw, 40px)",
-                fontWeight: 700,
-                letterSpacing: "-0.02em",
-                lineHeight: 1.15,
-                color: "#0E323D",
+                fontSize: "clamp(28px, 3.2vw, 42px)",
+                fontWeight: 800,
+                letterSpacing: "-0.025em",
+                lineHeight: 1.1,
+                color: "#F4F2EC",
                 maxWidth: "22ch",
               }}
             >
-              La Mayer E Concept, oferim soluții complete de proiectare electrică, adaptate nevoilor fiecărui client.
+              La Mayer E Concept, oferim soluții complete de proiectare electrică
             </h2>
           </div>
-          <div style={{ borderRadius: 12, overflow: "hidden" }}>
+          <div
+            style={{
+              borderRadius: 10,
+              overflow: "hidden",
+              border: "1px solid rgba(255,255,255,0.07)",
+            }}
+          >
             <Image
               src="/uploads/ce-oferim.png"
               alt="Prezentare Generală a Serviciilor Electrice"
@@ -179,7 +208,7 @@ export function ServicesSection() {
         {/* Two columns of services */}
         <div
           className="services-lists-grid"
-          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(24px, 4vw, 60px)" }}
+          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(0px, 4vw, 60px)" }}
         >
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {SERVICES_LEFT.map((s, i) => serviceItem(s, i, hoveredLeft, setHoveredLeft))}
