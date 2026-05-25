@@ -36,10 +36,10 @@ export function HeroSection() {
           }
           .hero-section .hero-brand-group {
             top: auto !important;
-            bottom: 24px !important;
+            bottom: 20px !important;
             left: 50% !important;
             transform: translateX(-50%) !important;
-            width: 54vw !important;
+            width: 64vw !important;
           }
         }
       `}</style>
@@ -84,14 +84,14 @@ export function HeroSection() {
         }}
       />
 
-      {/* Brand mark group — left column, vertically centered-lower, like WP */}
+      {/* Brand mark group — left column, upper area, large */}
       <div
         className="hero-brand-group"
         style={{
           position: "absolute",
-          top: "clamp(260px, 50vh, 58vh)",
-          left: "clamp(40px, 18vw, 340px)",
-          width: "clamp(260px, 28vw, 500px)",
+          top: "clamp(70px, 14vh, 160px)",
+          left: "clamp(20px, 14vw, 280px)",
+          width: "clamp(300px, 38vw, 660px)",
           zIndex: 0,
           pointerEvents: "none",
         }}
@@ -117,8 +117,8 @@ export function HeroSection() {
           src="/assets/brand-mark.png"
           alt=""
           aria-hidden
-          width={500}
-          height={500}
+          width={660}
+          height={660}
           style={{
             width: "100%",
             height: "auto",
