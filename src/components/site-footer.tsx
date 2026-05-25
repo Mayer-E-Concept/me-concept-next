@@ -5,7 +5,7 @@ import Link from "next/link";
 const NAV = [
   { label: "Acasă", href: "/" },
   { label: "Servicii", href: "#servicii" },
-  { label: "Portfolio", href: "#portfolio" },
+  { label: "Portofoliu", href: "/portofoliu" },
   { label: "Despre noi", href: "#despre" },
   { label: "Contact", href: "#contact" },
 ];
@@ -14,7 +14,7 @@ const LEGAL = [
   { label: "Politică cookie-uri (UE)", href: "#" },
   { label: "Termeni și condiții", href: "#" },
   { label: "Politică de confidențialitate", href: "#" },
-  { label: "Blog", href: "#blog" },
+  { label: "Blog", href: "/blog" },
   { label: "Cariere", href: "#" },
 ];
 

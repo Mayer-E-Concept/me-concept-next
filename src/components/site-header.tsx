@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 const navItems = [
   { label: "Proiectare Instalații Electrice", href: "/" },
   { label: "Despre noi", href: "#despre" },
-  { label: "Portofoliu", href: "#portfolio" },
-  { label: "Blog", href: "#blog" },
+  { label: "Portofoliu", href: "/portofoliu" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "#contact" },
 ];
 
