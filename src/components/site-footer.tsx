@@ -4,9 +4,9 @@ import Link from "next/link";
 
 const NAV = [
   { label: "Acasă", href: "/" },
-  { label: "Servicii", href: "#servicii" },
+  { label: "Servicii", href: "/#servicii" },
   { label: "Portofoliu", href: "/portofoliu" },
-  { label: "Despre noi", href: "#despre" },
+  { label: "Despre noi", href: "/#despre" },
   { label: "Contact", href: "#contact" },
 ];
 
