@@ -82,7 +82,7 @@ export function HeroSection() {
             fontSize: "clamp(10px, 0.65vw, 13px)",
             letterSpacing: "0.20em",
             textTransform: "uppercase",
-            color: "rgba(255,255,255,0.18)",
+            color: "rgba(255,255,255,0.35)",
             marginBottom: 10,
             lineHeight: 1.3,
           }}
@@ -98,7 +98,7 @@ export function HeroSection() {
           style={{
             width: "100%",
             height: "auto",
-            opacity: 0.07,
+            opacity: 0.14,
             filter: "invert(1)",
             display: "block",
           }}

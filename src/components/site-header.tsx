@@ -21,6 +21,11 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const isLight = scrolled || menuOpen;
+  const navColor = isLight ? "#0E323D" : "rgba(255,255,255,0.85)";
+  const barColor = isLight ? "#0E323D" : "#FFFFFF";
+  const logoFilter = isLight ? "none" : "brightness(0) invert(1)";
+
   return (
     <>
       <style>{`
@@ -41,9 +46,9 @@ export function SiteHeader() {
           zIndex: 99999,
           transition: "background-color .25s ease, box-shadow .25s ease, padding .25s ease",
           padding: scrolled ? "12px 0" : "18px 0",
-          backgroundColor: scrolled || menuOpen ? "rgba(255,255,255,0.97)" : "transparent",
-          backdropFilter: scrolled || menuOpen ? "saturate(140%) blur(10px)" : "none",
-          boxShadow: scrolled || menuOpen ? "0 4px 18px rgba(14,50,61,0.06)" : "none",
+          backgroundColor: isLight ? "rgba(255,255,255,0.97)" : "transparent",
+          backdropFilter: isLight ? "saturate(140%) blur(10px)" : "none",
+          boxShadow: isLight ? "0 4px 18px rgba(14,50,61,0.06)" : "none",
         }}
       >
         <div
@@ -72,7 +77,7 @@ export function SiteHeader() {
                 alt="ME-Concept logo"
                 width={160}
                 height={40}
-                style={{ maxHeight: 40, width: "auto", objectFit: "contain" }}
+                style={{ maxHeight: 40, width: "auto", objectFit: "contain", filter: logoFilter, transition: "filter .25s ease" }}
                 priority
               />
             </Link>
@@ -89,14 +94,14 @@ export function SiteHeader() {
                   fontWeight: 600,
                   letterSpacing: "0.10em",
                   textTransform: "uppercase",
-                  color: "#0E323D",
+                  color: navColor,
                   textDecoration: "none",
                   padding: "8px 0",
                   transition: "color .2s ease",
                   fontFamily: "var(--font-sans)",
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = "#C5895B")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#0E323D")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = navColor)}
               >
                 {item.label}
               </Link>
@@ -122,20 +127,20 @@ export function SiteHeader() {
           >
             <span style={{
               display: "block", width: 24, height: 2,
-              background: "#0E323D",
-              transition: "transform .2s ease, opacity .2s ease",
+              background: barColor,
+              transition: "transform .2s ease, opacity .2s ease, background .25s ease",
               transform: menuOpen ? "translateY(7px) rotate(45deg)" : "none",
             }} />
             <span style={{
               display: "block", width: 24, height: 2,
-              background: "#0E323D",
-              transition: "opacity .2s ease",
+              background: barColor,
+              transition: "opacity .2s ease, background .25s ease",
               opacity: menuOpen ? 0 : 1,
             }} />
             <span style={{
               display: "block", width: 24, height: 2,
-              background: "#0E323D",
-              transition: "transform .2s ease, opacity .2s ease",
+              background: barColor,
+              transition: "transform .2s ease, opacity .2s ease, background .25s ease",
               transform: menuOpen ? "translateY(-7px) rotate(-45deg)" : "none",
             }} />
           </button>

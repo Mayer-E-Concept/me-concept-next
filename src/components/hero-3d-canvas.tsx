@@ -3,11 +3,11 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 const COLORS = {
-  ink:      0x0E323D,
-  accent:   0x1A6F7A,
+  ink:      0x8BBDC8,   // light petrol — visible on dark #051E27 hero
+  accent:   0x4AABB8,
   hover:    0xC5895B,
   warm:     0xF2D7B6,
-  solar:    0x2A6F7A,
+  solar:    0x5ABCCA,
 };
 
 export function Hero3DCanvas() {
@@ -42,10 +42,10 @@ export function Hero3DCanvas() {
     const matWiring    = new THREE.LineBasicMaterial({ color: COLORS.hover, transparent: true, opacity: 0.90 });
     const matWiringDim = new THREE.LineBasicMaterial({ color: COLORS.hover, transparent: true, opacity: 0.55 });
     const matAccent    = new THREE.LineBasicMaterial({ color: COLORS.accent, transparent: true, opacity: 0.90 });
-    const matFill      = new THREE.MeshBasicMaterial({ color: COLORS.accent, transparent: true, opacity: 0.035, side: THREE.DoubleSide });
+    const matFill      = new THREE.MeshBasicMaterial({ color: COLORS.accent, transparent: true, opacity: 0.07, side: THREE.DoubleSide });
     const matSolar     = new THREE.MeshBasicMaterial({ color: COLORS.solar, transparent: true, opacity: 0.55, side: THREE.DoubleSide });
     const matSolarLine = new THREE.LineBasicMaterial({ color: COLORS.solar, transparent: true, opacity: 0.85 });
-    const matPad       = new THREE.MeshBasicMaterial({ color: COLORS.ink });
+    const matPad       = new THREE.MeshBasicMaterial({ color: COLORS.hover });
 
     /* ─────────────────────────────────────────────────────────────────────
        1) HOUSE
