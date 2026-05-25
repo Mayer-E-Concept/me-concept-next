@@ -54,7 +54,14 @@ export function SpecialistsSection() {
         paddingBottom: "clamp(72px, 9vw, 130px)",
       }}
     >
+      <style>{`
+        @media (max-width: 767px) {
+          .specialists-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+        }
+      `}</style>
+
       <div
+        className="specialists-grid"
         style={{
           maxWidth: "1240px",
           margin: "0 auto",
@@ -157,6 +164,7 @@ export function SpecialistsSection() {
               gap: 0,
               borderBottom: "1px solid #D8DCDE",
               marginBottom: 24,
+              overflowX: "auto",
             }}
           >
             {TABS.map((tab, i) => (
@@ -177,6 +185,8 @@ export function SpecialistsSection() {
                   color: activeTab === i ? "#0E323D" : "#5E6B70",
                   cursor: "pointer",
                   transition: "color .2s ease",
+                  whiteSpace: "nowrap",
+                  flexShrink: 0,
                 }}
                 onMouseEnter={(e) => {
                   if (activeTab !== i) (e.currentTarget as HTMLButtonElement).style.color = "#C5895B";
@@ -190,7 +200,6 @@ export function SpecialistsSection() {
             ))}
           </div>
 
-          {/* Tab title + description */}
           <h3
             style={{
               fontFamily: "var(--font-sans)",
@@ -205,7 +214,6 @@ export function SpecialistsSection() {
             {TABS[activeTab].tabTitle}
           </h3>
 
-          {/* Tab panel — main image + secondary + description */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
             <div style={{ borderRadius: 12, overflow: "hidden", aspectRatio: "4/3" }}>
               <Image

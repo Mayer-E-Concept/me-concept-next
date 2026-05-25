@@ -28,6 +28,14 @@ export function SiteFooter() {
         paddingBottom: 0,
       }}
     >
+      <style>{`
+        @media (max-width: 767px) {
+          .footer-top-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .footer-bottom-bar { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; }
+          .footer-legal-links { gap: 12px !important; }
+        }
+      `}</style>
+
       <div
         style={{
           maxWidth: "1240px",
@@ -36,6 +44,7 @@ export function SiteFooter() {
         }}
       >
         <div
+          className="footer-top-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr auto",
@@ -68,13 +77,7 @@ export function SiteFooter() {
               Proiectare instalații electrice pentru clădiri rezidențiale și
               comerciale. Certificare ISO 9001:2015. Sibiu & Germania.
             </p>
-            <div
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: 13,
-                color: "rgba(255,255,255,0.50)",
-              }}
-            >
+            <div style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "rgba(255,255,255,0.50)" }}>
               <a
                 href="mailto:m.poenar@me-concept.de"
                 style={{ color: "rgba(255,255,255,0.50)", textDecoration: "none" }}
@@ -113,6 +116,7 @@ export function SiteFooter() {
 
         {/* Bottom bar */}
         <div
+          className="footer-bottom-bar"
           style={{
             borderTop: "1px solid rgba(255,255,255,0.06)",
             padding: "18px 0",
@@ -123,17 +127,10 @@ export function SiteFooter() {
             gap: 12,
           }}
         >
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 13,
-              color: "rgba(255,255,255,0.35)",
-              margin: 0,
-            }}
-          >
+          <p style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "rgba(255,255,255,0.35)", margin: 0 }}>
             © {new Date().getFullYear()} Mayer E-Concept SRL. Toate drepturile rezervate.
           </p>
-          <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+          <div className="footer-legal-links" style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
             {LEGAL.map((item) => (
               <Link
                 key={item.label}

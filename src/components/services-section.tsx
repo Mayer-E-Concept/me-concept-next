@@ -97,6 +97,13 @@ export function ServicesSection() {
         paddingBottom: "clamp(72px, 9vw, 130px)",
       }}
     >
+      <style>{`
+        @media (max-width: 767px) {
+          .services-top-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+          .services-lists-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+        }
+      `}</style>
+
       {/* Eyebrow */}
       <div
         style={{
@@ -118,6 +125,7 @@ export function ServicesSection() {
       <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
         {/* Top row: heading left, diagram image right */}
         <div
+          className="services-top-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
@@ -169,7 +177,10 @@ export function ServicesSection() {
         </div>
 
         {/* Two columns of services */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(24px, 4vw, 60px)" }}>
+        <div
+          className="services-lists-grid"
+          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(24px, 4vw, 60px)" }}
+        >
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {SERVICES_LEFT.map((s, i) => serviceItem(s, i, hoveredLeft, setHoveredLeft))}
           </ul>

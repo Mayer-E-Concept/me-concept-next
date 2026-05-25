@@ -10,6 +10,13 @@ export function TrustSection() {
         paddingBottom: "clamp(72px, 9vw, 130px)",
       }}
     >
+      <style>{`
+        @media (max-width: 767px) {
+          .trust-top-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+          .trust-bottom-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+        }
+      `}</style>
+
       <div
         style={{
           maxWidth: "1240px",
@@ -19,6 +26,7 @@ export function TrustSection() {
       >
         {/* Top — heading + text + button */}
         <div
+          className="trust-top-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
@@ -94,13 +102,13 @@ export function TrustSection() {
 
         {/* Bottom — two images side by side */}
         <div
+          className="trust-bottom-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
             gap: "clamp(16px, 3vw, 32px)",
           }}
         >
-          {/* Left — person photo */}
           <div style={{ borderRadius: 12, overflow: "hidden", aspectRatio: "4/3" }}>
             <Image
               src="/uploads/me-concept-proiectare-instalatii-electrice-romania.jpg"
@@ -111,7 +119,6 @@ export function TrustSection() {
             />
           </div>
 
-          {/* Right — blueprint plan with ISO cert overlay */}
           <div style={{ position: "relative", borderRadius: 12, overflow: "hidden", aspectRatio: "4/3" }}>
             <Image
               src="/uploads/Plan-Exemplu-2.png"
@@ -120,7 +127,6 @@ export function TrustSection() {
               height={450}
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             />
-            {/* SKYCERT badge overlay */}
             <div
               style={{
                 position: "absolute",

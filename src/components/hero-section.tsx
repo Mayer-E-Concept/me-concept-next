@@ -7,6 +7,7 @@ import { HeroStatsStrip } from "@/components/hero-stats-strip";
 export function HeroSection() {
   return (
     <section
+      className="hero-section"
       style={{
         position: "relative",
         minHeight: "100vh",
@@ -16,6 +17,30 @@ export function HeroSection() {
         overflow: "hidden",
       }}
     >
+      <style>{`
+        @media (max-width: 767px) {
+          .hero-section .hero-content {
+            padding-right: clamp(20px, 5vw, 40px) !important;
+            padding-top: 110px !important;
+            padding-bottom: 100px !important;
+            align-items: center !important;
+          }
+          .hero-section .hero-h1 {
+            text-align: center !important;
+            max-width: 100% !important;
+            font-size: clamp(32px, 8.5vw, 46px) !important;
+            margin-bottom: 28px !important;
+          }
+          .hero-section .hero-buttons {
+            align-items: center !important;
+          }
+          .hero-section .hero-brand-mark {
+            width: 58vw !important;
+            bottom: 80px !important;
+          }
+        }
+      `}</style>
+
       {/* PCB circuit pattern background with horizontal fade mask */}
       <div
         aria-hidden="true"
@@ -56,46 +81,24 @@ export function HeroSection() {
         }}
       />
 
-      {/* Brand name label above mark */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "clamp(44px, 5.5vh, 90px)",
-          left: "clamp(-30px, 1vw, 40px)",
-          width: "clamp(0px, calc((100vw - 800px) * 0.22), 480px)",
-          textAlign: "center",
-          fontFamily: "var(--font-sans)",
-          fontWeight: 600,
-          fontSize: "clamp(11px, 0.65vw, 14px)",
-          letterSpacing: "0.20em",
-          textTransform: "uppercase",
-          color: "#5E6B70",
-          opacity: 0.55,
-          zIndex: 0,
-          pointerEvents: "none",
-          lineHeight: 1.3,
-        }}
-      >
-        Mayer E-Concept SRL
-      </div>
-
-      {/* Brand mark watermark — top-left, multiply blend */}
+      {/* Brand mark watermark — centered lower, larger */}
       <Image
         src="/assets/brand-mark.png"
         alt=""
         aria-hidden
-        width={480}
-        height={480}
+        className="hero-brand-mark"
+        width={600}
+        height={600}
         style={{
           position: "absolute",
-          top: "clamp(50px, 6vh, 110px)",
-          left: "clamp(-30px, 1vw, 40px)",
-          width: "clamp(0px, calc((100vw - 800px) * 0.22), 480px)",
+          bottom: "clamp(50px, 8vh, 140px)",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "clamp(240px, 30vw, 560px)",
           height: "auto",
           zIndex: 0,
           pointerEvents: "none",
-          opacity: 0.55,
+          opacity: 0.40,
           mixBlendMode: "multiply",
         }}
         priority
@@ -108,13 +111,14 @@ export function HeroSection() {
 
       {/* Text content — left column */}
       <div
+        className="hero-content"
         style={{
           position: "relative",
           zIndex: 2,
           width: "100%",
           maxWidth: "1240px",
           margin: "0 auto",
-          paddingLeft: "clamp(32px, 5vw, 100px)",
+          paddingLeft: "clamp(24px, 5vw, 100px)",
           paddingRight: "clamp(420px, calc((100vw - 800px) * 0.46), 860px)",
           paddingTop: "clamp(80px, 10vh, 120px)",
           paddingBottom: "clamp(80px, 10vh, 120px)",
@@ -124,6 +128,7 @@ export function HeroSection() {
         }}
       >
         <h1
+          className="hero-h1"
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: "clamp(36px, 4.6vw, 68px)",
@@ -140,8 +145,10 @@ export function HeroSection() {
           Instalații electrice sigure, eficiente, proiectate cu grijă
         </h1>
 
-        {/* Buttons — stacked vertically like WP */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start" }}>
+        <div
+          className="hero-buttons"
+          style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start" }}
+        >
           <HeroButton href="#despre">Despre noi</HeroButton>
           <HeroButton href="#contact">Contactați-ne</HeroButton>
         </div>

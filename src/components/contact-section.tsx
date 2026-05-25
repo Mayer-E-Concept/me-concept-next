@@ -17,6 +17,13 @@ export function ContactSection() {
         color: "#F4F2EC",
       }}
     >
+      <style>{`
+        @media (max-width: 767px) {
+          .contact-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+          .contact-name-email-row { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+
       {/* PCB overlay */}
       <div
         aria-hidden
@@ -32,6 +39,7 @@ export function ContactSection() {
       />
 
       <div
+        className="contact-grid"
         style={{
           position: "relative",
           zIndex: 1,
@@ -77,24 +85,10 @@ export function ContactSection() {
           {/* Contact details */}
           <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 40 }}>
             {[
-              {
-                label: "Adresă",
-                value: "Str. Autogarii, nr. 1, Sibiu, Județ: Sibiu",
-              },
-              {
-                label: "Telefon",
-                value: "+40 752 129 500",
-                href: "tel:+40752129500",
-              },
-              {
-                label: "Email",
-                value: "m.poenar@me-concept.de",
-                href: "mailto:m.poenar@me-concept.de",
-              },
-              {
-                label: "Program",
-                value: "Luni–Vineri, 09:00–18:00",
-              },
+              { label: "Adresă", value: "Str. Autogarii, nr. 1, Sibiu, Județ: Sibiu" },
+              { label: "Telefon", value: "+40 752 129 500", href: "tel:+40752129500" },
+              { label: "Email", value: "m.poenar@me-concept.de", href: "mailto:m.poenar@me-concept.de" },
+              { label: "Program", value: "Luni–Vineri, 09:00–18:00" },
             ].map(({ label, value, href }) => (
               <div key={label}>
                 <div
@@ -113,23 +107,12 @@ export function ContactSection() {
                 {href ? (
                   <a
                     href={href}
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: 15,
-                      color: "#F4F2EC",
-                      textDecoration: "none",
-                    }}
+                    style={{ fontFamily: "var(--font-body)", fontSize: 15, color: "#F4F2EC", textDecoration: "none" }}
                   >
                     {value}
                   </a>
                 ) : (
-                  <div
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: 15,
-                      color: "#F4F2EC",
-                    }}
-                  >
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: 15, color: "#F4F2EC" }}>
                     {value}
                   </div>
                 )}
@@ -138,7 +121,7 @@ export function ContactSection() {
           </div>
 
           {/* Certification badges */}
-          <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
+          <div style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
             <a
               href="https://anpc.ro/"
               target="_blank"
@@ -187,7 +170,7 @@ export function ContactSection() {
           style={{ display: "flex", flexDirection: "column", gap: 16 }}
         >
           {/* Name + Email on same row */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div className="contact-name-email-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             {[
               { name: "name", label: "Nume", type: "text", placeholder: "Numele tău" },
               { name: "email", label: "Email", type: "email", placeholder: "email@exemplu.com" },
