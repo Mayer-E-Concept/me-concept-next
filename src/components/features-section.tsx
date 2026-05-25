@@ -1,69 +1,130 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+"use client";
+import { useState } from "react";
 
-const features = [
+const FEATURES = [
   {
-    icon: "⚡",
-    title: "Instalații Rezidențiale",
-    desc: "Tablouri electrice, prize, iluminat, sisteme de siguranță pentru locuințe.",
+    title: "Proiectare BIM nativă în Revit",
+    desc: "Planificare electrică completă în Autodesk Revit — modele 3D coordonate cu arhitectura și HVAC, documentație LP 1–5 conform normativelor în vigoare.",
   },
   {
-    icon: "🏗️",
-    title: "Instalații Industriale",
-    desc: "Automatizări, tablouri forță, cablaje structurate pentru spații comerciale.",
+    title: "Certificare ISO 9001:2015",
+    desc: "Sistem de management al calității certificat SKYCERT. Procese documentate, trasabilitate completă, audituri periodice — garanția unui partener de încredere.",
   },
   {
-    icon: "☀️",
-    title: "Sisteme Fotovoltaice",
-    desc: "Proiectare și montaj panouri solare, invertoare, stocare energie.",
+    title: "Standarde HOAI · DIN · VDE",
+    desc: "Proiecte conform standardelor germane și europene. Experiență directă cu clienți din Germania, Austria și Elveția — comunicare fluentă în română și germană.",
   },
   {
-    icon: "🔌",
-    title: "Stații de Încărcare EV",
-    desc: "Instalare puncte de încărcare pentru vehicule electrice — rezidențial și public.",
+    title: "Rezidențial & Comercial",
+    desc: "De la case individuale la ansambluri de 300+ unități. Proiecte rezidențiale, retail, birouri, grădinițe, clădiri de patrimoniu — toate fazele LP.",
   },
   {
-    icon: "🏠",
-    title: "Smart Home",
-    desc: "Sisteme KNX, Loxone, automatizare iluminat și climatizare.",
+    title: "Calcul tehnic Dialux & Simaris",
+    desc: "Simulări de iluminat cu Dialux Evo și calcul de protecții cu Siemens Simaris. Rezultate certificate, optimizate energetic, documentate complet.",
   },
   {
-    icon: "📋",
-    title: "Proiectare & Avize",
-    desc: "Documentație tehnică, proiecte ANRE, avize și recepții la cheie.",
+    title: "Smart Home & KNX",
+    desc: "Automatizare KNX, integrare fotovoltaică, planificare tuburi goale pentru upgrade ulterior. Clădiri inteligente livrate la cheie.",
   },
 ];
 
 export function FeaturesSection() {
-  return (
-    <section id="servicii" className="bg-mec-bg-alt py-24 px-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <p className="font-body font-500 text-mec-copper text-xs uppercase tracking-[0.2em] mb-3">
-            Ce facem
-          </p>
-          <h2 className="font-sans font-800 text-4xl md:text-5xl text-mec-ink tracking-tight">
-            Servicii complete
-          </h2>
-        </div>
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map(({ icon, title, desc }) => (
-            <Card
-              key={title}
-              className="bg-card border-border hover:border-mec-petrol/30 hover:shadow-md transition-all duration-300 group"
+  return (
+    <section
+      id="servicii"
+      style={{
+        position: "relative",
+        background: "#FFFFFF",
+        paddingTop: "clamp(72px, 9vw, 130px)",
+        paddingBottom: "clamp(72px, 9vw, 130px)",
+      }}
+    >
+      {/* Eyebrow label */}
+      <div
+        style={{
+          position: "absolute",
+          top: "clamp(40px, 5vw, 70px)",
+          left: "50%",
+          transform: "translateX(-50%)",
+          fontFamily: "var(--font-sans)",
+          fontSize: "11.5px",
+          fontWeight: 600,
+          letterSpacing: "0.22em",
+          color: "#0F4C5C",
+          whiteSpace: "nowrap",
+        }}
+      >
+        PUNCTE FORTE
+      </div>
+
+      <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gap: 24,
+          }}
+        >
+          {FEATURES.map((f, i) => (
+            <div
+              key={f.title}
+              onMouseEnter={() => setHoveredIdx(i)}
+              onMouseLeave={() => setHoveredIdx(null)}
+              style={{
+                position: "relative",
+                background: "#F6F7F7",
+                border: `1px solid ${hoveredIdx === i ? "#C5895B" : "#D8DCDE"}`,
+                borderRadius: 12,
+                padding: "36px 32px",
+                overflow: "hidden",
+                transition: "transform .25s ease, box-shadow .25s ease, border-color .25s ease",
+                transform: hoveredIdx === i ? "translateY(-6px)" : "translateY(0)",
+                boxShadow: hoveredIdx === i
+                  ? "0 1px 2px rgba(20,24,31,0.04), 0 12px 32px rgba(20,24,31,0.08)"
+                  : "none",
+                cursor: "default",
+              }}
             >
-              <CardHeader className="pb-3">
-                <div className="text-2xl mb-2">{icon}</div>
-                <CardTitle className="font-sans font-700 text-base text-mec-ink group-hover:text-mec-petrol transition-colors">
-                  {title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="font-body text-sm text-muted-foreground leading-relaxed">
-                  {desc}
-                </p>
-              </CardContent>
-            </Card>
+              {/* Copper top border line on hover */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  height: 2,
+                  width: hoveredIdx === i ? "100%" : "0%",
+                  background: "#C5895B",
+                  transition: "width .35s ease",
+                }}
+              />
+              <h3
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: 19,
+                  fontWeight: 700,
+                  letterSpacing: "-0.01em",
+                  color: "#0E323D",
+                  marginBottom: 14,
+                  lineHeight: 1.25,
+                }}
+              >
+                {f.title}
+              </h3>
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "14.5px",
+                  lineHeight: 1.65,
+                  color: "#335058",
+                  fontWeight: 400,
+                  margin: 0,
+                }}
+              >
+                {f.desc}
+              </p>
+            </div>
           ))}
         </div>
       </div>

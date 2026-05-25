@@ -1,44 +1,128 @@
-import { Separator } from "@/components/ui/separator";
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+
+const NAV = [
+  { label: "Acasă", href: "/" },
+  { label: "Servicii", href: "#servicii" },
+  { label: "Portfolio", href: "#portfolio" },
+  { label: "Despre noi", href: "#despre" },
+  { label: "Contact", href: "#contact" },
+];
 
 export function SiteFooter() {
   return (
-    <footer className="bg-mec-navy text-white/70 py-12 px-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-8">
+    <footer
+      style={{
+        background: "#051E27",
+        borderTop: "1px solid rgba(255,255,255,0.06)",
+        paddingTop: 64,
+        paddingBottom: 0,
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1240px",
+          margin: "0 auto",
+          padding: "0 clamp(20px, 5vw, 60px)",
+        }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr auto",
+            gap: "clamp(32px, 6vw, 80px)",
+            alignItems: "start",
+            paddingBottom: 48,
+          }}
+        >
+          {/* Left — logo + tagline */}
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-white font-sans font-800 text-lg tracking-tight">
-                ME
-              </span>
-              <Separator
-                orientation="vertical"
-                className="h-4 bg-mec-copper opacity-60"
+            <Link href="/" style={{ display: "inline-block", marginBottom: 16 }}>
+              <Image
+                src="/uploads/base_logo_transparent_background-1.png"
+                alt="ME-Concept"
+                width={160}
+                height={40}
+                style={{ maxHeight: 40, width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)" }}
               />
-              <span className="text-white/80 font-sans font-600 text-xs uppercase tracking-widest">
-                Concept
-              </span>
-            </div>
-            <p className="font-body text-xs leading-relaxed max-w-xs">
-              Instalații electrice de calitate pentru proiecte rezidențiale și
-              comerciale.
+            </Link>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: 14,
+                lineHeight: 1.65,
+                color: "rgba(255,255,255,0.50)",
+                maxWidth: "36ch",
+                marginBottom: 20,
+              }}
+            >
+              Proiectare instalații electrice pentru clădiri rezidențiale și
+              comerciale. Certificare ISO 9001:2015. Sibiu & Germania.
             </p>
+            <div
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: 13,
+                color: "rgba(255,255,255,0.50)",
+              }}
+            >
+              <a
+                href="mailto:m.poenar@me-concept.de"
+                style={{ color: "rgba(255,255,255,0.50)", textDecoration: "none" }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#C5895B")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.50)")}
+              >
+                m.poenar@me-concept.de
+              </a>
+            </div>
           </div>
 
-          <div className="flex gap-12">
-            <div>
-              <p className="font-body font-600 text-white text-xs uppercase tracking-widest mb-3">
-                Contact
-              </p>
-              <p className="font-body text-xs">m.poenar@me-concept.de</p>
-            </div>
-          </div>
+          {/* Right — nav links */}
+          <nav style={{ display: "flex", flexDirection: "column", gap: 12, paddingTop: 4 }}>
+            {NAV.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "12.5px",
+                  fontWeight: 600,
+                  letterSpacing: "0.10em",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.50)",
+                  textDecoration: "none",
+                  transition: "color .2s ease",
+                }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#C5895B")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.50)")}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
         </div>
 
-        <Separator className="bg-white/10 mb-6" />
-
-        <p className="font-body text-xs text-center">
-          © {new Date().getFullYear()} ME-Concept. Toate drepturile rezervate.
-        </p>
+        {/* Bottom bar */}
+        <div
+          style={{
+            borderTop: "1px solid rgba(255,255,255,0.06)",
+            padding: "18px 0",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: 13,
+              color: "rgba(255,255,255,0.50)",
+              margin: 0,
+            }}
+          >
+            © {new Date().getFullYear()} Mayer E-Concept SRL. Toate drepturile rezervate.
+          </p>
+        </div>
       </div>
     </footer>
   );

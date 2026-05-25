@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
+  <!--
+    me-concept hero — primary PCB pattern.
+    Tile 320x320. Petrol traces, copper LED accents.
+    Stroke 0.6, opacity baked into the SVG so the CSS pseudo can stay at
+    opacity:1 and a clean mask-image gradient handles the fade.
+  -->
+
+  <!-- Background traces: petrol stroke 0.6, opacity 0.55 -->
+  <g stroke="#1A6F7A" stroke-width="0.6" fill="none"
+     stroke-linecap="square" stroke-linejoin="miter" opacity="0.55">
+
+    <!-- Top horizontal bus + lateral feeds -->
+    <path d="M 0 50 L 320 50"/>
+    <path d="M 60 50 L 60 100 L 90 130 L 90 200"/>
+    <path d="M 180 50 L 180 90 L 210 90 L 210 180"/>
+    <path d="M 280 50 L 280 140"/>
+
+    <!-- 45° diagonal section -->
+    <path d="M 0 130 L 30 130 L 50 150 L 80 150"/>
+
+    <!-- IC1 — wide DIP-like outline, top of bottom half -->
+    <rect x="100" y="200" width="80" height="60" stroke-width="0.7"/>
+    <!-- IC1 pin ticks -->
+    <g stroke-width="0.5">
+      <line x1="110" y1="200" x2="110" y2="194"/>
+      <line x1="122" y1="200" x2="122" y2="194"/>
+      <line x1="134" y1="200" x2="134" y2="194"/>
+      <line x1="146" y1="200" x2="146" y2="194"/>
+      <line x1="158" y1="200" x2="158" y2="194"/>
+      <line x1="170" y1="200" x2="170" y2="194"/>
+      <line x1="110" y1="260" x2="110" y2="266"/>
+      <line x1="122" y1="260" x2="122" y2="266"/>
+      <line x1="134" y1="260" x2="134" y2="266"/>
+      <line x1="146" y1="260" x2="146" y2="266"/>
+      <line x1="158" y1="260" x2="158" y2="266"/>
+      <line x1="170" y1="260" x2="170" y2="266"/>
+    </g>
+
+    <!-- IC2 — smaller QFN-style on the right -->
+    <rect x="230" y="100" width="50" height="50" stroke-width="0.7"/>
+    <g stroke-width="0.5">
+      <line x1="237" y1="100" x2="237" y2="94"/>
+      <line x1="247" y1="100" x2="247" y2="94"/>
+      <line x1="257" y1="100" x2="257" y2="94"/>
+      <line x1="267" y1="100" x2="267" y2="94"/>
+      <line x1="237" y1="150" x2="237" y2="156"/>
+      <line x1="247" y1="150" x2="247" y2="156"/>
+      <line x1="257" y1="150" x2="257" y2="156"/>
+      <line x1="267" y1="150" x2="267" y2="156"/>
+      <line x1="230" y1="110" x2="224" y2="110"/>
+      <line x1="230" y1="125" x2="224" y2="125"/>
+      <line x1="230" y1="140" x2="224" y2="140"/>
+      <line x1="280" y1="110" x2="286" y2="110"/>
+      <line x1="280" y1="125" x2="286" y2="125"/>
+      <line x1="280" y1="140" x2="286" y2="140"/>
+    </g>
+
+    <!-- Diagonal trace IC1 → IC2 -->
+    <path d="M 180 220 L 218 182 L 230 130"/>
+
+    <!-- Bottom-right diagonal feed -->
+    <path d="M 230 270 L 250 250 L 320 250"/>
+
+    <!-- Lower horizontal bus -->
+    <path d="M 30 290 L 200 290"/>
+
+    <!-- Resistor (zigzag) between IC2 pins -->
+    <path d="M 220 90 L 224 85 L 228 95 L 232 85 L 236 95 L 240 85 L 244 90" stroke-width="0.5"/>
+  </g>
+
+  <!-- Pin-1 dots & vias (slightly more opaque so they read as components) -->
+  <g fill="#1A6F7A" stroke="none" opacity="0.70">
+    <circle cx="106" cy="206" r="1.5"/>
+    <circle cx="235" cy="105" r="1.2"/>
+  </g>
+
+  <!-- Vias (ring through-holes) -->
+  <g stroke="#1A6F7A" stroke-width="0.6" fill="none" opacity="0.60">
+    <circle cx="60" cy="100" r="2.0"/>
+    <circle cx="90" cy="130" r="2.0"/>
+    <circle cx="50" cy="150" r="1.8"/>
+    <circle cx="210" cy="180" r="2.0"/>
+    <circle cx="90" cy="200" r="2.0"/>
+  </g>
+
+  <!-- SMD pads (small rounded rects) -->
+  <g fill="#1A6F7A" stroke="none" opacity="0.55">
+    <rect x="40" y="78" width="8" height="3" rx="0.8"/>
+    <rect x="40" y="84" width="8" height="3" rx="0.8"/>
+    <rect x="260" y="280" width="3" height="8" rx="0.8"/>
+    <rect x="270" y="280" width="3" height="8" rx="0.8"/>
+    <rect x="120" y="170" width="10" height="3" rx="0.8"/>
+    <rect x="14" y="220" width="3" height="8" rx="0.8"/>
+    <rect x="24" y="220" width="3" height="8" rx="0.8"/>
+  </g>
+
+  <!-- Edge markers removed — were creating repeating horizontal "rails"
+       across the section when tiled. -->
+
+
+  <!-- Copper LED accents and halos removed — when the tile repeats,
+       the copper dots at fixed y=50 and y=270 created visible horizontal
+       rows that read as "orange lines" across the section. Pattern is
+       now pure petrol traces, no accent color. -->
+</svg>
