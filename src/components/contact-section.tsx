@@ -85,9 +85,9 @@ export function ContactSection() {
           {/* Contact details */}
           <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 40 }}>
             {[
-              { label: "Adresă", value: "Str. Autogarii, nr. 1, Sibiu, Județ: Sibiu" },
+              { label: "Adresă", value: "Strada Măslinului nr. 9, Sibiu" },
               { label: "Telefon", value: "+40 752 129 500", href: "tel:+40752129500" },
-              { label: "Email", value: "m.poenar@me-concept.de", href: "mailto:m.poenar@me-concept.de" },
+              { label: "Email", value: "contact@me-concept.ro", href: "mailto:contact@me-concept.ro" },
               { label: "Program", value: "Luni–Vineri, 09:00–18:00" },
             ].map(({ label, value, href }) => (
               <div key={label}>
