@@ -1,6 +1,5 @@
 "use client";
 import type { ReactNode } from "react";
-import Image from "next/image";
 import { Hero3DCanvas } from "@/components/hero-3d-canvas";
 import { HeroStatsStrip } from "@/components/hero-stats-strip";
 
@@ -61,48 +60,59 @@ export function HeroSection() {
         }}
       />
 
-      {/* Brand mark — inverted subtle watermark */}
+      {/* Brand mark — icon watermark */}
       <div
         className="hero-brand-group"
+        aria-hidden
         style={{
           position: "absolute",
-          top: "clamp(70px, 14vh, 160px)",
-          left: "clamp(20px, 14vw, 280px)",
-          width: "clamp(300px, 38vw, 660px)",
+          top: "clamp(60px, 12vh, 140px)",
+          left: "clamp(20px, 12vw, 240px)",
           zIndex: 0,
           pointerEvents: "none",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 16,
         }}
       >
+        {/* Label */}
         <div
-          aria-hidden
           style={{
-            textAlign: "center",
             fontFamily: "var(--font-sans)",
-            fontWeight: 600,
-            fontSize: "clamp(10px, 0.65vw, 13px)",
-            letterSpacing: "0.20em",
+            fontWeight: 700,
+            fontSize: "clamp(9px, 0.65vw, 11px)",
+            letterSpacing: "0.30em",
             textTransform: "uppercase",
-            color: "rgba(255,255,255,0.35)",
-            marginBottom: 10,
+            color: "rgba(255,255,255,0.28)",
             lineHeight: 1.3,
           }}
         >
-          Mayer E-Concept SRL
+          Mayer E-Concept
         </div>
-        <Image
-          src="/uploads/base_logo_transparent_background-1.png"
-          alt=""
-          aria-hidden
-          width={660}
-          height={300}
+
+        {/* Icon — crop left portion of transparent logo = just the emblem */}
+        <div
           style={{
-            width: "100%",
-            height: "auto",
-            opacity: 0.13,
-            filter: "brightness(0) invert(1)",
-            display: "block",
+            width: "clamp(180px, 20vw, 300px)",
+            height: "clamp(180px, 20vw, 300px)",
+            overflow: "hidden",
+            flexShrink: 0,
           }}
-        />
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/uploads/base_logo_transparent_background-1.png"
+            alt=""
+            style={{
+              height: "100%",
+              width: "auto",
+              display: "block",
+              filter: "brightness(0) invert(1)",
+              opacity: 0.16,
+            }}
+          />
+        </div>
       </div>
 
       {/* Three.js 3D canvas */}
