@@ -68,14 +68,14 @@ export function HeroSection() {
         aria-hidden
         style={{
           position: "absolute",
-          top: "clamp(68px, 11vh, 140px)",
-          left: "clamp(16px, 8vw, 240px)",
+          top: "clamp(60px, 12vh, 140px)",
+          left: "clamp(20px, 12vw, 240px)",
           zIndex: 0,
           pointerEvents: "none",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: 12,
+          gap: 16,
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -83,7 +83,7 @@ export function HeroSection() {
           src="/uploads/logo_text_only.png"
           alt=""
           style={{
-            width: "clamp(160px, 26vw, 520px)",
+            width: "clamp(220px, 30vw, 520px)",
             height: "auto",
             display: "block",
             filter: "brightness(0) invert(1)",
@@ -96,7 +96,7 @@ export function HeroSection() {
           src="/uploads/base_icon_transparent.png"
           alt=""
           style={{
-            width: "clamp(150px, 24vw, 500px)",
+            width: "clamp(210px, 28vw, 500px)",
             height: "auto",
             display: "block",
             filter: "brightness(0) invert(1)",
