@@ -76,10 +76,10 @@ export function HeroSection() {
           gap: 16,
         }}
       >
-        {/* Text logo deasupra — fontul tehnic nativ din imagine */}
+        {/* Text "MAYER E-CONCEPT" din logo — fara icon, fara tagline */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/uploads/base_logo_transparent_background-1.png"
+          src="/uploads/logo_text_only.png"
           alt=""
           style={{
             width: "clamp(300px, 34vw, 520px)",
