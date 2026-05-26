@@ -66,8 +66,9 @@ export function HeroStatsStrip() {
       ref={ref}
       style={{
         display: "flex",
-        flexWrap: "wrap",
-        gap: "clamp(20px, 3.5vw, 48px)",
+        flexDirection: "row",
+        flexWrap: "nowrap",
+        gap: "clamp(16px, 2.8vw, 40px)",
         marginTop: "clamp(32px, 5vw, 56px)",
         paddingTop: 28,
         borderTop: "1px solid rgba(255,255,255,0.10)",
