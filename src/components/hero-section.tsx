@@ -91,21 +91,19 @@ export function HeroSection() {
           Mayer E-Concept
         </div>
 
-        {/* Emblem — screen blend elimina fundalul alb inversat */}
-        <div style={{ mixBlendMode: "screen" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/uploads/base_icon_white_background.png"
-            alt=""
-            style={{
-              width: "clamp(300px, 32vw, 500px)",
-              height: "auto",
-              display: "block",
-              filter: "invert(1)",
-              opacity: 0.55,
-            }}
-          />
-        </div>
+        {/* Emblem — fundal transparent, culoare site */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/uploads/base_icon_transparent.png"
+          alt=""
+          style={{
+            width: "clamp(300px, 32vw, 500px)",
+            height: "auto",
+            display: "block",
+            filter: "brightness(0) invert(1)",
+            opacity: 0.12,
+          }}
+        />
       </div>
 
       {/* Three.js 3D canvas */}
