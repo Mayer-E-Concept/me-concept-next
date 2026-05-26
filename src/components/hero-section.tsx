@@ -76,34 +76,36 @@ export function HeroSection() {
           gap: 16,
         }}
       >
-        {/* Label */}
+        {/* Label — "MAYER E-CONCEPT" deasupra emblemei */}
         <div
           style={{
             fontFamily: "var(--font-sans)",
             fontWeight: 700,
-            fontSize: "clamp(9px, 0.65vw, 11px)",
+            fontSize: "clamp(10px, 0.75vw, 13px)",
             letterSpacing: "0.30em",
             textTransform: "uppercase",
-            color: "rgba(255,255,255,0.28)",
+            color: "rgba(255,255,255,0.30)",
             lineHeight: 1.3,
           }}
         >
           Mayer E-Concept
         </div>
 
-        {/* Emblem */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/uploads/base_icon_white_background.png"
-          alt=""
-          style={{
-            width: "clamp(260px, 28vw, 420px)",
-            height: "auto",
-            display: "block",
-            filter: "invert(1)",
-            opacity: 0.14,
-          }}
-        />
+        {/* Emblem — screen blend elimina fundalul alb inversat */}
+        <div style={{ mixBlendMode: "screen" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/uploads/base_icon_white_background.png"
+            alt=""
+            style={{
+              width: "clamp(300px, 32vw, 500px)",
+              height: "auto",
+              display: "block",
+              filter: "invert(1)",
+              opacity: 0.55,
+            }}
+          />
+        </div>
       </div>
 
       {/* Three.js 3D canvas */}
