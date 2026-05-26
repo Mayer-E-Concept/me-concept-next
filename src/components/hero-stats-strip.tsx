@@ -62,15 +62,26 @@ export function HeroStatsStrip() {
   }, []);
 
   return (
+    <>
+      <style>{`
+        @media (max-width: 560px) {
+          .hero-stats-strip {
+            flex-wrap: wrap !important;
+            gap: 20px 32px !important;
+          }
+          .hero-stats-strip > div { min-width: calc(50% - 16px) !important; }
+        }
+      `}</style>
     <div
       ref={ref}
+      className="hero-stats-strip"
       style={{
         display: "flex",
         flexDirection: "row",
         flexWrap: "nowrap",
         gap: "clamp(16px, 2.8vw, 40px)",
-        marginTop: "clamp(32px, 5vw, 56px)",
-        paddingTop: 28,
+        marginTop: "clamp(28px, 4vw, 52px)",
+        paddingTop: 24,
         borderTop: "1px solid rgba(255,255,255,0.10)",
       }}
     >
@@ -109,5 +120,6 @@ export function HeroStatsStrip() {
         </div>
       ))}
     </div>
+    </>
   );
 }

@@ -17,28 +17,41 @@ export function HeroSection() {
       }}
     >
       <style>{`
+        /* ── Mobile ───────────────────────────────────────── */
         @media (max-width: 767px) {
           .hero-section .hero-content {
             padding-right: clamp(20px, 5vw, 40px) !important;
-            padding-top: 110px !important;
-            padding-bottom: 140px !important;
+            padding-top: 100px !important;
+            padding-bottom: 72px !important;
             align-items: center !important;
           }
           .hero-section .hero-h1 {
             text-align: center !important;
             max-width: 100% !important;
-            font-size: clamp(32px, 8.5vw, 46px) !important;
+            font-size: clamp(30px, 8.5vw, 44px) !important;
             margin-bottom: 28px !important;
           }
           .hero-section .hero-buttons {
             align-items: center !important;
           }
+          /* ascunde watermark complet pe mobile */
           .hero-section .hero-brand-group {
-            top: auto !important;
-            bottom: 20px !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            width: 64vw !important;
+            display: none !important;
+          }
+        }
+
+        /* ── Tablet / Laptop 768–1199px ───────────────────── */
+        @media (min-width: 768px) and (max-width: 1199px) {
+          .hero-section .hero-content {
+            padding-left: clamp(24px, 4vw, 56px) !important;
+            padding-right: clamp(260px, 36vw, 460px) !important;
+          }
+          .hero-section .hero-brand-group {
+            top: clamp(50px, 8vh, 100px) !important;
+            left: clamp(16px, 4vw, 60px) !important;
+          }
+          .hero-section .hero-brand-group img {
+            width: clamp(160px, 22vw, 320px) !important;
           }
         }
       `}</style>
