@@ -3,11 +3,11 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 const COLORS = {
-  ink:      0x8BBDC8,   // light petrol — visible on dark #051E27 hero
-  accent:   0x4AABB8,
+  ink:      0x0E323D,   // dark petrol — visible on light #F6F7F7 hero
+  accent:   0x1A6F7A,
   hover:    0xC5895B,
   warm:     0xF2D7B6,
-  solar:    0x5ABCCA,
+  solar:    0x2A6F7A,
 };
 
 export function Hero3DCanvas() {

@@ -12,7 +12,7 @@ export function HeroSection() {
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        backgroundColor: "#051E27",
+        backgroundColor: "#F6F7F7",
         overflow: "hidden",
       }}
     >
@@ -33,17 +33,10 @@ export function HeroSection() {
           .hero-section .hero-buttons {
             align-items: center !important;
           }
-          .hero-section .hero-brand-group {
-            top: auto !important;
-            bottom: 20px !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            width: 64vw !important;
-          }
         }
       `}</style>
 
-      {/* PCB circuit pattern — white on dark */}
+      {/* PCB circuit pattern — subtle on light bg */}
       <div
         aria-hidden="true"
         style={{
@@ -55,55 +48,10 @@ export function HeroSection() {
           backgroundRepeat: "repeat, repeat",
           backgroundSize: "320px 320px, 200px 200px",
           backgroundPosition: "0 0, 80px 60px",
-          filter: "invert(1)",
-          opacity: 0.055,
+          opacity: 0.06,
         }}
       />
 
-      {/* Brand mark — icon watermark */}
-      <div
-        className="hero-brand-group"
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "clamp(60px, 12vh, 140px)",
-          left: "clamp(20px, 12vw, 240px)",
-          zIndex: 0,
-          pointerEvents: "none",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 16,
-        }}
-      >
-        {/* Text "MAYER E-CONCEPT" din logo — fara icon, fara tagline */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/uploads/logo_text_only.png"
-          alt=""
-          style={{
-            width: "clamp(300px, 34vw, 520px)",
-            height: "auto",
-            display: "block",
-            filter: "brightness(0) invert(1)",
-            opacity: 0.12,
-          }}
-        />
-
-        {/* Emblem mare dedesubt */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/uploads/base_icon_transparent.png"
-          alt=""
-          style={{
-            width: "clamp(300px, 32vw, 500px)",
-            height: "auto",
-            display: "block",
-            filter: "brightness(0) invert(1)",
-            opacity: 0.12,
-          }}
-        />
-      </div>
 
       {/* Three.js 3D canvas */}
       <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
@@ -128,21 +76,6 @@ export function HeroSection() {
           alignItems: "flex-start",
         }}
       >
-        {/* Eyebrow */}
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: "11px",
-            fontWeight: 700,
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            color: "#C5895B",
-            marginBottom: 20,
-          }}
-        >
-          Mayer E-Concept · Sibiu &amp; Germania
-        </div>
-
         <h1
           className="hero-h1"
           style={{
@@ -151,7 +84,7 @@ export function HeroSection() {
             fontWeight: 800,
             letterSpacing: "-0.026em",
             lineHeight: 1.06,
-            color: "#F4F2EC",
+            color: "#0E323D",
             maxWidth: "26ch",
             margin: "0 0 36px 0",
             textAlign: "left",
@@ -205,17 +138,17 @@ function HeroButton({
     return (
       <a
         href={href}
-        style={{ ...base, background: "#C5895B", color: "#fff", border: "1.5px solid #C5895B" }}
+        style={{ ...base, background: "#0E323D", color: "#fff", border: "1.5px solid #0E323D" }}
         onMouseEnter={(e) => {
           const el = e.currentTarget as HTMLAnchorElement;
-          el.style.background = "#b37a50";
-          el.style.borderColor = "#b37a50";
+          el.style.background = "#1A6F7A";
+          el.style.borderColor = "#1A6F7A";
           el.style.transform = "translateY(-2px)";
         }}
         onMouseLeave={(e) => {
           const el = e.currentTarget as HTMLAnchorElement;
-          el.style.background = "#C5895B";
-          el.style.borderColor = "#C5895B";
+          el.style.background = "#0E323D";
+          el.style.borderColor = "#0E323D";
           el.style.transform = "translateY(0)";
         }}
       >
@@ -230,19 +163,19 @@ function HeroButton({
       style={{
         ...base,
         background: "transparent",
-        color: "rgba(255,255,255,0.75)",
-        border: "1.5px solid rgba(255,255,255,0.28)",
+        color: "#0E323D",
+        border: "1.5px solid #0E323D",
       }}
       onMouseEnter={(e) => {
         const el = e.currentTarget as HTMLAnchorElement;
-        el.style.borderColor = "rgba(255,255,255,0.65)";
-        el.style.color = "#fff";
+        el.style.borderColor = "#1A6F7A";
+        el.style.color = "#1A6F7A";
         el.style.transform = "translateY(-2px)";
       }}
       onMouseLeave={(e) => {
         const el = e.currentTarget as HTMLAnchorElement;
-        el.style.borderColor = "rgba(255,255,255,0.28)";
-        el.style.color = "rgba(255,255,255,0.75)";
+        el.style.borderColor = "#0E323D";
+        el.style.color = "#0E323D";
         el.style.transform = "translateY(0)";
       }}
     >
