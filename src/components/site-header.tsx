@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const navItems = [
   { label: "Proiectare Instalații Electrice", href: "/" },
@@ -11,7 +11,16 @@ const navItems = [
 ];
 
 export function SiteHeader() {
+  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.75);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const showBg = scrolled || menuOpen;
 
   return (
     <>
@@ -31,10 +40,10 @@ export function SiteHeader() {
           right: 0,
           zIndex: 99999,
           padding: "18px 0",
-          backgroundColor: menuOpen ? "rgba(255,255,255,0.97)" : "transparent",
-          backdropFilter: menuOpen ? "saturate(140%) blur(10px)" : "none",
-          boxShadow: menuOpen ? "0 4px 18px rgba(14,50,61,0.06)" : "none",
-          transition: "background-color .25s ease, box-shadow .25s ease",
+          backgroundColor: showBg ? "rgba(5,30,39,0.96)" : "transparent",
+          backdropFilter: showBg ? "saturate(130%) blur(12px)" : "none",
+          boxShadow: showBg ? "0 2px 20px rgba(0,0,0,0.25)" : "none",
+          transition: "background-color .3s ease, box-shadow .3s ease",
         }}
       >
         <div
@@ -89,24 +98,24 @@ export function SiteHeader() {
               justifyContent: "center",
             }}
           >
-            <span style={{
-              display: "block", width: 24, height: 2,
-              background: menuOpen ? "#0E323D" : "#FFFFFF",
-              transition: "transform .2s ease, opacity .2s ease, background .25s ease",
-              transform: menuOpen ? "translateY(7px) rotate(45deg)" : "none",
-            }} />
-            <span style={{
-              display: "block", width: 24, height: 2,
-              background: menuOpen ? "#0E323D" : "#FFFFFF",
-              transition: "opacity .2s ease, background .25s ease",
-              opacity: menuOpen ? 0 : 1,
-            }} />
-            <span style={{
-              display: "block", width: 24, height: 2,
-              background: menuOpen ? "#0E323D" : "#FFFFFF",
-              transition: "transform .2s ease, opacity .2s ease, background .25s ease",
-              transform: menuOpen ? "translateY(-7px) rotate(-45deg)" : "none",
-            }} />
+            {[
+              menuOpen ? "translateY(7px) rotate(45deg)" : "none",
+              "none",
+              menuOpen ? "translateY(-7px) rotate(-45deg)" : "none",
+            ].map((transform, i) => (
+              <span
+                key={i}
+                style={{
+                  display: "block",
+                  width: 24,
+                  height: 2,
+                  background: "#FFFFFF",
+                  transition: "transform .2s ease, opacity .2s ease",
+                  transform,
+                  opacity: i === 1 && menuOpen ? 0 : 1,
+                }}
+              />
+            ))}
           </button>
         </div>
 
@@ -114,7 +123,7 @@ export function SiteHeader() {
         {menuOpen && (
           <nav
             style={{
-              borderTop: "1px solid #D8DCDE",
+              borderTop: "1px solid rgba(255,255,255,0.12)",
               padding: "16px 0 8px",
               display: "flex",
               flexDirection: "column",
@@ -130,11 +139,11 @@ export function SiteHeader() {
                   fontWeight: 600,
                   letterSpacing: "0.10em",
                   textTransform: "uppercase",
-                  color: "#0E323D",
+                  color: "rgba(255,255,255,0.85)",
                   textDecoration: "none",
                   padding: "14px 5%",
                   fontFamily: "var(--font-sans)",
-                  borderBottom: "1px solid #F0F2F3",
+                  borderBottom: "1px solid rgba(255,255,255,0.08)",
                 }}
               >
                 {item.label}
