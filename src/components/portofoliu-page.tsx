@@ -187,6 +187,156 @@ export function PortofoliuPage() {
         </div>
       </section>
 
+      {/* Project reference categories — dark premium strip */}
+      <section
+        style={{
+          position: "relative",
+          background: "#071C26",
+          paddingTop: "clamp(72px, 9vw, 110px)",
+          paddingBottom: "clamp(72px, 9vw, 110px)",
+          overflow: "hidden",
+        }}
+      >
+        {/* subtle circuit texture */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: 'url("/assets/circuit-pattern.svg")',
+            backgroundSize: "280px 280px",
+            backgroundRepeat: "repeat",
+            filter: "invert(1)",
+            opacity: 0.04,
+            pointerEvents: "none",
+          }}
+        />
+        {/* copper accent line top */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 2,
+            background: "linear-gradient(90deg, transparent, #C5895B 30%, #C5895B 70%, transparent)",
+            opacity: 0.45,
+          }}
+        />
+
+        <div style={{ position: "relative", zIndex: 1, maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
+          {/* heading */}
+          <div style={{ marginBottom: "clamp(40px, 5vw, 64px)" }}>
+            <div
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "0.24em",
+                textTransform: "uppercase",
+                color: "#C5895B",
+                marginBottom: 16,
+              }}
+            >
+              Portofoliu de referință
+            </div>
+            <h2
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "clamp(28px, 3.2vw, 44px)",
+                fontWeight: 800,
+                letterSpacing: "-0.022em",
+                lineHeight: 1.1,
+                color: "#F4F2EC",
+                maxWidth: "28ch",
+                margin: 0,
+              }}
+            >
+              Proiecte executate de Mayer E-Concept
+            </h2>
+          </div>
+
+          {/* cards grid */}
+          <div
+            className="porto-projects-grid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))",
+              gap: 16,
+            }}
+          >
+            {PROJECTS.map((p) => (
+              <div
+                key={p.label}
+                style={{
+                  background: "rgba(255,255,255,0.035)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: 10,
+                  padding: "clamp(22px, 2.8vw, 34px)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 0,
+                  position: "relative",
+                  overflow: "hidden",
+                }}
+              >
+                {/* copper left accent */}
+                <div
+                  aria-hidden
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    width: 3,
+                    background: "linear-gradient(180deg, #C5895B 0%, rgba(197,137,91,0.15) 100%)",
+                    borderRadius: "10px 0 0 10px",
+                  }}
+                />
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "clamp(40px, 4.5vw, 60px)",
+                    fontWeight: 800,
+                    color: "#C5895B",
+                    letterSpacing: "-0.04em",
+                    lineHeight: 1,
+                    marginBottom: 14,
+                  }}
+                >
+                  {p.count}
+                </div>
+                <h3
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 15,
+                    fontWeight: 700,
+                    color: "#F4F2EC",
+                    letterSpacing: "-0.01em",
+                    lineHeight: 1.35,
+                    marginBottom: 8,
+                  }}
+                >
+                  {p.label}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: 13,
+                    lineHeight: 1.65,
+                    color: "rgba(244,242,236,0.45)",
+                    margin: 0,
+                  }}
+                >
+                  {p.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Services grid */}
       <section
         style={{
@@ -327,112 +477,6 @@ export function PortofoliuPage() {
         </div>
       </section>
 
-      {/* Project reference categories */}
-      <section
-        style={{
-          background: "#ECEFF0",
-          paddingTop: "clamp(72px, 9vw, 120px)",
-          paddingBottom: "clamp(72px, 9vw, 120px)",
-        }}
-      >
-        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
-          <div style={{ marginBottom: "clamp(40px, 5vw, 64px)" }}>
-            <div
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "12px",
-                fontWeight: 700,
-                letterSpacing: "0.22em",
-                textTransform: "uppercase",
-                color: "#0F4C5C",
-                marginBottom: 14,
-                paddingBottom: 14,
-                borderBottom: "1px solid #D8DCDE",
-                display: "inline-block",
-              }}
-            >
-              Portofoliu de referință
-            </div>
-            <h2
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "clamp(28px, 3.2vw, 42px)",
-                fontWeight: 700,
-                letterSpacing: "-0.02em",
-                lineHeight: 1.12,
-                color: "#0E323D",
-                maxWidth: "28ch",
-              }}
-            >
-              Proiecte executate de Mayer E-Concept
-            </h2>
-          </div>
-
-          <div
-            className="porto-projects-grid"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: 2,
-            }}
-          >
-            {PROJECTS.map((p, i) => (
-              <div
-                key={p.label}
-                style={{
-                  background: i % 2 === 0 ? "#FFFFFF" : "#F0F2F3",
-                  padding: "clamp(24px, 3vw, 40px)",
-                  borderRadius: 0,
-                  display: "flex",
-                  gap: 20,
-                  alignItems: "flex-start",
-                  borderBottom: "1px solid #D8DCDE",
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "clamp(28px, 3vw, 42px)",
-                    fontWeight: 800,
-                    color: "#C5895B",
-                    letterSpacing: "-0.03em",
-                    lineHeight: 1,
-                    minWidth: 70,
-                    flexShrink: 0,
-                  }}
-                >
-                  {p.count}
-                </div>
-                <div>
-                  <h3
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: 16,
-                      fontWeight: 700,
-                      color: "#0E323D",
-                      marginBottom: 6,
-                      lineHeight: 1.3,
-                    }}
-                  >
-                    {p.label}
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: 14,
-                      lineHeight: 1.6,
-                      color: "#335058",
-                      margin: 0,
-                    }}
-                  >
-                    {p.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
     </>
   );
 }
