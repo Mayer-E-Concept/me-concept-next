@@ -34,9 +34,14 @@ export function HeroSection() {
           .hero-section .hero-buttons {
             align-items: center !important;
           }
-          /* ascunde watermark complet pe mobile */
+          /* watermark — centrat, mai mic, vizibil */
           .hero-section .hero-brand-group {
-            display: none !important;
+            top: clamp(72px, 13vh, 120px) !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+          }
+          .hero-section .hero-brand-group img {
+            width: clamp(180px, 52vw, 260px) !important;
           }
         }
 
