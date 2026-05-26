@@ -184,53 +184,6 @@ export function PortofoliuPage() {
             cu sediul în Sibiu și Germania. Faze LP 1–5, BIM nativ în Revit, automatizare
             KNX și integrare fotovoltaică.
           </p>
-
-          {/* Stats */}
-          <div
-            style={{
-              display: "flex",
-              gap: "clamp(24px, 4vw, 60px)",
-              marginTop: 48,
-              paddingTop: 36,
-              borderTop: "1px solid rgba(255,255,255,0.10)",
-              flexWrap: "wrap",
-            }}
-          >
-            {[
-              { val: "20+", lbl: "Ani experiență" },
-              { val: "100+", lbl: "Proiecte finalizate" },
-              { val: "ISO", lbl: "9001:2015 Certificat" },
-              { val: "BIM", lbl: "Revit · AutoCAD · Dialux" },
-            ].map(({ val, lbl }) => (
-              <div key={lbl}>
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "clamp(22px, 2.4vw, 32px)",
-                    fontWeight: 800,
-                    color: "#C5895B",
-                    letterSpacing: "-0.02em",
-                    lineHeight: 1,
-                    marginBottom: 6,
-                  }}
-                >
-                  {val}
-                </div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "11px",
-                    fontWeight: 600,
-                    letterSpacing: "0.16em",
-                    textTransform: "uppercase",
-                    color: "rgba(255,255,255,0.45)",
-                  }}
-                >
-                  {lbl}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
