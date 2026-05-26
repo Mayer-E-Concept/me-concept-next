@@ -34,15 +34,6 @@ export function HeroSection() {
           .hero-section .hero-buttons {
             align-items: center !important;
           }
-          /* watermark — centrat, mai mic, vizibil */
-          .hero-section .hero-brand-group {
-            top: clamp(72px, 13vh, 120px) !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-          }
-          .hero-section .hero-brand-group img {
-            width: clamp(180px, 52vw, 260px) !important;
-          }
         }
 
         /* ── Tablet / Laptop 768–1199px ───────────────────── */
@@ -50,13 +41,6 @@ export function HeroSection() {
           .hero-section .hero-content {
             padding-left: clamp(24px, 4vw, 56px) !important;
             padding-right: clamp(260px, 36vw, 460px) !important;
-          }
-          .hero-section .hero-brand-group {
-            top: clamp(50px, 8vh, 100px) !important;
-            left: clamp(16px, 4vw, 60px) !important;
-          }
-          .hero-section .hero-brand-group img {
-            width: clamp(160px, 22vw, 320px) !important;
           }
         }
       `}</style>
@@ -84,14 +68,14 @@ export function HeroSection() {
         aria-hidden
         style={{
           position: "absolute",
-          top: "clamp(60px, 12vh, 140px)",
-          left: "clamp(20px, 12vw, 240px)",
+          top: "clamp(68px, 11vh, 140px)",
+          left: "clamp(16px, 8vw, 240px)",
           zIndex: 0,
           pointerEvents: "none",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: 16,
+          gap: 12,
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -99,11 +83,11 @@ export function HeroSection() {
           src="/uploads/logo_text_only.png"
           alt=""
           style={{
-            width: "clamp(300px, 34vw, 520px)",
+            width: "clamp(160px, 26vw, 520px)",
             height: "auto",
             display: "block",
             filter: "brightness(0) invert(1)",
-            opacity: 0.12,
+            opacity: 0.15,
           }}
         />
 
@@ -112,11 +96,11 @@ export function HeroSection() {
           src="/uploads/base_icon_transparent.png"
           alt=""
           style={{
-            width: "clamp(300px, 32vw, 500px)",
+            width: "clamp(150px, 24vw, 500px)",
             height: "auto",
             display: "block",
             filter: "brightness(0) invert(1)",
-            opacity: 0.12,
+            opacity: 0.15,
           }}
         />
       </div>
