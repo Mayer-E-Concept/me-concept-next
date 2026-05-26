@@ -76,22 +76,21 @@ export function HeroSection() {
           gap: 16,
         }}
       >
-        {/* Label — "MAYER E-CONCEPT" deasupra emblemei */}
-        <div
+        {/* Text logo deasupra — fontul tehnic nativ din imagine */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/uploads/base_logo_transparent_background-1.png"
+          alt=""
           style={{
-            fontFamily: "var(--font-sans)",
-            fontWeight: 700,
-            fontSize: "clamp(10px, 0.75vw, 13px)",
-            letterSpacing: "0.30em",
-            textTransform: "uppercase",
-            color: "rgba(255,255,255,0.30)",
-            lineHeight: 1.3,
+            width: "clamp(300px, 34vw, 520px)",
+            height: "auto",
+            display: "block",
+            filter: "brightness(0) invert(1)",
+            opacity: 0.12,
           }}
-        >
-          Mayer E-Concept
-        </div>
+        />
 
-        {/* Emblem — fundal transparent, culoare site */}
+        {/* Emblem mare dedesubt */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/uploads/base_icon_transparent.png"
