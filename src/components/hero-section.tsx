@@ -91,28 +91,19 @@ export function HeroSection() {
           Mayer E-Concept
         </div>
 
-        {/* Icon — crop left portion of transparent logo = just the emblem */}
-        <div
+        {/* Emblem */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/uploads/base_icon_white_background.png"
+          alt=""
           style={{
-            width: "clamp(180px, 20vw, 300px)",
-            height: "clamp(180px, 20vw, 300px)",
-            overflow: "hidden",
-            flexShrink: 0,
+            width: "clamp(260px, 28vw, 420px)",
+            height: "auto",
+            display: "block",
+            filter: "invert(1)",
+            opacity: 0.14,
           }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/uploads/base_logo_transparent_background-1.png"
-            alt=""
-            style={{
-              height: "100%",
-              width: "auto",
-              display: "block",
-              filter: "brightness(0) invert(1)",
-              opacity: 0.16,
-            }}
-          />
-        </div>
+        />
       </div>
 
       {/* Three.js 3D canvas */}
