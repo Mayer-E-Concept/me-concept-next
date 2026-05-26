@@ -1,6 +1,37 @@
 "use client";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+
+function parseCount(s: string): { num: number; suffix: string } {
+  const m = s.match(/^(\d+)(\+?)$/);
+  return m ? { num: Number(m[1]), suffix: m[2] } : { num: 0, suffix: s };
+}
+
+function AnimatedCount({ raw, active }: { raw: string; active: boolean }) {
+  const { num, suffix } = parseCount(raw);
+  const [cur, setCur] = useState(0);
+  const rafRef = useRef<number | null>(null);
+  const t0Ref = useRef<number | null>(null);
+  const DURATION = 1300;
+
+  useEffect(() => {
+    if (!active) return;
+    t0Ref.current = null;
+    function tick(ts: number) {
+      if (t0Ref.current === null) t0Ref.current = ts;
+      const p = Math.min((ts - t0Ref.current) / DURATION, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      setCur(Math.round(ease * num));
+      if (p < 1) rafRef.current = requestAnimationFrame(tick);
+      else setCur(num);
+    }
+    rafRef.current = requestAnimationFrame(tick);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, [active, num]);
+
+  return <>{cur}{suffix}</>;
+}
 
 const SERVICES = [
   {
@@ -73,17 +104,35 @@ const GALLERY = [
 ];
 
 export function PortofoliuPage() {
+  const projectsRef = useRef<HTMLDivElement>(null);
+  const [projectsTriggered, setProjectsTriggered] = useState(false);
+
+  useEffect(() => {
+    const el = projectsRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setProjectsTriggered(true); obs.disconnect(); } },
+      { threshold: 0.15 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <>
       <style>{`
         @media (max-width: 767px) {
           .porto-services-grid { grid-template-columns: 1fr !important; }
-          .porto-projects-grid { grid-template-columns: 1fr !important; }
+          .porto-projects-grid { grid-template-columns: 1fr 1fr !important; }
           .porto-gallery-grid { grid-template-columns: 1fr 1fr !important; }
           .porto-hero-inner { padding-top: 120px !important; padding-bottom: 60px !important; }
         }
         @media (max-width: 480px) {
+          .porto-projects-grid { grid-template-columns: 1fr !important; }
           .porto-gallery-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (min-width: 768px) and (max-width: 1099px) {
+          .porto-projects-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
       `}</style>
 
@@ -257,12 +306,13 @@ export function PortofoliuPage() {
             </h2>
           </div>
 
-          {/* cards grid */}
+          {/* cards grid — 4 cols desktop, 2 tablet, 1 mobile */}
           <div
+            ref={projectsRef}
             className="porto-projects-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))",
+              gridTemplateColumns: "repeat(4, 1fr)",
               gap: 16,
             }}
           >
@@ -273,10 +323,9 @@ export function PortofoliuPage() {
                   background: "rgba(255,255,255,0.035)",
                   border: "1px solid rgba(255,255,255,0.08)",
                   borderRadius: 10,
-                  padding: "clamp(22px, 2.8vw, 34px)",
+                  padding: "clamp(20px, 2.4vw, 32px)",
                   display: "flex",
                   flexDirection: "column",
-                  gap: 0,
                   position: "relative",
                   overflow: "hidden",
                 }}
@@ -297,7 +346,7 @@ export function PortofoliuPage() {
                 <div
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: "clamp(40px, 4.5vw, 60px)",
+                    fontSize: "clamp(36px, 3.8vw, 54px)",
                     fontWeight: 800,
                     color: "#C5895B",
                     letterSpacing: "-0.04em",
@@ -305,12 +354,12 @@ export function PortofoliuPage() {
                     marginBottom: 14,
                   }}
                 >
-                  {p.count}
+                  <AnimatedCount raw={p.count} active={projectsTriggered} />
                 </div>
                 <h3
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: 15,
+                    fontSize: 14,
                     fontWeight: 700,
                     color: "#F4F2EC",
                     letterSpacing: "-0.01em",
@@ -323,7 +372,7 @@ export function PortofoliuPage() {
                 <p
                   style={{
                     fontFamily: "var(--font-body)",
-                    fontSize: 13,
+                    fontSize: 12.5,
                     lineHeight: 1.65,
                     color: "rgba(244,242,236,0.45)",
                     margin: 0,
