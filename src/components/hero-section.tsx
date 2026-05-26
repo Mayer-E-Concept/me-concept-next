@@ -90,16 +90,16 @@ export function HeroSection() {
           Mayer E-Concept SRL
         </div>
         <Image
-          src="/assets/brand-mark.png"
+          src="/uploads/base_logo_transparent_background-1.png"
           alt=""
           aria-hidden
           width={660}
-          height={660}
+          height={300}
           style={{
             width: "100%",
             height: "auto",
-            opacity: 0.14,
-            filter: "invert(1)",
+            opacity: 0.13,
+            filter: "brightness(0) invert(1)",
             display: "block",
           }}
         />
