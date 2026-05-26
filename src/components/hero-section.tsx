@@ -23,16 +23,16 @@ export function HeroSection() {
             padding-right: clamp(20px, 5vw, 40px) !important;
             padding-top: 100px !important;
             padding-bottom: 72px !important;
-            align-items: center !important;
+            align-items: flex-start !important;
           }
           .hero-section .hero-h1 {
-            text-align: center !important;
+            text-align: left !important;
             max-width: 100% !important;
             font-size: clamp(30px, 8.5vw, 44px) !important;
             margin-bottom: 28px !important;
           }
           .hero-section .hero-buttons {
-            align-items: center !important;
+            align-items: flex-start !important;
           }
         }
 
@@ -87,7 +87,7 @@ export function HeroSection() {
             height: "auto",
             display: "block",
             filter: "brightness(0) invert(1)",
-            opacity: 0.15,
+            opacity: 0.22,
           }}
         />
 
@@ -100,7 +100,7 @@ export function HeroSection() {
             height: "auto",
             display: "block",
             filter: "brightness(0) invert(1)",
-            opacity: 0.15,
+            opacity: 0.22,
           }}
         />
       </div>
