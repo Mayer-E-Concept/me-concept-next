@@ -12,7 +12,7 @@ export function HeroSection() {
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        backgroundColor: "#F6F7F7",
+        backgroundColor: "#051E27",
         overflow: "hidden",
       }}
     >
@@ -33,10 +33,17 @@ export function HeroSection() {
           .hero-section .hero-buttons {
             align-items: center !important;
           }
+          .hero-section .hero-brand-group {
+            top: auto !important;
+            bottom: 20px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 64vw !important;
+          }
         }
       `}</style>
 
-      {/* PCB circuit pattern — subtle on light bg */}
+      {/* PCB circuit pattern — white on dark */}
       <div
         aria-hidden="true"
         style={{
@@ -48,10 +55,53 @@ export function HeroSection() {
           backgroundRepeat: "repeat, repeat",
           backgroundSize: "320px 320px, 200px 200px",
           backgroundPosition: "0 0, 80px 60px",
-          opacity: 0.06,
+          filter: "invert(1)",
+          opacity: 0.055,
         }}
       />
 
+      {/* Brand mark — icon watermark */}
+      <div
+        className="hero-brand-group"
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: "clamp(60px, 12vh, 140px)",
+          left: "clamp(20px, 12vw, 240px)",
+          zIndex: 0,
+          pointerEvents: "none",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 16,
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/uploads/logo_text_only.png"
+          alt=""
+          style={{
+            width: "clamp(300px, 34vw, 520px)",
+            height: "auto",
+            display: "block",
+            filter: "brightness(0) invert(1)",
+            opacity: 0.12,
+          }}
+        />
+
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/uploads/base_icon_transparent.png"
+          alt=""
+          style={{
+            width: "clamp(300px, 32vw, 500px)",
+            height: "auto",
+            display: "block",
+            filter: "brightness(0) invert(1)",
+            opacity: 0.12,
+          }}
+        />
+      </div>
 
       {/* Three.js 3D canvas */}
       <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
@@ -84,7 +134,7 @@ export function HeroSection() {
             fontWeight: 800,
             letterSpacing: "-0.026em",
             lineHeight: 1.06,
-            color: "#0E323D",
+            color: "#F4F2EC",
             maxWidth: "26ch",
             margin: "0 0 36px 0",
             textAlign: "left",
@@ -138,17 +188,17 @@ function HeroButton({
     return (
       <a
         href={href}
-        style={{ ...base, background: "#0E323D", color: "#fff", border: "1.5px solid #0E323D" }}
+        style={{ ...base, background: "#C5895B", color: "#fff", border: "1.5px solid #C5895B" }}
         onMouseEnter={(e) => {
           const el = e.currentTarget as HTMLAnchorElement;
-          el.style.background = "#1A6F7A";
-          el.style.borderColor = "#1A6F7A";
+          el.style.background = "#b37a50";
+          el.style.borderColor = "#b37a50";
           el.style.transform = "translateY(-2px)";
         }}
         onMouseLeave={(e) => {
           const el = e.currentTarget as HTMLAnchorElement;
-          el.style.background = "#0E323D";
-          el.style.borderColor = "#0E323D";
+          el.style.background = "#C5895B";
+          el.style.borderColor = "#C5895B";
           el.style.transform = "translateY(0)";
         }}
       >
@@ -163,19 +213,19 @@ function HeroButton({
       style={{
         ...base,
         background: "transparent",
-        color: "#0E323D",
-        border: "1.5px solid #0E323D",
+        color: "rgba(255,255,255,0.75)",
+        border: "1.5px solid rgba(255,255,255,0.28)",
       }}
       onMouseEnter={(e) => {
         const el = e.currentTarget as HTMLAnchorElement;
-        el.style.borderColor = "#1A6F7A";
-        el.style.color = "#1A6F7A";
+        el.style.borderColor = "rgba(255,255,255,0.65)";
+        el.style.color = "#fff";
         el.style.transform = "translateY(-2px)";
       }}
       onMouseLeave={(e) => {
         const el = e.currentTarget as HTMLAnchorElement;
-        el.style.borderColor = "#0E323D";
-        el.style.color = "#0E323D";
+        el.style.borderColor = "rgba(255,255,255,0.28)";
+        el.style.color = "rgba(255,255,255,0.75)";
         el.style.transform = "translateY(0)";
       }}
     >
