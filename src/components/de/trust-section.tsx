@@ -89,14 +89,14 @@ export function TrustSectionDe() {
                 marginBottom: 32,
               }}
             >
-              Wenn Sie ein wirklich kompetentes Elektroplanning-Unternehmen suchen, das die Komplexität
+              Wenn Sie ein wirklich kompetentes Elektroplanung-Unternehmen suchen, das die Komplexität
               von Installationen in sichere und effiziente Lösungen umwandeln kann, sind wir der Partner,
               den Sie brauchen. Mit jahrelanger Erfahrung und einem der Exzellenz verpflichteten Team
-              bieten wir maßgeschneiderte Elektroplanning-Dienstleistungen auf höchstem Niveau, die auf
+              bieten wir maßgeschneiderte Elektroplanung-Dienstleistungen auf höchstem Niveau, die auf
               den Erfolg Ihres Projekts ausgerichtet sind.
             </p>
             <a
-              href="#despre"
+              href="#ueber-uns"
               style={{
                 display: "inline-flex",
                 alignItems: "center",

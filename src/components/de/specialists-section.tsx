@@ -47,7 +47,7 @@ export function SpecialistsSectionDe() {
 
   return (
     <section
-      id="despre"
+      id="ueber-uns"
       style={{
         background: "#F6F7F7",
         paddingTop: "clamp(72px, 9vw, 130px)",

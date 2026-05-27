@@ -39,7 +39,7 @@ export function FeaturesSectionDe() {
 
   return (
     <section
-      id="servicii"
+      id="leistungen"
       style={{
         position: "relative",
         background: "#F6F7F7",

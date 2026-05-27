@@ -182,7 +182,7 @@ export function ServicesSectionDe() {
                 maxWidth: "22ch",
               }}
             >
-              Bei Mayer E-Concept bieten wir vollständige Elektroplanning-Lösungen
+              Bei Mayer E-Concept bieten wir vollständige Elektroplanung-Lösungen
             </h2>
           </div>
           <div
