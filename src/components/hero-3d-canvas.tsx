@@ -16,6 +16,7 @@ export function Hero3DCanvas() {
   useEffect(() => {
     const container = containerRef.current;
     if (!container || !window.WebGLRenderingContext) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     /* ── Canvas ── */
     const canvas = document.createElement("canvas");
@@ -515,6 +516,27 @@ export function Hero3DCanvas() {
       io.disconnect();
       container.removeEventListener("mousemove", onMouseMove);
       container.removeEventListener("mouseleave", onMouseLeave);
+      // Dispose all Three.js GPU resources to prevent VRAM leaks
+      scene.traverse((obj) => {
+        if ((obj as THREE.Mesh).isMesh) {
+          const mesh = obj as THREE.Mesh;
+          mesh.geometry?.dispose();
+          if (Array.isArray(mesh.material)) {
+            mesh.material.forEach((m) => m.dispose());
+          } else {
+            (mesh.material as THREE.Material)?.dispose();
+          }
+        }
+        if ((obj as THREE.Line).isLine) {
+          const line = obj as THREE.Line;
+          line.geometry?.dispose();
+          (line.material as THREE.Material)?.dispose();
+        }
+      });
+      labelObjects.forEach(({ sprite }) => {
+        (sprite.material as THREE.SpriteMaterial).map?.dispose();
+        sprite.material.dispose();
+      });
       renderer.dispose();
       canvas.remove();
     };

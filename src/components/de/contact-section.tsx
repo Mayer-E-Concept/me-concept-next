@@ -137,10 +137,7 @@ export function ContactSectionDe() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 40 }}>
             {[
-              { label: "Adresse", value: "Deutschland — Adresse auf Anfrage" },
-              { label: "Telefon", value: "+40 752 129 500", href: "tel:+40752129500" },
-              { label: "E-Mail", value: "contact@me-concept.de", href: "mailto:contact@me-concept.de" },
-              { label: "Öffnungszeiten", value: "Montag–Freitag, 09:00–18:00 Uhr" },
+              { label: "E-Mail", value: "info@me-concept.de", href: "mailto:info@me-concept.de" },
             ].map(({ label, value, href }) => (
               <div key={label}>
                 <div style={{ fontFamily: "var(--font-sans)", fontSize: "11px", fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "#1A6F7A", marginBottom: 4 }}>

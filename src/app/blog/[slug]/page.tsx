@@ -250,9 +250,19 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = POSTS.find((p) => p.slug === slug);
   if (!post) return {};
+  const baseUrl = "https://me-concept-next.vercel.app";
   return {
     title: `${post.title} — Mayer E-Concept`,
     description: post.excerpt,
+    alternates: { canonical: `${baseUrl}/blog/${post.slug}` },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: `${baseUrl}/blog/${post.slug}`,
+      images: [{ url: `${baseUrl}${post.img}`, width: 1200, height: 630, alt: post.title }],
+      type: "article",
+      locale: "ro_RO",
+    },
   };
 }
 

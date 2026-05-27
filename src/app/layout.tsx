@@ -20,6 +20,13 @@ export const metadata: Metadata = {
   title: "ME-Concept — Instalații Electrice de Calitate",
   description:
     "Proiectare și execuție instalații electrice. Profesionalism, precizie, calitate garantată.",
+  alternates: {
+    canonical: "https://me-concept-next.vercel.app/",
+    languages: {
+      ro: "https://me-concept-next.vercel.app/",
+      de: "https://me-concept-next.vercel.app/de",
+    },
+  },
 };
 
 export default function RootLayout({
