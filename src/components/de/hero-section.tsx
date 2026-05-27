@@ -41,6 +41,12 @@ export function HeroSectionDe() {
             padding-right: clamp(260px, 36vw, 460px) !important;
           }
         }
+
+        /* ── Hide 3D canvas + brand watermark on mobile ──── */
+        @media (max-width: 767px) {
+          .hero-canvas-wrapper { display: none !important; }
+          .hero-brand-group { display: none !important; }
+        }
       `}</style>
 
       {/* PCB circuit pattern */}
@@ -102,8 +108,8 @@ export function HeroSectionDe() {
         />
       </div>
 
-      {/* Three.js 3D canvas */}
-      <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
+      {/* Three.js 3D canvas — hidden on mobile */}
+      <div className="hero-canvas-wrapper" style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
         <Hero3DCanvas />
       </div>
 

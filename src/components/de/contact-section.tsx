@@ -3,7 +3,60 @@ import { useState } from "react";
 import Image from "next/image";
 
 export function ContactSectionDe() {
-  const [hovered, setHovered] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [btnHovered, setBtnHovered] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  function validate(form: HTMLFormElement) {
+    const errs: Record<string, string> = {};
+    const name = (form.elements.namedItem("name") as HTMLInputElement)?.value.trim();
+    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value.trim();
+    const message = (form.elements.namedItem("message") as HTMLTextAreaElement)?.value.trim();
+    if (!name) errs.name = "Pflichtfeld.";
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.email = "Ungültige E-Mail.";
+    if (!message) errs.message = "Bitte geben Sie eine Nachricht ein.";
+    return errs;
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const errs = validate(e.currentTarget);
+    if (Object.keys(errs).length) { setErrors(errs); return; }
+    setErrors({});
+    setLoading(true);
+    setTimeout(() => { setLoading(false); setSubmitted(true); }, 900);
+  }
+
+  const inputStyle: React.CSSProperties = {
+    background: "rgba(255,255,255,0.06)",
+    border: "1px solid rgba(255,255,255,0.16)",
+    borderRadius: 4,
+    color: "#fff",
+    padding: "14px 16px",
+    fontFamily: "var(--font-body)",
+    fontSize: 15,
+    outline: "none",
+    transition: "border-color .2s ease, background .2s ease",
+    width: "100%",
+    boxSizing: "border-box" as const,
+  };
+
+  const labelStyle: React.CSSProperties = {
+    fontFamily: "var(--font-sans)",
+    fontSize: "11.5px",
+    fontWeight: 600,
+    letterSpacing: "0.12em",
+    textTransform: "uppercase" as const,
+    color: "rgba(244,242,236,0.65)",
+  };
+
+  const errorStyle: React.CSSProperties = {
+    fontFamily: "var(--font-body)",
+    fontSize: "12px",
+    color: "#E07B5A",
+    marginTop: 4,
+  };
 
   return (
     <section
@@ -83,192 +136,147 @@ export function ContactSectionDe() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 40 }}>
             {[
-              { label: "Adresse", value: "Deutschland — Adresse auf Anfrage", href: undefined },
+              { label: "Adresse", value: "Deutschland — Adresse auf Anfrage" },
               { label: "Telefon", value: "+40 752 129 500", href: "tel:+40752129500" },
               { label: "E-Mail", value: "contact@me-concept.de", href: "mailto:contact@me-concept.de" },
-              { label: "Öffnungszeiten", value: "Montag–Freitag, 09:00–18:00 Uhr", href: undefined },
+              { label: "Öffnungszeiten", value: "Montag–Freitag, 09:00–18:00 Uhr" },
             ].map(({ label, value, href }) => (
               <div key={label}>
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "11px",
-                    fontWeight: 600,
-                    letterSpacing: "0.18em",
-                    textTransform: "uppercase",
-                    color: "#1A6F7A",
-                    marginBottom: 4,
-                  }}
-                >
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "11px", fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "#1A6F7A", marginBottom: 4 }}>
                   {label}
                 </div>
                 {href ? (
-                  <a
-                    href={href}
-                    style={{ fontFamily: "var(--font-body)", fontSize: 15, color: "#F4F2EC", textDecoration: "none" }}
-                  >
+                  <a href={href} style={{ fontFamily: "var(--font-body)", fontSize: 15, color: "#F4F2EC", textDecoration: "none" }}>
                     {value}
                   </a>
                 ) : (
-                  <div style={{ fontFamily: "var(--font-body)", fontSize: 15, color: "#F4F2EC" }}>
-                    {value}
-                  </div>
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: 15, color: "#F4F2EC" }}>{value}</div>
                 )}
               </div>
             ))}
           </div>
 
-          {/* Certification badge */}
           <div style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
-            <div
-              style={{
-                background: "rgba(255,255,255,0.08)",
-                borderRadius: 8,
-                padding: "8px 12px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Image
-                src="/uploads/SKYCERT9001.png"
-                alt="ISO 9001:2015 SKYCERT"
-                width={80}
-                height={50}
-                style={{ objectFit: "contain", display: "block" }}
-              />
+            <div style={{ background: "rgba(255,255,255,0.08)", borderRadius: 8, padding: "8px 12px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Image src="/uploads/SKYCERT9001.png" alt="ISO 9001:2015 SKYCERT" width={80} height={50} style={{ objectFit: "contain", display: "block" }} />
             </div>
           </div>
         </div>
 
-        {/* Right — form */}
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          style={{ display: "flex", flexDirection: "column", gap: 16 }}
-        >
-          <div className="contact-name-email-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-            {[
-              { name: "name", label: "Name", type: "text", placeholder: "Ihr Name" },
-              { name: "email", label: "E-Mail", type: "email", placeholder: "ihre@email.de" },
-            ].map((field) => (
-              <div key={field.name} style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                <label
-                  htmlFor={`de-${field.name}`}
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "11.5px",
-                    fontWeight: 600,
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    color: "rgba(244,242,236,0.65)",
-                  }}
-                >
-                  {field.label}
-                </label>
-                <input
-                  id={`de-${field.name}`}
-                  name={field.name}
-                  type={field.type}
-                  placeholder={field.placeholder}
-                  style={{
-                    background: "rgba(255,255,255,0.06)",
-                    border: "1px solid rgba(255,255,255,0.16)",
-                    borderRadius: 4,
-                    color: "#fff",
-                    padding: "14px 16px",
-                    fontFamily: "var(--font-body)",
-                    fontSize: 15,
-                    outline: "none",
-                    transition: "border-color .2s ease, background .2s ease",
-                    width: "100%",
-                    boxSizing: "border-box",
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.borderColor = "#1A6F7A";
-                    e.target.style.background = "rgba(255,255,255,0.10)";
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = "rgba(255,255,255,0.16)";
-                    e.target.style.background = "rgba(255,255,255,0.06)";
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            <label
-              htmlFor="de-message"
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "11.5px",
-                fontWeight: 600,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "rgba(244,242,236,0.65)",
-              }}
-            >
-              Nachricht
-            </label>
-            <textarea
-              id="de-message"
-              name="message"
-              rows={5}
-              placeholder="Beschreiben Sie kurz Ihr Projekt oder Ihre Frage..."
-              style={{
-                background: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,255,255,0.16)",
-                borderRadius: 4,
-                color: "#fff",
-                padding: "14px 16px",
-                fontFamily: "var(--font-body)",
-                fontSize: 15,
-                outline: "none",
-                transition: "border-color .2s ease, background .2s ease",
-                resize: "vertical",
-                width: "100%",
-                boxSizing: "border-box",
-              }}
-              onFocus={(e) => {
-                e.target.style.borderColor = "#1A6F7A";
-                e.target.style.background = "rgba(255,255,255,0.10)";
-              }}
-              onBlur={(e) => {
-                e.target.style.borderColor = "rgba(255,255,255,0.16)";
-                e.target.style.background = "rgba(255,255,255,0.06)";
-              }}
-            />
-          </div>
-
-          <button
-            type="submit"
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
+        {/* Right — form or success */}
+        {submitted ? (
+          <div
             style={{
-              display: "inline-flex",
+              display: "flex",
+              flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              height: 56,
-              padding: "0 32px",
-              background: hovered ? "#C5895B" : "#0E323D",
-              color: "#ffffff",
-              border: `1.5px solid ${hovered ? "#C5895B" : "#0E323D"}`,
-              borderRadius: 4,
-              fontFamily: "var(--font-sans)",
-              fontSize: "12.5px",
-              fontWeight: 700,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              cursor: "pointer",
-              transition: "background .2s ease, border-color .2s ease, transform .2s ease",
-              transform: hovered ? "translateY(-2px)" : "translateY(0)",
-              alignSelf: "flex-start",
-              minWidth: 200,
+              gap: 20,
+              padding: "48px 32px",
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(197,137,91,0.30)",
+              borderRadius: 8,
+              textAlign: "center",
             }}
           >
-            ABSENDEN
-          </button>
-        </form>
+            <div style={{ width: 56, height: 56, borderRadius: "50%", background: "rgba(197,137,91,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C5895B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <h3 style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(20px, 2vw, 26px)", fontWeight: 700, color: "#F4F2EC", margin: 0 }}>
+              Nachricht gesendet!
+            </h3>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: 15, lineHeight: 1.65, color: "rgba(244,242,236,0.65)", margin: 0, maxWidth: "36ch" }}>
+              Vielen Dank! Wir melden uns innerhalb von 24 Stunden an Werktagen bei Ihnen.
+            </p>
+            <button
+              onClick={() => setSubmitted(false)}
+              style={{ marginTop: 8, background: "none", border: "1px solid rgba(197,137,91,0.40)", color: "#C5895B", fontFamily: "var(--font-sans)", fontSize: "11.5px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "10px 24px", borderRadius: 4, cursor: "pointer", transition: "border-color .2s ease" }}
+            >
+              Weitere Nachricht senden
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} noValidate style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <div className="contact-name-email-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              {[
+                { name: "name", label: "Name", type: "text", placeholder: "Ihr Name" },
+                { name: "email", label: "E-Mail", type: "email", placeholder: "ihre@email.de" },
+              ].map((field) => (
+                <div key={field.name} style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  <label htmlFor={`de-${field.name}`} style={labelStyle}>{field.label}</label>
+                  <input
+                    id={`de-${field.name}`}
+                    name={field.name}
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    style={{ ...inputStyle, borderColor: errors[field.name] ? "#E07B5A" : "rgba(255,255,255,0.16)" }}
+                    onFocus={(e) => { e.target.style.borderColor = "#1A6F7A"; e.target.style.background = "rgba(255,255,255,0.10)"; }}
+                    onBlur={(e) => { e.target.style.borderColor = errors[field.name] ? "#E07B5A" : "rgba(255,255,255,0.16)"; e.target.style.background = "rgba(255,255,255,0.06)"; }}
+                    onChange={() => setErrors((prev) => { const n = { ...prev }; delete n[field.name]; return n; })}
+                  />
+                  {errors[field.name] && <span style={errorStyle}>{errors[field.name]}</span>}
+                </div>
+              ))}
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              <label htmlFor="de-message" style={labelStyle}>Nachricht</label>
+              <textarea
+                id="de-message"
+                name="message"
+                rows={5}
+                placeholder="Beschreiben Sie kurz Ihr Projekt oder Ihre Frage..."
+                style={{ ...inputStyle, resize: "vertical", borderColor: errors.message ? "#E07B5A" : "rgba(255,255,255,0.16)" }}
+                onFocus={(e) => { e.target.style.borderColor = "#1A6F7A"; e.target.style.background = "rgba(255,255,255,0.10)"; }}
+                onBlur={(e) => { e.target.style.borderColor = errors.message ? "#E07B5A" : "rgba(255,255,255,0.16)"; e.target.style.background = "rgba(255,255,255,0.06)"; }}
+                onChange={() => setErrors((prev) => { const n = { ...prev }; delete n.message; return n; })}
+              />
+              {errors.message && <span style={errorStyle}>{errors.message}</span>}
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              onMouseEnter={() => setBtnHovered(true)}
+              onMouseLeave={() => setBtnHovered(false)}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 10,
+                height: 56,
+                padding: "0 32px",
+                background: loading ? "#0E323D" : btnHovered ? "#C5895B" : "#0E323D",
+                color: "#ffffff",
+                border: `1.5px solid ${btnHovered && !loading ? "#C5895B" : "#0E323D"}`,
+                borderRadius: 4,
+                fontFamily: "var(--font-sans)",
+                fontSize: "12.5px",
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                cursor: loading ? "wait" : "pointer",
+                transition: "background .2s ease, border-color .2s ease, transform .2s ease",
+                transform: btnHovered && !loading ? "translateY(-2px)" : "translateY(0)",
+                alignSelf: "flex-start",
+                minWidth: 200,
+                opacity: loading ? 0.7 : 1,
+              }}
+            >
+              {loading ? (
+                <>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" style={{ animation: "spin 0.8s linear infinite" }}>
+                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                  </svg>
+                  WIRD GESENDET...
+                </>
+              ) : "ABSENDEN"}
+            </button>
+            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+          </form>
+        )}
       </div>
     </section>
   );
