@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400" font-family="'Segoe UI',system-ui,-apple-system,sans-serif">
+  <defs>
+    <clipPath id="glassClip">
+      <ellipse cx="300" cy="165" rx="95" ry="108"/>
+    </clipPath>
+    <marker id="arrR" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <polygon points="0 0, 7 3.5, 0 7" fill="#888"/>
+    </marker>
+    <marker id="arrL" markerWidth="7" markerHeight="7" refX="1" refY="3.5" orient="auto">
+      <polygon points="7 0, 0 3.5, 7 7" fill="#888"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="400" rx="8" fill="#ffffff"/>
+  <rect x="1" y="1" width="598" height="398" rx="7" fill="none" stroke="#d8dcde" stroke-width="1"/>
+
+  <!-- Title -->
+  <text x="300" y="26" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1a3a42" letter-spacing="0.4">Überblick unserer Elektroplanungsleistungen</text>
+
+  <!-- ── BULB GLASS (coloured quadrants, clipped) ── -->
+  <!-- Top-left: teal -->
+  <rect x="205" y="57" width="95" height="108" fill="#c0e8f0" clip-path="url(#glassClip)"/>
+  <!-- Top-right: peach -->
+  <rect x="300" y="57" width="95" height="108" fill="#fcd9c6" clip-path="url(#glassClip)"/>
+  <!-- Bottom-left: lavender -->
+  <rect x="205" y="165" width="95" height="116" fill="#e2d5f5" clip-path="url(#glassClip)"/>
+  <!-- Bottom-right: yellow -->
+  <rect x="300" y="165" width="95" height="116" fill="#fef0c0" clip-path="url(#glassClip)"/>
+
+  <!-- Inner grid lines -->
+  <line x1="300" y1="57" x2="300" y2="273" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" clip-path="url(#glassClip)"/>
+  <line x1="205" y1="165" x2="395" y2="165" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" clip-path="url(#glassClip)"/>
+
+  <!-- Bulb glass outline -->
+  <ellipse cx="300" cy="165" rx="95" ry="108" fill="none" stroke="#aab8bc" stroke-width="2"/>
+
+  <!-- ── BULB BASE ── -->
+  <rect x="258" y="270" width="84" height="13" rx="2" fill="#c8ced0" stroke="#aab0b2" stroke-width="1"/>
+  <rect x="260" y="284" width="80" height="12" rx="2" fill="#bac0c2" stroke="#a0a8aa" stroke-width="1"/>
+  <rect x="264" y="297" width="72" height="18" rx="3" fill="#aab0b2" stroke="#909899" stroke-width="1"/>
+  <rect x="270" y="315" width="60" height="10" rx="3" fill="#9aa0a2" stroke="#889092" stroke-width="1"/>
+
+  <!-- ── ICONS (simple vector paths, no emoji) ── -->
+
+  <!-- TL: house (Individuelle Beratung) -->
+  <g transform="translate(252, 107)">
+    <path d="M0,-12 L-12,0 L-8,0 L-8,10 L8,10 L8,0 L12,0 Z" fill="none" stroke="#2a7d8e" stroke-width="1.8" stroke-linejoin="round"/>
+    <rect x="-4" y="2" width="8" height="8" fill="none" stroke="#2a7d8e" stroke-width="1.4"/>
+  </g>
+
+  <!-- TR: socket (Steckdosen & Schalter) -->
+  <g transform="translate(348, 107)">
+    <circle cx="0" cy="0" r="11" fill="none" stroke="#c0622a" stroke-width="1.8"/>
+    <circle cx="-4" cy="-2" r="1.8" fill="#c0622a"/>
+    <circle cx="4" cy="-2" r="1.8" fill="#c0622a"/>
+    <path d="M-3,2 Q0,7 3,2" fill="none" stroke="#c0622a" stroke-width="1.6"/>
+  </g>
+
+  <!-- BL: lamp (Beleuchtungslösungen) -->
+  <g transform="translate(252, 215)">
+    <circle cx="0" cy="-5" r="8" fill="none" stroke="#6b3fad" stroke-width="1.8"/>
+    <path d="M-5,3 L-3,10 L3,10 L5,3 Z" fill="none" stroke="#6b3fad" stroke-width="1.6"/>
+    <line x1="-3" y1="10" x2="3" y2="10" stroke="#6b3fad" stroke-width="1.8"/>
+  </g>
+
+  <!-- BR: bolt (Hausanschluss) -->
+  <g transform="translate(348, 215)">
+    <path d="M4,-12 L-2,1 L3,1 L-4,12 L2,1 L-3,1 Z" fill="none" stroke="#b08000" stroke-width="1.8" stroke-linejoin="round"/>
+  </g>
+
+  <!-- ── LEFT LABELS ── -->
+
+  <!-- 1. Individuelle Beratung -->
+  <text x="172" y="83" text-anchor="end" font-size="11" fill="#2d2d2d">Individuelle</text>
+  <text x="172" y="96" text-anchor="end" font-size="11" fill="#2d2d2d">Beratung</text>
+  <path d="M174,89 L198,105" stroke="#999" stroke-width="1" fill="none" marker-end="url(#arrR)"/>
+
+  <!-- 2. Beleuchtungslösungen -->
+  <text x="172" y="168" text-anchor="end" font-size="11" fill="#2d2d2d">Beleuchtungs-</text>
+  <text x="172" y="181" text-anchor="end" font-size="11" fill="#2d2d2d">lösungen</text>
+  <path d="M174,174 L205,200" stroke="#999" stroke-width="1" fill="none" marker-end="url(#arrR)"/>
+
+  <!-- 3. Elektr. Messtechnik -->
+  <text x="172" y="235" text-anchor="end" font-size="11" fill="#2d2d2d">Elektr.</text>
+  <text x="172" y="248" text-anchor="end" font-size="11" fill="#2d2d2d">Messtechnik</text>
+  <path d="M174,241 L228,255" stroke="#999" stroke-width="1" fill="none" marker-end="url(#arrR)"/>
+
+  <!-- 4. Temperaturregelung -->
+  <text x="172" y="298" text-anchor="end" font-size="11" fill="#2d2d2d">Temperatur-</text>
+  <text x="172" y="311" text-anchor="end" font-size="11" fill="#2d2d2d">regelung</text>
+  <path d="M174,304 L262,285" stroke="#999" stroke-width="1" fill="none" marker-end="url(#arrR)"/>
+
+  <!-- ── RIGHT LABELS ── -->
+
+  <!-- 5. Steckdosen & Schalter -->
+  <text x="428" y="83" text-anchor="start" font-size="11" fill="#2d2d2d">Steckdosen &amp;</text>
+  <text x="428" y="96" text-anchor="start" font-size="11" fill="#2d2d2d">Schalter</text>
+  <path d="M426,89 L402,105" stroke="#999" stroke-width="1" fill="none" marker-end="url(#arrL)"/>
+
+  <!-- 6. Badlüftung -->
+  <text x="428" y="168" text-anchor="start" font-size="11" fill="#2d2d2d">Badlüftung</text>
+  <path d="M426,168 L395,200" stroke="#999" stroke-width="1" fill="none" marker-end="url(#arrL)"/>
+
+  <!-- 7. Hausanschluss -->
+  <text x="428" y="235" text-anchor="start" font-size="11" fill="#2d2d2d">Hausanschluss</text>
+  <path d="M426,235 L372,255" stroke="#999" stroke-width="1" fill="none" marker-end="url(#arrL)"/>
+
+  <!-- 8. Smart-Home-Automation -->
+  <text x="428" y="298" text-anchor="start" font-size="11" fill="#2d2d2d">Smart-Home-</text>
+  <text x="428" y="311" text-anchor="start" font-size="11" fill="#2d2d2d">Automation</text>
+  <path d="M426,304 L338,285" stroke="#999" stroke-width="1" fill="none" marker-end="url(#arrL)"/>
+
+</svg>

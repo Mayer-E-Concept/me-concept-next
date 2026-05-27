@@ -192,12 +192,11 @@ export function ServicesSectionDe() {
               border: "1px solid rgba(255,255,255,0.07)",
             }}
           >
-            <Image
-              src="/uploads/ce-oferim.png"
-              alt="Überblick über unsere Elektroplanungsleistungen"
-              width={600}
-              height={400}
-              style={{ width: "100%", height: "auto", objectFit: "contain", display: "block" }}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/ce-oferim-de.svg"
+              alt="Überblick unserer Elektroplanungsleistungen"
+              style={{ width: "100%", height: "auto", display: "block" }}
             />
           </div>
         </div>
