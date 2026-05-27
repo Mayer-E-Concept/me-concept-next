@@ -44,10 +44,30 @@ export function HeroSection() {
           }
         }
 
-        /* ── Hide 3D canvas + brand watermark on mobile ──── */
+        /* ── Hide 3D canvas + brand watermark on mobile/tablet ──── */
         @media (max-width: 767px) {
           .hero-canvas-wrapper { display: none !important; }
           .hero-brand-group { display: none !important; }
+        }
+
+        /* ── Hide brand watermark on screens where it would overlap text ── */
+        @media (min-width: 768px) and (max-width: 1499px) {
+          .hero-brand-group { display: none !important; }
+        }
+
+        /* ── On large screens: pin to left edge, width = gutter minus padding ── */
+        /* Text column starts at (100vw - 1240px)/2 + 5vw from viewport left.  */
+        /* We give watermark: left=10px, max-width = gutter - 20px.            */
+        @media (min-width: 1500px) {
+          .hero-brand-group {
+            left: 10px !important;
+            max-width: min(calc((100vw - 1240px) / 2 - 20px), 400px) !important;
+            overflow: hidden !important;
+            top: clamp(60px, 10vh, 120px) !important;
+          }
+          .hero-brand-group img {
+            width: 100% !important;
+          }
         }
       `}</style>
 

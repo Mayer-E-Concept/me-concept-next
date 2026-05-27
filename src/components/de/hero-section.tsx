@@ -42,10 +42,28 @@ export function HeroSectionDe() {
           }
         }
 
-        /* ── Hide 3D canvas + brand watermark on mobile ──── */
+        /* ── Hide 3D canvas + brand watermark on mobile/tablet ──── */
         @media (max-width: 767px) {
           .hero-canvas-wrapper { display: none !important; }
           .hero-brand-group { display: none !important; }
+        }
+
+        /* ── Hide brand watermark where it would overlap text ── */
+        @media (min-width: 768px) and (max-width: 1499px) {
+          .hero-brand-group { display: none !important; }
+        }
+
+        /* ── Large screens: pin to left gutter, no overlap with text ── */
+        @media (min-width: 1500px) {
+          .hero-brand-group {
+            left: 10px !important;
+            max-width: min(calc((100vw - 1240px) / 2 - 20px), 400px) !important;
+            overflow: hidden !important;
+            top: clamp(60px, 10vh, 120px) !important;
+          }
+          .hero-brand-group img {
+            width: 100% !important;
+          }
         }
       `}</style>
 
