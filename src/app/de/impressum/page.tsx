@@ -123,7 +123,7 @@ export default function ImpressumPage() {
                 Vertretungsberechtigte Person
               </h2>
               <p style={{ fontFamily: "var(--font-body)", fontSize: 15, lineHeight: 1.75, color: "rgba(244,242,236,0.75)" }}>
-                Geschäftsführer: Mayer Eduard
+                Geschäftsführer: Mayer Martin
               </p>
             </section>
 
