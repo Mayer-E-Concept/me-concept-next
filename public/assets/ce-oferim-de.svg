@@ -1,114 +1,140 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400" font-family="'Segoe UI',system-ui,-apple-system,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" width="600" height="420" font-family="'Segoe UI',system-ui,-apple-system,sans-serif">
   <defs>
-    <clipPath id="glassClip">
-      <ellipse cx="300" cy="165" rx="95" ry="108"/>
+    <clipPath id="gc">
+      <ellipse cx="300" cy="175" rx="108" ry="118"/>
     </clipPath>
-    <marker id="arrR" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-      <polygon points="0 0, 7 3.5, 0 7" fill="#888"/>
+    <marker id="ar" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <polygon points="0,0 6,3 0,6" fill="#777"/>
     </marker>
-    <marker id="arrL" markerWidth="7" markerHeight="7" refX="1" refY="3.5" orient="auto">
-      <polygon points="7 0, 0 3.5, 7 7" fill="#888"/>
+    <marker id="al" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto">
+      <polygon points="6,0 0,3 6,6" fill="#777"/>
     </marker>
   </defs>
 
-  <!-- Background -->
-  <rect width="600" height="400" rx="8" fill="#ffffff"/>
-  <rect x="1" y="1" width="598" height="398" rx="7" fill="none" stroke="#d8dcde" stroke-width="1"/>
+  <!-- Background + border -->
+  <rect width="600" height="420" rx="6" fill="#ffffff"/>
+  <rect x="0.5" y="0.5" width="599" height="419" rx="5.5" fill="none" stroke="#d0d8dc" stroke-width="1"/>
 
   <!-- Title -->
-  <text x="300" y="26" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1a3a42" letter-spacing="0.4">Überblick unserer Elektroplanungsleistungen</text>
+  <text x="300" y="28" text-anchor="middle" font-size="13" font-weight="600" fill="#222222">Überblick unserer Elektroplanungsleistungen</text>
 
-  <!-- ── BULB GLASS (coloured quadrants, clipped) ── -->
-  <!-- Top-left: teal -->
-  <rect x="205" y="57" width="95" height="108" fill="#c0e8f0" clip-path="url(#glassClip)"/>
-  <!-- Top-right: peach -->
-  <rect x="300" y="57" width="95" height="108" fill="#fcd9c6" clip-path="url(#glassClip)"/>
-  <!-- Bottom-left: lavender -->
-  <rect x="205" y="165" width="95" height="116" fill="#e2d5f5" clip-path="url(#glassClip)"/>
-  <!-- Bottom-right: yellow -->
-  <rect x="300" y="165" width="95" height="116" fill="#fef0c0" clip-path="url(#glassClip)"/>
+  <!-- ── Bulb glass — 3 rows × 2 cols ── -->
+  <rect x="192" y="57"  width="108" height="118" fill="#b8e8e0" clip-path="url(#gc)"/>
+  <rect x="300" y="57"  width="108" height="118" fill="#f8d0be" clip-path="url(#gc)"/>
+  <rect x="192" y="175" width="108" height="70"  fill="#dccdf0" clip-path="url(#gc)"/>
+  <rect x="300" y="175" width="108" height="70"  fill="#faeab0" clip-path="url(#gc)"/>
+  <rect x="192" y="245" width="108" height="50"  fill="#edd5b0" clip-path="url(#gc)"/>
+  <rect x="300" y="245" width="108" height="50"  fill="#c8e8f8" clip-path="url(#gc)"/>
 
-  <!-- Inner grid lines -->
-  <line x1="300" y1="57" x2="300" y2="273" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" clip-path="url(#glassClip)"/>
-  <line x1="205" y1="165" x2="395" y2="165" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" clip-path="url(#glassClip)"/>
+  <!-- Grid lines -->
+  <line x1="300" y1="57"  x2="300" y2="293" stroke="rgba(255,255,255,0.85)" stroke-width="1.5" clip-path="url(#gc)"/>
+  <line x1="192" y1="175" x2="408" y2="175"  stroke="rgba(255,255,255,0.85)" stroke-width="1.5" clip-path="url(#gc)"/>
+  <line x1="192" y1="245" x2="408" y2="245"  stroke="rgba(255,255,255,0.85)" stroke-width="1.5" clip-path="url(#gc)"/>
 
   <!-- Bulb glass outline -->
-  <ellipse cx="300" cy="165" rx="95" ry="108" fill="none" stroke="#aab8bc" stroke-width="2"/>
+  <ellipse cx="300" cy="175" rx="108" ry="118" fill="none" stroke="#b0bbbf" stroke-width="2"/>
 
-  <!-- ── BULB BASE ── -->
-  <rect x="258" y="270" width="84" height="13" rx="2" fill="#c8ced0" stroke="#aab0b2" stroke-width="1"/>
-  <rect x="260" y="284" width="80" height="12" rx="2" fill="#bac0c2" stroke="#a0a8aa" stroke-width="1"/>
-  <rect x="264" y="297" width="72" height="18" rx="3" fill="#aab0b2" stroke="#909899" stroke-width="1"/>
-  <rect x="270" y="315" width="60" height="10" rx="3" fill="#9aa0a2" stroke="#889092" stroke-width="1"/>
+  <!-- ── Bulb base ── -->
+  <rect x="256" y="290" width="88" height="14" rx="2" fill="#d0d4d6" stroke="#bbbfc1" stroke-width="1"/>
+  <rect x="260" y="305" width="80" height="12" rx="2" fill="#c4c8ca" stroke="#b0b4b6" stroke-width="1"/>
+  <rect x="265" y="318" width="70" height="16" rx="3" fill="#b8bcbe" stroke="#a0a6a8" stroke-width="1"/>
+  <rect x="271" y="334" width="58" height="10" rx="3" fill="#a8aeae" stroke="#949898" stroke-width="1"/>
 
-  <!-- ── ICONS (simple vector paths, no emoji) ── -->
+  <!-- ── LINE-ART ICONS ── -->
 
-  <!-- TL: house (Individuelle Beratung) -->
-  <g transform="translate(252, 107)">
-    <path d="M0,-12 L-12,0 L-8,0 L-8,10 L8,10 L8,0 L12,0 Z" fill="none" stroke="#2a7d8e" stroke-width="1.8" stroke-linejoin="round"/>
-    <rect x="-4" y="2" width="8" height="8" fill="none" stroke="#2a7d8e" stroke-width="1.4"/>
+  <!-- TL: Smart home panel (cx=246, cy=116) — Individuelle Beratung -->
+  <g stroke="#1e8070" stroke-width="1.7" fill="none" stroke-linejoin="round" stroke-linecap="round">
+    <polyline points="233,124 233,111 246,101 259,111 259,124"/>
+    <polyline points="241,124 241,115 251,115 251,124"/>
+    <line x1="237" y1="117" x2="239" y2="117"/>
+    <line x1="237" y1="120" x2="239" y2="120"/>
   </g>
 
-  <!-- TR: socket (Steckdosen & Schalter) -->
-  <g transform="translate(348, 107)">
-    <circle cx="0" cy="0" r="11" fill="none" stroke="#c0622a" stroke-width="1.8"/>
-    <circle cx="-4" cy="-2" r="1.8" fill="#c0622a"/>
-    <circle cx="4" cy="-2" r="1.8" fill="#c0622a"/>
-    <path d="M-3,2 Q0,7 3,2" fill="none" stroke="#c0622a" stroke-width="1.6"/>
+  <!-- TR: Electrical outlet (cx=354, cy=116) — Steckdosen & Schalter -->
+  <g stroke="#b04018" stroke-width="1.7" fill="none" stroke-linecap="round">
+    <circle cx="354" cy="116" r="14"/>
+    <circle cx="349" cy="113" r="2.2"/>
+    <circle cx="359" cy="113" r="2.2"/>
+    <path d="M347,120 Q354,126 361,120"/>
   </g>
 
-  <!-- BL: lamp (Beleuchtungslösungen) -->
-  <g transform="translate(252, 215)">
-    <circle cx="0" cy="-5" r="8" fill="none" stroke="#6b3fad" stroke-width="1.8"/>
-    <path d="M-5,3 L-3,10 L3,10 L5,3 Z" fill="none" stroke="#6b3fad" stroke-width="1.6"/>
-    <line x1="-3" y1="10" x2="3" y2="10" stroke="#6b3fad" stroke-width="1.8"/>
+  <!-- ML: Pendant lamp (cx=246, cy=210) — Beleuchtungslösungen -->
+  <g stroke="#5c38a0" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="246" y1="197" x2="246" y2="202"/>
+    <path d="M235,216 L237,203 L255,203 L257,216 Z"/>
+    <line x1="235" y1="216" x2="257" y2="216"/>
+    <line x1="246" y1="216" x2="246" y2="220"/>
+    <circle cx="246" cy="222" r="2.5"/>
   </g>
 
-  <!-- BR: bolt (Hausanschluss) -->
-  <g transform="translate(348, 215)">
-    <path d="M4,-12 L-2,1 L3,1 L-4,12 L2,1 L-3,1 Z" fill="none" stroke="#b08000" stroke-width="1.8" stroke-linejoin="round"/>
+  <!-- MR: Ventilation fan (cx=354, cy=210) — Badlüftung -->
+  <g stroke="#9a7800" stroke-width="1.7" fill="none" stroke-linecap="round">
+    <circle cx="354" cy="210" r="13"/>
+    <circle cx="354" cy="210" r="2.5"/>
+    <path d="M354,197 C358,200 359,206 354,207"/>
+    <path d="M367,210 C364,214 358,215 357,210"/>
+    <path d="M354,223 C350,220 349,214 354,213"/>
+    <path d="M341,210 C344,206 350,205 351,210"/>
   </g>
 
-  <!-- ── LEFT LABELS ── -->
+  <!-- BL: Electric meter (cx=246, cy=263) — Elektr. Messtechnik -->
+  <g stroke="#9a5010" stroke-width="1.5" fill="none" stroke-linecap="round">
+    <rect x="234" y="256" width="24" height="18" rx="2"/>
+    <path d="M238,265 A8,8 0 0,1 254,265"/>
+    <line x1="246" y1="265" x2="250" y2="259"/>
+  </g>
 
-  <!-- 1. Individuelle Beratung -->
-  <text x="172" y="83" text-anchor="end" font-size="11" fill="#2d2d2d">Individuelle</text>
-  <text x="172" y="96" text-anchor="end" font-size="11" fill="#2d2d2d">Beratung</text>
-  <path d="M174,89 L198,105" stroke="#999" stroke-width="1" fill="none" marker-end="url(#arrR)"/>
+  <!-- BR: Lightning bolt (cx=354, cy=263) — Hausanschluss -->
+  <g stroke="#1850a0" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="358,255 351,265 357,265 350,273"/>
+  </g>
 
-  <!-- 2. Beleuchtungslösungen -->
-  <text x="172" y="168" text-anchor="end" font-size="11" fill="#2d2d2d">Beleuchtungs-</text>
-  <text x="172" y="181" text-anchor="end" font-size="11" fill="#2d2d2d">lösungen</text>
-  <path d="M174,174 L205,200" stroke="#999" stroke-width="1" fill="none" marker-end="url(#arrR)"/>
+  <!-- Base-L: Thermometer (cx=278, cy=312) — Temperaturregelung -->
+  <g stroke="#666" stroke-width="1.4" fill="none" stroke-linecap="round">
+    <path d="M275,296 A3,3 0 0,1 281,296 L283,308 A6,6 0 1,1 273,308 L275,296 Z"/>
+    <line x1="281" y1="299" x2="284" y2="299"/>
+    <line x1="281" y1="303" x2="284" y2="303"/>
+    <line x1="281" y1="307" x2="284" y2="307"/>
+  </g>
 
-  <!-- 3. Elektr. Messtechnik -->
-  <text x="172" y="235" text-anchor="end" font-size="11" fill="#2d2d2d">Elektr.</text>
-  <text x="172" y="248" text-anchor="end" font-size="11" fill="#2d2d2d">Messtechnik</text>
-  <path d="M174,241 L228,255" stroke="#999" stroke-width="1" fill="none" marker-end="url(#arrR)"/>
+  <!-- Base-R: Smart device (cx=322, cy=312) — Smart-Home-Automation -->
+  <g stroke="#666" stroke-width="1.4" fill="none" stroke-linecap="round">
+    <rect x="313" y="297" width="18" height="22" rx="2"/>
+    <rect x="315" y="299" width="14" height="12" rx="1"/>
+    <circle cx="322" cy="316" r="1.8"/>
+    <line x1="319" y1="295" x2="325" y2="295"/>
+  </g>
 
-  <!-- 4. Temperaturregelung -->
-  <text x="172" y="298" text-anchor="end" font-size="11" fill="#2d2d2d">Temperatur-</text>
-  <text x="172" y="311" text-anchor="end" font-size="11" fill="#2d2d2d">regelung</text>
-  <path d="M174,304 L262,285" stroke="#999" stroke-width="1" fill="none" marker-end="url(#arrR)"/>
+  <!-- ── LEFT LABELS — black text ── -->
+  <text x="167" y="95"  text-anchor="end" font-size="11.5" fill="#111">Individuelle</text>
+  <text x="167" y="109" text-anchor="end" font-size="11.5" fill="#111">Beratung</text>
+  <path d="M169,102 L202,112" stroke="#888" stroke-width="1" fill="none" marker-end="url(#ar)"/>
 
-  <!-- ── RIGHT LABELS ── -->
+  <text x="167" y="180" text-anchor="end" font-size="11.5" fill="#111">Beleuchtungs-</text>
+  <text x="167" y="194" text-anchor="end" font-size="11.5" fill="#111">lösungen</text>
+  <path d="M169,186 L202,205" stroke="#888" stroke-width="1" fill="none" marker-end="url(#ar)"/>
 
-  <!-- 5. Steckdosen & Schalter -->
-  <text x="428" y="83" text-anchor="start" font-size="11" fill="#2d2d2d">Steckdosen &amp;</text>
-  <text x="428" y="96" text-anchor="start" font-size="11" fill="#2d2d2d">Schalter</text>
-  <path d="M426,89 L402,105" stroke="#999" stroke-width="1" fill="none" marker-end="url(#arrL)"/>
+  <text x="167" y="250" text-anchor="end" font-size="11.5" fill="#111">Elektr.</text>
+  <text x="167" y="264" text-anchor="end" font-size="11.5" fill="#111">Messtechnik</text>
+  <path d="M169,257 L210,262" stroke="#888" stroke-width="1" fill="none" marker-end="url(#ar)"/>
 
-  <!-- 6. Badlüftung -->
-  <text x="428" y="168" text-anchor="start" font-size="11" fill="#2d2d2d">Badlüftung</text>
-  <path d="M426,168 L395,200" stroke="#999" stroke-width="1" fill="none" marker-end="url(#arrL)"/>
+  <text x="167" y="310" text-anchor="end" font-size="11.5" fill="#111">Temperatur-</text>
+  <text x="167" y="324" text-anchor="end" font-size="11.5" fill="#111">regelung</text>
+  <path d="M169,317 L268,317" stroke="#888" stroke-width="1" fill="none" marker-end="url(#ar)"/>
 
-  <!-- 7. Hausanschluss -->
-  <text x="428" y="235" text-anchor="start" font-size="11" fill="#2d2d2d">Hausanschluss</text>
-  <path d="M426,235 L372,255" stroke="#999" stroke-width="1" fill="none" marker-end="url(#arrL)"/>
+  <!-- ── RIGHT LABELS — black text ── -->
+  <text x="433" y="95"  text-anchor="start" font-size="11.5" fill="#111">Steckdosen &amp;</text>
+  <text x="433" y="109" text-anchor="start" font-size="11.5" fill="#111">Schalter</text>
+  <path d="M431,102 L398,112" stroke="#888" stroke-width="1" fill="none" marker-end="url(#al)"/>
 
-  <!-- 8. Smart-Home-Automation -->
-  <text x="428" y="298" text-anchor="start" font-size="11" fill="#2d2d2d">Smart-Home-</text>
-  <text x="428" y="311" text-anchor="start" font-size="11" fill="#2d2d2d">Automation</text>
-  <path d="M426,304 L338,285" stroke="#999" stroke-width="1" fill="none" marker-end="url(#arrL)"/>
+  <text x="433" y="180" text-anchor="start" font-size="11.5" fill="#111">Badlüftung</text>
+  <path d="M431,180 L398,205" stroke="#888" stroke-width="1" fill="none" marker-end="url(#al)"/>
+
+  <text x="433" y="250" text-anchor="start" font-size="11.5" fill="#111">Hausanschluss</text>
+  <path d="M431,252 L390,262" stroke="#888" stroke-width="1" fill="none" marker-end="url(#al)"/>
+
+  <text x="433" y="310" text-anchor="start" font-size="11.5" fill="#111">Smart-Home-</text>
+  <text x="433" y="324" text-anchor="start" font-size="11.5" fill="#111">Automation</text>
+  <path d="M431,317 L332,317" stroke="#888" stroke-width="1" fill="none" marker-end="url(#al)"/>
 
 </svg>
