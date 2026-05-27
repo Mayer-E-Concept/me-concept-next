@@ -11,9 +11,10 @@ const NAV = [
 ];
 
 const LEGAL = [
-  { label: "Cookie-Richtlinie (EU)", href: "#" },
-  { label: "AGB", href: "#" },
-  { label: "Datenschutzerklärung", href: "#" },
+  { label: "Impressum", href: "/de/impressum" },
+  { label: "Cookie-Richtlinie (EU)", href: "/de/cookie-richtlinie" },
+  { label: "AGB", href: "/de/agb" },
+  { label: "Datenschutzerklärung", href: "/de/datenschutzerklaerung" },
   { label: "Blog", href: "/de/blog" },
   { label: "Karriere", href: "#" },
 ];

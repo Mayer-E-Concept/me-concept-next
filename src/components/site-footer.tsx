@@ -11,9 +11,9 @@ const NAV = [
 ];
 
 const LEGAL = [
-  { label: "Politică cookie-uri (UE)", href: "#" },
-  { label: "Termeni și condiții", href: "#" },
-  { label: "Politică de confidențialitate", href: "#" },
+  { label: "Politică cookie-uri (UE)", href: "/politica-cookie-uri-ue" },
+  { label: "Termeni și condiții", href: "/termeni-si-conditii" },
+  { label: "Politică de confidențialitate", href: "/politica-de-confidentialitate" },
   { label: "Blog", href: "/blog" },
   { label: "Cariere", href: "#" },
 ];
