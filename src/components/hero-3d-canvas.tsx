@@ -10,7 +10,7 @@ const COLORS = {
   solar:    0x5ABCCA,
 };
 
-export function Hero3DCanvas({ showFilaments = false }: { showFilaments?: boolean }) {
+export function Hero3DCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -322,49 +322,41 @@ export function Hero3DCanvas({ showFilaments = false }: { showFilaments?: boolea
     house.add(mkLine([V(0, yApex - 0.1, riserZ), V(W/3, yApex - 0.6, D/2 + 0.02)], matWiringDim));
 
     /* ─────────────────────────────────────────────────────────────────────
-       2b) CATMULL-ROM FILAMENTS — left zone, RO only
+       2b) CATMULL-ROM FILAMENTS — inside house, routes follow wiring tree
     ───────────────────────────────────────────────────────────────────── */
     type SparkDef = { mesh: THREE.Mesh; curve: THREE.CatmullRomCurve3; speed: number; phase: number; offset: number };
     const sparkMeshes: SparkDef[] = [];
 
-    if (showFilaments) {
-      const filDefs: { pts: THREE.Vector3[]; color: number; opacity: number }[] = [
-        // Cable 1 — gentle arc across upper-left
-        {
-          pts: [V(-7.2, 2.8, -0.5), V(-5.4, 3.3,  0.2), V(-3.6, 2.9, -0.4), V(-1.2, 2.5,  0.2)],
-          color: COLORS.ink, opacity: 0.18,
-        },
-        // Cable 2 — S-curve through middle-left
-        {
-          pts: [V(-7.5, 0.2, 0.6), V(-5.5, -0.6, -0.3), V(-3.2, 0.4,  0.5), V(-0.9, -0.2, -0.2)],
-          color: COLORS.accent, opacity: 0.14,
-        },
-        // Cable 3 — low sweep bottom-left
-        {
-          pts: [V(-6.2, -2.2, 0.3), V(-4.6, -1.6, -0.5), V(-2.9, -2.4,  0.2), V(-1.0, -1.9, -0.4)],
-          color: COLORS.ink, opacity: 0.18,
-        },
-      ];
+    const filRoutes: THREE.Vector3[][] = [
+      // Route A — vertical riser, bottom → top
+      [V(riserX, yWallBottom + 0.05, riserZ), V(riserX, yWallBottom + PER, riserZ), V(riserX, yWallTop - 0.10, riserZ)],
+      // Route B — ground-floor horizontal branch
+      [V(riserX, yWallBottom + PER * 0.5, riserZ), V(0, yWallBottom + PER * 0.5, riserZ), V(W / 4, yWallBottom + PER * 0.5, riserZ)],
+      // Route C — 2nd-floor horizontal branch
+      [V(riserX, yWallBottom + PER * 1.5, riserZ), V(0, yWallBottom + PER * 1.5, riserZ), V(W / 4, yWallBottom + PER * 1.5, riserZ)],
+      // Route D — top → apex → solar lead
+      [V(riserX, yWallTop - 0.10, riserZ), V(0, yApex - 0.12, 0), V(W / 3, yApex - 0.6, D / 2)],
+    ];
 
-      filDefs.forEach((def, di) => {
-        const curve = new THREE.CatmullRomCurve3(def.pts, false, "catmullrom", 0.5);
-        const tube = new THREE.Mesh(
-          new THREE.TubeGeometry(curve, 120, 0.0055, 6, false),
-          new THREE.MeshBasicMaterial({ color: def.color, transparent: true, opacity: def.opacity, side: THREE.DoubleSide }),
+    const filMat = new THREE.MeshBasicMaterial({ color: COLORS.ink, transparent: true, opacity: 0.22, side: THREE.DoubleSide });
+
+    filRoutes.forEach((pts, ci) => {
+      const curve = new THREE.CatmullRomCurve3(pts, false, "catmullrom", 0.5);
+      // Thin tube following the route
+      house.add(new THREE.Mesh(
+        new THREE.TubeGeometry(curve, 80, 0.0055, 5, false),
+        filMat,
+      ));
+      // 2 sparks per route travelling along the curve
+      for (let si = 0; si < 2; si++) {
+        const spark = new THREE.Mesh(
+          new THREE.SphereGeometry(0.022, 7, 7),
+          new THREE.MeshBasicMaterial({ color: COLORS.warm, transparent: true, opacity: 0.75 }),
         );
-        scene.add(tube);
-
-        // 2 flowing sparks per cable
-        for (let si = 0; si < 2; si++) {
-          const spark = new THREE.Mesh(
-            new THREE.SphereGeometry(0.018, 8, 8),
-            new THREE.MeshBasicMaterial({ color: COLORS.hover, transparent: true, opacity: 0.65 }),
-          );
-          scene.add(spark);
-          sparkMeshes.push({ mesh: spark, curve, speed: 0.07 + di * 0.015, phase: di * 0.33, offset: si * 0.5 });
-        }
-      });
-    }
+        house.add(spark);
+        sparkMeshes.push({ mesh: spark, curve, speed: 0.10 + ci * 0.018, phase: ci * 0.25, offset: si * 0.5 });
+      }
+    });
 
     /* ── Pulsing nodes ── */
     const buildingPulses: THREE.Mesh[] = [];
@@ -492,14 +484,13 @@ export function Hero3DCanvas({ showFilaments = false }: { showFilaments?: boolea
       entryGlow.scale.setScalar(1 + Math.sin(t * 1.5) * 0.18);
       entryGlow.rotation.x = t * 0.3;
 
-      // Animate filament sparks
+      // Sparks flowing along internal filament routes
       sparkMeshes.forEach((s) => {
         const progress = ((t * s.speed + s.phase + s.offset) % 1 + 1) % 1;
-        const pt = s.curve.getPoint(progress);
-        s.mesh.position.copy(pt);
-        const glow = 0.28 + Math.sin(t * 4.5 + s.phase * 8) * 0.28;
-        (s.mesh.material as THREE.MeshBasicMaterial).opacity = glow;
-        s.mesh.scale.setScalar(0.75 + Math.sin(t * 3.2 + s.offset * 5) * 0.30);
+        s.mesh.position.copy(s.curve.getPoint(progress));
+        (s.mesh.material as THREE.MeshBasicMaterial).opacity =
+          0.30 + Math.sin(t * 5 + s.phase * 9) * 0.30;
+        s.mesh.scale.setScalar(0.7 + Math.sin(t * 3.5 + s.offset * 4) * 0.35);
       });
 
       renderer.render(scene, camera);

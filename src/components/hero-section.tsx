@@ -132,7 +132,7 @@ export function HeroSection() {
 
       {/* Three.js 3D canvas — hidden on mobile */}
       <div className="hero-canvas-wrapper" style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
-        <Hero3DCanvas showFilaments />
+        <Hero3DCanvas />
       </div>
 
       {/* Text content — left column */}
