@@ -7,7 +7,7 @@ const NAV = [
   { label: "Leistungen", href: "/de/#leistungen" },
   { label: "Portfolio", href: "/de/portofoliu" },
   { label: "Über uns", href: "/de/#ueber-uns" },
-  { label: "Kontakt", href: "#contact" },
+  { label: "Kontakt", href: "/de/#contact" },
 ];
 
 const LEGAL = [
