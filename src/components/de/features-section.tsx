@@ -148,19 +148,6 @@ export function FeaturesSectionDe() {
                   transition: "width .35s ease",
                 }}
               />
-              <div
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "11px",
-                  fontWeight: 700,
-                  letterSpacing: "0.18em",
-                  color: hoveredIdx === i ? "#C5895B" : "#8A9498",
-                  marginBottom: 20,
-                  transition: "color .25s ease",
-                }}
-              >
-                {f.icon}
-              </div>
               <h3
                 style={{
                   fontFamily: "var(--font-sans)",
