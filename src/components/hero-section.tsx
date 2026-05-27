@@ -55,15 +55,14 @@ export function HeroSection() {
           .hero-brand-group { display: none !important; }
         }
 
-        /* ── On large screens: pin to left edge, width = gutter minus padding ── */
-        /* Text column starts at (100vw - 1240px)/2 + 5vw from viewport left.  */
-        /* We give watermark: left=10px, max-width = gutter - 20px.            */
+        /* ── Large screens: vertically centered, scales with resolution ── */
         @media (min-width: 1500px) {
           .hero-brand-group {
-            left: 10px !important;
-            max-width: min(calc((100vw - 1240px) / 2 - 20px), 400px) !important;
+            left: clamp(20px, 3vw, 60px) !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            width: clamp(140px, calc((100vw - 1240px) / 2 - 30px), 520px) !important;
             overflow: hidden !important;
-            top: clamp(60px, 10vh, 120px) !important;
           }
           .hero-brand-group img {
             width: 100% !important;
