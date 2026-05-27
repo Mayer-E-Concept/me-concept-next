@@ -98,7 +98,7 @@ export function TrustSection() {
               înalte standarde, orientate către succesul proiectului dumneavoastră.
             </p>
             <a
-              href="#despre"
+              href="/#despre"
               style={{
                 display: "inline-flex",
                 alignItems: "center",

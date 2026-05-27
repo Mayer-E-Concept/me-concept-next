@@ -45,6 +45,7 @@ export function FeaturesSection() {
         background: "#F6F7F7",
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
+        scrollMarginTop: "72px",
       }}
     >
       <style>{`

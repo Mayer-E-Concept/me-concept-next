@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 
 const navItems = [
   { label: "Proiectare Instalații Electrice", href: "/" },
-  { label: "Despre noi", href: "#despre" },
+  { label: "Despre noi", href: "/#despre" },
   { label: "Portofoliu", href: "/portofoliu" },
   { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export function SiteHeader() {

@@ -155,8 +155,8 @@ export function HeroSection() {
           className="hero-buttons"
           style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start" }}
         >
-          <HeroButton href="#despre" variant="copper">Despre noi</HeroButton>
-          <HeroButton href="#contact" variant="outline">Contactați-ne</HeroButton>
+          <HeroButton href="/#despre" variant="copper">Despre noi</HeroButton>
+          <HeroButton href="/#contact" variant="outline">Contactați-ne</HeroButton>
         </div>
 
         <HeroStatsStrip />

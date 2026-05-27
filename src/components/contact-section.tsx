@@ -67,6 +67,7 @@ export function ContactSection() {
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
         overflow: "hidden",
+        scrollMarginTop: "72px",
         color: "#F4F2EC",
       }}
     >
