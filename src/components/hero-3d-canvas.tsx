@@ -389,6 +389,66 @@ export function Hero3DCanvas() {
     house.add(entryGlow);
 
     /* ─────────────────────────────────────────────────────────────────────
+       2c) EXTERNAL FILAMENTS — logo anchor → house panel entry
+    ───────────────────────────────────────────────────────────────────── */
+    let extFilamentMeshes: THREE.Mesh[] = [];
+    const extSparkDefs: SparkDef[] = [];
+
+    function buildExternalFilaments() {
+      extFilamentMeshes.forEach((m) => {
+        m.geometry.dispose();
+        (m.material as THREE.Material).dispose();
+        scene.remove(m);
+      });
+      extFilamentMeshes = [];
+      extSparkDefs.length = 0;
+
+      const sc = house.scale.x;
+      const hX = house.position.x;
+      const hY = (house.userData.baseY as number | undefined) ?? house.position.y;
+
+      // Panel left-face in world space (static approximation — fine at low opacity)
+      const eX = hX + (-W / 2 - 0.02) * sc;
+      const eY = hY + pY * sc;
+      const eZ = pZ * sc;
+      // Logo anchor — well to the left of the panel
+      const aX = eX - 4.2 * sc;
+      const aY = hY;
+
+      const filDefs: [number, number, number, number][] = [
+        [ 0.7,  0.6, 0.18, 0.00],
+        [ 0.0,  0.0, 0.22, 0.33],
+        [-0.7, -0.6, 0.20, 0.66],
+      ];
+
+      filDefs.forEach(([y0, y1, speed, phase]) => {
+        const curve = new THREE.CatmullRomCurve3([
+          V(aX,             aY + y0 * sc,          0),
+          V(aX + 2.2 * sc,  aY + y0 * 1.1 * sc,   0.3 * sc),
+          V(eX - 1.8 * sc,  eY + y1 * 1.1 * sc,  -0.2 * sc),
+          V(eX,             eY + y1 * sc,           eZ * 0.5),
+        ], false, "catmullrom", 0.5);
+
+        const tube = new THREE.Mesh(
+          new THREE.TubeGeometry(curve, 80, 0.0055 * sc, 6, false),
+          new THREE.MeshBasicMaterial({ color: 0x1A6F7A, transparent: true, opacity: 0.18 }),
+        );
+        scene.add(tube);
+        extFilamentMeshes.push(tube);
+
+        for (let i = 0; i < 2; i++) {
+          const pkt = new THREE.Mesh(
+            new THREE.SphereGeometry(0.045 * sc, 10, 10),
+            new THREE.MeshBasicMaterial({ color: 0xC5895B, transparent: true, opacity: 0.85 }),
+          );
+          scene.add(pkt);
+          extFilamentMeshes.push(pkt);
+          extSparkDefs.push({ mesh: pkt, curve, speed, phase: phase + i * 0.5, offset: 0 });
+        }
+      });
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
        2) MOUSE PARALLAX
     ───────────────────────────────────────────────────────────────────── */
     const mouseTarget = { x: 0, y: 0 };
@@ -437,6 +497,7 @@ export function Hero3DCanvas() {
       house.position.y = baseHouseY;
       house.userData.baseY = baseHouseY;
       layoutLabels();
+      buildExternalFilaments();
     }
 
     const ro = new ResizeObserver(resize);
@@ -494,6 +555,14 @@ export function Hero3DCanvas() {
         s.mesh.scale.setScalar(0.7 + Math.sin(t * 3.5 + s.offset * 4) * 0.35);
       });
 
+      // Packets flowing along external filaments (logo → panel)
+      extSparkDefs.forEach((s) => {
+        const progress = ((t * s.speed + s.phase) % 1 + 1) % 1;
+        s.mesh.position.copy(s.curve.getPoint(progress));
+        (s.mesh.material as THREE.MeshBasicMaterial).opacity =
+          0.65 + Math.sin(t * 4 + s.phase * 8) * 0.25;
+      });
+
       renderer.render(scene, camera);
     }
     tick();
@@ -536,6 +605,10 @@ export function Hero3DCanvas() {
       labelObjects.forEach(({ sprite }) => {
         (sprite.material as THREE.SpriteMaterial).map?.dispose();
         sprite.material.dispose();
+      });
+      extFilamentMeshes.forEach((m) => {
+        m.geometry.dispose();
+        (m.material as THREE.Material).dispose();
       });
       renderer.dispose();
       canvas.remove();
