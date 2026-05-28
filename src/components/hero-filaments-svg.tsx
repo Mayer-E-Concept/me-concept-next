@@ -49,14 +49,14 @@ export function HeroFilamentsSvg() {
   const { dCenterX, dTop, dh, dW, heroW } = layout;
 
   /* ── Diamond geometry ────────────────────────────────────────────────
-     The brand mark fills the image bounding box (310×224 in display);
-     model the visible chamfered outline as an ellipse whose horizontal
-     radius matches the image WIDTH (not height).
-       x_edge(y) = dCenterX + (dW/2) * sqrt(1 - yDist01²)
+     Model the brand mark as a rotated square with HORIZONTAL diagonal
+     equal to the image width. The right slope is a straight line, so
+     the half-width at y is linear:
+       half_width(y) = (dW/2) * (1 - yDist01)
   ─────────────────────────────────────────────────────────────────── */
   const diamondEdge = (yFrac: number) => {
     const yDist01 = Math.abs(yFrac - 0.5) * 2;
-    const widthFactor = Math.sqrt(Math.max(0, 1 - yDist01 * yDist01));
+    const widthFactor = Math.max(0, 1 - yDist01);
     return {
       x: dCenterX + (dW / 2) * widthFactor,
       y: dTop + dh * yFrac,
