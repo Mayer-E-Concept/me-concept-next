@@ -435,7 +435,7 @@ export function Hero3DCanvas() {
 
       const span = eX - aX;
 
-      // Build an angular (PCB-trace style) path from waypoints using LineCurve3
+      // Angular (PCB-trace) path from LineCurve3 segments
       function makePath(pts: THREE.Vector3[]): THREE.CurvePath<THREE.Vector3> {
         const cp = new THREE.CurvePath<THREE.Vector3>();
         for (let i = 0; i < pts.length - 1; i++) {
@@ -444,43 +444,55 @@ export function Hero3DCanvas() {
         return cp;
       }
 
-      // 3 angular routes matching the sketch:
-      // Cable 1 — exits logo top, arcs UP then long horizontal, diagonal into house upper
-      // Cable 2 — exits logo center, horizontal with slight dip, into house center
-      // Cable 3 — exits logo bottom, diagonal DOWN, long horizontal at bottom, up into house lower
+      // 4 cables exiting from 4 distinct points on the M-diamond logo,
+      // routing angularly to 4 entry heights on the distribution panel.
       const routes: { pts: THREE.Vector3[]; speed: number; phase: number }[] = [
         {
+          // Cable 1 — exits logo TOP → diagonal UP → long horizontal → diagonal to house upper
           pts: [
-            V(aX,                  aY + 0.70 * sc,  0),
-            V(aX + span * 0.10,    aY + 0.88 * sc,  0),   // diagonal up
-            V(aX + span * 0.58,    aY + 0.88 * sc,  0),   // long horizontal (top)
-            V(aX + span * 0.68,    aY + 0.65 * sc,  0),   // diagonal down toward house
-            V(eX,                  eY + 0.58 * sc,   eZ * 0.5),
+            V(aX,                aY + 0.62 * sc,  0),
+            V(aX + span * 0.09,  aY + 0.80 * sc,  0),
+            V(aX + span * 0.56,  aY + 0.80 * sc,  0),
+            V(aX + span * 0.67,  aY + 0.60 * sc,  0),
+            V(eX,                eY + 0.50 * sc,   eZ * 0.5),
           ],
           speed: 0.18, phase: 0.00,
         },
         {
+          // Cable 2 — exits logo UPPER-RIGHT → horizontal → slight angular bends → house upper-center
           pts: [
-            V(aX,                  aY,               0),
-            V(aX + span * 0.20,    aY,               0),   // horizontal
-            V(aX + span * 0.33,    aY - 0.20 * sc,  0),   // diagonal down
-            V(aX + span * 0.55,    aY - 0.20 * sc,  0),   // horizontal
-            V(aX + span * 0.65,    aY,               0),   // diagonal up
-            V(eX,                  eY,                eZ * 0.5),
+            V(aX,                aY + 0.22 * sc,  0),
+            V(aX + span * 0.16,  aY + 0.22 * sc,  0),
+            V(aX + span * 0.30,  aY + 0.06 * sc,  0),
+            V(aX + span * 0.52,  aY + 0.06 * sc,  0),
+            V(aX + span * 0.64,  aY + 0.22 * sc,  0),
+            V(eX,                eY + 0.16 * sc,   eZ * 0.5),
           ],
-          speed: 0.22, phase: 0.33,
+          speed: 0.21, phase: 0.25,
         },
         {
+          // Cable 3 — exits logo LOWER-RIGHT → horizontal with slight up → house lower-center
           pts: [
-            V(aX,                  aY - 0.70 * sc,  0),
-            V(aX + span * 0.09,    aY - 0.90 * sc,  0),   // diagonal down
-            V(aX + span * 0.24,    aY - 0.90 * sc,  0),   // short horizontal
-            V(aX + span * 0.30,    aY - 1.08 * sc,  0),   // diagonal down more
-            V(aX + span * 0.74,    aY - 1.08 * sc,  0),   // long horizontal (bottom)
-            V(aX + span * 0.84,    aY - 0.72 * sc,  0),   // diagonal up-right
-            V(eX,                  eY - 0.58 * sc,   eZ * 0.5),
+            V(aX,                aY - 0.18 * sc,  0),
+            V(aX + span * 0.22,  aY - 0.18 * sc,  0),
+            V(aX + span * 0.36,  aY - 0.06 * sc,  0),
+            V(aX + span * 0.60,  aY - 0.06 * sc,  0),
+            V(eX,                eY - 0.14 * sc,   eZ * 0.5),
           ],
-          speed: 0.20, phase: 0.66,
+          speed: 0.24, phase: 0.50,
+        },
+        {
+          // Cable 4 — exits logo BOTTOM → diagonal DOWN → long horizontal at base → diagonal up → house lower
+          pts: [
+            V(aX,                aY - 0.62 * sc,  0),
+            V(aX + span * 0.09,  aY - 0.82 * sc,  0),
+            V(aX + span * 0.24,  aY - 0.82 * sc,  0),
+            V(aX + span * 0.31,  aY - 1.02 * sc,  0),
+            V(aX + span * 0.73,  aY - 1.02 * sc,  0),
+            V(aX + span * 0.83,  aY - 0.72 * sc,  0),
+            V(eX,                eY - 0.52 * sc,   eZ * 0.5),
+          ],
+          speed: 0.20, phase: 0.75,
         },
       ];
 
