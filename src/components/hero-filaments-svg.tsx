@@ -72,7 +72,7 @@ export function HeroFilamentsSvg() {
   const tx = heroW * 0.72;            // end X
   const ty = dTop - dh * 0.15;        // end Y (upper-house area)
 
-  const shortHoriz = 55;
+  const shortHoriz = 165;             // 3× longer per user feedback
   const dipAmount  = dh * 0.13;       // slightly shallower dip
 
   const x1 = ox + shortHoriz;
