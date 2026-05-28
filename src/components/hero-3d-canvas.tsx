@@ -412,26 +412,55 @@ export function Hero3DCanvas() {
       const eY = hY + pY * sc;
       const eZ = pZ * sc;
 
-      // Unproject logo DOM position to world space for exact anchor
+      // ── Unproject M-diamond icon to world space ───────────────────────────
       let aX = eX - 7.5 * sc;
-      let aY = hY;
-      const logoEl = document.querySelector(".hero-brand-group") as HTMLElement | null;
-      if (logoEl) {
-        const lRect = logoEl.getBoundingClientRect();
+      let aY_top = hY + 0.5 * sc;
+      let aY_bot = hY - 0.5 * sc;
+
+      const zPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+      const unproject = (ndcX: number, ndcY: number): THREE.Vector3 | null => {
+        const r = new THREE.Raycaster();
+        r.setFromCamera(new THREE.Vector2(ndcX, ndcY), camera);
+        const out = new THREE.Vector3();
+        return r.ray.intersectPlane(zPlane, out) ? out.clone() : null;
+      };
+
+      const diamondEl = document.querySelector(".hero-brand-group img:last-child") as HTMLImageElement | null;
+      const fallbackEl = document.querySelector(".hero-brand-group") as HTMLElement | null;
+      const srcEl = diamondEl || fallbackEl;
+      if (srcEl) {
+        const dRect = srcEl.getBoundingClientRect();
         const cRect = canvas.getBoundingClientRect();
-        if (lRect.width > 0 && cRect.width > 0) {
-          const ndcX = (lRect.right - cRect.left) / cRect.width * 2 - 1;
-          const ndcY = -((lRect.top + lRect.height * 0.75) - cRect.top) / cRect.height * 2 + 1;
-          const raycaster = new THREE.Raycaster();
-          raycaster.setFromCamera(new THREE.Vector2(ndcX, ndcY), camera);
-          const target = new THREE.Vector3();
-          const zPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
-          if (raycaster.ray.intersectPlane(zPlane, target)) {
-            aX = target.x;
-            aY = target.y;
-          }
+        if (dRect.width > 0 && cRect.width > 0) {
+          const toNdcX = (px: number) => (px - cRect.left) / cRect.width * 2 - 1;
+          const toNdcY = (py: number) => -((py - cRect.top) / cRect.height) * 2 + 1;
+          const ndcRight = toNdcX(dRect.right);
+          const ptCtr = unproject(ndcRight, toNdcY(dRect.top + dRect.height * 0.5));
+          const ptTop = unproject(ndcRight, toNdcY(dRect.top + dRect.height * 0.08));
+          const ptBot = unproject(ndcRight, toNdcY(dRect.bottom - dRect.height * 0.08));
+          if (ptCtr) aX = ptCtr.x;
+          if (ptTop) aY_top = ptTop.y;
+          if (ptBot) aY_bot = ptBot.y;
         }
       }
+
+      const halfH = (aY_top - aY_bot) / 2;
+      const aY_ctr = (aY_top + aY_bot) / 2;
+
+      // 4 start Ys spread evenly across diamond height
+      const sy = [
+        aY_top,
+        aY_ctr + halfH * 0.33,
+        aY_ctr - halfH * 0.33,
+        aY_bot,
+      ];
+      // 4 entry Ys spread across panel face
+      const ey = [
+        eY + 0.38 * sc,
+        eY + 0.13 * sc,
+        eY - 0.13 * sc,
+        eY - 0.38 * sc,
+      ];
 
       const span = eX - aX;
 
@@ -444,53 +473,43 @@ export function Hero3DCanvas() {
         return cp;
       }
 
-      // 4 cables exiting from 4 distinct points on the M-diamond logo,
-      // routing angularly to 4 entry heights on the distribution panel.
+      // 4 PCB-trace cables: horizontal → 45° bend → horizontal → panel entry
       const routes: { pts: THREE.Vector3[]; speed: number; phase: number }[] = [
         {
-          // Cable 1 — exits logo TOP → diagonal UP → long horizontal → diagonal to house upper
           pts: [
-            V(aX,                aY + 0.62 * sc,  0),
-            V(aX + span * 0.09,  aY + 0.80 * sc,  0),
-            V(aX + span * 0.56,  aY + 0.80 * sc,  0),
-            V(aX + span * 0.67,  aY + 0.60 * sc,  0),
-            V(eX,                eY + 0.50 * sc,   eZ * 0.5),
+            V(aX,               sy[0],  0),
+            V(aX + span * 0.55, sy[0],  0),
+            V(aX + span * 0.63, ey[0],  0),
+            V(eX,               ey[0],  eZ * 0.5),
           ],
           speed: 0.18, phase: 0.00,
         },
         {
-          // Cable 2 — exits logo UPPER-RIGHT → horizontal → slight angular bends → house upper-center
           pts: [
-            V(aX,                aY + 0.22 * sc,  0),
-            V(aX + span * 0.16,  aY + 0.22 * sc,  0),
-            V(aX + span * 0.30,  aY + 0.06 * sc,  0),
-            V(aX + span * 0.52,  aY + 0.06 * sc,  0),
-            V(aX + span * 0.64,  aY + 0.22 * sc,  0),
-            V(eX,                eY + 0.16 * sc,   eZ * 0.5),
+            V(aX,               sy[1],  0),
+            V(aX + span * 0.60, sy[1],  0),
+            V(aX + span * 0.68, ey[1],  0),
+            V(eX,               ey[1],  eZ * 0.5),
           ],
           speed: 0.21, phase: 0.25,
         },
         {
-          // Cable 3 — exits logo LOWER-RIGHT → horizontal with slight up → house lower-center
           pts: [
-            V(aX,                aY - 0.18 * sc,  0),
-            V(aX + span * 0.22,  aY - 0.18 * sc,  0),
-            V(aX + span * 0.36,  aY - 0.06 * sc,  0),
-            V(aX + span * 0.60,  aY - 0.06 * sc,  0),
-            V(eX,                eY - 0.14 * sc,   eZ * 0.5),
+            V(aX,               sy[2],  0),
+            V(aX + span * 0.65, sy[2],  0),
+            V(aX + span * 0.73, ey[2],  0),
+            V(eX,               ey[2],  eZ * 0.5),
           ],
           speed: 0.24, phase: 0.50,
         },
         {
-          // Cable 4 — exits logo BOTTOM → diagonal DOWN → long horizontal at base → diagonal up → house lower
+          // cable 4: dips below diamond, long horizontal, rises to entry
           pts: [
-            V(aX,                aY - 0.62 * sc,  0),
-            V(aX + span * 0.09,  aY - 0.82 * sc,  0),
-            V(aX + span * 0.24,  aY - 0.82 * sc,  0),
-            V(aX + span * 0.31,  aY - 1.02 * sc,  0),
-            V(aX + span * 0.73,  aY - 1.02 * sc,  0),
-            V(aX + span * 0.83,  aY - 0.72 * sc,  0),
-            V(eX,                eY - 0.52 * sc,   eZ * 0.5),
+            V(aX,               sy[3],                  0),
+            V(aX + span * 0.10, sy[3] - 0.35 * sc,      0),
+            V(aX + span * 0.72, sy[3] - 0.35 * sc,      0),
+            V(aX + span * 0.82, ey[3],                  0),
+            V(eX,               ey[3],       eZ * 0.5),
           ],
           speed: 0.20, phase: 0.75,
         },
