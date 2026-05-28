@@ -49,14 +49,14 @@ export function HeroFilamentsSvg() {
   const { dCenterX, dTop, dh, dW, heroW } = layout;
 
   /* ── Diamond geometry ────────────────────────────────────────────────
-     Empirical fit for the chamfered M-diamond: at lower y_frac values
-     the visible edge sits much closer to the centre than a linear
-     diamond predicts. Use a steeper falloff (1 - yDist01)² so the
-     start point meets the actual outline.
+     Empirically calibrated falloff so the line meets the chamfered
+     diamond outline (between linear and quadratic). The factor scales
+     with the rendered image width → stays on the edge at any resolution.
   ─────────────────────────────────────────────────────────────────── */
+  const DIAMOND_FALLOFF = 1.5;
   const diamondEdge = (yFrac: number) => {
     const yDist01 = Math.abs(yFrac - 0.5) * 2;
-    const widthFactor = Math.max(0, Math.pow(1 - yDist01, 2));
+    const widthFactor = Math.max(0, Math.pow(1 - yDist01, DIAMOND_FALLOFF));
     return {
       x: dCenterX + (dW / 2) * widthFactor,
       y: dTop + dh * yFrac,
