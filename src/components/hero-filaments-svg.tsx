@@ -66,10 +66,10 @@ export function HeroFilamentsSvg() {
      (rounded chamfer). Model: linear offset capped at a flat-side max.
 
        slope     = dh * 0.38   (fits line 1 at y_frac=0.85 → x=238)
-       flat side = dh * 0.21   (chamfered right side; fits line 2 at 0.65)
+       flat side = dh * 0.25   (chamfered right side; fits line 2 at 0.65)
   ─────────────────────────────────────────────────────────────────── */
   const SLOPE_HALF_DIAG = dh * 0.38;
-  const FLAT_SIDE_MAX   = dh * 0.21;
+  const FLAT_SIDE_MAX   = dh * 0.25;
   const diamondEdge = (yFrac: number) => {
     const yDist01 = Math.abs(yFrac - 0.5) * 2;
     const slopeOffset = SLOPE_HALF_DIAG * Math.max(0, 1 - yDist01);
