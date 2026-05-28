@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const navItems = [
@@ -103,24 +102,13 @@ export function SiteHeaderDe() {
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
             width: "92%",
             maxWidth: "1340px",
             margin: "0 auto",
           }}
         >
           {/* Logo */}
-          <Link href="/de" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
-            <Image
-              src="/uploads/base_logo_transparent_background-1.png"
-              alt="ME-Concept"
-              width={130}
-              height={34}
-              style={{ height: 34, width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)" }}
-              priority
-            />
-          </Link>
-
           {/* Desktop nav */}
           <nav className="nav-desktop-de" style={{ gap: 32, alignItems: "center" }}>
             {navItems.map((item) => (
