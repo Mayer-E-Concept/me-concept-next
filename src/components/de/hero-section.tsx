@@ -1,9 +1,13 @@
 "use client";
 import type { ReactNode } from "react";
+import { useState } from "react";
 import { Hero3DCanvas } from "@/components/hero-3d-canvas";
+import type { PanelPos } from "@/components/hero-3d-canvas";
+import { HeroFilamentsSvg } from "@/components/hero-filaments-svg";
 import { HeroStatsStripDe } from "@/components/de/hero-stats-strip";
 
 export function HeroSectionDe() {
+  const [panelPos, setPanelPos] = useState<PanelPos | null>(null);
   return (
     <section
       className="hero-section"
@@ -132,7 +136,12 @@ export function HeroSectionDe() {
 
       {/* Three.js 3D canvas — hidden on mobile */}
       <div className="hero-canvas-wrapper" style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
-        <Hero3DCanvas />
+        <Hero3DCanvas onPanelPos={setPanelPos} />
+      </div>
+
+      {/* SVG filaments — logo → panel, screen-space, desktop only */}
+      <div className="hero-canvas-wrapper" style={{ position: "absolute", inset: 0, zIndex: 3, pointerEvents: "none" }}>
+        <HeroFilamentsSvg panelPos={panelPos} />
       </div>
 
       {/* Text content */}

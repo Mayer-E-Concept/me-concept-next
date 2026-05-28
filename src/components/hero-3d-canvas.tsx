@@ -10,8 +10,12 @@ const COLORS = {
   solar:    0x5ABCCA,
 };
 
-export function Hero3DCanvas() {
+export type PanelPos = { x: number; y: number; halfH: number };
+
+export function Hero3DCanvas({ onPanelPos }: { onPanelPos?: (p: PanelPos) => void } = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const onPanelPosRef = useRef(onPanelPos);
+  onPanelPosRef.current = onPanelPos;
 
   useEffect(() => {
     const container = containerRef.current;
@@ -389,156 +393,6 @@ export function Hero3DCanvas() {
     house.add(entryGlow);
 
     /* ─────────────────────────────────────────────────────────────────────
-       2c) EXTERNAL FILAMENTS — logo anchor → house panel entry
-    ───────────────────────────────────────────────────────────────────── */
-    let extFilamentMeshes: THREE.Mesh[] = [];
-    const extSparkDefs: SparkDef[] = [];
-
-    function buildExternalFilaments() {
-      extFilamentMeshes.forEach((m) => {
-        m.geometry.dispose();
-        (m.material as THREE.Material).dispose();
-        scene.remove(m);
-      });
-      extFilamentMeshes = [];
-      extSparkDefs.length = 0;
-
-      const sc = house.scale.x;
-      const hX = house.position.x;
-      const hY = (house.userData.baseY as number | undefined) ?? house.position.y;
-
-      // Panel left-face entry in world space
-      const eX = hX + (-W / 2 - 0.02) * sc;
-      const eY = hY + pY * sc;
-      const eZ = pZ * sc;
-
-      // ── Unproject M-diamond icon to world space ───────────────────────────
-      let aX = eX - 7.5 * sc;
-      let aY_top = hY + 0.5 * sc;
-      let aY_bot = hY - 0.5 * sc;
-
-      const zPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
-      const unproject = (ndcX: number, ndcY: number): THREE.Vector3 | null => {
-        const r = new THREE.Raycaster();
-        r.setFromCamera(new THREE.Vector2(ndcX, ndcY), camera);
-        const out = new THREE.Vector3();
-        return r.ray.intersectPlane(zPlane, out) ? out.clone() : null;
-      };
-
-      const diamondEl = document.querySelector(".hero-brand-group img:last-child") as HTMLImageElement | null;
-      const fallbackEl = document.querySelector(".hero-brand-group") as HTMLElement | null;
-      const srcEl = diamondEl || fallbackEl;
-      if (srcEl) {
-        const dRect = srcEl.getBoundingClientRect();
-        const cRect = canvas.getBoundingClientRect();
-        if (dRect.width > 0 && cRect.width > 0) {
-          const toNdcX = (px: number) => (px - cRect.left) / cRect.width * 2 - 1;
-          const toNdcY = (py: number) => -((py - cRect.top) / cRect.height) * 2 + 1;
-          const ndcRight = toNdcX(dRect.right);
-          const ptCtr = unproject(ndcRight, toNdcY(dRect.top + dRect.height * 0.5));
-          const ptTop = unproject(ndcRight, toNdcY(dRect.top + dRect.height * 0.08));
-          const ptBot = unproject(ndcRight, toNdcY(dRect.bottom - dRect.height * 0.08));
-          if (ptCtr) aX = ptCtr.x;
-          if (ptTop) aY_top = ptTop.y;
-          if (ptBot) aY_bot = ptBot.y;
-        }
-      }
-
-      const halfH = (aY_top - aY_bot) / 2;
-      const aY_ctr = (aY_top + aY_bot) / 2;
-
-      // 4 start Ys spread evenly across diamond height
-      const sy = [
-        aY_top,
-        aY_ctr + halfH * 0.33,
-        aY_ctr - halfH * 0.33,
-        aY_bot,
-      ];
-      // 4 entry Ys spread across panel face
-      const ey = [
-        eY + 0.38 * sc,
-        eY + 0.13 * sc,
-        eY - 0.13 * sc,
-        eY - 0.38 * sc,
-      ];
-
-      const span = eX - aX;
-
-      // Angular (PCB-trace) path from LineCurve3 segments
-      function makePath(pts: THREE.Vector3[]): THREE.CurvePath<THREE.Vector3> {
-        const cp = new THREE.CurvePath<THREE.Vector3>();
-        for (let i = 0; i < pts.length - 1; i++) {
-          cp.add(new THREE.LineCurve3(pts[i], pts[i + 1]));
-        }
-        return cp;
-      }
-
-      // 4 PCB-trace cables: horizontal → 45° bend → horizontal → panel entry
-      const routes: { pts: THREE.Vector3[]; speed: number; phase: number }[] = [
-        {
-          pts: [
-            V(aX,               sy[0],  0),
-            V(aX + span * 0.55, sy[0],  0),
-            V(aX + span * 0.63, ey[0],  0),
-            V(eX,               ey[0],  eZ * 0.5),
-          ],
-          speed: 0.18, phase: 0.00,
-        },
-        {
-          pts: [
-            V(aX,               sy[1],  0),
-            V(aX + span * 0.60, sy[1],  0),
-            V(aX + span * 0.68, ey[1],  0),
-            V(eX,               ey[1],  eZ * 0.5),
-          ],
-          speed: 0.21, phase: 0.25,
-        },
-        {
-          pts: [
-            V(aX,               sy[2],  0),
-            V(aX + span * 0.65, sy[2],  0),
-            V(aX + span * 0.73, ey[2],  0),
-            V(eX,               ey[2],  eZ * 0.5),
-          ],
-          speed: 0.24, phase: 0.50,
-        },
-        {
-          // cable 4: dips below diamond, long horizontal, rises to entry
-          pts: [
-            V(aX,               sy[3],                  0),
-            V(aX + span * 0.10, sy[3] - 0.35 * sc,      0),
-            V(aX + span * 0.72, sy[3] - 0.35 * sc,      0),
-            V(aX + span * 0.82, ey[3],                  0),
-            V(eX,               ey[3],       eZ * 0.5),
-          ],
-          speed: 0.20, phase: 0.75,
-        },
-      ];
-
-      routes.forEach(({ pts, speed, phase }) => {
-        const path = makePath(pts);
-        const segs = pts.length * 14;
-
-        const tube = new THREE.Mesh(
-          new THREE.TubeGeometry(path, segs, 0.0055 * sc, 6, false),
-          new THREE.MeshBasicMaterial({ color: 0x1A6F7A, transparent: true, opacity: 0.18 }),
-        );
-        scene.add(tube);
-        extFilamentMeshes.push(tube);
-
-        for (let i = 0; i < 2; i++) {
-          const pkt = new THREE.Mesh(
-            new THREE.SphereGeometry(0.045 * sc, 10, 10),
-            new THREE.MeshBasicMaterial({ color: 0xC5895B, transparent: true, opacity: 0.85 }),
-          );
-          scene.add(pkt);
-          extFilamentMeshes.push(pkt);
-          extSparkDefs.push({ mesh: pkt, curve: path, speed, phase: phase + i * 0.5, offset: 0 });
-        }
-      });
-    }
-
-    /* ─────────────────────────────────────────────────────────────────────
        2) MOUSE PARALLAX
     ───────────────────────────────────────────────────────────────────── */
     const mouseTarget = { x: 0, y: 0 };
@@ -587,7 +441,18 @@ export function Hero3DCanvas() {
       house.position.y = baseHouseY;
       house.userData.baseY = baseHouseY;
       layoutLabels();
-      buildExternalFilaments();
+
+      // Project panel entry centre + half-height → hero-relative CSS pixels
+      const _eX  = houseX + (-W / 2 - 0.02) * scale;
+      const _eCY = baseHouseY + pY * scale;
+      const _proj = (wx: number, wy: number) => {
+        const v = new THREE.Vector3(wx, wy, 0).project(camera);
+        return { x: (v.x + 1) / 2 * w, y: -(v.y - 1) / 2 * h };
+      };
+      const _c = _proj(_eX, _eCY);
+      const _t = _proj(_eX, _eCY + pH * 0.5 * scale);
+      const _b = _proj(_eX, _eCY - pH * 0.5 * scale);
+      onPanelPosRef.current?.({ x: _c.x, y: _c.y, halfH: (_b.y - _t.y) / 2 });
     }
 
     const ro = new ResizeObserver(resize);
@@ -645,14 +510,6 @@ export function Hero3DCanvas() {
         s.mesh.scale.setScalar(0.7 + Math.sin(t * 3.5 + s.offset * 4) * 0.35);
       });
 
-      // Packets flowing along external filaments (logo → panel)
-      extSparkDefs.forEach((s) => {
-        const progress = ((t * s.speed + s.phase) % 1 + 1) % 1;
-        s.mesh.position.copy(s.curve.getPoint(progress));
-        (s.mesh.material as THREE.MeshBasicMaterial).opacity =
-          0.65 + Math.sin(t * 4 + s.phase * 8) * 0.25;
-      });
-
       renderer.render(scene, camera);
     }
     tick();
@@ -695,10 +552,6 @@ export function Hero3DCanvas() {
       labelObjects.forEach(({ sprite }) => {
         (sprite.material as THREE.SpriteMaterial).map?.dispose();
         sprite.material.dispose();
-      });
-      extFilamentMeshes.forEach((m) => {
-        m.geometry.dispose();
-        (m.material as THREE.Material).dispose();
       });
       renderer.dispose();
       canvas.remove();
