@@ -61,15 +61,18 @@ export function HeroFilamentsSvg() {
   const { dCenterX, dTop, dh, dW, heroW } = layout;
 
   /* ── Diamond geometry ────────────────────────────────────────────────
-     Calibrated falloff (power 1.5) so the start meets the chamfered
-     outline at any viewport size.
+     The visible diamond outline behaves as a true rotated square. Use
+     a linear edge formula with a calibrated half-diagonal so the same
+     equation works for any y_frac on the slope.
+
+       half-diagonal ≈ dh * 0.38   (fits line 1 at y_frac=0.85 → x=238)
   ─────────────────────────────────────────────────────────────────── */
-  const DIAMOND_FALLOFF = 1.5;
+  const DIAMOND_HALF_DIAG = dh * 0.38;
   const diamondEdge = (yFrac: number) => {
     const yDist01 = Math.abs(yFrac - 0.5) * 2;
-    const widthFactor = Math.max(0, Math.pow(1 - yDist01, DIAMOND_FALLOFF));
+    const widthFactor = Math.max(0, 1 - yDist01);
     return {
-      x: dCenterX + (dW / 2) * widthFactor,
+      x: dCenterX + DIAMOND_HALF_DIAG * widthFactor,
       y: dTop + dh * yFrac,
     };
   };
