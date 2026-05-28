@@ -1,16 +1,15 @@
 "use client";
 import { useLayoutEffect, useState } from "react";
 
-const NUM_LINES      = 4;
-const LINE_GAP       = 18;
-const DOTS_PER_LINE  = 4;
-const ANIM_DURATION  = 4; // seconds
-const DOT_RADIUS     = 3.5;
+const DOT_RADIUS     = 4;
+const ANIM_DURATION  = 5; // seconds for full path traversal
+const DOTS_PER_LINE  = 3;
 
 export function HeroFilamentsSvg() {
   const [layout, setLayout] = useState<{
-    cx: number;
-    cy: number;
+    ox: number;
+    dTop: number;
+    dBot: number;
     heroW: number;
   } | null>(null);
 
@@ -27,8 +26,9 @@ export function HeroFilamentsSvg() {
       if (d.width === 0 || d.height === 0) { setLayout(null); return; }
 
       setLayout({
-        cx:    (d.left + d.right) / 2 - h.left,
-        cy:    (d.top  + d.bottom) / 2 - h.top,
+        ox:    d.right  - h.left,   // diamond right edge
+        dTop:  d.top    - h.top,
+        dBot:  d.bottom - h.top,
         heroW: h.width,
       });
     };
@@ -42,9 +42,28 @@ export function HeroFilamentsSvg() {
 
   if (!layout) return null;
 
-  const totalH = (NUM_LINES - 1) * LINE_GAP;
-  const startY = layout.cy - totalH / 2;
-  const lineYs = Array.from({ length: NUM_LINES }, (_, i) => startY + i * LINE_GAP);
+  const { ox, dTop, dBot, heroW } = layout;
+  const dh = dBot - dTop;
+
+  /* ─── LINE 1 ──────────────────────────────────────────────────────────
+     Starts at the LOWER-RIGHT edge of the diamond.
+     Path: short horizontal → 45° DOWN → long horizontal (below buttons)
+           → diagonal UP into house upper-middle area.
+  ─────────────────────────────────────────────────────────────────────── */
+  const sy = dBot - dh * 0.06;       // very near bottom of diamond
+  const tx = heroW * 0.72;           // end X (≈ inside-left of house)
+  const ty = dTop - dh * 0.15;       // end Y (upper area, ≈ panel mid)
+
+  const shortHoriz = 50;
+  const dipAmount  = dh * 0.18;      // 45° dip below buttons
+
+  const x1 = ox + shortHoriz;
+  const x2 = x1 + dipAmount;
+  const y2 = sy + dipAmount;         // long horizontal at this y
+  const riseLen = y2 - ty;           // amount to rise to reach end y
+  const x3 = tx - riseLen;           // start of rise (45°)
+
+  const line1Path = `M ${ox} ${sy} H ${x1} L ${x2} ${y2} H ${x3} L ${tx} ${ty}`;
 
   return (
     <svg
@@ -58,52 +77,39 @@ export function HeroFilamentsSvg() {
         overflow: "visible",
       }}
     >
-      <defs>
-        <style>{`
-          @keyframes hero-dot-move {
-            0%   { transform: translateX(0);    opacity: 0; }
-            10%  {                              opacity: 1; }
-            90%  {                              opacity: 1; }
-            100% { transform: translateX(80vw); opacity: 0; }
-          }
-        `}</style>
-      </defs>
+      {/* LINE 1 — cable trace */}
+      <path
+        id="hero-line-1"
+        d={line1Path}
+        fill="none"
+        stroke="rgba(74,171,184,0.55)"
+        strokeWidth={1.5}
+      />
 
-      {lineYs.map((y, lineIdx) => (
-        <g key={lineIdx}>
-          {/* Subtle white guideline from logo centre to hero right edge */}
-          <line
-            x1={layout.cx}
-            y1={y}
-            x2={layout.heroW}
-            y2={y}
-            stroke="rgba(255,255,255,0.15)"
-            strokeWidth={1}
-          />
-
-          {/* Animated amber packets travelling from logo to the right */}
-          {Array.from({ length: DOTS_PER_LINE }, (_, dotIdx) => {
-            // Stagger dots within line; offset whole line per spec (0,1,2,3 s).
-            // Negative delay so all dots are visible from page load.
-            const stagger = dotIdx * (ANIM_DURATION / DOTS_PER_LINE);
-            const delay   = -(lineIdx + stagger);
-            return (
-              <circle
-                key={dotIdx}
-                cx={layout.cx}
-                cy={y}
-                r={DOT_RADIUS}
-                fill="#E8943A"
-                style={{
-                  animation:      `hero-dot-move ${ANIM_DURATION}s linear infinite`,
-                  animationDelay: `${delay}s`,
-                  willChange:     "transform, opacity",
-                }}
-              />
-            );
-          })}
-        </g>
-      ))}
+      {/* 3 amber current packets flowing along line 1 */}
+      {Array.from({ length: DOTS_PER_LINE }, (_, i) => {
+        const begin = `${-i * (ANIM_DURATION / DOTS_PER_LINE)}s`;
+        return (
+          <circle key={i} r={DOT_RADIUS} fill="#E8943A" opacity={0}>
+            <animateMotion
+              dur={`${ANIM_DURATION}s`}
+              repeatCount="indefinite"
+              begin={begin}
+              rotate="auto"
+            >
+              <mpath href="#hero-line-1" />
+            </animateMotion>
+            <animate
+              attributeName="opacity"
+              values="0;1;1;0"
+              keyTimes="0;0.08;0.92;1"
+              dur={`${ANIM_DURATION}s`}
+              repeatCount="indefinite"
+              begin={begin}
+            />
+          </circle>
+        );
+      })}
     </svg>
   );
 }
