@@ -2,9 +2,9 @@
 import { useLayoutEffect, useState } from "react";
 import type { PanelPos } from "@/components/hero-3d-canvas";
 
-/* ── PCB-trace path builder ───────────────────────────────────────────────
-   Each cable: horizontal → single 45° diagonal → arrives at panel entry.
-   Cable 4 (bottom): 45° dip down → long horizontal → 45° rise.
+/* ── Cable path builder ───────────────────────────────────────────────────
+   Each cable: short horizontal departure → gentle diagonal → long
+   horizontal arrival (matches the user's sketch exactly).
 ──────────────────────────────────────────────────────────────────────── */
 function buildPaths(
   ox: number,
@@ -12,22 +12,15 @@ function buildPaths(
   tx: number,
   tys: number[],
 ): string[] {
+  const span     = Math.max(400, tx - ox);
+  const departure = Math.min(90, span * 0.07);
+  const diagLen   = Math.min(320, span * 0.22);
+
   return oys.map((sy, i) => {
     const ey = tys[i];
-
-    if (i < 3) {
-      const dy    = ey - sy;
-      const bendX = Math.max(ox + 60, tx - Math.abs(dy));
-      return `M ${ox} ${sy} H ${bendX} L ${tx} ${ey}`;
-    }
-
-    // Cable 4: 45° down → long horizontal → 45° rise to entry
-    const dipLen  = Math.max(50, Math.abs(ey - sy) * 0.55);
-    const dipX    = ox + dipLen;
-    const dipY    = sy + dipLen;
-    const riseLen = Math.max(20, dipY - ey);
-    const riseX   = Math.max(dipX + 40, tx - riseLen);
-    return `M ${ox} ${sy} L ${dipX} ${dipY} H ${riseX} L ${tx} ${ey}`;
+    const x1 = ox + departure;
+    const x2 = x1 + diagLen;
+    return `M ${ox} ${sy} H ${x1} L ${x2} ${ey} H ${tx}`;
   });
 }
 
@@ -56,20 +49,21 @@ export function HeroFilamentsSvg({ panelPos }: { panelPos: PanelPos | null }) {
       const dh   = dbot - dtop;
       const dcy  = dtop + dh / 2;
 
-      // 4 exit points spread across diamond height
+      // 4 exit points spread top→bottom across diamond right edge
       const oys = [
-        dtop + dh * 0.05,
-        dcy  + dh * 0.18,
-        dcy  - dh * 0.18,
-        dbot - dh * 0.05,
+        dtop + dh * 0.05,   // near top
+        dcy  - dh * 0.18,   // upper-mid
+        dcy  + dh * 0.18,   // lower-mid
+        dbot - dh * 0.05,   // near bottom
       ];
 
-      // 4 entry points spread across panel face
+      // 4 entry points fan OUT from the diamond center (~130% of dh)
+      // Lines 0,1 go UP (above diamond center); lines 2,3 go DOWN.
       const tys = [
-        panelPos.y - panelPos.halfH * 0.65,
-        panelPos.y - panelPos.halfH * 0.22,
-        panelPos.y + panelPos.halfH * 0.22,
-        panelPos.y + panelPos.halfH * 0.65,
+        dcy - dh * 0.65,
+        dcy - dh * 0.30,
+        dcy + dh * 0.30,
+        dcy + dh * 0.65,
       ];
 
       setLayout({ ox, oys, tx: panelPos.x, tys });
