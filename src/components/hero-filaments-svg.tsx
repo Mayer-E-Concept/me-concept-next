@@ -2,8 +2,20 @@
 import { useLayoutEffect, useState } from "react";
 
 const DOT_RADIUS     = 4;
-const ANIM_DURATION  = 5; // seconds for full path traversal
+const ANIM_DURATION  = 5; // seconds per full path traversal
 const DOTS_PER_LINE  = 3;
+
+type CableSpec = {
+  id: string;
+  /** Where on the diamond edge to anchor (0 = top, 0.5 = right apex, 1 = bottom) */
+  yFrac: number;
+  /** Length of the short horizontal departure from the diamond */
+  shortHoriz: number;
+  /** Signed vertical offset for the 45° bend: + = down, − = up */
+  bendDY: number;
+  /** Fraction of hero width where the line terminates */
+  endXFrac: number;
+};
 
 export function HeroFilamentsSvg() {
   const [layout, setLayout] = useState<{
@@ -49,9 +61,8 @@ export function HeroFilamentsSvg() {
   const { dCenterX, dTop, dh, dW, heroW } = layout;
 
   /* ── Diamond geometry ────────────────────────────────────────────────
-     Empirically calibrated falloff so the line meets the chamfered
-     diamond outline (between linear and quadratic). The factor scales
-     with the rendered image width → stays on the edge at any resolution.
+     Calibrated falloff (power 1.5) so the start meets the chamfered
+     outline at any viewport size.
   ─────────────────────────────────────────────────────────────────── */
   const DIAMOND_FALLOFF = 1.5;
   const diamondEdge = (yFrac: number) => {
@@ -63,26 +74,41 @@ export function HeroFilamentsSvg() {
     };
   };
 
-  /* ─── LINE 1 ──────────────────────────────────────────────────────────
-     Starts on the lower-right slope of the diamond (closer to right apex).
-     Path: short horizontal → 45° DOWN → long horizontal → 45° UP into house.
-  ─────────────────────────────────────────────────────────────────────── */
-  const LINE1_Y_FRAC = 0.85;
-  const start1 = diamondEdge(LINE1_Y_FRAC);
-  const ox = start1.x;
-  const sy = start1.y;
+  /* ── Build a single cable path + its terminal point ─────────────── */
+  const buildCable = (spec: CableSpec) => {
+    const start = diamondEdge(spec.yFrac);
+    const ox = start.x;
+    const sy = start.y;
+    const tx = heroW * spec.endXFrac;
 
-  const tx = heroW * 0.54;            // end X — line ~30% shorter than before
+    const x1 = ox + spec.shortHoriz;
+    const x2 = x1 + Math.abs(spec.bendDY);
+    const y2 = sy + spec.bendDY;
 
-  const shortHoriz = 165;
-  const dipAmount  = dh * 0.20;       // diagonal down — half of previous length
+    const d = `M ${ox} ${sy} H ${x1} L ${x2} ${y2} H ${tx}`;
+    return { id: spec.id, d, endX: tx, endY: y2 };
+  };
 
-  const x1 = ox + shortHoriz;
-  const x2 = x1 + dipAmount;
-  const y2 = sy + dipAmount;
+  const cables: CableSpec[] = [
+    {
+      // Line 1 — exits lower-right slope, dips below the CTAs
+      id: "hero-line-1",
+      yFrac:      0.85,
+      shortHoriz: 165,
+      bendDY:     dh * 0.20,    // 45° down
+      endXFrac:   0.54,
+    },
+    {
+      // Line 2 — exits a bit higher on the diamond, climbs above the buttons
+      id: "hero-line-2",
+      yFrac:      0.65,
+      shortHoriz: 165,
+      bendDY:     -dh * 0.30,   // 45° up (negative → going up)
+      endXFrac:   0.48,
+    },
+  ];
 
-  // Line 1: short horizontal → 45° down → long horizontal (no rise into house)
-  const line1Path = `M ${ox} ${sy} H ${x1} L ${x2} ${y2} H ${tx}`;
+  const built = cables.map(buildCable);
 
   return (
     <svg
@@ -96,59 +122,56 @@ export function HeroFilamentsSvg() {
         overflow: "visible",
       }}
     >
-      {/* LINE 1 — same colour as the M-diamond watermark (white) */}
-      <path
-        id="hero-line-1"
-        d={line1Path}
-        fill="none"
-        stroke="rgba(255,255,255,0.55)"
-        strokeWidth={1.75}
-        strokeLinejoin="miter"
-      />
+      {/* Cable traces */}
+      {built.map((c) => (
+        <path
+          key={`p-${c.id}`}
+          id={c.id}
+          d={c.d}
+          fill="none"
+          stroke="rgba(255,255,255,0.55)"
+          strokeWidth={1.75}
+          strokeLinejoin="miter"
+        />
+      ))}
 
-      {/* Destination terminal — pulsing halo + solid core */}
-      <g>
-        <circle cx={tx} cy={y2} r={6} fill="none" stroke="#C5895B" strokeWidth={1.5}>
-          <animate
-            attributeName="r"
-            values="6;15;6"
-            dur="2.4s"
-            repeatCount="indefinite"
-          />
-          <animate
-            attributeName="opacity"
-            values="0.85;0;0.85"
-            dur="2.4s"
-            repeatCount="indefinite"
-          />
-        </circle>
-        <circle cx={tx} cy={y2} r={5.5} fill="#C5895B" opacity={0.95} />
-      </g>
-
-      {/* 3 amber current packets flowing along line 1 */}
-      {Array.from({ length: DOTS_PER_LINE }, (_, i) => {
-        const begin = `${-i * (ANIM_DURATION / DOTS_PER_LINE)}s`;
-        return (
-          <circle key={i} r={DOT_RADIUS} fill="#E8943A" opacity={0}>
-            <animateMotion
-              dur={`${ANIM_DURATION}s`}
-              repeatCount="indefinite"
-              begin={begin}
-              rotate="auto"
-            >
-              <mpath href="#hero-line-1" />
-            </animateMotion>
-            <animate
-              attributeName="opacity"
-              values="0;1;1;0"
-              keyTimes="0;0.08;0.92;1"
-              dur={`${ANIM_DURATION}s`}
-              repeatCount="indefinite"
-              begin={begin}
-            />
+      {/* Destination terminals — solid dot + pulsing halo */}
+      {built.map((c) => (
+        <g key={`t-${c.id}`}>
+          <circle cx={c.endX} cy={c.endY} r={6} fill="none" stroke="#C5895B" strokeWidth={1.5}>
+            <animate attributeName="r"       values="6;15;6"      dur="2.4s" repeatCount="indefinite" />
+            <animate attributeName="opacity" values="0.85;0;0.85" dur="2.4s" repeatCount="indefinite" />
           </circle>
-        );
-      })}
+          <circle cx={c.endX} cy={c.endY} r={5.5} fill="#C5895B" opacity={0.95} />
+        </g>
+      ))}
+
+      {/* Current packets flowing along each cable */}
+      {built.map((c) =>
+        Array.from({ length: DOTS_PER_LINE }, (_, i) => {
+          const begin = `${-i * (ANIM_DURATION / DOTS_PER_LINE)}s`;
+          return (
+            <circle key={`${c.id}-d${i}`} r={DOT_RADIUS} fill="#E8943A" opacity={0}>
+              <animateMotion
+                dur={`${ANIM_DURATION}s`}
+                repeatCount="indefinite"
+                begin={begin}
+                rotate="auto"
+              >
+                <mpath href={`#${c.id}`} />
+              </animateMotion>
+              <animate
+                attributeName="opacity"
+                values="0;1;1;0"
+                keyTimes="0;0.08;0.92;1"
+                dur={`${ANIM_DURATION}s`}
+                repeatCount="indefinite"
+                begin={begin}
+              />
+            </circle>
+          );
+        })
+      )}
     </svg>
   );
 }
