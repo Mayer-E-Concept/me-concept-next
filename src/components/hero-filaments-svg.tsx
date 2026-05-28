@@ -64,7 +64,7 @@ export function HeroFilamentsSvg() {
      Starts on the lower-right slope of the diamond (closer to right apex).
      Path: short horizontal → 45° DOWN → long horizontal → 45° UP into house.
   ─────────────────────────────────────────────────────────────────────── */
-  const LINE1_Y_FRAC = 0.70;
+  const LINE1_Y_FRAC = 0.85;
   const start1 = diamondEdge(LINE1_Y_FRAC);
   const ox = start1.x;
   const sy = start1.y;
@@ -73,7 +73,7 @@ export function HeroFilamentsSvg() {
   const ty = dTop - dh * 0.15;        // end Y (upper-house area)
 
   const shortHoriz = 165;
-  const dipAmount  = dh * 0.55;       // drop horizontal well below the CTAs
+  const dipAmount  = dh * 0.40;       // keeps horizontal at ≈y=725 below the CTAs
 
   const x1 = ox + shortHoriz;
   const x2 = x1 + dipAmount;
