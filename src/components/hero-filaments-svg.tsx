@@ -7,9 +7,10 @@ const DOTS_PER_LINE  = 3;
 
 export function HeroFilamentsSvg() {
   const [layout, setLayout] = useState<{
-    ox: number;
+    dCenterX: number;   // diamond image horizontal centre (hero-relative)
     dTop: number;
     dBot: number;
+    dh: number;
     heroW: number;
   } | null>(null);
 
@@ -26,10 +27,11 @@ export function HeroFilamentsSvg() {
       if (d.width === 0 || d.height === 0) { setLayout(null); return; }
 
       setLayout({
-        ox:    d.right  - h.left,   // diamond right edge
-        dTop:  d.top    - h.top,
-        dBot:  d.bottom - h.top,
-        heroW: h.width,
+        dCenterX: (d.left + d.right) / 2 - h.left,
+        dTop:     d.top    - h.top,
+        dBot:     d.bottom - h.top,
+        dh:       d.height,
+        heroW:    h.width,
       });
     };
 
@@ -42,26 +44,43 @@ export function HeroFilamentsSvg() {
 
   if (!layout) return null;
 
-  const { ox, dTop, dBot, heroW } = layout;
-  const dh = dBot - dTop;
+  const { dCenterX, dTop, dh, heroW } = layout;
+
+  /* ── Diamond geometry ────────────────────────────────────────────────
+     The image is wider than tall but the visible diamond fills the
+     HEIGHT and is centred horizontally. At y_frac from the top, the
+     diamond's right edge sits at:
+       dCenterX + (dh/2) * (1 - 2*|y_frac - 0.5|)
+  ─────────────────────────────────────────────────────────────────── */
+  const diamondEdge = (yFrac: number) => {
+    const yDist01 = Math.abs(yFrac - 0.5) * 2; // 0 at centre → 1 at apex
+    return {
+      x: dCenterX + (dh / 2) * (1 - yDist01),
+      y: dTop + dh * yFrac,
+    };
+  };
 
   /* ─── LINE 1 ──────────────────────────────────────────────────────────
-     Starts at the LOWER-RIGHT edge of the diamond.
+     Starts on the LOWER-RIGHT edge of the visible diamond (muchia logo-ului).
      Path: short horizontal → 45° DOWN → long horizontal (below buttons)
-           → diagonal UP into house upper-middle area.
+           → 45° UP into the upper-house area.
   ─────────────────────────────────────────────────────────────────────── */
-  const sy = dBot - dh * 0.06;       // very near bottom of diamond
-  const tx = heroW * 0.72;           // end X (≈ inside-left of house)
-  const ty = dTop - dh * 0.15;       // end Y (upper area, ≈ panel mid)
+  const LINE1_Y_FRAC = 0.80;
+  const start1 = diamondEdge(LINE1_Y_FRAC);
+  const ox = start1.x;
+  const sy = start1.y;
+
+  const tx = heroW * 0.72;            // end X (≈ inside-left of house)
+  const ty = dTop - dh * 0.15;        // end Y (upper-house area)
 
   const shortHoriz = 50;
-  const dipAmount  = dh * 0.18;      // 45° dip below buttons
+  const dipAmount  = dh * 0.18;       // 45° dip below buttons
 
   const x1 = ox + shortHoriz;
   const x2 = x1 + dipAmount;
-  const y2 = sy + dipAmount;         // long horizontal at this y
-  const riseLen = y2 - ty;           // amount to rise to reach end y
-  const x3 = tx - riseLen;           // start of rise (45°)
+  const y2 = sy + dipAmount;
+  const riseLen = y2 - ty;
+  const x3 = tx - riseLen;
 
   const line1Path = `M ${ox} ${sy} H ${x1} L ${x2} ${y2} H ${x3} L ${tx} ${ty}`;
 
