@@ -1,5 +1,5 @@
 "use client";
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 const DOT_RADIUS     = 4;
 const ANIM_DURATION  = 5; // seconds per full path traversal
@@ -18,67 +18,94 @@ type CableSpec = {
 };
 
 export function HeroFilamentsSvg() {
+  const edgeRef = useRef<Float32Array | null>(null);
   const [layout, setLayout] = useState<{
-    dCenterX: number;
-    dTop: number;
-    dBot: number;
-    dh: number;
-    dW: number;
+    dLeft: number;
+    dTop:  number;
+    dh:    number;
+    dW:    number;
     heroW: number;
+    edgeByRow: Float32Array;
   } | null>(null);
 
   useLayoutEffect(() => {
-    const compute = () => {
+    let stop = false;
+
+    const measure = () => {
       const diamond = document.querySelector(
         ".hero-brand-group img:last-child",
-      ) as HTMLElement | null;
+      ) as HTMLImageElement | null;
       const hero = document.querySelector(".hero-section") as HTMLElement | null;
-      if (!diamond || !hero) { setLayout(null); return; }
+      if (!diamond || !hero || !edgeRef.current) return;
 
       const d = diamond.getBoundingClientRect();
       const h = hero.getBoundingClientRect();
-      if (d.width === 0 || d.height === 0) { setLayout(null); return; }
+      if (d.width === 0 || d.height === 0) return;
 
       setLayout({
-        dCenterX: (d.left + d.right) / 2 - h.left,
-        dTop:     d.top    - h.top,
-        dBot:     d.bottom - h.top,
-        dh:       d.height,
-        dW:       d.width,
-        heroW:    h.width,
+        dLeft: d.left - h.left,
+        dTop:  d.top  - h.top,
+        dh:    d.height,
+        dW:    d.width,
+        heroW: h.width,
+        edgeByRow: edgeRef.current,
       });
     };
 
-    compute();
-    const ro = new ResizeObserver(compute);
+    // Scan PNG once → build per-row right-edge fraction table
+    const diamond = document.querySelector(
+      ".hero-brand-group img:last-child",
+    ) as HTMLImageElement | null;
+    if (!diamond) return;
+
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      if (stop) return;
+      const c = document.createElement("canvas");
+      c.width = img.naturalWidth;
+      c.height = img.naturalHeight;
+      const ctx = c.getContext("2d");
+      if (!ctx) return;
+      ctx.drawImage(img, 0, 0);
+      const px = ctx.getImageData(0, 0, c.width, c.height).data;
+      const table = new Float32Array(c.height);
+      for (let y = 0; y < c.height; y++) {
+        let lastX = -1;
+        const rowOffset = y * c.width * 4;
+        for (let x = 0; x < c.width; x++) {
+          if (px[rowOffset + x * 4 + 3] > 1) lastX = x;
+        }
+        table[y] = lastX === -1 ? -1 : lastX / c.width;
+      }
+      edgeRef.current = table;
+      measure();
+    };
+    img.src = diamond.src;
+
     const hero = document.querySelector(".hero-section");
+    const ro = new ResizeObserver(measure);
     if (hero) ro.observe(hero);
-    return () => ro.disconnect();
+
+    return () => { stop = true; ro.disconnect(); };
   }, []);
 
   if (!layout) return null;
 
-  const { dCenterX, dTop, dh, dW, heroW } = layout;
+  const { dLeft, dTop, dh, dW, heroW, edgeByRow } = layout;
 
-  /* ── Diamond geometry ────────────────────────────────────────────────
-     Pixel-calibrated from base_icon_transparent.png (canvas scan):
-        - The visible outline is a true rotated square / rectangle.
-        - Right corner at fraction 0.807 of image width → half-width
-          ratio = 0.307 of the rendered image width (dW).
-        - Vertical extent ≈ y_frac [0.025, 0.975] (tiny top/bottom inset).
-     One linear formula, scales perfectly at any viewport.
+  /* ── Diamond edge by direct pixel lookup ────────────────────────────
+     For any y_frac, find the rightmost non-transparent pixel in that
+     row of the PNG and project it into hero-relative CSS pixels.
+     Pixel-perfect at any viewport because dW scales with rendering.
   ─────────────────────────────────────────────────────────────────── */
-  const DIAMOND_HORIZ_RATIO    = 0.307;
-  const DIAMOND_VERT_INSET     = 0.025;
   const diamondEdge = (yFrac: number) => {
-    const usable = 1 - 2 * DIAMOND_VERT_INSET;
-    const dyFrac = Math.min(1, Math.max(0, (yFrac - DIAMOND_VERT_INSET) / usable));
-    const yDist01 = Math.abs(dyFrac - 0.5) * 2;
-    const widthFactor = Math.max(0, 1 - yDist01);
-    return {
-      x: dCenterX + DIAMOND_HORIZ_RATIO * dW * widthFactor,
-      y: dTop + dh * yFrac,
-    };
+    const rowIdx = Math.min(edgeByRow.length - 1, Math.max(0, Math.round(yFrac * edgeByRow.length)));
+    const edgeFrac = edgeByRow[rowIdx];
+    const x = edgeFrac < 0
+      ? dLeft + dW / 2
+      : dLeft + edgeFrac * dW;
+    return { x, y: dTop + dh * yFrac };
   };
 
   /* ── Build a single cable path + its terminal point ─────────────── */
