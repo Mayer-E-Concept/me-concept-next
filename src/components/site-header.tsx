@@ -102,28 +102,12 @@ export function SiteHeader() {
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
             width: "92%",
             maxWidth: "1340px",
             margin: "0 auto",
           }}
         >
-          {/* Logo — visible on all screen sizes */}
-          <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/uploads/base_logo_transparent_background-1.png"
-              alt="Mayer E-Concept"
-              style={{
-                height: "clamp(26px, 3.2vw, 36px)",
-                width: "auto",
-                display: "block",
-                filter: "brightness(0) invert(1)",
-                opacity: 0.90,
-              }}
-            />
-          </Link>
-
           {/* Desktop nav */}
           <nav className="nav-desktop" style={{ gap: 32, alignItems: "center" }}>
             {navItems.map((item) => (
