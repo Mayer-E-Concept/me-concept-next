@@ -61,21 +61,22 @@ export function HeroFilamentsSvg() {
   const { dCenterX, dTop, dh, dW, heroW } = layout;
 
   /* ── Diamond geometry ────────────────────────────────────────────────
-     The brand mark is a CHAMFERED rotated square: linear slopes near
-     the top/bottom corners, but the right side is flat in the middle
-     (rounded chamfer). Model: linear offset capped at a flat-side max.
-
-       slope     = dh * 0.38   (fits line 1 at y_frac=0.85 → x=238)
-       flat side = dh * 0.25   (chamfered right side; fits line 2 at 0.65)
+     Pixel-calibrated from base_icon_transparent.png (canvas scan):
+        - The visible outline is a true rotated square / rectangle.
+        - Right corner at fraction 0.807 of image width → half-width
+          ratio = 0.307 of the rendered image width (dW).
+        - Vertical extent ≈ y_frac [0.025, 0.975] (tiny top/bottom inset).
+     One linear formula, scales perfectly at any viewport.
   ─────────────────────────────────────────────────────────────────── */
-  const SLOPE_HALF_DIAG = dh * 0.38;
-  const FLAT_SIDE_MAX   = dh * 0.25;
+  const DIAMOND_HORIZ_RATIO    = 0.307;
+  const DIAMOND_VERT_INSET     = 0.025;
   const diamondEdge = (yFrac: number) => {
-    const yDist01 = Math.abs(yFrac - 0.5) * 2;
-    const slopeOffset = SLOPE_HALF_DIAG * Math.max(0, 1 - yDist01);
-    const offset = Math.min(slopeOffset, FLAT_SIDE_MAX);
+    const usable = 1 - 2 * DIAMOND_VERT_INSET;
+    const dyFrac = Math.min(1, Math.max(0, (yFrac - DIAMOND_VERT_INSET) / usable));
+    const yDist01 = Math.abs(dyFrac - 0.5) * 2;
+    const widthFactor = Math.max(0, 1 - yDist01);
     return {
-      x: dCenterX + offset,
+      x: dCenterX + DIAMOND_HORIZ_RATIO * dW * widthFactor,
       y: dTop + dh * yFrac,
     };
   };
