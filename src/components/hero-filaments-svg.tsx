@@ -72,8 +72,8 @@ export function HeroFilamentsSvg() {
   const tx = heroW * 0.72;            // end X
   const ty = dTop - dh * 0.15;        // end Y (upper-house area)
 
-  const shortHoriz = 165;             // 3× longer per user feedback
-  const dipAmount  = dh * 0.13;       // slightly shallower dip
+  const shortHoriz = 165;
+  const dipAmount  = dh * 0.55;       // drop horizontal well below the CTAs
 
   const x1 = ox + shortHoriz;
   const x2 = x1 + dipAmount;
