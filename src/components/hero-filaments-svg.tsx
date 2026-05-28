@@ -7,10 +7,11 @@ const DOTS_PER_LINE  = 3;
 
 export function HeroFilamentsSvg() {
   const [layout, setLayout] = useState<{
-    dCenterX: number;   // diamond image horizontal centre (hero-relative)
+    dCenterX: number;
     dTop: number;
     dBot: number;
     dh: number;
+    dW: number;
     heroW: number;
   } | null>(null);
 
@@ -31,6 +32,7 @@ export function HeroFilamentsSvg() {
         dTop:     d.top    - h.top,
         dBot:     d.bottom - h.top,
         dh:       d.height,
+        dW:       d.width,
         heroW:    h.width,
       });
     };
@@ -44,19 +46,19 @@ export function HeroFilamentsSvg() {
 
   if (!layout) return null;
 
-  const { dCenterX, dTop, dh, heroW } = layout;
+  const { dCenterX, dTop, dh, dW, heroW } = layout;
 
   /* ── Diamond geometry ────────────────────────────────────────────────
-     The brand mark is a chamfered/rounded diamond — its outline bulges
-     out further than a perfect inscribed rotated square. Approximate
-     the visible edge with a circular arc:
-       half_width(y) = (dh/2) * sqrt(1 - yDist01²)
+     The brand mark fills the image bounding box (310×224 in display);
+     model the visible chamfered outline as an ellipse whose horizontal
+     radius matches the image WIDTH (not height).
+       x_edge(y) = dCenterX + (dW/2) * sqrt(1 - yDist01²)
   ─────────────────────────────────────────────────────────────────── */
   const diamondEdge = (yFrac: number) => {
-    const yDist01 = Math.abs(yFrac - 0.5) * 2; // 0 at centre → 1 at apex
+    const yDist01 = Math.abs(yFrac - 0.5) * 2;
     const widthFactor = Math.sqrt(Math.max(0, 1 - yDist01 * yDist01));
     return {
-      x: dCenterX + (dh / 2) * widthFactor,
+      x: dCenterX + (dW / 2) * widthFactor,
       y: dTop + dh * yFrac,
     };
   };
