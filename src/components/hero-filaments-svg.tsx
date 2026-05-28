@@ -61,20 +61,19 @@ export function HeroFilamentsSvg() {
   };
 
   /* ─── LINE 1 ──────────────────────────────────────────────────────────
-     Starts on the LOWER-RIGHT edge of the visible diamond (muchia logo-ului).
-     Path: short horizontal → 45° DOWN → long horizontal (below buttons)
-           → 45° UP into the upper-house area.
+     Starts on the lower-right slope of the diamond (closer to right apex).
+     Path: short horizontal → 45° DOWN → long horizontal → 45° UP into house.
   ─────────────────────────────────────────────────────────────────────── */
-  const LINE1_Y_FRAC = 0.80;
+  const LINE1_Y_FRAC = 0.70;
   const start1 = diamondEdge(LINE1_Y_FRAC);
   const ox = start1.x;
   const sy = start1.y;
 
-  const tx = heroW * 0.72;            // end X (≈ inside-left of house)
+  const tx = heroW * 0.72;            // end X
   const ty = dTop - dh * 0.15;        // end Y (upper-house area)
 
-  const shortHoriz = 50;
-  const dipAmount  = dh * 0.18;       // 45° dip below buttons
+  const shortHoriz = 55;
+  const dipAmount  = dh * 0.13;       // slightly shallower dip
 
   const x1 = ox + shortHoriz;
   const x2 = x1 + dipAmount;
@@ -101,8 +100,9 @@ export function HeroFilamentsSvg() {
         id="hero-line-1"
         d={line1Path}
         fill="none"
-        stroke="rgba(74,171,184,0.55)"
-        strokeWidth={1.5}
+        stroke="rgba(120,200,215,0.75)"
+        strokeWidth={1.75}
+        strokeLinejoin="miter"
       />
 
       {/* 3 amber current packets flowing along line 1 */}
