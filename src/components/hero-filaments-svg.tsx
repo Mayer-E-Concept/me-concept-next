@@ -125,11 +125,11 @@ export function HeroFilamentsSvg() {
 
   const cables: CableSpec[] = [
     {
-      // Line 1 — exits lower-right slope, dips below the CTAs
+      // Line 1 — exits the wider lower-right slope (closer to right apex)
       id: "hero-line-1",
-      yFrac:      0.85,
+      yFrac:      0.75,
       shortHoriz: 165,
-      bendDY:     dh * 0.20,    // 45° down
+      bendDY:     dh * 0.30,    // 45° down — slightly bigger drop now
       endXFrac:   0.54,
     },
     {
