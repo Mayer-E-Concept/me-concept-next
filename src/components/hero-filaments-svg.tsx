@@ -49,14 +49,14 @@ export function HeroFilamentsSvg() {
   const { dCenterX, dTop, dh, dW, heroW } = layout;
 
   /* ── Diamond geometry ────────────────────────────────────────────────
-     Model the brand mark as a rotated square with HORIZONTAL diagonal
-     equal to the image width. The right slope is a straight line, so
-     the half-width at y is linear:
-       half_width(y) = (dW/2) * (1 - yDist01)
+     Empirical fit for the chamfered M-diamond: at lower y_frac values
+     the visible edge sits much closer to the centre than a linear
+     diamond predicts. Use a steeper falloff (1 - yDist01)² so the
+     start point meets the actual outline.
   ─────────────────────────────────────────────────────────────────── */
   const diamondEdge = (yFrac: number) => {
     const yDist01 = Math.abs(yFrac - 0.5) * 2;
-    const widthFactor = Math.max(0, 1 - yDist01);
+    const widthFactor = Math.max(0, Math.pow(1 - yDist01, 2));
     return {
       x: dCenterX + (dW / 2) * widthFactor,
       y: dTop + dh * yFrac,
