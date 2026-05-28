@@ -20,7 +20,7 @@ export function HeroSectionDe() {
         @media (max-width: 767px) {
           .hero-section .hero-content {
             padding-right: clamp(20px, 5vw, 40px) !important;
-            padding-top: 100px !important;
+            padding-top: 80px !important;
             padding-bottom: 72px !important;
             align-items: flex-start !important;
           }
@@ -33,7 +33,10 @@ export function HeroSectionDe() {
           .hero-section .hero-buttons {
             align-items: flex-start !important;
           }
+          .hero-mobile-brand { display: flex !important; }
         }
+
+        .hero-mobile-brand { display: none; }
 
         @media (min-width: 768px) and (max-width: 1199px) {
           .hero-section .hero-content {
@@ -150,6 +153,43 @@ export function HeroSectionDe() {
           alignItems: "flex-start",
         }}
       >
+        {/* Mobile-only brand block */}
+        <div
+          className="hero-mobile-brand"
+          aria-hidden="true"
+          style={{
+            flexDirection: "column",
+            alignItems: "flex-start",
+            gap: 10,
+            marginBottom: 32,
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/uploads/logo_text_only.png"
+            alt=""
+            style={{
+              width: "clamp(150px, 44vw, 210px)",
+              height: "auto",
+              display: "block",
+              filter: "brightness(0) invert(1)",
+              opacity: 0.75,
+            }}
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/uploads/base_icon_transparent.png"
+            alt=""
+            style={{
+              width: "clamp(100px, 30vw, 150px)",
+              height: "auto",
+              display: "block",
+              filter: "brightness(0) invert(1)",
+              opacity: 0.70,
+            }}
+          />
+        </div>
+
         <h1
           className="hero-h1"
           style={{
