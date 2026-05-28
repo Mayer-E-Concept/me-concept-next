@@ -96,15 +96,34 @@ export function HeroFilamentsSvg() {
         overflow: "visible",
       }}
     >
-      {/* LINE 1 — cable trace */}
+      {/* LINE 1 — cable trace in brand copper */}
       <path
         id="hero-line-1"
         d={line1Path}
         fill="none"
-        stroke="rgba(120,200,215,0.75)"
+        stroke="rgba(197,137,91,0.78)"
         strokeWidth={1.75}
         strokeLinejoin="miter"
       />
+
+      {/* Destination terminal — pulsing halo + solid core */}
+      <g>
+        <circle cx={tx} cy={y2} r={6} fill="none" stroke="#C5895B" strokeWidth={1.5}>
+          <animate
+            attributeName="r"
+            values="6;15;6"
+            dur="2.4s"
+            repeatCount="indefinite"
+          />
+          <animate
+            attributeName="opacity"
+            values="0.85;0;0.85"
+            dur="2.4s"
+            repeatCount="indefinite"
+          />
+        </circle>
+        <circle cx={tx} cy={y2} r={5.5} fill="#C5895B" opacity={0.95} />
+      </g>
 
       {/* 3 amber current packets flowing along line 1 */}
       {Array.from({ length: DOTS_PER_LINE }, (_, i) => {
