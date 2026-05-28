@@ -96,12 +96,12 @@ export function HeroFilamentsSvg() {
         overflow: "visible",
       }}
     >
-      {/* LINE 1 — cable trace in brand copper */}
+      {/* LINE 1 — same colour as the M-diamond watermark (white) */}
       <path
         id="hero-line-1"
         d={line1Path}
         fill="none"
-        stroke="rgba(197,137,91,0.78)"
+        stroke="rgba(255,255,255,0.55)"
         strokeWidth={1.75}
         strokeLinejoin="miter"
       />
