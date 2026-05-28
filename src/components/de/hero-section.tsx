@@ -1,13 +1,10 @@
 "use client";
 import type { ReactNode } from "react";
-import { useState } from "react";
 import { Hero3DCanvas } from "@/components/hero-3d-canvas";
-import type { PanelPos } from "@/components/hero-3d-canvas";
 import { HeroFilamentsSvg } from "@/components/hero-filaments-svg";
 import { HeroStatsStripDe } from "@/components/de/hero-stats-strip";
 
 export function HeroSectionDe() {
-  const [panelPos, setPanelPos] = useState<PanelPos | null>(null);
   return (
     <section
       className="hero-section"
@@ -100,7 +97,7 @@ export function HeroSectionDe() {
           position: "absolute",
           top: "clamp(60px, 12vh, 140px)",
           left: "clamp(20px, 12vw, 240px)",
-          zIndex: 0,
+          zIndex: 10,
           pointerEvents: "none",
           display: "flex",
           flexDirection: "column",
@@ -136,12 +133,12 @@ export function HeroSectionDe() {
 
       {/* Three.js 3D canvas — hidden on mobile */}
       <div className="hero-canvas-wrapper" style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
-        <Hero3DCanvas onPanelPos={setPanelPos} />
+        <Hero3DCanvas />
       </div>
 
-      {/* SVG filaments — logo → panel, screen-space, desktop only */}
-      <div className="hero-canvas-wrapper" style={{ position: "absolute", inset: 0, zIndex: 3, pointerEvents: "none" }}>
-        <HeroFilamentsSvg panelPos={panelPos} />
+      {/* SVG horizontal lines — from logo centre, with animated amber dots */}
+      <div style={{ position: "absolute", inset: 0, zIndex: 20, pointerEvents: "none" }}>
+        <HeroFilamentsSvg />
       </div>
 
       {/* Text content */}
@@ -149,7 +146,7 @@ export function HeroSectionDe() {
         className="hero-content"
         style={{
           position: "relative",
-          zIndex: 2,
+          zIndex: 30,
           width: "100%",
           maxWidth: "1240px",
           margin: "0 auto",

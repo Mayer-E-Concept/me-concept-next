@@ -10,12 +10,8 @@ const COLORS = {
   solar:    0x5ABCCA,
 };
 
-export type PanelPos = { x: number; y: number; halfH: number };
-
-export function Hero3DCanvas({ onPanelPos }: { onPanelPos?: (p: PanelPos) => void } = {}) {
+export function Hero3DCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const onPanelPosRef = useRef(onPanelPos);
-  onPanelPosRef.current = onPanelPos;
 
   useEffect(() => {
     const container = containerRef.current;
@@ -441,20 +437,6 @@ export function Hero3DCanvas({ onPanelPos }: { onPanelPos?: (p: PanelPos) => voi
       house.position.y = baseHouseY;
       house.userData.baseY = baseHouseY;
       layoutLabels();
-
-      // Project house interior entry point → hero-relative CSS pixels
-      // Destination X = house centre (cables visually enter the house body)
-      // halfH = projected wall half-height (full vertical fan-out range)
-      const _eX  = houseX;
-      const _eCY = baseHouseY;
-      const _proj = (wx: number, wy: number) => {
-        const v = new THREE.Vector3(wx, wy, 0).project(camera);
-        return { x: (v.x + 1) / 2 * w, y: -(v.y - 1) / 2 * h };
-      };
-      const _c = _proj(_eX, _eCY);
-      const _t = _proj(_eX, baseHouseY + (Hw / 2) * scale);
-      const _b = _proj(_eX, baseHouseY - (Hw / 2) * scale);
-      onPanelPosRef.current?.({ x: _c.x, y: _c.y, halfH: (_b.y - _t.y) / 2 });
     }
 
     const ro = new ResizeObserver(resize);

@@ -1,32 +1,17 @@
 "use client";
 import { useLayoutEffect, useState } from "react";
-import type { PanelPos } from "@/components/hero-3d-canvas";
 
-/* ── Cable path builder ───────────────────────────────────────────────────
-   Each cable: short horizontal departure → gentle diagonal → long
-   horizontal arrival (matches the user's sketch exactly).
-──────────────────────────────────────────────────────────────────────── */
-function buildPaths(
-  ox: number,
-  oys: number[],
-  tx: number,
-  tys: number[],
-): string[] {
-  const span     = Math.max(400, tx - ox);
-  const departure = Math.min(90, span * 0.07);
-  const diagLen   = Math.min(320, span * 0.22);
+const NUM_LINES      = 4;
+const LINE_GAP       = 18;
+const DOTS_PER_LINE  = 4;
+const ANIM_DURATION  = 4; // seconds
+const DOT_RADIUS     = 3.5;
 
-  return oys.map((sy, i) => {
-    const ey = tys[i];
-    const x1 = ox + departure;
-    const x2 = x1 + diagLen;
-    return `M ${ox} ${sy} H ${x1} L ${x2} ${ey} H ${tx}`;
-  });
-}
-
-export function HeroFilamentsSvg({ panelPos }: { panelPos: PanelPos | null }) {
+export function HeroFilamentsSvg() {
   const [layout, setLayout] = useState<{
-    ox: number; oys: number[]; tx: number; tys: number[];
+    cx: number;
+    cy: number;
+    heroW: number;
   } | null>(null);
 
   useLayoutEffect(() => {
@@ -35,38 +20,17 @@ export function HeroFilamentsSvg({ panelPos }: { panelPos: PanelPos | null }) {
         ".hero-brand-group img:last-child",
       ) as HTMLElement | null;
       const hero = document.querySelector(".hero-section") as HTMLElement | null;
+      if (!diamond || !hero) { setLayout(null); return; }
 
-      if (!diamond || !hero || !panelPos) { setLayout(null); return; }
+      const d = diamond.getBoundingClientRect();
+      const h = hero.getBoundingClientRect();
+      if (d.width === 0 || d.height === 0) { setLayout(null); return; }
 
-      const dRect = diamond.getBoundingClientRect();
-      const hRect = hero.getBoundingClientRect();
-
-      if (dRect.width === 0 || dRect.height === 0) { setLayout(null); return; }
-
-      const ox   = dRect.right  - hRect.left;
-      const dtop = dRect.top    - hRect.top;
-      const dbot = dRect.bottom - hRect.top;
-      const dh   = dbot - dtop;
-      const dcy  = dtop + dh / 2;
-
-      // 4 exit points spread top→bottom across diamond right edge
-      const oys = [
-        dtop + dh * 0.05,   // near top
-        dcy  - dh * 0.18,   // upper-mid
-        dcy  + dh * 0.18,   // lower-mid
-        dbot - dh * 0.05,   // near bottom
-      ];
-
-      // 4 entry points fan OUT from the diamond center (~130% of dh)
-      // Lines 0,1 go UP (above diamond center); lines 2,3 go DOWN.
-      const tys = [
-        dcy - dh * 0.65,
-        dcy - dh * 0.30,
-        dcy + dh * 0.30,
-        dcy + dh * 0.65,
-      ];
-
-      setLayout({ ox, oys, tx: panelPos.x, tys });
+      setLayout({
+        cx:    (d.left + d.right) / 2 - h.left,
+        cy:    (d.top  + d.bottom) / 2 - h.top,
+        heroW: h.width,
+      });
     };
 
     compute();
@@ -74,15 +38,13 @@ export function HeroFilamentsSvg({ panelPos }: { panelPos: PanelPos | null }) {
     const hero = document.querySelector(".hero-section");
     if (hero) ro.observe(hero);
     return () => ro.disconnect();
-  }, [panelPos]);
+  }, []);
 
   if (!layout) return null;
 
-  const paths = buildPaths(layout.ox, layout.oys, layout.tx, layout.tys);
-
-  // Stagger phases so packets don't all move in sync
-  const durations = [5.4, 4.7, 4.1, 6.0];
-  const delays    = [0, -1.4, -0.7, -2.1];
+  const totalH = (NUM_LINES - 1) * LINE_GAP;
+  const startY = layout.cy - totalH / 2;
+  const lineYs = Array.from({ length: NUM_LINES }, (_, i) => startY + i * LINE_GAP);
 
   return (
     <svg
@@ -93,42 +55,53 @@ export function HeroFilamentsSvg({ panelPos }: { panelPos: PanelPos | null }) {
         width: "100%",
         height: "100%",
         pointerEvents: "none",
-        zIndex: 3,
         overflow: "visible",
       }}
     >
       <defs>
         <style>{`
-          @keyframes hero-wire-flow {
-            to { stroke-dashoffset: -260; }
+          @keyframes hero-dot-move {
+            0%   { transform: translateX(0);    opacity: 0; }
+            10%  {                              opacity: 1; }
+            90%  {                              opacity: 1; }
+            100% { transform: translateX(80vw); opacity: 0; }
           }
         `}</style>
       </defs>
 
-      {paths.map((d, i) => (
-        <g key={i}>
-          {/* Static cable trace */}
-          <path
-            d={d}
-            fill="none"
-            stroke="rgba(74,171,184,0.38)"
-            strokeWidth={1.5}
+      {lineYs.map((y, lineIdx) => (
+        <g key={lineIdx}>
+          {/* Subtle white guideline from logo centre to hero right edge */}
+          <line
+            x1={layout.cx}
+            y1={y}
+            x2={layout.heroW}
+            y2={y}
+            stroke="rgba(255,255,255,0.15)"
+            strokeWidth={1}
           />
-          {/* Animated current packet */}
-          <path
-            d={d}
-            fill="none"
-            stroke="#C5895B"
-            strokeWidth={3}
-            strokeLinecap="round"
-            opacity={0.90}
-            strokeDasharray="18 260"
-            strokeDashoffset={0}
-            style={{
-              animation: `hero-wire-flow ${durations[i]}s linear infinite`,
-              animationDelay: `${delays[i]}s`,
-            }}
-          />
+
+          {/* Animated amber packets travelling from logo to the right */}
+          {Array.from({ length: DOTS_PER_LINE }, (_, dotIdx) => {
+            // Stagger dots within line; offset whole line per spec (0,1,2,3 s).
+            // Negative delay so all dots are visible from page load.
+            const stagger = dotIdx * (ANIM_DURATION / DOTS_PER_LINE);
+            const delay   = -(lineIdx + stagger);
+            return (
+              <circle
+                key={dotIdx}
+                cx={layout.cx}
+                cy={y}
+                r={DOT_RADIUS}
+                fill="#E8943A"
+                style={{
+                  animation:      `hero-dot-move ${ANIM_DURATION}s linear infinite`,
+                  animationDelay: `${delay}s`,
+                  willChange:     "transform, opacity",
+                }}
+              />
+            );
+          })}
         </g>
       ))}
     </svg>
