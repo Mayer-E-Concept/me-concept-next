@@ -407,13 +407,36 @@ export function Hero3DCanvas() {
       const hX = house.position.x;
       const hY = (house.userData.baseY as number | undefined) ?? house.position.y;
 
-      // Panel left-face in world space (static approximation — fine at low opacity)
+      // Panel left-face entry in world space
       const eX = hX + (-W / 2 - 0.02) * sc;
       const eY = hY + pY * sc;
       const eZ = pZ * sc;
-      // Logo anchor — well to the left of the panel
-      const aX = eX - 4.2 * sc;
-      const aY = hY;
+
+      // Unproject the hero-brand-group (logo watermark) DOM position to world space
+      // so the filaments start exactly where the logo is on screen.
+      let aX = eX - 7.5 * sc;  // fallback for viewports where logo is hidden
+      let aY = hY;
+      const logoEl = document.querySelector(".hero-brand-group") as HTMLElement | null;
+      if (logoEl) {
+        const lRect = logoEl.getBoundingClientRect();
+        const cRect = canvas.getBoundingClientRect();
+        if (lRect.width > 0 && cRect.width > 0) {
+          // Right edge of logo at ~75% height (near the icon center)
+          const ndcX = (lRect.right - cRect.left) / cRect.width * 2 - 1;
+          const ndcY = -((lRect.top + lRect.height * 0.75) - cRect.top) / cRect.height * 2 + 1;
+          const raycaster = new THREE.Raycaster();
+          raycaster.setFromCamera(new THREE.Vector2(ndcX, ndcY), camera);
+          const target = new THREE.Vector3();
+          const zPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+          if (raycaster.ray.intersectPlane(zPlane, target)) {
+            aX = target.x;
+            aY = target.y;
+          }
+        }
+      }
+
+      // Control points proportional to span so curve shape is consistent at all sizes
+      const span = eX - aX;
 
       const filDefs: [number, number, number, number][] = [
         [ 0.7,  0.6, 0.18, 0.00],
@@ -423,10 +446,10 @@ export function Hero3DCanvas() {
 
       filDefs.forEach(([y0, y1, speed, phase]) => {
         const curve = new THREE.CatmullRomCurve3([
-          V(aX,             aY + y0 * sc,          0),
-          V(aX + 2.2 * sc,  aY + y0 * 1.1 * sc,   0.3 * sc),
-          V(eX - 1.8 * sc,  eY + y1 * 1.1 * sc,  -0.2 * sc),
-          V(eX,             eY + y1 * sc,           eZ * 0.5),
+          V(aX,                 aY + y0 * sc,           0),
+          V(aX + span * 0.38,   aY + y0 * 1.15 * sc,   0.3 * sc),
+          V(eX - span * 0.32,   eY + y1 * 1.15 * sc,  -0.2 * sc),
+          V(eX,                 eY + y1 * sc,            eZ * 0.5),
         ], false, "catmullrom", 0.5);
 
         const tube = new THREE.Mesh(
