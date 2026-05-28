@@ -325,7 +325,7 @@ export function Hero3DCanvas() {
     /* ─────────────────────────────────────────────────────────────────────
        2b) CATMULL-ROM FILAMENTS — inside house, routes follow wiring tree
     ───────────────────────────────────────────────────────────────────── */
-    type SparkDef = { mesh: THREE.Mesh; curve: THREE.CatmullRomCurve3; speed: number; phase: number; offset: number };
+    type SparkDef = { mesh: THREE.Mesh; curve: THREE.Curve<THREE.Vector3>; speed: number; phase: number; offset: number };
     const sparkMeshes: SparkDef[] = [];
 
     const filRoutes: THREE.Vector3[][] = [
@@ -412,16 +412,14 @@ export function Hero3DCanvas() {
       const eY = hY + pY * sc;
       const eZ = pZ * sc;
 
-      // Unproject the hero-brand-group (logo watermark) DOM position to world space
-      // so the filaments start exactly where the logo is on screen.
-      let aX = eX - 7.5 * sc;  // fallback for viewports where logo is hidden
+      // Unproject logo DOM position to world space for exact anchor
+      let aX = eX - 7.5 * sc;
       let aY = hY;
       const logoEl = document.querySelector(".hero-brand-group") as HTMLElement | null;
       if (logoEl) {
         const lRect = logoEl.getBoundingClientRect();
         const cRect = canvas.getBoundingClientRect();
         if (lRect.width > 0 && cRect.width > 0) {
-          // Right edge of logo at ~75% height (near the icon center)
           const ndcX = (lRect.right - cRect.left) / cRect.width * 2 - 1;
           const ndcY = -((lRect.top + lRect.height * 0.75) - cRect.top) / cRect.height * 2 + 1;
           const raycaster = new THREE.Raycaster();
@@ -435,25 +433,63 @@ export function Hero3DCanvas() {
         }
       }
 
-      // Control points proportional to span so curve shape is consistent at all sizes
       const span = eX - aX;
 
-      const filDefs: [number, number, number, number][] = [
-        [ 0.7,  0.6, 0.18, 0.00],
-        [ 0.0,  0.0, 0.22, 0.33],
-        [-0.7, -0.6, 0.20, 0.66],
+      // Build an angular (PCB-trace style) path from waypoints using LineCurve3
+      function makePath(pts: THREE.Vector3[]): THREE.CurvePath<THREE.Vector3> {
+        const cp = new THREE.CurvePath<THREE.Vector3>();
+        for (let i = 0; i < pts.length - 1; i++) {
+          cp.add(new THREE.LineCurve3(pts[i], pts[i + 1]));
+        }
+        return cp;
+      }
+
+      // 3 angular routes matching the sketch:
+      // Cable 1 — exits logo top, arcs UP then long horizontal, diagonal into house upper
+      // Cable 2 — exits logo center, horizontal with slight dip, into house center
+      // Cable 3 — exits logo bottom, diagonal DOWN, long horizontal at bottom, up into house lower
+      const routes: { pts: THREE.Vector3[]; speed: number; phase: number }[] = [
+        {
+          pts: [
+            V(aX,                  aY + 0.70 * sc,  0),
+            V(aX + span * 0.10,    aY + 0.88 * sc,  0),   // diagonal up
+            V(aX + span * 0.58,    aY + 0.88 * sc,  0),   // long horizontal (top)
+            V(aX + span * 0.68,    aY + 0.65 * sc,  0),   // diagonal down toward house
+            V(eX,                  eY + 0.58 * sc,   eZ * 0.5),
+          ],
+          speed: 0.18, phase: 0.00,
+        },
+        {
+          pts: [
+            V(aX,                  aY,               0),
+            V(aX + span * 0.20,    aY,               0),   // horizontal
+            V(aX + span * 0.33,    aY - 0.20 * sc,  0),   // diagonal down
+            V(aX + span * 0.55,    aY - 0.20 * sc,  0),   // horizontal
+            V(aX + span * 0.65,    aY,               0),   // diagonal up
+            V(eX,                  eY,                eZ * 0.5),
+          ],
+          speed: 0.22, phase: 0.33,
+        },
+        {
+          pts: [
+            V(aX,                  aY - 0.70 * sc,  0),
+            V(aX + span * 0.09,    aY - 0.90 * sc,  0),   // diagonal down
+            V(aX + span * 0.24,    aY - 0.90 * sc,  0),   // short horizontal
+            V(aX + span * 0.30,    aY - 1.08 * sc,  0),   // diagonal down more
+            V(aX + span * 0.74,    aY - 1.08 * sc,  0),   // long horizontal (bottom)
+            V(aX + span * 0.84,    aY - 0.72 * sc,  0),   // diagonal up-right
+            V(eX,                  eY - 0.58 * sc,   eZ * 0.5),
+          ],
+          speed: 0.20, phase: 0.66,
+        },
       ];
 
-      filDefs.forEach(([y0, y1, speed, phase]) => {
-        const curve = new THREE.CatmullRomCurve3([
-          V(aX,                 aY + y0 * sc,           0),
-          V(aX + span * 0.38,   aY + y0 * 1.15 * sc,   0.3 * sc),
-          V(eX - span * 0.32,   eY + y1 * 1.15 * sc,  -0.2 * sc),
-          V(eX,                 eY + y1 * sc,            eZ * 0.5),
-        ], false, "catmullrom", 0.5);
+      routes.forEach(({ pts, speed, phase }) => {
+        const path = makePath(pts);
+        const segs = pts.length * 14;
 
         const tube = new THREE.Mesh(
-          new THREE.TubeGeometry(curve, 80, 0.0055 * sc, 6, false),
+          new THREE.TubeGeometry(path, segs, 0.0055 * sc, 6, false),
           new THREE.MeshBasicMaterial({ color: 0x1A6F7A, transparent: true, opacity: 0.18 }),
         );
         scene.add(tube);
@@ -466,7 +502,7 @@ export function Hero3DCanvas() {
           );
           scene.add(pkt);
           extFilamentMeshes.push(pkt);
-          extSparkDefs.push({ mesh: pkt, curve, speed, phase: phase + i * 0.5, offset: 0 });
+          extSparkDefs.push({ mesh: pkt, curve: path, speed, phase: phase + i * 0.5, offset: 0 });
         }
       });
     }
