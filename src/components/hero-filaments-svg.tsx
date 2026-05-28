@@ -47,15 +47,16 @@ export function HeroFilamentsSvg() {
   const { dCenterX, dTop, dh, heroW } = layout;
 
   /* ── Diamond geometry ────────────────────────────────────────────────
-     The image is wider than tall but the visible diamond fills the
-     HEIGHT and is centred horizontally. At y_frac from the top, the
-     diamond's right edge sits at:
-       dCenterX + (dh/2) * (1 - 2*|y_frac - 0.5|)
+     The brand mark is a chamfered/rounded diamond — its outline bulges
+     out further than a perfect inscribed rotated square. Approximate
+     the visible edge with a circular arc:
+       half_width(y) = (dh/2) * sqrt(1 - yDist01²)
   ─────────────────────────────────────────────────────────────────── */
   const diamondEdge = (yFrac: number) => {
     const yDist01 = Math.abs(yFrac - 0.5) * 2; // 0 at centre → 1 at apex
+    const widthFactor = Math.sqrt(Math.max(0, 1 - yDist01 * yDist01));
     return {
-      x: dCenterX + (dh / 2) * (1 - yDist01),
+      x: dCenterX + (dh / 2) * widthFactor,
       y: dTop + dh * yFrac,
     };
   };
@@ -69,19 +70,17 @@ export function HeroFilamentsSvg() {
   const ox = start1.x;
   const sy = start1.y;
 
-  const tx = heroW * 0.72;            // end X
-  const ty = dTop - dh * 0.15;        // end Y (upper-house area)
+  const tx = heroW * 0.72;            // end X (line terminates here, no rise)
 
   const shortHoriz = 165;
-  const dipAmount  = dh * 0.40;       // keeps horizontal at ≈y=725 below the CTAs
+  const dipAmount  = dh * 0.20;       // diagonal down — half of previous length
 
   const x1 = ox + shortHoriz;
   const x2 = x1 + dipAmount;
   const y2 = sy + dipAmount;
-  const riseLen = y2 - ty;
-  const x3 = tx - riseLen;
 
-  const line1Path = `M ${ox} ${sy} H ${x1} L ${x2} ${y2} H ${x3} L ${tx} ${ty}`;
+  // Line 1: short horizontal → 45° down → long horizontal (no rise into house)
+  const line1Path = `M ${ox} ${sy} H ${x1} L ${x2} ${y2} H ${tx}`;
 
   return (
     <svg
