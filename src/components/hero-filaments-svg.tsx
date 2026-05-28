@@ -72,7 +72,7 @@ export function HeroFilamentsSvg() {
   const ox = start1.x;
   const sy = start1.y;
 
-  const tx = heroW * 0.72;            // end X (line terminates here, no rise)
+  const tx = heroW * 0.54;            // end X — line ~30% shorter than before
 
   const shortHoriz = 165;
   const dipAmount  = dh * 0.20;       // diagonal down — half of previous length
