@@ -1,8 +1,12 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import { AppointmentCalendar } from "@/components/appointment-calendar";
+
+type ActiveTab = "form" | "calendar";
 
 export function ContactSection() {
+  const [activeTab, setActiveTab] = useState<ActiveTab>("form");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [btnHovered, setBtnHovered] = useState(false);
@@ -168,8 +172,48 @@ export function ContactSection() {
           </div>
         </div>
 
-        {/* Right — form or success */}
-        {submitted ? (
+        {/* Right — tabs + form / calendar */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+          {/* Tab switcher */}
+          <div style={{ display: "flex", borderBottom: "1px solid rgba(255,255,255,0.10)", marginBottom: 28 }}>
+            {(["form", "calendar"] as ActiveTab[]).map((tab) => {
+              const label = tab === "form" ? "Trimite mesaj" : "Programează consultanță";
+              const active = activeTab === tab;
+              return (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    borderBottom: active ? "2px solid #C5895B" : "2px solid transparent",
+                    padding: "10px 0",
+                    marginRight: 28,
+                    marginBottom: -1,
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "11.5px",
+                    fontWeight: 700,
+                    letterSpacing: "0.11em",
+                    textTransform: "uppercase",
+                    color: active ? "#F4F2EC" : "rgba(244,242,236,0.38)",
+                    cursor: "pointer",
+                    transition: "color .2s, border-color .2s",
+                    whiteSpace: "nowrap",
+                  }}
+                  onMouseEnter={(e) => { if (!active) (e.currentTarget as HTMLButtonElement).style.color = "#C5895B"; }}
+                  onMouseLeave={(e) => { if (!active) (e.currentTarget as HTMLButtonElement).style.color = "rgba(244,242,236,0.38)"; }}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Calendar tab */}
+          {activeTab === "calendar" && <AppointmentCalendar />}
+
+          {/* Form tab */}
+          {activeTab === "form" && (submitted ? (
           <div
             style={{
               display: "flex",
@@ -281,7 +325,8 @@ export function ContactSection() {
             </button>
             <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
           </form>
-        )}
+        ))}
+        </div>
       </div>
     </section>
   );
