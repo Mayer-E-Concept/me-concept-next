@@ -85,7 +85,7 @@ const SERVICES = [
 ];
 
 const PROJECTS = [
-  { count: "50+", label: "Große Wohnprojekte", desc: "Wohnanlagen mit 50+ Einheiten, vollständig in Revit 3D geplant mit Leistungsphasen LP 1–5." },
+  { count: "50+", label: "Große Wohnprojekte", desc: "Wohnanlagen mit 50+ Einheiten, vollständig in Revit 3D geplant mit Leistungsphasen LPH 1–8." },
   { count: "30+", label: "Kleine Wohnprojekte", desc: "Einfamilienhäuser und Villen, individuelle Lösungen für jeden Auftraggeber." },
   { count: "5", label: "Kindergärten & Sozialbauten", desc: "Kindergärten und Sozialeinrichtungen, vollständige Planung inkl. Sicherheitsbeleuchtung und Schwachstromtechnik." },
   { count: "8", label: "Handel & Retail", desc: "Supermärkte (inkl. REWE) bis 2.500 m², Koordination nach Lebensmittelhandel-Standards." },
@@ -217,7 +217,7 @@ export function PortofoliuPageDe() {
             }}
           >
             Elektrische Planung für Wohn-, Gewerbe- und Industriegebäude mit Standort
-            in Sibiu und Deutschland. Leistungsphasen LP 1–5, natives BIM in Revit,
+            in Sibiu und Deutschland. Leistungsphasen LPH 1–8, natives BIM in Revit,
             KNX-Automatisierung und Photovoltaik-Integration.
           </p>
         </div>

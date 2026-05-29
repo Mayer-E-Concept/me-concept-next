@@ -85,7 +85,7 @@ const SERVICES = [
 ];
 
 const PROJECTS = [
-  { count: "50+", label: "Proiecte rezidențiale mari", desc: "Ansambluri de 50+ unități, planificate integral în Revit 3D cu faze LP 1–5." },
+  { count: "50+", label: "Proiecte rezidențiale mari", desc: "Ansambluri de 50+ unități, planificate integral în Revit 3D cu faze LPH 1–8." },
   { count: "30+", label: "Proiecte rezidențiale mici", desc: "Case individuale și vile, soluții personalizate pentru fiecare beneficiar." },
   { count: "5", label: "Grădinițe & clădiri sociale", desc: "Grădinițe și instituții sociale, planificare completă incl. iluminat de siguranță și curenți slabi." },
   { count: "8", label: "Comerț & retail", desc: "Supermarketuri (incl. REWE) până la 2.500 m², coordonare cu standardele comerțului alimentar." },
@@ -230,7 +230,7 @@ export function PortofoliuPage() {
             }}
           >
             Planificare electrică pentru clădiri rezidențiale, comerciale și industriale,
-            cu sediul în Sibiu și Germania. Faze LP 1–5, BIM nativ în Revit, automatizare
+            cu sediul în Sibiu și Germania. Faze LPH 1–8, BIM nativ în Revit, automatizare
             KNX și integrare fotovoltaică.
           </p>
         </div>
