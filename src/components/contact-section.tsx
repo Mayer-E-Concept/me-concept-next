@@ -1,7 +1,14 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { AppointmentCalendar } from "@/components/appointment-calendar";
+import dynamic from "next/dynamic";
+
+// Dynamic import cu ssr:false — react-day-picker@9 e ESM-only,
+// evită conflicte cu SSG (blog pages) pe Vercel
+const AppointmentCalendar = dynamic(
+  () => import("@/components/appointment-calendar").then((m) => m.AppointmentCalendar),
+  { ssr: false, loading: () => <div style={{ height: 320 }} /> }
+);
 
 type ActiveTab = "form" | "calendar";
 
