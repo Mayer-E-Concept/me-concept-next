@@ -125,20 +125,36 @@ export function HeroFilamentsSvg() {
 
   const cables: CableSpec[] = [
     {
-      // Line 1 — exits the wider lower-right slope (closer to right apex)
+      // Line 1 (nouă, sus) — iese din sfertul superior al diamond-ului, urcă spre dreapta
       id: "hero-line-1",
-      yFrac:      0.75,
+      yFrac:      0.35,
       shortHoriz: 165,
-      bendDY:     dh * 0.30,    // 45° down — slightly bigger drop now
-      endXFrac:   0.54,
+      bendDY:     -dh * 0.32,
+      endXFrac:   0.44,
     },
     {
-      // Line 2 — exits a bit higher on the diamond, climbs above the buttons
+      // Line 2 (nouă) — iese din zona mijloc-sus, ușor descendentă
       id: "hero-line-2",
-      yFrac:      0.65,
+      yFrac:      0.52,
       shortHoriz: 165,
-      bendDY:     -dh * 0.30,   // 45° up (negative → going up)
-      endXFrac:   0.48,
+      bendDY:     -dh * 0.12,
+      endXFrac:   0.50,
+    },
+    {
+      // Line 3 (fosta linie 2) — mutată mai jos, ușor ascendentă spre dreapta
+      id: "hero-line-3",
+      yFrac:      0.78,
+      shortHoriz: 165,
+      bendDY:     dh * 0.14,
+      endXFrac:   0.52,
+    },
+    {
+      // Line 4 (fosta linie 1) — mutată mai jos, coboară spre dreapta
+      id: "hero-line-4",
+      yFrac:      0.88,
+      shortHoriz: 165,
+      bendDY:     dh * 0.28,
+      endXFrac:   0.56,
     },
   ];
 
