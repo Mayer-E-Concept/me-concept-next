@@ -160,6 +160,16 @@ export function HeroFilamentsSvg() {
       endXFrac:  0.54,
     },
     {
+      // Linia 5 — axa centrală a evantaiului, aproape plată, cea mai scurtă
+      id: "hero-line-5",
+      yFrac:     0.65,   // ← mijlocul dintre liniile 2 (0.52) și 3 (0.78)
+      depart:    60,
+      bend1DY:  -0.04,   // aproape orizontală, ușor ascendentă (4px)
+      midXFrac:  0,
+      bend2DY:   0,
+      endXFrac:  0.28,   // cea mai scurtă dintre toate
+    },
+    {
       // Linia 3 — coboară moderat, un singur cot, terminal scurt
       id: "hero-line-3",
       yFrac:     0.78,   // ← poziție calibrată
