@@ -140,44 +140,44 @@ export function HeroFilamentsSvg() {
 
   const cables: CableSpec[] = [
     {
-      // Linia 1 — iese sus din diamond, urcă abrupt, mic step jos spre terminal
+      // Linia 1 — urcă abrupt din sfertul superior, step mic jos, terminal scurt
       id: "hero-line-1",
       yFrac:     0.35,   // ← poziție calibrată, nu modifica
-      depart:    80,
-      bend1DY:  -0.52,   // UP mare
-      midXFrac:  0.32,
-      bend2DY:   0.18,   // step mic înapoi jos
+      depart:    60,
+      bend1DY:  -0.62,   // UP 67px → lane sus
+      midXFrac:  0.30,
+      bend2DY:   0.08,   // step mic jos (2px) — rămâne bine deasupra liniei 2
+      endXFrac:  0.42,
+    },
+    {
+      // Linia 2 — urcă moderat, un singur cot, terminal mediu
+      id: "hero-line-2",
+      yFrac:     0.52,   // ← poziție calibrată
+      depart:    60,
+      bend1DY:  -0.28,   // UP 30px → lane sus-mijloc
+      midXFrac:  0,      // fără al doilea bend
+      bend2DY:   0,
       endXFrac:  0.54,
     },
     {
-      // Linia 2 — coboară ușor, apoi salt mare în sus spre terminal îndepărtat
-      id: "hero-line-2",
-      yFrac:     0.52,   // ← poziție calibrată
-      depart:    80,
-      bend1DY:   0.10,   // DOWN mic
-      midXFrac:  0.46,
-      bend2DY:  -0.26,   // UP mare la sfârșit
-      endXFrac:  0.72,
-    },
-    {
-      // Linia 3 — un singur cot, urcă moderat, terminal mediu (fără al doilea bend)
+      // Linia 3 — coboară moderat, un singur cot, terminal scurt
       id: "hero-line-3",
       yFrac:     0.78,   // ← poziție calibrată
-      depart:    80,
-      bend1DY:  -0.30,   // UP moderat
+      depart:    60,
+      bend1DY:   0.22,   // DOWN 24px → lane jos-mijloc
       midXFrac:  0,      // fără al doilea bend
       bend2DY:   0,
-      endXFrac:  0.45,
+      endXFrac:  0.40,
     },
     {
-      // Linia 4 — coboară abrupt, continuă jos, terminal îndepărtat
+      // Linia 4 — coboară abrupt, step mic în plus, terminal mediu
       id: "hero-line-4",
       yFrac:     0.88,   // ← poziție calibrată
-      depart:    80,
-      bend1DY:   0.40,   // DOWN mare
-      midXFrac:  0.52,
-      bend2DY:   0.12,   // DOWN mic în plus
-      endXFrac:  0.76,
+      depart:    60,
+      bend1DY:   0.55,   // DOWN 59px → lane jos
+      midXFrac:  0.50,
+      bend2DY:   0.08,   // DOWN 9px în plus
+      endXFrac:  0.58,
     },
   ];
 
