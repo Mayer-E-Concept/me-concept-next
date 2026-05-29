@@ -7,13 +7,17 @@ const DOTS_PER_LINE  = 3;
 
 type CableSpec = {
   id: string;
-  /** Where on the diamond edge to anchor (0 = top, 0.5 = right apex, 1 = bottom) */
+  /** Where on the diamond edge to anchor (0 = top, 0.5 = right apex, 1 = bottom) — calibrate here */
   yFrac: number;
-  /** Length of the short horizontal departure from the diamond */
-  shortHoriz: number;
-  /** Signed vertical offset for the 45° bend: + = down, − = up */
-  bendDY: number;
-  /** Fraction of hero width where the line terminates */
+  /** Horizontal pixels from diamond edge before first diagonal */
+  depart: number;
+  /** First diagonal — signed vertical (scaled by dh): + = down, − = up */
+  bend1DY: number;
+  /** Hero-width fraction where middle horizontal ends (before 2nd bend); 0 = skip 2nd bend */
+  midXFrac: number;
+  /** Second diagonal — signed vertical (scaled by dh); 0 = no 2nd bend */
+  bend2DY: number;
+  /** Hero-width fraction of terminal dot */
   endXFrac: number;
 };
 
@@ -108,53 +112,72 @@ export function HeroFilamentsSvg() {
     return { x, y: dTop + dh * yFrac };
   };
 
-  /* ── Build a single cable path + its terminal point ─────────────── */
+  /* ── Build cable path (1 or 2 bends) + terminal point ──────────── */
   const buildCable = (spec: CableSpec) => {
     const start = diamondEdge(spec.yFrac);
     const ox = start.x;
     const sy = start.y;
-    const tx = heroW * spec.endXFrac;
+    const tx  = heroW * spec.endXFrac;
 
-    const x1 = ox + spec.shortHoriz;
-    const x2 = x1 + Math.abs(spec.bendDY);
-    const y2 = sy + spec.bendDY;
+    // Departure + first diagonal (45°: ΔX = |ΔY|)
+    const x1 = ox + spec.depart;
+    const b1 = spec.bend1DY * dh;
+    const x2 = x1 + Math.abs(b1);
+    const y2 = sy + b1;
 
-    const d = `M ${ox} ${sy} H ${x1} L ${x2} ${y2} H ${tx}`;
-    return { id: spec.id, d, endX: tx, endY: y2 };
+    if (!spec.midXFrac || spec.bend2DY === 0) {
+      // Single-bend path: departure → diagonal → horizontal to terminal
+      return { id: spec.id, d: `M ${ox} ${sy} H ${x1} L ${x2} ${y2} H ${tx}`, endX: tx, endY: y2 };
+    }
+
+    // Two-bend path: departure → diag1 → horiz → diag2 → horiz to terminal
+    const txMid = heroW * spec.midXFrac;
+    const b2    = spec.bend2DY * dh;
+    const x4    = txMid + Math.abs(b2);
+    const y4    = y2 + b2;
+    return { id: spec.id, d: `M ${ox} ${sy} H ${x1} L ${x2} ${y2} H ${txMid} L ${x4} ${y4} H ${tx}`, endX: tx, endY: y4 };
   };
 
   const cables: CableSpec[] = [
     {
-      // Line 1 (nouă, sus) — iese din sfertul superior al diamond-ului, urcă spre dreapta
+      // Linia 1 — iese sus din diamond, urcă abrupt, mic step jos spre terminal
       id: "hero-line-1",
-      yFrac:      0.35,
-      shortHoriz: 165,
-      bendDY:     -dh * 0.32,
-      endXFrac:   0.44,
+      yFrac:     0.35,   // ← poziție calibrată, nu modifica
+      depart:    80,
+      bend1DY:  -0.52,   // UP mare
+      midXFrac:  0.32,
+      bend2DY:   0.18,   // step mic înapoi jos
+      endXFrac:  0.54,
     },
     {
-      // Line 2 (nouă) — iese din zona mijloc-sus, ușor descendentă
+      // Linia 2 — coboară ușor, apoi salt mare în sus spre terminal îndepărtat
       id: "hero-line-2",
-      yFrac:      0.52,
-      shortHoriz: 165,
-      bendDY:     -dh * 0.12,
-      endXFrac:   0.50,
+      yFrac:     0.52,   // ← poziție calibrată
+      depart:    80,
+      bend1DY:   0.10,   // DOWN mic
+      midXFrac:  0.46,
+      bend2DY:  -0.26,   // UP mare la sfârșit
+      endXFrac:  0.72,
     },
     {
-      // Line 3 (fosta linie 2) — mutată mai jos, ușor ascendentă spre dreapta
+      // Linia 3 — un singur cot, urcă moderat, terminal mediu (fără al doilea bend)
       id: "hero-line-3",
-      yFrac:      0.78,
-      shortHoriz: 165,
-      bendDY:     dh * 0.14,
-      endXFrac:   0.52,
+      yFrac:     0.78,   // ← poziție calibrată
+      depart:    80,
+      bend1DY:  -0.30,   // UP moderat
+      midXFrac:  0,      // fără al doilea bend
+      bend2DY:   0,
+      endXFrac:  0.45,
     },
     {
-      // Line 4 (fosta linie 1) — mutată mai jos, coboară spre dreapta
+      // Linia 4 — coboară abrupt, continuă jos, terminal îndepărtat
       id: "hero-line-4",
-      yFrac:      0.88,
-      shortHoriz: 165,
-      bendDY:     dh * 0.28,
-      endXFrac:   0.56,
+      yFrac:     0.88,   // ← poziție calibrată
+      depart:    80,
+      bend1DY:   0.40,   // DOWN mare
+      midXFrac:  0.52,
+      bend2DY:   0.12,   // DOWN mic în plus
+      endXFrac:  0.76,
     },
   ];
 
