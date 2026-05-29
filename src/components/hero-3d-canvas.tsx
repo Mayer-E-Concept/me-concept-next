@@ -379,14 +379,6 @@ export function Hero3DCanvas() {
       buildingPulses.push(m);
     });
 
-    /* ── Entry glow ── */
-    const entryGlow = new THREE.Mesh(
-      new THREE.RingGeometry(0.05, 0.20, 24),
-      new THREE.MeshBasicMaterial({ color: COLORS.hover, transparent: true, opacity: 0.5, side: THREE.DoubleSide }),
-    );
-    entryGlow.position.set(-W/2 - 0.02, pY, pZ);
-    entryGlow.rotation.y = Math.PI / 2;
-    house.add(entryGlow);
 
     /* ─────────────────────────────────────────────────────────────────────
        2) MOUSE PARALLAX
@@ -481,9 +473,6 @@ export function Hero3DCanvas() {
       (lampHalo.material as THREE.MeshBasicMaterial).opacity = 0.14 + Math.sin(t * 1.0) * 0.10;
       lampHalo.scale.setScalar(1 + Math.sin(t * 1.0) * 0.12);
 
-      (entryGlow.material as THREE.MeshBasicMaterial).opacity = 0.35 + Math.sin(t * 1.5) * 0.25;
-      entryGlow.scale.setScalar(1 + Math.sin(t * 1.5) * 0.18);
-      entryGlow.rotation.x = t * 0.3;
 
       // Sparks flowing along internal filament routes
       sparkMeshes.forEach((s) => {

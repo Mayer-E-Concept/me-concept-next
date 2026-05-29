@@ -179,16 +179,6 @@ export function HeroFilamentsSvg() {
       bend2DY:   0,
       endXFrac:  0.40,
     },
-    {
-      // Linia 4 — coboară abrupt, step mic în plus, terminal mediu
-      id: "hero-line-4",
-      yFrac:     0.88,   // ← poziție calibrată
-      depart:    60,
-      bend1DY:   0.55,   // DOWN 59px → lane jos
-      midXFrac:  0.50,
-      bend2DY:   0.08,   // DOWN 9px în plus
-      endXFrac:  0.58,
-    },
   ];
 
   const built = cables.map(buildCable);
