@@ -170,14 +170,14 @@ export function HeroFilamentsSvg() {
       endXFrac:  0.28,   // cea mai scurtă dintre toate
     },
     {
-      // Linia 3 — coboară moderat, un singur cot, terminal scurt
+      // Linia 3 — coboară moderat, terminal trece 2-3cm de butonul outline
       id: "hero-line-3",
       yFrac:     0.78,   // ← poziție calibrată
       depart:    60,
       bend1DY:   0.22,   // DOWN 24px → lane jos-mijloc
       midXFrac:  0,      // fără al doilea bend
       bend2DY:   0,
-      endXFrac:  0.40,
+      endXFrac:  0.44,
     },
   ];
 
