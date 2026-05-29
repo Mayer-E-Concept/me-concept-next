@@ -4,11 +4,22 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const DAYS_RO = ["Du", "Lu", "Ma", "Mi", "Jo", "Vi", "Sâ"];
-const MONTHS_RO = [
-  "Ianuarie", "Februarie", "Martie", "Aprilie", "Mai", "Iunie",
-  "Iulie", "August", "Septembrie", "Octombrie", "Noiembrie", "Decembrie",
-];
+const LOCALE_DATA = {
+  ro: {
+    days: ["Du", "Lu", "Ma", "Mi", "Jo", "Vi", "Sâ"],
+    months: ["Ianuarie", "Februarie", "Martie", "Aprilie", "Mai", "Iunie",
+             "Iulie", "August", "Septembrie", "Octombrie", "Noiembrie", "Decembrie"],
+    prevLabel: "Luna anterioară",
+    nextLabel: "Luna următoare",
+  },
+  de: {
+    days: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+    months: ["Januar", "Februar", "März", "April", "Mai", "Juni",
+             "Juli", "August", "September", "Oktober", "November", "Dezember"],
+    prevLabel: "Vorheriger Monat",
+    nextLabel: "Nächster Monat",
+  },
+};
 
 function getDaysInMonth(year: number, month: number) {
   return new Date(year, month + 1, 0).getDate();
@@ -29,9 +40,11 @@ export interface CalendarProps {
   onSelect?: (date: Date | undefined) => void;
   disabled?: (date: Date) => boolean;
   className?: string;
+  locale?: "ro" | "de";
 }
 
-export function Calendar({ selected, onSelect, disabled, className }: CalendarProps) {
+export function Calendar({ selected, onSelect, disabled, className, locale = "ro" }: CalendarProps) {
+  const L = LOCALE_DATA[locale];
   const today = new Date();
   const [viewYear, setViewYear] = useState(selected?.getFullYear() ?? today.getFullYear());
   const [viewMonth, setViewMonth] = useState(selected?.getMonth() ?? today.getMonth());
@@ -62,19 +75,19 @@ export function Calendar({ selected, onSelect, disabled, className }: CalendarPr
           style={{ background: "none", border: "none", cursor: "pointer", padding: 4, color: "rgba(244,242,236,0.45)", borderRadius: 6, lineHeight: 0 }}
           onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.color = "#F4F2EC")}
           onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(244,242,236,0.45)")}
-          aria-label="Luna anterioară"
+          aria-label={L.prevLabel}
         >
           <ChevronLeft size={16} strokeWidth={2} />
         </button>
         <span style={{ fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#C5895B" }}>
-          {MONTHS_RO[viewMonth]} {viewYear}
+          {L.months[viewMonth]} {viewYear}
         </span>
         <button
           onClick={nextMonth}
           style={{ background: "none", border: "none", cursor: "pointer", padding: 4, color: "rgba(244,242,236,0.45)", borderRadius: 6, lineHeight: 0 }}
           onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.color = "#F4F2EC")}
           onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(244,242,236,0.45)")}
-          aria-label="Luna următoare"
+          aria-label={L.nextLabel}
         >
           <ChevronRight size={16} strokeWidth={2} />
         </button>
@@ -82,7 +95,7 @@ export function Calendar({ selected, onSelect, disabled, className }: CalendarPr
 
       {/* Day names */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", marginBottom: 4 }}>
-        {DAYS_RO.map((d) => (
+        {L.days.map((d) => (
           <div key={d} style={{ textAlign: "center", fontFamily: "var(--font-sans)", fontSize: 10, fontWeight: 600, letterSpacing: "0.12em", color: "rgba(244,242,236,0.32)", padding: "4px 0", textTransform: "uppercase" }}>
             {d}
           </div>

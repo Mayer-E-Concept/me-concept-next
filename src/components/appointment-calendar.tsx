@@ -17,8 +17,55 @@ const isPast = (d: Date) => {
   return d < today;
 };
 
-const formatDateRo = (d: Date) =>
-  d.toLocaleDateString("ro-RO", { weekday: "long", day: "numeric", month: "long" });
+const formatDate = (d: Date, locale: "ro" | "de") =>
+  d.toLocaleDateString(locale === "de" ? "de-DE" : "ro-RO", { weekday: "long", day: "numeric", month: "long" });
+
+const T = {
+  ro: {
+    pickLabel: "Alege data și ora",
+    timeLabel: "Orar",
+    selectBtn: "Selectează data și ora",
+    continueBtn: (date: Date, time: string) => `Continuă — ${formatDate(date, "ro")} la ${time}`,
+    backBtn: "Înapoi",
+    detailsLabel: "Date contact",
+    namePlaceholder: "Numele tău",
+    emailPlaceholder: "email@exemplu.com",
+    phonePlaceholder: "Telefon (opțional)",
+    nameError: "Câmpul este obligatoriu.",
+    emailError: "Email invalid.",
+    apiError: "A apărut o eroare. Încearcă din nou.",
+    submitBtn: "Confirmă programarea",
+    sendingBtn: "Se trimite...",
+    successTitle: "Programare confirmată!",
+    successMsg: (email: string) => `Am primit solicitarea ta. Vei primi un email de confirmare la `,
+    successEmail: true,
+    successDot: ".",
+    anotherBtn: "Altă programare",
+    atWord: "la",
+  },
+  de: {
+    pickLabel: "Datum und Uhrzeit wählen",
+    timeLabel: "Uhrzeit",
+    selectBtn: "Datum und Uhrzeit wählen",
+    continueBtn: (date: Date, time: string) => `Weiter — ${formatDate(date, "de")} um ${time}`,
+    backBtn: "Zurück",
+    detailsLabel: "Kontaktdaten",
+    namePlaceholder: "Ihr Name",
+    emailPlaceholder: "email@beispiel.com",
+    phonePlaceholder: "Telefon (optional)",
+    nameError: "Pflichtfeld.",
+    emailError: "Ungültige E-Mail.",
+    apiError: "Ein Fehler ist aufgetreten. Bitte erneut versuchen.",
+    submitBtn: "Termin bestätigen",
+    sendingBtn: "Wird gesendet...",
+    successTitle: "Termin bestätigt!",
+    successMsg: (email: string) => `Ihre Anfrage wurde erhalten. Sie erhalten eine Bestätigung an `,
+    successEmail: true,
+    successDot: ".",
+    anotherBtn: "Weiterer Termin",
+    atWord: "um",
+  },
+} as const;
 
 type Step = "pick" | "details" | "success";
 
@@ -36,7 +83,8 @@ const inputBase: React.CSSProperties = {
   transition: "border-color .2s, background .2s",
 };
 
-export function AppointmentCalendar() {
+export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" }) {
+  const t = T[locale];
   const [step, setStep] = useState<Step>("pick");
   const [date, setDate] = useState<Date | undefined>();
   const [time, setTime] = useState<string | null>(null);
@@ -47,8 +95,8 @@ export function AppointmentCalendar() {
 
   const validate = () => {
     const e: Record<string, string> = {};
-    if (!form.name.trim()) e.name = "Câmpul este obligatoriu.";
-    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Email invalid.";
+    if (!form.name.trim()) e.name = t.nameError;
+    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = t.emailError;
     return e;
   };
 
@@ -67,7 +115,7 @@ export function AppointmentCalendar() {
       if (!res.ok) throw new Error();
       setStep("success");
     } catch {
-      setApiError("A apărut o eroare. Te rugăm să încerci din nou.");
+      setApiError(t.apiError);
     } finally {
       setLoading(false);
     }
@@ -80,23 +128,22 @@ export function AppointmentCalendar() {
         <CheckCircle2 size={30} color="#C5895B" />
       </div>
       <h3 style={{ fontFamily: "var(--font-sans)", fontSize: 22, fontWeight: 700, color: "#F4F2EC", margin: 0 }}>
-        Programare confirmată!
+        {t.successTitle}
       </h3>
       <p style={{ fontFamily: "var(--font-body)", fontSize: 14, lineHeight: 1.65, color: "rgba(244,242,236,0.60)", margin: 0, maxWidth: "34ch" }}>
-        Am primit solicitarea ta. Vei primi un email de confirmare la{" "}
-        <span style={{ color: "#C5895B" }}>{form.email}</span>.
+        {t.successMsg(form.email)}<span style={{ color: "#C5895B" }}>{form.email}</span>{t.successDot}
       </p>
       <div style={{ background: "rgba(197,137,91,0.10)", border: "1px solid rgba(197,137,91,0.25)", borderRadius: 8, padding: "14px 20px", marginTop: 8 }}>
         <p style={{ fontFamily: "var(--font-sans)", fontSize: 15, fontWeight: 600, color: "#F4F2EC", margin: "0 0 2px", textTransform: "capitalize" }}>
-          {date && formatDateRo(date)}
+          {date && formatDate(date, locale)}
         </p>
-        <p style={{ fontFamily: "var(--font-sans)", fontSize: 13, color: "#C5895B", margin: 0 }}>ora {time}</p>
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: 13, color: "#C5895B", margin: 0 }}>{t.atWord} {time}</p>
       </div>
       <button
         onClick={() => { setStep("pick"); setDate(undefined); setTime(null); setForm({ name: "", email: "", phone: "" }); }}
         style={{ marginTop: 8, background: "none", border: "1px solid rgba(197,137,91,0.35)", color: "#C5895B", fontFamily: "var(--font-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "9px 22px", borderRadius: 4, cursor: "pointer" }}
       >
-        Altă programare
+        {t.anotherBtn}
       </button>
     </div>
   );
@@ -111,7 +158,7 @@ export function AppointmentCalendar() {
         onMouseEnter={(e) => (e.currentTarget.style.color = "#C5895B")}
         onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(244,242,236,0.50)")}
       >
-        <ChevronLeft size={14} /> Înapoi
+        <ChevronLeft size={14} /> {t.backBtn}
       </button>
 
       {/* Selected slot summary */}
@@ -119,7 +166,7 @@ export function AppointmentCalendar() {
         <div style={{ display: "flex", alignItems: "center", gap: 7, background: "rgba(197,137,91,0.10)", border: "1px solid rgba(197,137,91,0.22)", borderRadius: 6, padding: "8px 14px" }}>
           <CalendarIcon size={13} color="#C5895B" />
           <span style={{ fontFamily: "var(--font-sans)", fontSize: 12, color: "#F4F2EC", textTransform: "capitalize" }}>
-            {date && formatDateRo(date)}
+            {date && formatDate(date, locale)}
           </span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 7, background: "rgba(197,137,91,0.10)", border: "1px solid rgba(197,137,91,0.22)", borderRadius: 6, padding: "8px 14px" }}>
@@ -129,7 +176,7 @@ export function AppointmentCalendar() {
       </div>
 
       <p style={{ fontFamily: "var(--font-sans)", fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(244,242,236,0.45)", marginBottom: 16 }}>
-        Date contact
+        {t.detailsLabel}
       </p>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -137,7 +184,7 @@ export function AppointmentCalendar() {
         <div style={{ position: "relative" }}>
           <UserIcon size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "rgba(244,242,236,0.35)", pointerEvents: "none" }} />
           <input
-            placeholder="Numele tău"
+            placeholder={t.namePlaceholder}
             value={form.name}
             onChange={(e) => { setForm(p => ({ ...p, name: e.target.value })); setErrors(p => { const n = { ...p }; delete n.name; return n; }); }}
             style={{ ...inputBase, borderColor: errors.name ? "#E07B5A" : "rgba(255,255,255,0.14)" }}
@@ -150,7 +197,7 @@ export function AppointmentCalendar() {
         <div style={{ position: "relative" }}>
           <MailIcon size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "rgba(244,242,236,0.35)", pointerEvents: "none" }} />
           <input
-            placeholder="email@exemplu.com"
+            placeholder={t.emailPlaceholder}
             type="email"
             value={form.email}
             onChange={(e) => { setForm(p => ({ ...p, email: e.target.value })); setErrors(p => { const n = { ...p }; delete n.email; return n; }); }}
@@ -164,7 +211,7 @@ export function AppointmentCalendar() {
         <div style={{ position: "relative" }}>
           <PhoneIcon size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "rgba(244,242,236,0.35)", pointerEvents: "none" }} />
           <input
-            placeholder="Telefon (opțional)"
+            placeholder={t.phonePlaceholder}
             value={form.phone}
             onChange={(e) => setForm(p => ({ ...p, phone: e.target.value }))}
             style={inputBase}
@@ -200,7 +247,7 @@ export function AppointmentCalendar() {
         onMouseEnter={(e) => { if (!loading) (e.currentTarget as HTMLButtonElement).style.background = "#b37a50"; }}
         onMouseLeave={(e) => { if (!loading) (e.currentTarget as HTMLButtonElement).style.background = "#C5895B"; }}
       >
-        {loading ? "Se trimite..." : "Confirmă programarea"}
+        {loading ? t.sendingBtn : t.submitBtn}
       </button>
     </div>
   );
@@ -228,7 +275,7 @@ export function AppointmentCalendar() {
       `}</style>
 
       <p style={{ fontFamily: "var(--font-sans)", fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(244,242,236,0.40)", marginBottom: 18 }}>
-        Alege data și ora
+        {t.pickLabel}
       </p>
 
       <div className="appt-inner" style={{ display: "flex", gap: 0, border: "1px solid rgba(255,255,255,0.10)", borderRadius: 10, overflow: "hidden" }}>
@@ -238,6 +285,7 @@ export function AppointmentCalendar() {
             selected={date}
             onSelect={setDate}
             disabled={(d) => isPast(d) || isWeekend(d)}
+            locale={locale}
           />
         </div>
 
@@ -254,7 +302,7 @@ export function AppointmentCalendar() {
           }}
         >
           <p style={{ fontFamily: "var(--font-sans)", fontSize: "10px", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(244,242,236,0.35)", margin: "16px 14px 10px" }}>
-            Orar
+            {t.timeLabel}
           </p>
           <ScrollArea style={{ flex: 1 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 6, padding: "0 12px 16px" }}>
@@ -296,7 +344,7 @@ export function AppointmentCalendar() {
         onMouseEnter={(e) => { if (date && time) (e.currentTarget as HTMLButtonElement).style.background = "#b37a50"; }}
         onMouseLeave={(e) => { if (date && time) (e.currentTarget as HTMLButtonElement).style.background = "#C5895B"; }}
       >
-        {date && time ? `Continuă — ${formatDateRo(date)} la ${time}` : "Selectează data și ora"}
+        {date && time ? t.continueBtn(date, time) : t.selectBtn}
       </button>
     </div>
   );

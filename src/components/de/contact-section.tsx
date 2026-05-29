@@ -208,7 +208,7 @@ export function ContactSectionDe() {
           </div>
 
           {/* Calendar tab */}
-          {activeTab === "calendar" && <AppointmentCalendar />}
+          {activeTab === "calendar" && <AppointmentCalendar locale="de" />}
 
           {/* Form tab */}
           {activeTab === "form" && (submitted ? (
