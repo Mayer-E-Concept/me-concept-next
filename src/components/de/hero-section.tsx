@@ -282,7 +282,7 @@ function HeroButton({
       href={href}
       style={{
         ...base,
-        background: "transparent",
+        background: "#051E27",
         color: "rgba(255,255,255,0.75)",
         border: "1.5px solid rgba(255,255,255,0.28)",
       }}
