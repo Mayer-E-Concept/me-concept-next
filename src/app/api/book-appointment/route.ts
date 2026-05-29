@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const NOTIFY_TO = "contact@me-concept.ro";
-const FROM = process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev";
 
 export async function POST(req: Request) {
+  // Instanțiere în handler — evită eroarea la build (RESEND_API_KEY lipsește la build time)
+  const resend = new Resend(process.env.RESEND_API_KEY ?? "placeholder");
+  const FROM = process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev";
   try {
     const { date, time, name, email, phone } = await req.json();
 
