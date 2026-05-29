@@ -235,13 +235,9 @@ export function AppointmentCalendar() {
         {/* Calendar */}
         <div style={{ flex: "1 1 auto", padding: "20px 16px" }}>
           <Calendar
-            mode="single"
             selected={date}
             onSelect={setDate}
             disabled={(d) => isPast(d) || isWeekend(d)}
-            formatters={{
-              formatWeekdayName: (d) => d.toLocaleString("ro-RO", { weekday: "short" }).slice(0, 2),
-            }}
           />
         </div>
 

@@ -1,62 +1,143 @@
 "use client";
 
+import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import * as React from "react";
-import { DayPicker } from "react-day-picker";
-
 import { cn } from "@/lib/utils";
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>;
+const DAYS_RO = ["Du", "Lu", "Ma", "Mi", "Jo", "Vi", "Sâ"];
+const MONTHS_RO = [
+  "Ianuarie", "Februarie", "Martie", "Aprilie", "Mai", "Iunie",
+  "Iulie", "August", "Septembrie", "Octombrie", "Noiembrie", "Decembrie",
+];
 
-function Calendar({ className, classNames, showOutsideDays = false, ...props }: CalendarProps) {
+function getDaysInMonth(year: number, month: number) {
+  return new Date(year, month + 1, 0).getDate();
+}
+
+function getFirstDayOfMonth(year: number, month: number) {
+  return new Date(year, month, 1).getDay(); // 0=Sun, 1=Mon...
+}
+
+function isSameDay(a: Date, b: Date) {
+  return a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate();
+}
+
+export interface CalendarProps {
+  selected?: Date;
+  onSelect?: (date: Date | undefined) => void;
+  disabled?: (date: Date) => boolean;
+  className?: string;
+}
+
+export function Calendar({ selected, onSelect, disabled, className }: CalendarProps) {
+  const today = new Date();
+  const [viewYear, setViewYear] = useState(selected?.getFullYear() ?? today.getFullYear());
+  const [viewMonth, setViewMonth] = useState(selected?.getMonth() ?? today.getMonth());
+
+  const daysInMonth = getDaysInMonth(viewYear, viewMonth);
+  const firstDay = getFirstDayOfMonth(viewYear, viewMonth); // 0=Sun
+
+  const prevMonth = () => {
+    if (viewMonth === 0) { setViewYear(y => y - 1); setViewMonth(11); }
+    else setViewMonth(m => m - 1);
+  };
+  const nextMonth = () => {
+    if (viewMonth === 11) { setViewYear(y => y + 1); setViewMonth(0); }
+    else setViewMonth(m => m + 1);
+  };
+
+  const cells: (Date | null)[] = [];
+  for (let i = 0; i < firstDay; i++) cells.push(null);
+  for (let d = 1; d <= daysInMonth; d++) cells.push(new Date(viewYear, viewMonth, d));
+  while (cells.length % 7 !== 0) cells.push(null);
+
   return (
-    <DayPicker
-      showOutsideDays={showOutsideDays}
-      className={cn("w-fit", className)}
-      classNames={{
-        months: "flex flex-col space-y-4",
-        month: "space-y-2",
-        caption: "flex justify-center pt-1 relative items-center mb-2",
-        caption_label: "text-sm font-semibold uppercase tracking-widest text-[#C5895B]",
-        nav: "space-x-1 flex items-center absolute inset-x-0 top-0 justify-between",
-        nav_button: cn(
-          "size-9 inline-flex items-center justify-center rounded-lg",
-          "text-[rgba(244,242,236,0.45)] hover:text-[#F4F2EC]",
-          "hover:bg-white/10 transition-colors focus:outline-none bg-transparent border-0 cursor-pointer p-0"
-        ),
-        nav_button_previous: "left-0",
-        nav_button_next: "right-0",
-        table: "w-full border-collapse",
-        head_row: "flex",
-        head_cell:
-          "size-9 flex items-center justify-center text-[10px] font-semibold tracking-wider text-[rgba(244,242,236,0.35)] uppercase",
-        row: "flex w-full mt-1",
-        cell: "size-9 text-center p-0 relative focus-within:relative focus-within:z-20",
-        day: cn(
-          "size-9 p-0 font-normal rounded-lg",
-          "text-[rgba(244,242,236,0.75)] text-sm transition-colors",
-          "hover:bg-white/10 hover:text-[#F4F2EC] cursor-pointer",
-          "inline-flex items-center justify-center",
-          "focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5895B]/60"
-        ),
-        day_selected:
-          "bg-[#C5895B] text-white font-semibold hover:bg-[#b37a50] hover:text-white focus:bg-[#C5895B]",
-        day_today:
-          "ring-1 ring-[#C5895B]/60 text-[#F4F2EC]",
-        day_outside: "opacity-25",
-        day_disabled:
-          "text-[rgba(244,242,236,0.18)] cursor-not-allowed line-through hover:bg-transparent hover:text-[rgba(244,242,236,0.18)]",
-        day_hidden: "invisible",
-        ...classNames,
-      }}
-      components={{
-        IconLeft: () => <ChevronLeft size={15} strokeWidth={2} aria-hidden />,
-        IconRight: () => <ChevronRight size={15} strokeWidth={2} aria-hidden />,
-      }}
-      {...props}
-    />
+    <div className={cn("select-none", className)}>
+      {/* Header */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+        <button
+          onClick={prevMonth}
+          style={{ background: "none", border: "none", cursor: "pointer", padding: 4, color: "rgba(244,242,236,0.45)", borderRadius: 6, lineHeight: 0 }}
+          onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.color = "#F4F2EC")}
+          onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(244,242,236,0.45)")}
+          aria-label="Luna anterioară"
+        >
+          <ChevronLeft size={16} strokeWidth={2} />
+        </button>
+        <span style={{ fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#C5895B" }}>
+          {MONTHS_RO[viewMonth]} {viewYear}
+        </span>
+        <button
+          onClick={nextMonth}
+          style={{ background: "none", border: "none", cursor: "pointer", padding: 4, color: "rgba(244,242,236,0.45)", borderRadius: 6, lineHeight: 0 }}
+          onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.color = "#F4F2EC")}
+          onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(244,242,236,0.45)")}
+          aria-label="Luna următoare"
+        >
+          <ChevronRight size={16} strokeWidth={2} />
+        </button>
+      </div>
+
+      {/* Day names */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", marginBottom: 4 }}>
+        {DAYS_RO.map((d) => (
+          <div key={d} style={{ textAlign: "center", fontFamily: "var(--font-sans)", fontSize: 10, fontWeight: 600, letterSpacing: "0.12em", color: "rgba(244,242,236,0.32)", padding: "4px 0", textTransform: "uppercase" }}>
+            {d}
+          </div>
+        ))}
+      </div>
+
+      {/* Days grid */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 2 }}>
+        {cells.map((date, idx) => {
+          if (!date) return <div key={idx} />;
+          const isToday = isSameDay(date, today);
+          const isSelected = selected ? isSameDay(date, selected) : false;
+          const isDisabled = disabled ? disabled(date) : false;
+
+          return (
+            <button
+              key={idx}
+              onClick={() => !isDisabled && onSelect?.(isSelected ? undefined : date)}
+              disabled={isDisabled}
+              style={{
+                width: "100%",
+                aspectRatio: "1",
+                border: isToday && !isSelected ? "1px solid rgba(197,137,91,0.55)" : "1px solid transparent",
+                borderRadius: 8,
+                background: isSelected ? "#C5895B" : "transparent",
+                color: isDisabled
+                  ? "rgba(244,242,236,0.18)"
+                  : isSelected
+                    ? "#fff"
+                    : "rgba(244,242,236,0.75)",
+                fontFamily: "var(--font-sans)",
+                fontSize: 13,
+                fontWeight: isSelected ? 700 : 400,
+                cursor: isDisabled ? "not-allowed" : "pointer",
+                textDecoration: isDisabled ? "line-through" : "none",
+                transition: "background .15s, color .15s",
+              }}
+              onMouseEnter={(e) => {
+                if (!isDisabled && !isSelected) {
+                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.10)";
+                  (e.currentTarget as HTMLButtonElement).style.color = "#F4F2EC";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isDisabled && !isSelected) {
+                  (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                  (e.currentTarget as HTMLButtonElement).style.color = "rgba(244,242,236,0.75)";
+                }
+              }}
+            >
+              {date.getDate()}
+            </button>
+          );
+        })}
+      </div>
+    </div>
   );
 }
-Calendar.displayName = "Calendar";
-
-export { Calendar };
