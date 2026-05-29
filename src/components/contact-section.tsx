@@ -13,7 +13,7 @@ const AppointmentCalendar = dynamic(
 type ActiveTab = "form" | "calendar";
 
 export function ContactSection() {
-  const [activeTab, setActiveTab] = useState<ActiveTab>("form");
+  const [activeTab, setActiveTab] = useState<ActiveTab>("calendar");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [btnHovered, setBtnHovered] = useState(false);
@@ -183,7 +183,7 @@ export function ContactSection() {
         <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
           {/* Tab switcher */}
           <div style={{ display: "flex", borderBottom: "1px solid rgba(255,255,255,0.10)", marginBottom: 28 }}>
-            {(["form", "calendar"] as ActiveTab[]).map((tab) => {
+            {(["calendar", "form"] as ActiveTab[]).map((tab) => {
               const label = tab === "form" ? "Trimite mesaj" : "Programează consultanță";
               const active = activeTab === tab;
               return (
