@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Impressum — Mayer E-Concept",
   description: "Impressum gemäß § 5 DDG und § 18 Abs. 2 MStV — Mayer E-Concept S.R.L.",
   alternates: {
-    canonical: "https://me-concept-next.vercel.app/de/impressum",
+    canonical: "/de/impressum",
   },
 };
 

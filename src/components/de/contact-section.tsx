@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { BOOKINGS_URL } from "@/lib/site";
 
 const AppointmentCalendar = dynamic(
   () => import("@/components/appointment-calendar").then((m) => m.AppointmentCalendar),
@@ -16,6 +17,7 @@ export function ContactSectionDe() {
   const [loading, setLoading] = useState(false);
   const [btnHovered, setBtnHovered] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [apiError, setApiError] = useState<string | null>(null);
 
   function validate(form: HTMLFormElement) {
     const errs: Record<string, string> = {};
@@ -28,13 +30,35 @@ export function ContactSectionDe() {
     return errs;
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const errs = validate(e.currentTarget);
+    const form = e.currentTarget;
+    const errs = validate(form);
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setErrors({});
+    setApiError(null);
+    const payload = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value.trim(),
+      email: (form.elements.namedItem("email") as HTMLInputElement).value.trim(),
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim(),
+      company: (form.elements.namedItem("company") as HTMLInputElement | null)?.value ?? "",
+    };
     setLoading(true);
-    setTimeout(() => { setLoading(false); setSubmitted(true); }, 900);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("request failed");
+      setSubmitted(true);
+    } catch {
+      setApiError(
+        "Die Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt an contact@me-concept.ro."
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   const inputStyle: React.CSSProperties = {
@@ -208,7 +232,17 @@ export function ContactSectionDe() {
           </div>
 
           {/* Calendar tab */}
-          {activeTab === "calendar" && <AppointmentCalendar locale="de" />}
+          {/* Calendar tab — Microsoft Bookings embed wenn konfiguriert, sonst der eigene Kalender */}
+          {activeTab === "calendar" && (BOOKINGS_URL ? (
+            <iframe
+              src={BOOKINGS_URL}
+              title="Termin vereinbaren — Mayer E-Concept"
+              loading="lazy"
+              style={{ width: "100%", minHeight: 760, border: "1px solid rgba(255,255,255,0.10)", borderRadius: 8, background: "#fff" }}
+            />
+          ) : (
+            <AppointmentCalendar locale="de" />
+          ))}
 
           {/* Form tab */}
           {activeTab === "form" && (submitted ? (
@@ -246,6 +280,15 @@ export function ContactSectionDe() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} noValidate style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            {/* Honeypot Anti-Spam — visuell versteckt; Bots füllen es aus, Menschen nicht. */}
+            <input
+              type="text"
+              name="company"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
+            />
             <div className="contact-name-email-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
               {[
                 { name: "name", label: "Name", type: "text", placeholder: "Ihr Name" },
@@ -321,6 +364,9 @@ export function ContactSectionDe() {
                 </>
               ) : "ABSENDEN"}
             </button>
+            {apiError && (
+              <span role="alert" style={{ ...errorStyle, fontSize: 13 }}>{apiError}</span>
+            )}
             <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
           </form>
         ))}

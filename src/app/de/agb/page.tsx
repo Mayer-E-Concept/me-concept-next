@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { LegalPageDe } from "@/components/de/legal-page";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "AGB — Allgemeine Geschäftsbedingungen — Mayer E-Concept",
   description: "Allgemeine Geschäftsbedingungen für die Nutzung der Website und Dienstleistungen von Mayer E-Concept.",
-  alternates: { canonical: "https://me-concept-next.vercel.app/de/agb" },
+  alternates: { canonical: "/de/agb" },
 };
 
 export default function AgbPage() {
@@ -137,7 +138,7 @@ export default function AgbPage() {
         company: "Mayer E-Concept S.R.L.",
         address: "Str. Atena, Nr. 5, Ap. 1, Sibiu, Kreis Sibiu",
         country: "Rumänien",
-        website: "https://me-concept-next.vercel.app/de",
+        website: `${SITE_URL}/de`,
         email: "info@me-concept.de",
       }}
     />

@@ -5,10 +5,11 @@ export const metadata: Metadata = {
   description:
     "Elektroplanung für Wohn- und Gewerbeprojekte. Professionalität, Präzision, garantierte Qualität. ISO 9001:2015 zertifiziert.",
   alternates: {
-    canonical: "https://me-concept-next.vercel.app/de",
+    canonical: "/de",
     languages: {
-      ro: "https://me-concept-next.vercel.app/",
-      de: "https://me-concept-next.vercel.app/de",
+      ro: "/",
+      de: "/de",
+      "x-default": "/",
     },
   },
 };

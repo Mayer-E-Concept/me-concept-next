@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { LegalPageDe } from "@/components/de/legal-page";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Cookie-Richtlinie (EU) — Mayer E-Concept",
   description:
     "Cookie-Richtlinie gemäß EU-Verordnung für die Website me-concept.de.",
   alternates: {
-    canonical: "https://me-concept-next.vercel.app/de/cookie-richtlinie",
+    canonical: "/de/cookie-richtlinie",
   },
 };
 
@@ -94,7 +95,7 @@ export default function CookieRichtliniePage() {
         company: "Mayer E-Concept S.R.L.",
         address: "Str. Atena, Nr. 5, Ap. 1, Sibiu, Kreis Sibiu",
         country: "Rumänien",
-        website: "https://me-concept-next.vercel.app/de",
+        website: `${SITE_URL}/de`,
         email: "info@me-concept.de",
       }}
     />

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Datenschutzerklärung von Mayer E-Concept gemäß DSGVO: welche Daten wir über das Kontaktformular erheben, wie wir sie verwenden und Ihre Rechte.",
   alternates: {
-    canonical: "https://me-concept-next.vercel.app/de/datenschutzerklaerung",
+    canonical: "/de/datenschutzerklaerung",
   },
 };
 

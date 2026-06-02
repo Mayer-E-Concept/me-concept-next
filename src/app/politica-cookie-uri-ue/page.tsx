@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/legal-page";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Politică cookie-uri (UE) — Mayer E-Concept",
   description:
     "Politica privind utilizarea cookie-urilor pe site-ul me-concept.ro, conform reglementărilor UE.",
   alternates: {
-    canonical: "https://me-concept-next.vercel.app/politica-cookie-uri-ue",
+    canonical: "/politica-cookie-uri-ue",
   },
 };
 
@@ -92,7 +93,7 @@ export default function PoliticaCookiePage() {
         company: "Mayer E-Concept S.R.L.",
         address: "Str. Atena, Nr. 5, Ap. 1, Sibiu, Județul Sibiu",
         country: "România",
-        website: "https://me-concept-next.vercel.app",
+        website: SITE_URL,
         email: "contact@me-concept.ro",
         phone: "+40 752 099 791",
       }}

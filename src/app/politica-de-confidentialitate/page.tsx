@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Politica de confidențialitate a site-ului Mayer E-Concept S.R.L.: ce date colectăm prin formularul de contact, cum le folosim și drepturile dvs. conform GDPR.",
   alternates: {
-    canonical: "https://me-concept-next.vercel.app/politica-de-confidentialitate",
+    canonical: "/politica-de-confidentialitate",
   },
 };
 

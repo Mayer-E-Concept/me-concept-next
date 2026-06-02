@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { SiteHeaderDe } from "@/components/de/site-header";
 import { SiteFooterDe } from "@/components/de/site-footer";
 import { ContactSectionDe } from "@/components/de/contact-section";
+import { SITE_URL } from "@/lib/site";
 
 type Block =
   | { t: "p"; text: string }
@@ -244,7 +245,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = POSTS.find((p) => p.slug === slug);
   if (!post) return {};
-  const baseUrl = "https://me-concept-next.vercel.app";
+  const baseUrl = SITE_URL;
   return {
     title: `${post.title} — Mayer E-Concept`,
     description: post.excerpt,
