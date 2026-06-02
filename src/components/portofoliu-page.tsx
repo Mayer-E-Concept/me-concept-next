@@ -33,6 +33,61 @@ function AnimatedCount({ raw, active }: { raw: string; active: boolean }) {
   return <>{cur}{suffix}</>;
 }
 
+const FEATURED_PROJECTS = [
+  {
+    id: "rewe",
+    category: "Comerț & Smart-Building",
+    title: "REWE + Centru Sportiv",
+    desc: "Clădire mixtă ce reunește un supermarket REWE și spații sportive publice, planificată integral LPH 1–7. Concept flexibil de iluminat și distribuție energetică pentru două tipologii distincte de utilizare.",
+    img: "/uploads/Spatii-Comerciale.png",
+    specs: [
+      { label: "LPH", value: "1–7 complet" },
+      { label: "Suprafață", value: "~2.500 m²" },
+      { label: "Standard", value: "Smart-Building" },
+    ],
+    award: null,
+  },
+  {
+    id: "group7",
+    category: "Industrie & Energie",
+    title: "Sediu & Logistică GROUP7, Schwaig",
+    desc: "Complex ce integrează 5.000 m² de birouri cu o hală logistică modernă. Instalație PV pe acoperiș — acoperă consumul energetic a ~100 de gospodării.",
+    img: "/uploads/PROIECTARE-MAYER-E-CONCEPT.jpg",
+    specs: [
+      { label: "LPH", value: "1–7" },
+      { label: "Birouri", value: "5.000 m²" },
+      { label: "PV", value: "~100 gospodării" },
+    ],
+    award: null,
+  },
+  {
+    id: "villa-maxima",
+    category: "Rezidențial & Monument",
+    title: "Villa MAXIMA – Haar, München",
+    desc: "120 unități rezidențiale în 3 clădiri monument. Trasee de cabluri prin subsoluri boltite cu înălțime redusă — rezolvate prin modelare BIM milimetrică și verificare coliziuni în timp real.",
+    img: "/uploads/Casa3-3D.jpg",
+    specs: [
+      { label: "LPH", value: "1–7" },
+      { label: "Unități", value: "120 WE" },
+      { label: "Fibră optică", value: "Toate unitățile" },
+    ],
+    award: "BIM-Preis Bayern 2025",
+  },
+  {
+    id: "get-h2",
+    category: "Energie & Infrastructură",
+    title: "GET H₂ Nukleus – RWE, Lingen",
+    desc: "Planificare Werk & Montaj pentru infrastructura electrică a primei instalații de electroliză H₂ la scară mare din Germania. Coordonare intensivă cu toate corpurile de meseriași.",
+    img: "/uploads/Automatizare.jpg",
+    specs: [
+      { label: "Rol", value: "Echipa de execuție" },
+      { label: "Operator", value: "RWE AG" },
+      { label: "Locație", value: "Lingen, Emsland" },
+    ],
+    award: null,
+  },
+];
+
 const SERVICES = [
   {
     num: "01",
@@ -126,6 +181,7 @@ export function PortofoliuPage() {
           .porto-projects-grid { grid-template-columns: 1fr 1fr !important; }
           .porto-gallery-grid { grid-template-columns: 1fr 1fr !important; }
           .porto-hero-inner { padding-top: 120px !important; padding-bottom: 60px !important; }
+          .porto-featured-grid { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 480px) {
           .porto-projects-grid { grid-template-columns: 1fr !important; }
@@ -380,6 +436,237 @@ export function PortofoliuPage() {
                 >
                   {p.desc}
                 </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured reference projects */}
+      <section
+        style={{
+          background: "#051E27",
+          paddingTop: "clamp(72px, 9vw, 110px)",
+          paddingBottom: "clamp(72px, 9vw, 110px)",
+          position: "relative",
+        }}
+      >
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 1,
+            background: "rgba(255,255,255,0.06)",
+          }}
+        />
+        <div
+          style={{
+            maxWidth: "1240px",
+            margin: "0 auto",
+            padding: "0 clamp(20px, 5vw, 60px)",
+          }}
+        >
+          <div style={{ marginBottom: "clamp(40px, 5vw, 64px)" }}>
+            <div
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "0.24em",
+                textTransform: "uppercase",
+                color: "#C5895B",
+                marginBottom: 16,
+              }}
+            >
+              Proiecte de referință — Germania
+            </div>
+            <h2
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "clamp(28px, 3.2vw, 44px)",
+                fontWeight: 800,
+                letterSpacing: "-0.022em",
+                lineHeight: 1.1,
+                color: "#F4F2EC",
+                maxWidth: "28ch",
+                margin: 0,
+              }}
+            >
+              Selecție de proiecte executate în Germania
+            </h2>
+          </div>
+
+          <div
+            className="porto-featured-grid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              gap: 20,
+            }}
+          >
+            {FEATURED_PROJECTS.map((p) => (
+              <div
+                key={p.id}
+                style={{
+                  background: "#0A2430",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: 14,
+                  overflow: "hidden",
+                  display: "flex",
+                  flexDirection: "column",
+                  position: "relative",
+                }}
+              >
+                {/* Image with overlay */}
+                <div style={{ position: "relative", aspectRatio: "16/9", overflow: "hidden" }}>
+                  <Image
+                    src={p.img}
+                    alt={p.title}
+                    width={620}
+                    height={349}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                      filter: "brightness(0.65) saturate(0.8)",
+                    }}
+                  />
+                  <div
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      background: "linear-gradient(to top, #0A2430 0%, transparent 55%)",
+                    }}
+                  />
+                  {p.award && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 14,
+                        right: 14,
+                        background: "#C5895B",
+                        color: "#051E27",
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "9px",
+                        fontWeight: 800,
+                        letterSpacing: "0.14em",
+                        textTransform: "uppercase",
+                        padding: "5px 10px",
+                        borderRadius: 6,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {p.award}
+                    </div>
+                  )}
+                </div>
+
+                {/* Content */}
+                <div
+                  style={{
+                    padding: "24px 28px 28px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
+                    flex: 1,
+                    position: "relative",
+                  }}
+                >
+                  {/* copper left bar */}
+                  <div
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      bottom: 0,
+                      width: 3,
+                      background: "linear-gradient(180deg, #C5895B 0%, rgba(197,137,91,0.08) 100%)",
+                    }}
+                  />
+                  <div
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "10px",
+                      fontWeight: 700,
+                      letterSpacing: "0.2em",
+                      textTransform: "uppercase",
+                      color: "#C5895B",
+                    }}
+                  >
+                    {p.category}
+                  </div>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "clamp(17px, 1.8vw, 22px)",
+                      fontWeight: 800,
+                      color: "#F4F2EC",
+                      letterSpacing: "-0.02em",
+                      lineHeight: 1.2,
+                      margin: 0,
+                    }}
+                  >
+                    {p.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: 13.5,
+                      lineHeight: 1.65,
+                      color: "rgba(244,242,236,0.52)",
+                      margin: 0,
+                      flex: 1,
+                    }}
+                  >
+                    {p.desc}
+                  </p>
+                  {/* Spec chips */}
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 4 }}>
+                    {p.specs.map((s) => (
+                      <div
+                        key={s.label}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 6,
+                          background: "rgba(255,255,255,0.05)",
+                          border: "1px solid rgba(255,255,255,0.09)",
+                          borderRadius: 6,
+                          padding: "4px 10px",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: "var(--font-sans)",
+                            fontSize: "9px",
+                            fontWeight: 600,
+                            letterSpacing: "0.12em",
+                            textTransform: "uppercase",
+                            color: "rgba(244,242,236,0.38)",
+                          }}
+                        >
+                          {s.label}
+                        </span>
+                        <span
+                          style={{
+                            fontFamily: "var(--font-sans)",
+                            fontSize: "11px",
+                            fontWeight: 700,
+                            color: "#F4F2EC",
+                          }}
+                        >
+                          {s.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
