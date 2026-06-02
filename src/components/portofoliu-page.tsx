@@ -39,7 +39,7 @@ const FEATURED_PROJECTS = [
     category: "Comerț & Smart-Building",
     title: "REWE + Centru Sportiv",
     desc: "Clădire mixtă ce reunește un supermarket REWE și spații sportive publice, planificată integral LPH 1–7. Concept flexibil de iluminat și distribuție energetică pentru două tipologii distincte de utilizare.",
-    img: "/uploads/Spatii-Comerciale.png",
+    img: "/uploads/referinte/render-1.jpg",
     specs: [
       { label: "LPH", value: "1–7 complet" },
       { label: "Suprafață", value: "~2.500 m²" },
@@ -52,7 +52,7 @@ const FEATURED_PROJECTS = [
     category: "Industrie & Energie",
     title: "Sediu & Logistică GROUP7, Schwaig",
     desc: "Complex ce integrează 5.000 m² de birouri cu o hală logistică modernă. Instalație PV pe acoperiș — acoperă consumul energetic a ~100 de gospodării.",
-    img: "/uploads/PROIECTARE-MAYER-E-CONCEPT.jpg",
+    img: "/uploads/referinte/render-2.jpg",
     specs: [
       { label: "LPH", value: "1–7" },
       { label: "Birouri", value: "5.000 m²" },
@@ -65,7 +65,7 @@ const FEATURED_PROJECTS = [
     category: "Rezidențial & Monument",
     title: "Villa MAXIMA – Haar, München",
     desc: "120 unități rezidențiale în 3 clădiri monument. Trasee de cabluri prin subsoluri boltite cu înălțime redusă — rezolvate prin modelare BIM milimetrică și verificare coliziuni în timp real.",
-    img: "/uploads/Casa3-3D.jpg",
+    img: "/uploads/referinte/render-3.jpg",
     specs: [
       { label: "LPH", value: "1–7" },
       { label: "Unități", value: "120 WE" },
@@ -78,7 +78,7 @@ const FEATURED_PROJECTS = [
     category: "Energie & Infrastructură",
     title: "GET H₂ Nukleus – RWE, Lingen",
     desc: "Planificare Werk & Montaj pentru infrastructura electrică a primei instalații de electroliză H₂ la scară mare din Germania. Coordonare intensivă cu toate corpurile de meseriași.",
-    img: "/uploads/Automatizare.jpg",
+    img: "/uploads/referinte/render-4.jpg",
     specs: [
       { label: "Rol", value: "Echipa de execuție" },
       { label: "Operator", value: "RWE AG" },
@@ -478,25 +478,10 @@ export function PortofoliuPage() {
                 letterSpacing: "0.24em",
                 textTransform: "uppercase",
                 color: "#C5895B",
-                marginBottom: 16,
               }}
             >
               Proiecte de referință — Germania
             </div>
-            <h2
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "clamp(28px, 3.2vw, 44px)",
-                fontWeight: 800,
-                letterSpacing: "-0.022em",
-                lineHeight: 1.1,
-                color: "#F4F2EC",
-                maxWidth: "28ch",
-                margin: 0,
-              }}
-            >
-              Selecție de proiecte executate în Germania
-            </h2>
           </div>
 
           <div

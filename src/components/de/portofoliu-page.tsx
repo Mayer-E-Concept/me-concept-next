@@ -39,7 +39,7 @@ const FEATURED_PROJECTS_DE = [
     category: "Handel & Smart-Building",
     title: "REWE + Sportzentrum",
     desc: "Neubau mit synergetischer Verbindung von REWE-Supermarkt und öffentlichen Sportflächen, vollständig LPH 1–7 geplant. Flexibles Energie- und Beleuchtungskonzept für zwei unterschiedliche Nutzungstypen.",
-    img: "/uploads/Spatii-Comerciale.png",
+    img: "/uploads/referinte/render-1.jpg",
     specs: [
       { label: "LPH", value: "1–7 komplett" },
       { label: "Fläche", value: "~2.500 m²" },
@@ -52,7 +52,7 @@ const FEATURED_PROJECTS_DE = [
     category: "Industrie & Energie",
     title: "Headquarter & Logistik GROUP7, Schwaig",
     desc: "Kombination aus 5.000 m² Bürofläche in Winkelform mit modernem Logistikzentrum. PV-Anlage auf dem Hallendach deckt den Strombedarf von ~100 Haushalten.",
-    img: "/uploads/PROIECTARE-MAYER-E-CONCEPT.jpg",
+    img: "/uploads/referinte/render-2.jpg",
     specs: [
       { label: "LPH", value: "1–7" },
       { label: "Bürofläche", value: "5.000 m²" },
@@ -65,7 +65,7 @@ const FEATURED_PROJECTS_DE = [
     category: "Wohnen & Denkmal",
     title: "Villa MAXIMA – Haar, München",
     desc: "120 Wohneinheiten in 3 denkmalgeschützten Gebäuden. Leitungsführung durch Gewölbekeller mit geringer Deckenhöhe — gelöst durch millimetergenaue BIM-Modellierung mit digitaler Kollisionsprüfung.",
-    img: "/uploads/Casa3-3D.jpg",
+    img: "/uploads/referinte/render-3.jpg",
     specs: [
       { label: "LPH", value: "1–7" },
       { label: "Einheiten", value: "120 WE" },
@@ -78,7 +78,7 @@ const FEATURED_PROJECTS_DE = [
     category: "Energie & Infrastruktur",
     title: "GET H₂ Nukleus – RWE, Lingen",
     desc: "Werk- und Montageplanung für die elektrotechnische Infrastruktur der ersten großskaligen H₂-Elektrolyseanlage Deutschlands. Intensive Gewerke-Koordination als zentrale Herausforderung.",
-    img: "/uploads/Automatizare.jpg",
+    img: "/uploads/referinte/render-4.jpg",
     specs: [
       { label: "Rolle", value: "Ausführungsteam" },
       { label: "Betreiber", value: "RWE AG" },
@@ -454,25 +454,10 @@ export function PortofoliuPageDe() {
                 letterSpacing: "0.24em",
                 textTransform: "uppercase",
                 color: "#C5895B",
-                marginBottom: 16,
               }}
             >
               Referenzprojekte — Deutschland
             </div>
-            <h2
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "clamp(28px, 3.2vw, 44px)",
-                fontWeight: 800,
-                letterSpacing: "-0.022em",
-                lineHeight: 1.1,
-                color: "#F4F2EC",
-                maxWidth: "28ch",
-                margin: 0,
-              }}
-            >
-              Auswahl realisierter Projekte in Deutschland
-            </h2>
           </div>
 
           <div
