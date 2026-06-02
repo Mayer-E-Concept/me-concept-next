@@ -238,7 +238,7 @@ export function ContactSectionDe() {
               src={BOOKINGS_URL}
               title="Termin vereinbaren — Mayer E-Concept"
               loading="lazy"
-              style={{ width: "100%", minHeight: 760, border: "1px solid rgba(255,255,255,0.10)", borderRadius: 8, background: "#fff" }}
+              style={{ width: "100%", minHeight: 760, border: "none", borderRadius: 8, background: "#ffffff", filter: "invert(0.92) hue-rotate(175deg) saturate(0.9)" }}
             />
           ) : (
             <AppointmentCalendar locale="de" />
