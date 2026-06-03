@@ -16,6 +16,21 @@ const isPast = (d: Date) => {
   const today = new Date(); today.setHours(0, 0, 0, 0);
   return d < today;
 };
+const isToday = (d: Date) => {
+  const now = new Date();
+  return d.getFullYear() === now.getFullYear() &&
+    d.getMonth() === now.getMonth() &&
+    d.getDate() === now.getDate();
+};
+// Dezactivează slot-urile trecute + buffer 60 min pentru ziua curentă
+const isSlotUnavailable = (slot: string, selectedDate: Date | undefined): boolean => {
+  if (!selectedDate || !isToday(selectedDate)) return false;
+  const [h, m] = slot.split(":").map(Number);
+  const slotTime = new Date();
+  slotTime.setHours(h, m, 0, 0);
+  const cutoff = new Date(Date.now() + 60 * 60 * 1000); // acum + 60 min
+  return slotTime <= cutoff;
+};
 
 const formatDate = (d: Date, locale: "ro" | "de") =>
   d.toLocaleDateString(locale === "de" ? "de-DE" : "ro-RO", { weekday: "long", day: "numeric", month: "long" });
@@ -306,17 +321,20 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
           </p>
           <ScrollArea style={{ flex: 1 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 6, padding: "0 12px 16px" }}>
-              {TIME_SLOTS.map((t) => (
+              {TIME_SLOTS.map((t) => {
+                const unavailable = !date || isSlotUnavailable(t, date);
+                return (
                 <button
                   key={t}
                   className={`appt-time-btn${time === t ? " selected" : ""}`}
-                  onClick={() => setTime(t)}
-                  disabled={!date}
-                  style={{ opacity: !date ? 0.35 : 1 }}
+                  onClick={() => { if (!unavailable) setTime(t); }}
+                  disabled={unavailable}
+                  style={{ opacity: unavailable ? 0.25 : 1, cursor: unavailable ? "not-allowed" : "pointer" }}
                 >
                   {t}
                 </button>
-              ))}
+                );
+              })}
             </div>
           </ScrollArea>
         </div>
