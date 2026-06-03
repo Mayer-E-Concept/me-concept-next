@@ -45,6 +45,7 @@ const T = {
     namePlaceholder: "Numele tău",
     emailPlaceholder: "email@exemplu.com",
     phonePlaceholder: "Telefon (opțional)",
+    messagePlaceholder: "Descrie pe scurt proiectul sau întrebarea ta (opțional)",
     nameError: "Câmpul este obligatoriu.",
     emailError: "Email invalid.",
     apiError: "A apărut o eroare. Încearcă din nou.",
@@ -67,6 +68,7 @@ const T = {
     namePlaceholder: "Ihr Name",
     emailPlaceholder: "email@beispiel.com",
     phonePlaceholder: "Telefon (optional)",
+    messagePlaceholder: "Beschreiben Sie kurz Ihr Projekt oder Ihre Frage (optional)",
     nameError: "Pflichtfeld.",
     emailError: "Ungültige E-Mail.",
     apiError: "Ein Fehler ist aufgetreten. Bitte erneut versuchen.",
@@ -102,7 +104,7 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
   const [step, setStep] = useState<Step>("pick");
   const [date, setDate] = useState<Date | undefined>();
   const [time, setTime] = useState<string | null>(null);
-  const [form, setForm] = useState({ name: "", email: "", phone: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState("");
@@ -124,7 +126,7 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
       const res = await fetch("/api/book-appointment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ date: date?.toISOString(), time, ...form }),
+        body: JSON.stringify({ date: date?.toISOString(), time, name: form.name, email: form.email, phone: form.phone, message: form.message }),
       });
       if (!res.ok) throw new Error();
       setStep("success");
@@ -154,7 +156,7 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
         <p style={{ fontFamily: "var(--font-sans)", fontSize: 13, color: "#1A6F7A", margin: 0 }}>{t.atWord} {time}</p>
       </div>
       <button
-        onClick={() => { setStep("pick"); setDate(undefined); setTime(null); setForm({ name: "", email: "", phone: "" }); }}
+        onClick={() => { setStep("pick"); setDate(undefined); setTime(null); setForm({ name: "", email: "", phone: "", message: "" }); }}
         style={{ marginTop: 8, background: "none", border: "1px solid rgba(26,111,122,0.35)", color: "#1A6F7A", fontFamily: "var(--font-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "9px 22px", borderRadius: 4, cursor: "pointer" }}
       >
         {t.anotherBtn}
@@ -229,6 +231,18 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
             value={form.phone}
             onChange={(e) => setForm(p => ({ ...p, phone: e.target.value }))}
             style={inputBase}
+            onFocus={(e) => { e.target.style.borderColor = "#1A6F7A"; e.target.style.background = "rgba(255,255,255,0.10)"; }}
+            onBlur={(e) => { e.target.style.borderColor = "rgba(255,255,255,0.14)"; e.target.style.background = "rgba(255,255,255,0.06)"; }}
+          />
+        </div>
+        {/* Message (optional) */}
+        <div>
+          <textarea
+            placeholder={t.messagePlaceholder}
+            value={form.message}
+            rows={4}
+            onChange={(e) => setForm(p => ({ ...p, message: e.target.value }))}
+            style={{ ...inputBase, padding: "11px 14px", resize: "vertical", lineHeight: 1.55 }}
             onFocus={(e) => { e.target.style.borderColor = "#1A6F7A"; e.target.style.background = "rgba(255,255,255,0.10)"; }}
             onBlur={(e) => { e.target.style.borderColor = "rgba(255,255,255,0.14)"; e.target.style.background = "rgba(255,255,255,0.06)"; }}
           />

@@ -21,6 +21,7 @@ export async function POST(req: Request) {
     const phone   = String(body?.phone   ?? "").trim();
     const date    = String(body?.date    ?? "").trim();
     const time    = String(body?.time    ?? "").trim();
+    const message = String(body?.message ?? "").trim();
     const company = String(body?.company ?? "").trim();
 
     if (company) return NextResponse.json({ ok: true });
@@ -34,10 +35,11 @@ export async function POST(req: Request) {
     if (name.length > 120 || email.length > 160 || phone.length > 30)
       return NextResponse.json({ error: "Câmpuri prea lungi." }, { status: 400 });
 
-    const safeName  = escapeHtml(name);
-    const safeEmail = escapeHtml(email);
-    const safePhone = escapeHtml(phone);
-    const safeTime  = escapeHtml(time);
+    const safeName    = escapeHtml(name);
+    const safeEmail   = escapeHtml(email);
+    const safePhone   = escapeHtml(phone);
+    const safeTime    = escapeHtml(time);
+    const safeMessage = escapeHtml(message);
 
     const dateObj = new Date(date);
     const dateRo  = dateObj.toLocaleDateString("ro-RO", {
@@ -53,6 +55,7 @@ export async function POST(req: Request) {
           ${safePhone ? `<tr><td style="padding:8px 0;color:rgba(244,242,236,0.55);">Telefon</td><td style="padding:8px 0;">${safePhone}</td></tr>` : ""}
           <tr><td style="padding:8px 0;color:rgba(244,242,236,0.55);">Data</td><td style="padding:8px 0;font-weight:600;text-transform:capitalize;">${dateRo}</td></tr>
           <tr><td style="padding:8px 0;color:rgba(244,242,236,0.55);">Ora</td><td style="padding:8px 0;font-weight:600;">${safeTime}</td></tr>
+          ${safeMessage ? `<tr><td style="padding:8px 0;color:rgba(244,242,236,0.55);vertical-align:top;">Mesaj</td><td style="padding:8px 0;">${safeMessage.replace(/\n/g, "<br>")}</td></tr>` : ""}
         </table>
       </div>`;
 
