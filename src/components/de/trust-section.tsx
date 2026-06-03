@@ -129,65 +129,114 @@ export function TrustSectionDe() {
           </div>
         </div>
 
+        {/* Bottom — cinematic split panel */}
+        <style>{`
+          @media (max-width: 767px) {
+            .trust-panel { grid-template-columns: 1fr !important; }
+            .trust-panel-photo { min-height: 260px !important; }
+          }
+        `}</style>
         <div
-          className="trust-bottom-grid"
+          className="trust-panel"
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "clamp(12px, 2vw, 24px)",
+            gridTemplateColumns: "3fr 2fr",
+            borderRadius: 12,
+            overflow: "hidden",
+            border: "1px solid rgba(255,255,255,0.07)",
+            minHeight: 420,
           }}
         >
+          {/* Foto duotone */}
           <div
-            style={{
-              borderRadius: 10,
-              overflow: "hidden",
-              aspectRatio: "4/3",
-              border: "1px solid rgba(255,255,255,0.06)",
-            }}
+            className="trust-panel-photo"
+            style={{ position: "relative", minHeight: 420 }}
           >
             <Image
-              src="/uploads/me-concept-proiectare-instalatii-electrice-romania.jpg"
-              alt="Mayer E-Concept — Team"
-              width={600}
-              height={450}
-              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              src="/uploads/echipa-159-duotone.jpg"
+              alt="Mayer E-Concept Team — Elektroplanung"
+              fill
+              sizes="(max-width:767px) 100vw, 60vw"
+              style={{ objectFit: "cover", objectPosition: "center 30%" }}
             />
+            <div style={{
+              position: "absolute", inset: 0,
+              background: "linear-gradient(to right, transparent 60%, rgba(10,38,30,0.55) 100%)",
+              pointerEvents: "none",
+            }} />
           </div>
 
-          <div
-            style={{
-              position: "relative",
-              borderRadius: 10,
-              overflow: "hidden",
-              aspectRatio: "4/3",
-              border: "1px solid rgba(255,255,255,0.06)",
-            }}
-          >
-            <Image
-              src="/uploads/Plan-Exemplu-2.png"
-              alt="Elektroinstallationsplan"
-              width={600}
-              height={450}
-              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                bottom: 14,
-                right: 14,
-                background: "rgba(255,255,255,0.95)",
-                borderRadius: 8,
-                padding: "8px 12px",
-                boxShadow: "0 4px 16px rgba(0,0,0,0.25)",
-              }}
-            >
+          {/* Credentials + Zitat */}
+          <div style={{
+            background: "rgba(255,255,255,0.03)",
+            borderLeft: "1px solid rgba(255,255,255,0.07)",
+            padding: "clamp(28px, 4vw, 52px)",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            gap: 28,
+          }}>
+            <div style={{
+              background: "rgba(255,255,255,0.96)",
+              borderRadius: 8,
+              padding: "10px 14px",
+              width: "fit-content",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+            }}>
               <Image
                 src="/uploads/SKYCERT9001.png"
                 alt="ISO 9001:2015 SKYCERT"
-                width={90}
-                height={60}
+                width={96}
+                height={64}
                 style={{ objectFit: "contain", display: "block" }}
               />
+            </div>
+
+            <div style={{ width: 36, height: 2, background: "#C5895B", borderRadius: 1 }} />
+
+            <div>
+              <p style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "clamp(15px, 1.4vw, 18px)",
+                fontWeight: 300,
+                lineHeight: 1.7,
+                color: "rgba(244,242,236,0.80)",
+                fontStyle: "italic",
+                margin: "0 0 20px",
+              }}>
+                „Wir planen sichere, effiziente und zertifizierte Elektroinstallationen — vom Konzept bis zum Ausführungsdetail."
+              </p>
+              <span style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "#C5895B",
+              }}>
+                Mayer E-Concept
+              </span>
+            </div>
+
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              paddingTop: 4,
+              borderTop: "1px solid rgba(255,255,255,0.08)",
+            }}>
+              <div style={{
+                width: 6, height: 6, borderRadius: "50%",
+                background: "#C5895B", flexShrink: 0,
+              }} />
+              <span style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "12px",
+                color: "rgba(244,242,236,0.50)",
+                letterSpacing: "0.04em",
+              }}>
+                ANRE zertifiziert · Sibiu, Siebenbürgen
+              </span>
             </div>
           </div>
         </div>
