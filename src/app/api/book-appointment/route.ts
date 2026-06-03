@@ -103,7 +103,8 @@ export async function POST(req: Request) {
 
     const notifyResult = results[0];
     if (notifyResult.status === "rejected") {
-      console.error("[book-appointment] Notificare eșuată:", notifyResult.reason);
+      const err = notifyResult.reason as Error & { code?: string; response?: string };
+      console.error("[book-appointment] SMTP error:", err?.code, err?.response ?? err?.message);
       return NextResponse.json({ error: "Trimiterea a eșuat." }, { status: 502 });
     }
 
