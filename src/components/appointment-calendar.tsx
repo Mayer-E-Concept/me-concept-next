@@ -22,14 +22,13 @@ const isToday = (d: Date) => {
     d.getMonth() === now.getMonth() &&
     d.getDate() === now.getDate();
 };
-// Dezactivează slot-urile trecute + buffer 60 min pentru ziua curentă
+// Dezactivează slot-urile care au trecut deja (pentru ziua curentă)
 const isSlotUnavailable = (slot: string, selectedDate: Date | undefined): boolean => {
   if (!selectedDate || !isToday(selectedDate)) return false;
   const [h, m] = slot.split(":").map(Number);
   const slotTime = new Date();
   slotTime.setHours(h, m, 0, 0);
-  const cutoff = new Date(Date.now() + 60 * 60 * 1000); // acum + 60 min
-  return slotTime <= cutoff;
+  return slotTime < new Date(); // dezactivat doar dacă ora a trecut
 };
 
 const formatDate = (d: Date, locale: "ro" | "de") =>
