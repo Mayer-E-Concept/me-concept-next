@@ -25,9 +25,9 @@ const TABS = [
     tabTitle: "Erfahrene Spezialisten",
     tabDesc: "Unser Team besteht aus erfahrenen Ingenieuren mit umfangreicher Expertise in der Elektroplanung, die bereit sind, vollständige und maßgeschneiderte Lösungen für jede Projektart anzubieten.",
     images: [
-      "/uploads/Design-fara-titlu-32.jpg",
-      "/uploads/ME-CONCEPT-083-1.jpg",
-      "/uploads/electrician_34.jpg",
+      "/uploads/echipa-050.jpg",
+      "/uploads/echipa-075.jpg",
+      "/uploads/echipa-050.jpg",
     ],
   },
   {

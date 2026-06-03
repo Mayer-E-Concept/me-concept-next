@@ -25,9 +25,9 @@ const TABS = [
     tabTitle: "Specialiști cu Experiență",
     tabDesc: "Echipa noastră este formată din ingineri cu experiență vastă în proiectarea instalațiilor electrice, pregătiți să ofere soluții complete și personalizate pentru orice tip de proiect.",
     images: [
-      "/uploads/Design-fara-titlu-32.jpg",
-      "/uploads/ME-CONCEPT-083-1.jpg",
-      "/uploads/electrician_34.jpg",
+      "/uploads/echipa-050.jpg",
+      "/uploads/echipa-075.jpg",
+      "/uploads/echipa-050.jpg",
     ],
   },
   {
