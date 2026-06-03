@@ -2,11 +2,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { BOOKINGS_URL } from "@/lib/site";
-
 const AppointmentCalendar = dynamic(
   () => import("@/components/appointment-calendar").then((m) => m.AppointmentCalendar),
-  { ssr: false, loading: () => <div style={{ height: 320 }} /> }
+  { ssr: false, loading: () => <div style={{ minHeight: 400 }} /> }
 );
 
 type ActiveTab = "form" | "calendar";
@@ -232,17 +230,7 @@ export function ContactSectionDe() {
           </div>
 
           {/* Calendar tab */}
-          {/* Calendar tab — Microsoft Bookings embed wenn konfiguriert, sonst der eigene Kalender */}
-          {activeTab === "calendar" && (BOOKINGS_URL ? (
-            <iframe
-              src={BOOKINGS_URL}
-              title="Termin vereinbaren — Mayer E-Concept"
-              loading="lazy"
-              style={{ width: "100%", minHeight: 760, border: "none", borderRadius: 8, background: "#ffffff", filter: "invert(0.92) hue-rotate(175deg) saturate(0.9)" }}
-            />
-          ) : (
-            <AppointmentCalendar locale="de" />
-          ))}
+          {activeTab === "calendar" && <AppointmentCalendar locale="de" />}
 
           {/* Form tab */}
           {activeTab === "form" && (submitted ? (

@@ -124,24 +124,24 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
   /* ── Step: success ── */
   if (step === "success") return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, padding: "40px 24px", textAlign: "center" }}>
-      <div style={{ width: 60, height: 60, borderRadius: "50%", background: "rgba(197,137,91,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <CheckCircle2 size={30} color="#C5895B" />
+      <div style={{ width: 60, height: 60, borderRadius: "50%", background: "rgba(26,111,122,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <CheckCircle2 size={30} color="#1A6F7A" />
       </div>
       <h3 style={{ fontFamily: "var(--font-sans)", fontSize: 22, fontWeight: 700, color: "#F4F2EC", margin: 0 }}>
         {t.successTitle}
       </h3>
       <p style={{ fontFamily: "var(--font-body)", fontSize: 14, lineHeight: 1.65, color: "rgba(244,242,236,0.60)", margin: 0, maxWidth: "34ch" }}>
-        {t.successMsg(form.email)}<span style={{ color: "#C5895B" }}>{form.email}</span>{t.successDot}
+        {t.successMsg(form.email)}<span style={{ color: "#1A6F7A" }}>{form.email}</span>{t.successDot}
       </p>
-      <div style={{ background: "rgba(197,137,91,0.10)", border: "1px solid rgba(197,137,91,0.25)", borderRadius: 8, padding: "14px 20px", marginTop: 8 }}>
+      <div style={{ background: "rgba(26,111,122,0.10)", border: "1px solid rgba(26,111,122,0.25)", borderRadius: 8, padding: "14px 20px", marginTop: 8 }}>
         <p style={{ fontFamily: "var(--font-sans)", fontSize: 15, fontWeight: 600, color: "#F4F2EC", margin: "0 0 2px", textTransform: "capitalize" }}>
           {date && formatDate(date, locale)}
         </p>
-        <p style={{ fontFamily: "var(--font-sans)", fontSize: 13, color: "#C5895B", margin: 0 }}>{t.atWord} {time}</p>
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: 13, color: "#1A6F7A", margin: 0 }}>{t.atWord} {time}</p>
       </div>
       <button
         onClick={() => { setStep("pick"); setDate(undefined); setTime(null); setForm({ name: "", email: "", phone: "" }); }}
-        style={{ marginTop: 8, background: "none", border: "1px solid rgba(197,137,91,0.35)", color: "#C5895B", fontFamily: "var(--font-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "9px 22px", borderRadius: 4, cursor: "pointer" }}
+        style={{ marginTop: 8, background: "none", border: "1px solid rgba(26,111,122,0.35)", color: "#1A6F7A", fontFamily: "var(--font-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "9px 22px", borderRadius: 4, cursor: "pointer" }}
       >
         {t.anotherBtn}
       </button>
@@ -155,7 +155,7 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
       <button
         onClick={() => setStep("pick")}
         style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", color: "rgba(244,242,236,0.50)", fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 600, letterSpacing: "0.10em", textTransform: "uppercase", cursor: "pointer", padding: "0 0 16px", transition: "color .2s" }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = "#C5895B")}
+        onMouseEnter={(e) => (e.currentTarget.style.color = "#1A6F7A")}
         onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(244,242,236,0.50)")}
       >
         <ChevronLeft size={14} /> {t.backBtn}
@@ -163,14 +163,14 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
 
       {/* Selected slot summary */}
       <div style={{ display: "flex", gap: 12, marginBottom: 24 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 7, background: "rgba(197,137,91,0.10)", border: "1px solid rgba(197,137,91,0.22)", borderRadius: 6, padding: "8px 14px" }}>
-          <CalendarIcon size={13} color="#C5895B" />
+        <div style={{ display: "flex", alignItems: "center", gap: 7, background: "rgba(26,111,122,0.10)", border: "1px solid rgba(26,111,122,0.22)", borderRadius: 6, padding: "8px 14px" }}>
+          <CalendarIcon size={13} color="#1A6F7A" />
           <span style={{ fontFamily: "var(--font-sans)", fontSize: 12, color: "#F4F2EC", textTransform: "capitalize" }}>
             {date && formatDate(date, locale)}
           </span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 7, background: "rgba(197,137,91,0.10)", border: "1px solid rgba(197,137,91,0.22)", borderRadius: 6, padding: "8px 14px" }}>
-          <ClockIcon size={13} color="#C5895B" />
+        <div style={{ display: "flex", alignItems: "center", gap: 7, background: "rgba(26,111,122,0.10)", border: "1px solid rgba(26,111,122,0.22)", borderRadius: 6, padding: "8px 14px" }}>
+          <ClockIcon size={13} color="#1A6F7A" />
           <span style={{ fontFamily: "var(--font-sans)", fontSize: 12, color: "#F4F2EC" }}>{time}</span>
         </div>
       </div>
@@ -231,7 +231,7 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
         style={{
           marginTop: 20,
           height: 52,
-          background: loading ? "#0E323D" : "#C5895B",
+          background: loading ? "#0E323D" : "#1A6F7A",
           border: "none",
           borderRadius: 4,
           color: "#fff",
@@ -244,8 +244,8 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
           transition: "background .2s, transform .2s",
           opacity: loading ? 0.7 : 1,
         }}
-        onMouseEnter={(e) => { if (!loading) (e.currentTarget as HTMLButtonElement).style.background = "#b37a50"; }}
-        onMouseLeave={(e) => { if (!loading) (e.currentTarget as HTMLButtonElement).style.background = "#C5895B"; }}
+        onMouseEnter={(e) => { if (!loading) (e.currentTarget as HTMLButtonElement).style.background = "#155D69"; }}
+        onMouseLeave={(e) => { if (!loading) (e.currentTarget as HTMLButtonElement).style.background = "#1A6F7A"; }}
       >
         {loading ? t.sendingBtn : t.submitBtn}
       </button>
@@ -266,7 +266,7 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
         }
         .appt-time-btn:hover { background: rgba(255,255,255,0.10); color: #F4F2EC; }
         .appt-time-btn.selected {
-          background: #C5895B; border-color: #C5895B; color: #fff;
+          background: #1A6F7A; border-color: #1A6F7A; color: #fff;
         }
         @media (max-width: 600px) {
           .appt-inner { flex-direction: column !important; }
@@ -329,10 +329,10 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
           marginTop: 16,
           width: "100%",
           height: 50,
-          background: date && time ? "#C5895B" : "rgba(197,137,91,0.20)",
+          background: date && time ? "#1A6F7A" : "rgba(26,111,122,0.20)",
           border: "none",
           borderRadius: 4,
-          color: date && time ? "#fff" : "rgba(197,137,91,0.55)",
+          color: date && time ? "#fff" : "rgba(26,111,122,0.55)",
           fontFamily: "var(--font-sans)",
           fontSize: "12px",
           fontWeight: 700,
@@ -341,8 +341,8 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
           cursor: date && time ? "pointer" : "not-allowed",
           transition: "background .2s, color .2s",
         }}
-        onMouseEnter={(e) => { if (date && time) (e.currentTarget as HTMLButtonElement).style.background = "#b37a50"; }}
-        onMouseLeave={(e) => { if (date && time) (e.currentTarget as HTMLButtonElement).style.background = "#C5895B"; }}
+        onMouseEnter={(e) => { if (date && time) (e.currentTarget as HTMLButtonElement).style.background = "#155D69"; }}
+        onMouseLeave={(e) => { if (date && time) (e.currentTarget as HTMLButtonElement).style.background = "#1A6F7A"; }}
       >
         {date && time ? t.continueBtn(date, time) : t.selectBtn}
       </button>

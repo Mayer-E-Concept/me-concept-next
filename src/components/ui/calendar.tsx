@@ -79,7 +79,7 @@ export function Calendar({ selected, onSelect, disabled, className, locale = "ro
         >
           <ChevronLeft size={16} strokeWidth={2} />
         </button>
-        <span style={{ fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#C5895B" }}>
+        <span style={{ fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#1A6F7A" }}>
           {L.months[viewMonth]} {viewYear}
         </span>
         <button
@@ -118,9 +118,9 @@ export function Calendar({ selected, onSelect, disabled, className, locale = "ro
               style={{
                 width: "100%",
                 aspectRatio: "1",
-                border: isToday && !isSelected ? "1px solid rgba(197,137,91,0.55)" : "1px solid transparent",
+                border: isToday && !isSelected ? "1px solid rgba(26,111,122,0.55)" : "1px solid transparent",
                 borderRadius: 8,
-                background: isSelected ? "#C5895B" : "transparent",
+                background: isSelected ? "#1A6F7A" : "transparent",
                 color: isDisabled
                   ? "rgba(244,242,236,0.18)"
                   : isSelected
