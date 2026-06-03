@@ -1,28 +1,18 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import { escapeHtml } from "@/lib/escape-html";
 
 const NOTIFY_TO = "contact@me-concept.ro";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function createTransport() {
-  return nodemailer.createTransport({
-    host: "smtp.office365.com",
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-    tls: { ciphers: "SSLv3" },
-  });
-}
-
 export async function POST(req: Request) {
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    console.error("[book-appointment] SMTP_USER sau SMTP_PASS lipsesc.");
+  if (!process.env.RESEND_API_KEY) {
+    console.error("[book-appointment] RESEND_API_KEY lipsește.");
     return NextResponse.json({ error: "Serviciu indisponibil." }, { status: 503 });
   }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const FROM = process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev";
 
   try {
     const body = await req.json();
@@ -54,8 +44,6 @@ export async function POST(req: Request) {
       weekday: "long", day: "numeric", month: "long", year: "numeric",
     });
 
-    const FROM = `Mayer E-Concept <${process.env.SMTP_USER}>`;
-
     const notifyHtml = `
       <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#051E27;color:#F4F2EC;padding:32px;border-radius:8px;">
         <h2 style="color:#1A6F7A;margin:0 0 24px;">Programare nouă primită</h2>
@@ -83,18 +71,16 @@ export async function POST(req: Request) {
         <p style="color:rgba(244,242,236,0.25);font-size:12px;margin:0;">Mayer E-Concept SRL · Strada Măslinului nr. 9, Sibiu</p>
       </div>`;
 
-    const transport = createTransport();
-
     const results = await Promise.allSettled([
-      transport.sendMail({
-        from: FROM,
+      resend.emails.send({
+        from: `Mayer E-Concept <${FROM}>`,
         to: NOTIFY_TO,
         subject: `Programare nouă: ${name.replace(/[\r\n]/g, " ").slice(0, 80)} — ${dateRo} la ${time}`,
         html: notifyHtml,
         replyTo: email,
       }),
-      transport.sendMail({
-        from: FROM,
+      resend.emails.send({
+        from: `Mayer E-Concept <${FROM}>`,
         to: email,
         subject: `Programare confirmată — ${dateRo} la ${time}`,
         html: confirmHtml,
@@ -102,9 +88,9 @@ export async function POST(req: Request) {
     ]);
 
     const notifyResult = results[0];
-    if (notifyResult.status === "rejected") {
-      const err = notifyResult.reason as Error & { code?: string; response?: string };
-      console.error("[book-appointment] SMTP error:", err?.code, err?.response ?? err?.message);
+    if (notifyResult.status === "rejected" || notifyResult.value?.error) {
+      const err = notifyResult.status === "rejected" ? notifyResult.reason : notifyResult.value.error;
+      console.error("[book-appointment] Eroare Resend:", JSON.stringify(err));
       return NextResponse.json({ error: "Trimiterea a eșuat." }, { status: 502 });
     }
 
