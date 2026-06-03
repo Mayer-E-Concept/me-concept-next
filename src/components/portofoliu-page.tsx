@@ -117,13 +117,13 @@ const SERVICES = [
     num: "05",
     title: "Sisteme de Alimentare și Distribuție Electrică",
     desc: "Proiectăm sisteme de alimentare și distribuție electrică pentru clădiri rezidențiale, comerciale și industriale. Soluțiile noastre garantează un flux electric stabil și sigur.",
-    img: "/uploads/ME-CONCEPT-021.jpg",
+    img: "/uploads/iStock-1192061868.jpg",
   },
   {
     num: "06",
     title: "Sisteme de Automatizare și Control",
     desc: "Automatizăm procesele și optimizăm consumul de energie. Proiectăm sisteme inteligente KNX care fac managementul clădirilor mai simplu și mai eficient.",
-    img: "/uploads/Automatizare.jpg",
+    img: "/uploads/shutterstock_2016152024.jpg",
   },
   {
     num: "07",
@@ -661,7 +661,7 @@ export function PortofoliuPage() {
       {/* Services grid */}
       <section
         style={{
-          background: "#F6F7F7",
+          background: "#0E323D",
           paddingTop: "clamp(72px, 9vw, 120px)",
           paddingBottom: "clamp(72px, 9vw, 120px)",
         }}
@@ -675,10 +675,10 @@ export function PortofoliuPage() {
                 fontWeight: 700,
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
-                color: "#0F4C5C",
+                color: "#C5895B",
                 marginBottom: 14,
                 paddingBottom: 14,
-                borderBottom: "1px solid #D8DCDE",
+                borderBottom: "1px solid rgba(255,255,255,0.12)",
                 display: "inline-block",
               }}
             >
@@ -691,7 +691,7 @@ export function PortofoliuPage() {
                 fontWeight: 700,
                 letterSpacing: "-0.02em",
                 lineHeight: 1.12,
-                color: "#0E323D",
+                color: "#F4F2EC",
                 maxWidth: "28ch",
               }}
             >
@@ -714,7 +714,7 @@ export function PortofoliuPage() {
                   background: "#FFFFFF",
                   borderRadius: 12,
                   overflow: "hidden",
-                  border: "1px solid #D8DCDE",
+                  border: "1px solid rgba(255,255,255,0.10)",
                   display: "flex",
                   flexDirection: "column",
                 }}
@@ -729,18 +729,6 @@ export function PortofoliuPage() {
                   />
                 </div>
                 <div style={{ padding: "24px 24px 28px" }}>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: "11px",
-                      fontWeight: 700,
-                      letterSpacing: "0.18em",
-                      color: "#C5895B",
-                      marginBottom: 8,
-                    }}
-                  >
-                    {s.num}
-                  </div>
                   <h3
                     style={{
                       fontFamily: "var(--font-sans)",
