@@ -230,10 +230,13 @@ export function ContactSectionDe() {
           </div>
 
           {/* Calendar tab */}
-          {activeTab === "calendar" && <AppointmentCalendar locale="de" />}
+          <div style={{ display: activeTab === "calendar" ? "block" : "none" }}>
+            <AppointmentCalendar locale="de" />
+          </div>
 
           {/* Form tab */}
-          {activeTab === "form" && (submitted ? (
+          <div style={{ display: activeTab === "form" ? "block" : "none" }}>
+          {submitted ? (
           <div
             style={{
               display: "flex",
@@ -357,7 +360,8 @@ export function ContactSectionDe() {
             )}
             <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
           </form>
-        ))}
+        )}
+          </div>
         </div>
       </div>
     </section>

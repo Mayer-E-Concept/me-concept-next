@@ -114,6 +114,7 @@ export function SiteHeaderDe() {
               <Link
                 key={item.label}
                 href={item.href}
+                onClick={() => { if (item.href === "/de") window.scrollTo({ top: 0, behavior: "smooth" }); }}
                 style={{
                   fontSize: "12.5px",
                   fontWeight: 600,
@@ -163,7 +164,7 @@ export function SiteHeaderDe() {
             key={item.label}
             href={item.href}
             className="mobile-nav-link-de"
-            onClick={() => setMenuOpen(false)}
+            onClick={() => { setMenuOpen(false); if (item.href === "/de") window.scrollTo({ top: 0, behavior: "smooth" }); }}
           >
             {item.label}
           </Link>
