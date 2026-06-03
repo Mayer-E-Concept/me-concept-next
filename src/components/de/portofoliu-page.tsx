@@ -93,19 +93,19 @@ const SERVICES = [
     num: "01",
     title: "Wohngebäude",
     desc: "Professionelle Elektroplanung und -ausrüstung verbessern die Energieeffizienz eines Gebäudes und reduzieren langfristig Energieverbrauch und Kosten erheblich.",
-    img: "/uploads/Casa3-3D.jpg",
+    img: "/uploads/electrician_22.jpg",
   },
   {
     num: "02",
     title: "Gewerbeflächen",
     desc: "Wir planen ein auf Ihre spezifischen Anforderungen zugeschnittenes Elektrosystem – ob Einzelhandel, Showroom oder Logistikzentrum. Individuelle Lösungen zur Optimierung der Arbeitsabläufe.",
-    img: "/uploads/Spatii-Comerciale.png",
+    img: "/uploads/spati-comerciale-2.jpg",
   },
   {
     num: "03",
     title: "Technische Beleuchtung",
     desc: "Wir entwickeln technische Beleuchtungslösungen für jeden Raum – Industriehallen, Büros, Gewerbeflächen – mit Fokus auf Energieeffizienz, Sehkomfort und Langlebigkeit.",
-    img: "/uploads/ME-CONCEPT-162.jpg",
+    img: "/uploads/electrician_31.jpg",
   },
   {
     num: "04",
@@ -123,19 +123,19 @@ const SERVICES = [
     num: "06",
     title: "Automatisierung und Steuerung",
     desc: "Wir automatisieren Prozesse und optimieren den Energieverbrauch. Wir planen intelligente KNX-Systeme, die das Gebäudemanagement einfacher und effizienter gestalten.",
-    img: "/uploads/shutterstock_2016152024.jpg",
+    img: "/uploads/Automatizare.jpg",
   },
   {
     num: "07",
     title: "Blitz- und Erdungsschutz",
     desc: "Der Schutz von Gebäuden vor Blitzeinschlägen ist unerlässlich. Wir planen Blitzschutz- und Erdungssysteme, die vollständige Sicherheit nach DIN VDE bieten.",
-    img: "/uploads/ME-CONCEPT-083-1.jpg",
+    img: "/uploads/proiectare-instalatii-electrice-sibiu-2.jpg",
   },
   {
     num: "08",
     title: "Sicherheitsbeleuchtung",
     desc: "Wir gewährleisten Sichtverhältnisse und Sicherheit in Notfällen durch die Planung von Notbeleuchtungs- und Evakuierungssystemen gemäß allen geltenden Vorschriften.",
-    img: "/uploads/proiectare-instalatii-electrice-sibiu-2.jpg",
+    img: "/uploads/electrician_35.jpg",
   },
 ];
 

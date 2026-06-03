@@ -93,19 +93,19 @@ const SERVICES = [
     num: "01",
     title: "Construcții Civile",
     desc: "Proiectarea și echiparea electrică realizate de un expert pot îmbunătăți eficiența energetică a unei clădiri, reducând semnificativ consumul de energie și costurile pe termen lung.",
-    img: "/uploads/Casa3-3D.jpg",
+    img: "/uploads/electrician_22.jpg",
   },
   {
     num: "02",
     title: "Spații Comerciale",
     desc: "Proiectăm un sistem electric adaptat nevoilor specifice, fie că este vorba de o unitate comercială, showroom sau centru logistic. Soluții personalizate pentru optimizarea fluxurilor de lucru.",
-    img: "/uploads/Spatii-Comerciale.png",
+    img: "/uploads/spati-comerciale-2.jpg",
   },
   {
     num: "03",
     title: "Iluminat Tehnic",
     desc: "Proiectăm soluții de iluminat tehnic adaptate fiecărui spațiu — hale industriale, birouri, spații comerciale — cu focus pe eficiență energetică, confort vizual și durabilitate.",
-    img: "/uploads/ME-CONCEPT-162.jpg",
+    img: "/uploads/electrician_31.jpg",
   },
   {
     num: "04",
@@ -123,19 +123,19 @@ const SERVICES = [
     num: "06",
     title: "Sisteme de Automatizare și Control",
     desc: "Automatizăm procesele și optimizăm consumul de energie. Proiectăm sisteme inteligente KNX care fac managementul clădirilor mai simplu și mai eficient.",
-    img: "/uploads/shutterstock_2016152024.jpg",
+    img: "/uploads/Automatizare.jpg",
   },
   {
     num: "07",
     title: "Sisteme de Paratrăsnet și Împământare",
     desc: "Protejarea clădirilor împotriva descărcărilor atmosferice este esențială. Proiectăm sisteme de paratrăsnet și împământare care oferă siguranță completă.",
-    img: "/uploads/ME-CONCEPT-083-1.jpg",
+    img: "/uploads/proiectare-instalatii-electrice-sibiu-2.jpg",
   },
   {
     num: "08",
     title: "Sisteme de Iluminat de Urgență",
     desc: "Asigurăm continuitatea vizibilității și siguranța în situații de urgență prin proiectarea sistemelor de iluminat de siguranță și evacuare, conforme cu toate reglementările.",
-    img: "/uploads/proiectare-instalatii-electrice-sibiu-2.jpg",
+    img: "/uploads/electrician_35.jpg",
   },
 ];
 
