@@ -760,32 +760,6 @@ export function PortofoliuPage() {
         </div>
       </section>
 
-      {/* Gallery strip */}
-      <section style={{ background: "#0E323D", padding: "clamp(48px, 6vw, 80px) 0" }}>
-        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
-          <div
-            className="porto-gallery-grid"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 12,
-            }}
-          >
-            {GALLERY.map((g) => (
-              <div key={g.src} style={{ borderRadius: 10, overflow: "hidden", aspectRatio: "4/3" }}>
-                <Image
-                  src={g.src}
-                  alt={g.alt}
-                  width={400}
-                  height={300}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", filter: "brightness(0.85)" }}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
     </>
   );
 }
