@@ -14,11 +14,8 @@ const TABS = [
     label: "Proiecte instalații",
     tabTitle: "Proiectare de Sisteme Electrice",
     tabDesc: "La Mayer E-CONCEPT, proiectăm sisteme electrice eficiente și personalizate, adaptate cerințelor specifice ale clienților noștri. Cu acreditarea ISO 9001, garantăm calitatea, siguranța și profesionalismul în fiecare etapă a proiectului.",
-    images: [
-      "/uploads/ME-CONCEPT-021.jpg",
-      "/uploads/ME-CONCEPT-162.jpg",
-      "/uploads/electrician_31.jpg",
-    ],
+    wideImage: "/uploads/PROIECTARE-INSTALATII-ELECTRICE.jpg",
+    images: [],
   },
   {
     label: "Echipa",
@@ -214,26 +211,38 @@ export function SpecialistsSection() {
             {TABS[activeTab].tabTitle}
           </h3>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 16 }}>
-            <div style={{ borderRadius: 10, overflow: "hidden", aspectRatio: "4/3" }}>
+          {TABS[activeTab].wideImage ? (
+            <div style={{ borderRadius: 10, overflow: "hidden", aspectRatio: "21/8", marginBottom: 16 }}>
               <Image
-                src={TABS[activeTab].images[0]}
+                src={TABS[activeTab].wideImage}
                 alt={TABS[activeTab].tabTitle}
-                width={600}
-                height={450}
+                width={1200}
+                height={457}
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
             </div>
-            <div style={{ borderRadius: 10, overflow: "hidden", aspectRatio: "4/3" }}>
-              <Image
-                src={TABS[activeTab].images[1]}
-                alt={`${TABS[activeTab].tabTitle} 2`}
-                width={600}
-                height={300}
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-              />
+          ) : (
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 16 }}>
+              <div style={{ borderRadius: 10, overflow: "hidden", aspectRatio: "4/3" }}>
+                <Image
+                  src={TABS[activeTab].images[0]}
+                  alt={TABS[activeTab].tabTitle}
+                  width={600}
+                  height={450}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                />
+              </div>
+              <div style={{ borderRadius: 10, overflow: "hidden", aspectRatio: "4/3" }}>
+                <Image
+                  src={TABS[activeTab].images[1]}
+                  alt={`${TABS[activeTab].tabTitle} 2`}
+                  width={600}
+                  height={300}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                />
+              </div>
             </div>
-          </div>
+          )}
           <p
             style={{
               fontFamily: "var(--font-body)",
