@@ -2,6 +2,14 @@
 import { useState } from "react";
 import Image from "next/image";
 
+interface Tab {
+  label: string;
+  tabTitle: string;
+  tabDesc: string;
+  wideImage?: string;
+  images: string[];
+}
+
 const BULLETS = [
   "Soluții tehnice inovatoare",
   "Standarde de calitate recunoscute",
@@ -9,7 +17,7 @@ const BULLETS = [
   "Practică Certificată ISO 9001:2015",
 ];
 
-const TABS = [
+const TABS: Tab[] = [
   {
     label: "Proiecte instalații",
     tabTitle: "Proiectare de Sisteme Electrice",
