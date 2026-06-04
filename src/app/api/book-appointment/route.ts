@@ -1,11 +1,20 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { escapeHtml } from "@/lib/escape-html";
+import { rateLimit } from "@/lib/rate-limit";
 
 const NOTIFY_TO = "contact@me-concept.ro";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: Request) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  if (!rateLimit(ip)) {
+    return NextResponse.json(
+      { error: "Prea multe cereri. Încearcă din nou mai târziu." },
+      { status: 429 }
+    );
+  }
+
   if (!process.env.RESEND_API_KEY) {
     console.error("[book-appointment] RESEND_API_KEY lipsește.");
     return NextResponse.json({ error: "Serviciu indisponibil." }, { status: 503 });

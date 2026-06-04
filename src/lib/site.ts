@@ -5,4 +5,4 @@
  * relative se actualizează automat.
  */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://me-concept-next.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://me-concept.ro";

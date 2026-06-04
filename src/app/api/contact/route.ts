@@ -1,11 +1,20 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { escapeHtml } from "@/lib/escape-html";
+import { rateLimit } from "@/lib/rate-limit";
 
 const NOTIFY_TO = "contact@me-concept.ro";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: Request) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  if (!rateLimit(ip)) {
+    return NextResponse.json(
+      { error: "Prea multe cereri. Încearcă din nou mai târziu." },
+      { status: 429 }
+    );
+  }
+
   // Instanțiere în handler — evită eroarea la build dacă RESEND_API_KEY lipsește.
   const resend = new Resend(process.env.RESEND_API_KEY ?? "placeholder");
   const FROM = process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev";

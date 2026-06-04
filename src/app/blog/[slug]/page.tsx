@@ -263,6 +263,13 @@ export async function generateMetadata({
       images: [{ url: `${baseUrl}${post.img}`, width: 1200, height: 630, alt: post.title }],
       type: "article",
       locale: "ro_RO",
+      siteName: "Mayer E-Concept",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [`${baseUrl}${post.img}`],
     },
   };
 }
@@ -278,8 +285,23 @@ export default async function BlogPostPage({
 
   const related = POSTS.filter((p) => p.slug !== slug).slice(0, 2);
 
+  const articleLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    image: `${SITE_URL}${post.img}`,
+    author: { "@type": "Organization", name: "Mayer E-Concept", url: SITE_URL },
+    publisher: { "@type": "Organization", name: "Mayer E-Concept" },
+    url: `${SITE_URL}/blog/${post.slug}`,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
+      />
       <SiteHeader />
       <main>
         {/* Hero */}
