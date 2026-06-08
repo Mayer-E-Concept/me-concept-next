@@ -4,6 +4,7 @@ import { HeroSectionDe } from "@/components/de/hero-section";
 import { FeaturesSectionDe } from "@/components/de/features-section";
 import { TrustSectionDe } from "@/components/de/trust-section";
 import { SpecialistsSectionDe } from "@/components/de/specialists-section";
+import { ProcessSectionDe } from "@/components/de/process-section";
 import { ServicesSectionDe } from "@/components/de/services-section";
 import { ContactSectionDe } from "@/components/de/contact-section";
 import { SiteFooterDe } from "@/components/de/site-footer";
@@ -44,6 +45,7 @@ export default function HomeDe() {
         <FeaturesSectionDe />
         <TrustSectionDe />
         <SpecialistsSectionDe />
+        <ProcessSectionDe />
         <ServicesSectionDe />
         <ContactSectionDe />
       </main>

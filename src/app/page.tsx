@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/hero-section";
 import { FeaturesSection } from "@/components/features-section";
 import { TrustSection } from "@/components/trust-section";
 import { SpecialistsSection } from "@/components/specialists-section";
+import { ProcessSection } from "@/components/process-section";
 import { ServicesSection } from "@/components/services-section";
 import { ContactSection } from "@/components/contact-section";
 import { SiteFooter } from "@/components/site-footer";
@@ -69,6 +70,7 @@ export default function Home() {
         <FeaturesSection />
         <TrustSection />
         <SpecialistsSection />
+        <ProcessSection />
         <ServicesSection />
         <ContactSection />
       </main>
