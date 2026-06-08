@@ -217,8 +217,8 @@ export function HeroSectionDe() {
           className="hero-buttons"
           style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start" }}
         >
-          <HeroButton href="#ueber-uns" variant="copper">Über uns</HeroButton>
-          <HeroButton href="#contact" variant="outline">Kontakt aufnehmen</HeroButton>
+          <HeroButton href="#contact" variant="copper">Beratung anfragen</HeroButton>
+          <HeroButton href="/de/portofoliu" variant="outline">Portfolio ansehen</HeroButton>
         </div>
 
         <HeroStatsStripDe />
