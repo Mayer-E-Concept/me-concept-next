@@ -8,6 +8,7 @@ import { ProcessSectionDe } from "@/components/de/process-section";
 import { ServicesSectionDe } from "@/components/de/services-section";
 import { ContactSectionDe } from "@/components/de/contact-section";
 import { SiteFooterDe } from "@/components/de/site-footer";
+import { FadeIn } from "@/components/fade-in";
 
 const orgLd = {
   "@context": "https://schema.org",
@@ -42,12 +43,12 @@ export default function HomeDe() {
       <SiteHeaderDe />
       <main>
         <HeroSectionDe />
-        <FeaturesSectionDe />
-        <TrustSectionDe />
-        <SpecialistsSectionDe />
-        <ProcessSectionDe />
-        <ServicesSectionDe />
-        <ContactSectionDe />
+        <FadeIn><FeaturesSectionDe /></FadeIn>
+        <FadeIn><TrustSectionDe /></FadeIn>
+        <FadeIn><SpecialistsSectionDe /></FadeIn>
+        <FadeIn><ProcessSectionDe /></FadeIn>
+        <FadeIn><ServicesSectionDe /></FadeIn>
+        <FadeIn><ContactSectionDe /></FadeIn>
       </main>
       <SiteFooterDe />
     </>

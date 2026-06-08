@@ -9,6 +9,7 @@ import { ProcessSection } from "@/components/process-section";
 import { ServicesSection } from "@/components/services-section";
 import { ContactSection } from "@/components/contact-section";
 import { SiteFooter } from "@/components/site-footer";
+import { FadeIn } from "@/components/fade-in";
 
 const OG_IMAGE = `${SITE_URL}/uploads/me-concept-proiectare-instalatii-electrice-romania.jpg`;
 
@@ -67,12 +68,12 @@ export default function Home() {
       <SiteHeader />
       <main>
         <HeroSection />
-        <FeaturesSection />
-        <TrustSection />
-        <SpecialistsSection />
-        <ProcessSection />
-        <ServicesSection />
-        <ContactSection />
+        <FadeIn><FeaturesSection /></FadeIn>
+        <FadeIn><TrustSection /></FadeIn>
+        <FadeIn><SpecialistsSection /></FadeIn>
+        <FadeIn><ProcessSection /></FadeIn>
+        <FadeIn><ServicesSection /></FadeIn>
+        <FadeIn><ContactSection /></FadeIn>
       </main>
       <SiteFooter />
     </>
