@@ -13,6 +13,7 @@ const orgLd = {
   "@type": "LocalBusiness",
   name: "Mayer E-Concept",
   url: `${SITE_URL}/de`,
+  image: `${SITE_URL}/uploads/me-concept-proiectare-instalatii-electrice-romania.jpg`,
   telephone: "+40752129500",
   address: {
     "@type": "PostalAddress",

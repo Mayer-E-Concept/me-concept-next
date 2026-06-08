@@ -22,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/blog`,         changeFrequency: "weekly",  priority: 0.8 },
     { url: `${base}/politica-de-confidentialitate`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/termeni-si-conditii`,           changeFrequency: "yearly", priority: 0.2 },
-    { url: `${base}/politica-cookie-uri-eu`,        changeFrequency: "yearly", priority: 0.2 },
+    { url: `${base}/politica-cookie-uri-ue`,        changeFrequency: "yearly", priority: 0.2 },
   ];
 
   const staticDe: MetadataRoute.Sitemap = [
