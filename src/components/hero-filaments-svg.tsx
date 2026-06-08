@@ -1,7 +1,7 @@
 "use client";
 import { useLayoutEffect, useRef, useState } from "react";
 
-const DOT_RADIUS     = 4;
+const DOT_RADIUS     = 2.5;
 const ANIM_DURATION  = 5; // seconds per full path traversal
 const DOTS_PER_LINE  = 3;
 
@@ -202,8 +202,8 @@ export function HeroFilamentsSvg() {
           id={c.id}
           d={c.d}
           fill="none"
-          stroke="rgba(255,255,255,0.55)"
-          strokeWidth={1.75}
+          stroke="rgba(255,255,255,0.18)"
+          strokeWidth={1.0}
           strokeLinejoin="miter"
         />
       ))}
@@ -211,11 +211,11 @@ export function HeroFilamentsSvg() {
       {/* Destination terminals — solid dot + pulsing halo */}
       {built.map((c) => (
         <g key={`t-${c.id}`}>
-          <circle cx={c.endX} cy={c.endY} r={6} fill="none" stroke="#C5895B" strokeWidth={1.5}>
-            <animate attributeName="r"       values="6;15;6"      dur="2.4s" repeatCount="indefinite" />
-            <animate attributeName="opacity" values="0.85;0;0.85" dur="2.4s" repeatCount="indefinite" />
+          <circle cx={c.endX} cy={c.endY} r={3} fill="none" stroke="#C5895B" strokeWidth={1.0}>
+            <animate attributeName="r"       values="3;8;3"       dur="2.4s" repeatCount="indefinite" />
+            <animate attributeName="opacity" values="0.50;0;0.50" dur="2.4s" repeatCount="indefinite" />
           </circle>
-          <circle cx={c.endX} cy={c.endY} r={5.5} fill="#C5895B" opacity={0.95} />
+          <circle cx={c.endX} cy={c.endY} r={3} fill="#C5895B" opacity={0.60} />
         </g>
       ))}
 
