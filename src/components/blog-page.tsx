@@ -154,10 +154,10 @@ export function BlogPage() {
               <article
                 key={post.slug}
                 style={{
-                  background: "#FFFFFF",
+                  background: "#F0F7F8",
                   borderRadius: 12,
                   overflow: "hidden",
-                  border: "1px solid #D8DCDE",
+                  border: "1px solid rgba(14,50,61,0.10)",
                   display: "flex",
                   flexDirection: "column",
                   transition: "transform .25s ease, box-shadow .25s ease",

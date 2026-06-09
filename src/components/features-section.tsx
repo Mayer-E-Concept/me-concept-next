@@ -126,18 +126,18 @@ export function FeaturesSection() {
               onMouseLeave={() => setHoveredIdx(null)}
               style={{
                 position: "relative",
-                background: hoveredIdx === i ? "#FFFFFF" : "#FFFFFF",
-                border: "1px solid #E2E5E6",
+                background: hoveredIdx === i ? "#FFFFFF" : "#F0F7F8",
+                border: "1px solid rgba(14,50,61,0.10)",
                 borderRadius: 0,
                 padding: "36px 32px 32px",
                 overflow: "hidden",
-                transition: "transform .25s ease, box-shadow .25s ease, border-color .25s ease",
+                transition: "transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease",
                 transform: hoveredIdx === i ? "translateY(-4px)" : "translateY(0)",
                 boxShadow: hoveredIdx === i
                   ? "0 8px 32px rgba(14,50,61,0.10)"
                   : "none",
                 cursor: "default",
-                borderColor: hoveredIdx === i ? "#C5895B" : "#E2E5E6",
+                borderColor: hoveredIdx === i ? "#C5895B" : "rgba(14,50,61,0.10)",
               }}
             >
               {/* Copper top accent */}
