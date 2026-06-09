@@ -42,7 +42,7 @@ export function FeaturesSectionDe() {
       id="leistungen"
       style={{
         position: "relative",
-        background: "#F6F7F7",
+        background: "#EDF3F4",
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
         scrollMarginTop: "72px",

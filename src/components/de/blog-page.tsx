@@ -133,7 +133,7 @@ export function BlogPageDe() {
       {/* Posts grid */}
       <section
         style={{
-          background: "#F6F7F7",
+          background: "#EDF3F4",
           paddingTop: "clamp(72px, 9vw, 120px)",
           paddingBottom: "clamp(72px, 9vw, 120px)",
         }}
