@@ -54,7 +54,7 @@ export function SpecialistsSectionDe() {
     <section
       id="ueber-uns"
       style={{
-        background: "#EDF3F4",
+        background: "#D9EAEC",
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
         scrollMarginTop: "72px",
