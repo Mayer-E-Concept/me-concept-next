@@ -428,7 +428,7 @@ export default async function BlogPostPageDe({
         </div>
 
         {/* Article body */}
-        <section style={{ background: "#EEF6F7", paddingTop: "clamp(56px, 7vw, 96px)", paddingBottom: "clamp(72px, 9vw, 120px)" }}>
+        <section style={{ background: "#D9EAEC", paddingTop: "clamp(56px, 7vw, 96px)", paddingBottom: "clamp(72px, 9vw, 120px)" }}>
           <div
             style={{
               maxWidth: "1240px",

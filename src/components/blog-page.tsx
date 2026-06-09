@@ -136,7 +136,7 @@ export function BlogPage() {
       {/* Posts grid */}
       <section
         style={{
-          background: "#EEF6F7",
+          background: "#D9EAEC",
           paddingTop: "clamp(72px, 9vw, 120px)",
           paddingBottom: "clamp(72px, 9vw, 120px)",
         }}
@@ -154,21 +154,21 @@ export function BlogPage() {
               <article
                 key={post.slug}
                 style={{
-                  background: "#D9EAEC",
+                  background: "#FFFFFF",
                   borderRadius: 12,
                   overflow: "hidden",
-                  border: "1px solid rgba(14,50,61,0.10)",
+                  boxShadow: "0 2px 16px rgba(14,50,61,0.08)",
                   display: "flex",
                   flexDirection: "column",
                   transition: "transform .25s ease, box-shadow .25s ease",
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 32px rgba(14,50,61,0.10)";
+                  (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 32px rgba(14,50,61,0.15)";
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                  (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 16px rgba(14,50,61,0.08)";
                 }}
               >
                 <div style={{ aspectRatio: "16/9", overflow: "hidden" }}>
