@@ -136,7 +136,7 @@ export function BlogPage() {
       {/* Posts grid */}
       <section
         style={{
-          background: "#D9EAEC",
+          background: "#EEF6F7",
           paddingTop: "clamp(72px, 9vw, 120px)",
           paddingBottom: "clamp(72px, 9vw, 120px)",
         }}
@@ -154,7 +154,7 @@ export function BlogPage() {
               <article
                 key={post.slug}
                 style={{
-                  background: "#F0F7F8",
+                  background: "#D9EAEC",
                   borderRadius: 12,
                   overflow: "hidden",
                   border: "1px solid rgba(14,50,61,0.10)",
