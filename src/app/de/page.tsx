@@ -1,7 +1,7 @@
 import { SITE_URL } from "@/lib/site";
 import { SiteHeaderDe } from "@/components/de/site-header";
 import { HeroSectionDe } from "@/components/de/hero-section";
-import { FeaturesSectionDe } from "@/components/de/features-section";
+import { ExpertiseSectionDe } from "@/components/de/expertise-section";
 import { TrustSectionDe } from "@/components/de/trust-section";
 import { SpecialistsSectionDe } from "@/components/de/specialists-section";
 import { ProcessSectionDe } from "@/components/de/process-section";
@@ -43,7 +43,7 @@ export default function HomeDe() {
       <SiteHeaderDe />
       <main>
         <HeroSectionDe />
-        <FadeIn><FeaturesSectionDe /></FadeIn>
+        <FadeIn><ExpertiseSectionDe /></FadeIn>
         <FadeIn><TrustSectionDe /></FadeIn>
         <FadeIn><SpecialistsSectionDe /></FadeIn>
         <FadeIn><ProcessSectionDe /></FadeIn>

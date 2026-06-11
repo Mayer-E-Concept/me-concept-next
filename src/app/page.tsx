@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 import { SiteHeader } from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
-import { FeaturesSection } from "@/components/features-section";
+import { ExpertiseSection } from "@/components/expertise-section";
 import { TrustSection } from "@/components/trust-section";
 import { SpecialistsSection } from "@/components/specialists-section";
 import { ProcessSection } from "@/components/process-section";
@@ -68,7 +68,7 @@ export default function Home() {
       <SiteHeader />
       <main>
         <HeroSection />
-        <FadeIn><FeaturesSection /></FadeIn>
+        <FadeIn><ExpertiseSection /></FadeIn>
         <FadeIn><TrustSection /></FadeIn>
         <FadeIn><SpecialistsSection /></FadeIn>
         <FadeIn><ProcessSection /></FadeIn>
