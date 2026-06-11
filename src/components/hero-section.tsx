@@ -75,6 +75,22 @@ export function HeroSection() {
         }
       `}</style>
 
+      {/* Gradient mesh — static depth layer under the circuit texture */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: "none",
+          background: [
+            "radial-gradient(ellipse 60% 55% at 72% 38%, rgba(74,171,184,0.10), transparent 70%)",
+            "radial-gradient(ellipse 55% 60% at 14% 78%, rgba(197,137,91,0.07), transparent 72%)",
+            "radial-gradient(ellipse 75% 55% at 42% 8%, rgba(14,50,61,0.55), transparent 75%)",
+          ].join(", "),
+        }}
+      />
+
       {/* PCB circuit pattern — white on dark */}
       <div
         aria-hidden="true"
