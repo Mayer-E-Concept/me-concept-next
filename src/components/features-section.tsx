@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { FadeIn } from "@/components/fade-in";
 
 const FEATURES = [
   {
@@ -120,8 +121,8 @@ export function FeaturesSection() {
           }}
         >
           {FEATURES.map((f, i) => (
+            <FadeIn key={f.title} delay={(i % 3) * 100}>
             <div
-              key={f.title}
               onMouseEnter={() => setHoveredIdx(i)}
               onMouseLeave={() => setHoveredIdx(null)}
               style={{
@@ -131,6 +132,7 @@ export function FeaturesSection() {
                 borderRadius: 0,
                 padding: "36px 32px 32px",
                 overflow: "hidden",
+                height: "100%",
                 transition: "transform .25s ease, box-shadow .25s ease, border-color .25s ease",
                 transform: hoveredIdx === i ? "translateY(-4px)" : "translateY(0)",
                 boxShadow: hoveredIdx === i
@@ -178,6 +180,7 @@ export function FeaturesSection() {
                 {f.desc}
               </p>
             </div>
+            </FadeIn>
           ))}
         </div>
       </div>

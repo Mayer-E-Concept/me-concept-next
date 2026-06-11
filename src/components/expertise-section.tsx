@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { FadeIn } from "@/components/fade-in";
 
 const SERVICES = [
   {
@@ -108,9 +109,9 @@ export function ExpertiseSection() {
             gap: 24,
           }}
         >
-          {SERVICES.map((s) => (
+          {SERVICES.map((s, i) => (
+            <FadeIn key={s.num} delay={(i % 4) * 100}>
             <div
-              key={s.num}
               style={{
                 background: "#FFFFFF",
                 borderRadius: 12,
@@ -118,6 +119,7 @@ export function ExpertiseSection() {
                 border: "1px solid rgba(255,255,255,0.10)",
                 display: "flex",
                 flexDirection: "column",
+                height: "100%",
               }}
             >
               <div style={{ aspectRatio: "16/9", overflow: "hidden" }}>
@@ -156,6 +158,7 @@ export function ExpertiseSection() {
                 </p>
               </div>
             </div>
+            </FadeIn>
           ))}
         </div>
       </div>
