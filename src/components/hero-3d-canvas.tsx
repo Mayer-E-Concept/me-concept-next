@@ -580,8 +580,8 @@ export function Hero3DCanvas() {
       // 0 → 1 after the wiring is drawn: current only flows through built cables
       const liveGate = Math.min(Math.max((t - LIVE_START) / (LIVE_END - LIVE_START), 0), 1);
 
-      const tgtY = baseRotY + mouseTarget.x * 0.35 + t * 0.04;
-      const tgtX = baseRotX + mouseTarget.y * 0.15;
+      const tgtY = baseRotY + mouseTarget.x * 0.12 + t * 0.04;
+      const tgtX = baseRotX + mouseTarget.y * 0.08;
       house.rotation.y += (tgtY - house.rotation.y) * 0.045;
       house.rotation.x += (tgtX - house.rotation.x) * 0.05;
 
