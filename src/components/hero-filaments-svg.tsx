@@ -27,6 +27,12 @@ type CableSpec = {
 };
 
 export function HeroFilamentsSvg() {
+  // Static fallback: cabluri desenate complet, fara trasare/SMIL/pachete
+  const [reduced] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
   const edgeRef = useRef<Float32Array | null>(null);
   const [layout, setLayout] = useState<{
     dLeft: number;
@@ -205,7 +211,7 @@ export function HeroFilamentsSvg() {
         @keyframes hf-fade  { to { opacity: 1; } }
       `}</style>
 
-      {/* Cable traces — drawn in from the logo edge outward */}
+      {/* Cable traces — drawn in from the logo edge outward (static at reduced motion) */}
       {built.map((c, i) => (
         <path
           key={`p-${c.id}`}
@@ -215,12 +221,14 @@ export function HeroFilamentsSvg() {
           stroke="rgba(255,255,255,0.18)"
           strokeWidth={1.0}
           strokeLinejoin="miter"
-          pathLength={1}
-          strokeDasharray={1}
-          strokeDashoffset={1}
-          style={{
-            animation: `hf-trace ${TRACE_DUR}s cubic-bezier(0.4,0,0.2,1) ${(TRACE_START + i * TRACE_STAGGER).toFixed(2)}s forwards`,
-          }}
+          {...(!reduced && {
+            pathLength: 1,
+            strokeDasharray: 1,
+            strokeDashoffset: 1,
+            style: {
+              animation: `hf-trace ${TRACE_DUR}s cubic-bezier(0.4,0,0.2,1) ${(TRACE_START + i * TRACE_STAGGER).toFixed(2)}s forwards`,
+            },
+          })}
         />
       ))}
 
@@ -228,21 +236,27 @@ export function HeroFilamentsSvg() {
       {built.map((c, i) => (
         <g
           key={`t-${c.id}`}
-          style={{
-            opacity: 0,
-            animation: `hf-fade 0.4s ease ${(TRACE_START + i * TRACE_STAGGER + TRACE_DUR - 0.15).toFixed(2)}s forwards`,
-          }}
+          style={
+            reduced
+              ? undefined
+              : {
+                  opacity: 0,
+                  animation: `hf-fade 0.4s ease ${(TRACE_START + i * TRACE_STAGGER + TRACE_DUR - 0.15).toFixed(2)}s forwards`,
+                }
+          }
         >
-          <circle cx={c.endX} cy={c.endY} r={3} fill="none" stroke="#C5895B" strokeWidth={1.0}>
-            <animate attributeName="r"       values="3;8;3"       dur="2.4s" repeatCount="indefinite" />
-            <animate attributeName="opacity" values="0.50;0;0.50" dur="2.4s" repeatCount="indefinite" />
-          </circle>
+          {!reduced && (
+            <circle cx={c.endX} cy={c.endY} r={3} fill="none" stroke="#C5895B" strokeWidth={1.0}>
+              <animate attributeName="r"       values="3;8;3"       dur="2.4s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.50;0;0.50" dur="2.4s" repeatCount="indefinite" />
+            </circle>
+          )}
           <circle cx={c.endX} cy={c.endY} r={3} fill="#C5895B" opacity={0.60} />
         </g>
       ))}
 
       {/* Current packets — start flowing only after their cable is traced */}
-      {built.map((c, ci) =>
+      {!reduced && built.map((c, ci) =>
         Array.from({ length: DOTS_PER_LINE }, (_, i) => {
           const begin = `${(TRACE_START + ci * TRACE_STAGGER + TRACE_DUR + i * (ANIM_DURATION / DOTS_PER_LINE)).toFixed(2)}s`;
           return (
