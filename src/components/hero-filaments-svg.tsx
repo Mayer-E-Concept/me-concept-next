@@ -4,6 +4,11 @@ import { useLayoutEffect, useRef, useState } from "react";
 const DOT_RADIUS     = 2.5;
 const ANIM_DURATION  = 5; // seconds per full path traversal
 const DOTS_PER_LINE  = 3;
+/* Trace-in: cables draw from the logo edge outward, staggered top→bottom;
+   terminals fade in as their cable completes, packets start flowing after. */
+const TRACE_START   = 0.6;  // s after SVG mount — first cable begins
+const TRACE_DUR     = 0.9;  // s per cable
+const TRACE_STAGGER = 0.25; // s between cables
 
 type CableSpec = {
   id: string;
@@ -195,8 +200,13 @@ export function HeroFilamentsSvg() {
         overflow: "visible",
       }}
     >
-      {/* Cable traces */}
-      {built.map((c) => (
+      <style>{`
+        @keyframes hf-trace { to { stroke-dashoffset: 0; } }
+        @keyframes hf-fade  { to { opacity: 1; } }
+      `}</style>
+
+      {/* Cable traces — drawn in from the logo edge outward */}
+      {built.map((c, i) => (
         <path
           key={`p-${c.id}`}
           id={c.id}
@@ -205,12 +215,24 @@ export function HeroFilamentsSvg() {
           stroke="rgba(255,255,255,0.18)"
           strokeWidth={1.0}
           strokeLinejoin="miter"
+          pathLength={1}
+          strokeDasharray={1}
+          strokeDashoffset={1}
+          style={{
+            animation: `hf-trace ${TRACE_DUR}s cubic-bezier(0.4,0,0.2,1) ${(TRACE_START + i * TRACE_STAGGER).toFixed(2)}s forwards`,
+          }}
         />
       ))}
 
-      {/* Destination terminals — solid dot + pulsing halo */}
-      {built.map((c) => (
-        <g key={`t-${c.id}`}>
+      {/* Destination terminals — fade in as their cable completes */}
+      {built.map((c, i) => (
+        <g
+          key={`t-${c.id}`}
+          style={{
+            opacity: 0,
+            animation: `hf-fade 0.4s ease ${(TRACE_START + i * TRACE_STAGGER + TRACE_DUR - 0.15).toFixed(2)}s forwards`,
+          }}
+        >
           <circle cx={c.endX} cy={c.endY} r={3} fill="none" stroke="#C5895B" strokeWidth={1.0}>
             <animate attributeName="r"       values="3;8;3"       dur="2.4s" repeatCount="indefinite" />
             <animate attributeName="opacity" values="0.50;0;0.50" dur="2.4s" repeatCount="indefinite" />
@@ -219,10 +241,10 @@ export function HeroFilamentsSvg() {
         </g>
       ))}
 
-      {/* Current packets flowing along each cable */}
-      {built.map((c) =>
+      {/* Current packets — start flowing only after their cable is traced */}
+      {built.map((c, ci) =>
         Array.from({ length: DOTS_PER_LINE }, (_, i) => {
-          const begin = `${-i * (ANIM_DURATION / DOTS_PER_LINE)}s`;
+          const begin = `${(TRACE_START + ci * TRACE_STAGGER + TRACE_DUR + i * (ANIM_DURATION / DOTS_PER_LINE)).toFixed(2)}s`;
           return (
             <circle key={`${c.id}-d${i}`} r={DOT_RADIUS} fill="#E8943A" opacity={0}>
               <animateMotion
