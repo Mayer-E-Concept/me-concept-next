@@ -66,6 +66,8 @@ export function Hero3DCanvas() {
       [2.4, 3.2], // ELEC   — panel, meter, wiring, filament tubes
     ];
     const LIVE_START = 3.2, LIVE_END = 3.8; // sparks/pulses/bulbs ramp in last
+    // Labels: sequential fade + slide-up, top to bottom, after the house exists
+    const LABEL_START = 3.0, LABEL_STAGGER = 0.3, LABEL_DUR = 0.6;
     const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
 
     /* ── Materials ── */
@@ -301,6 +303,7 @@ export function Hero3DCanvas() {
     const labelObjects = BOX_DEFS.map((def) => {
       const sprite = makeSmallLabel(def.text, def.color);
       sprite.userData.def = def;
+      (sprite.material as THREE.SpriteMaterial).opacity = 0; // revealed sequentially in tick
       scene.add(sprite);
       return { sprite, def };
     });
@@ -310,9 +313,11 @@ export function Hero3DCanvas() {
       const hX = house.position.x;
       const hY = house.position.y;
       labelObjects.forEach(({ sprite, def }) => {
+        const baseY = hY + def.local.y * sX;
+        sprite.userData.baseY = baseY;
         sprite.position.set(
           hX + def.local.x * sX,
-          hY + def.local.y * sX,
+          baseY,
           def.local.z * sX,
         );
       });
@@ -470,6 +475,20 @@ export function Hero3DCanvas() {
     });
 
     let drawDone = false;
+    let labelsDone = false;
+    const applyLabelsIn = (t: number) => {
+      if (labelsDone) return;
+      let allDone = true;
+      labelObjects.forEach(({ sprite }, i) => {
+        const p = Math.min(Math.max((t - (LABEL_START + i * LABEL_STAGGER)) / LABEL_DUR, 0), 1);
+        if (p < 1) allDone = false;
+        const e = easeOutCubic(p);
+        (sprite.material as THREE.SpriteMaterial).opacity = e;
+        const baseY = (sprite.userData.baseY as number) ?? sprite.position.y;
+        sprite.position.y = baseY - (1 - e) * 0.16 * (house.scale.x || 1);
+      });
+      if (allDone) labelsDone = true;
+    };
     const applyDrawIn = (t: number) => {
       if (drawDone) return;
       for (const dl of drawLines) {
@@ -557,6 +576,7 @@ export function Hero3DCanvas() {
       const t = clock.getElapsedTime();
 
       applyDrawIn(t);
+      applyLabelsIn(t);
       // 0 → 1 after the wiring is drawn: current only flows through built cables
       const liveGate = Math.min(Math.max((t - LIVE_START) / (LIVE_END - LIVE_START), 0), 1);
 
