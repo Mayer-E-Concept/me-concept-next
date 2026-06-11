@@ -266,7 +266,7 @@ function HeroButton({
     textTransform: "uppercase",
     textDecoration: "none",
     whiteSpace: "nowrap",
-    transition: "background .2s ease, border-color .2s ease, transform .2s ease, color .2s ease",
+    transition: "background .2s ease, border-color .2s ease, transform .2s ease, color .2s ease, box-shadow .25s ease",
     boxSizing: "border-box",
   };
 
@@ -274,18 +274,26 @@ function HeroButton({
     return (
       <a
         href={href}
-        style={{ ...base, background: "#C5895B", color: "#fff", border: "1.5px solid #C5895B" }}
+        style={{
+          ...base,
+          background: "#C5895B",
+          color: "#fff",
+          border: "1.5px solid #C5895B",
+          boxShadow: "0 2px 14px rgba(197,137,91,0.22)",
+        }}
         onMouseEnter={(e) => {
           const el = e.currentTarget as HTMLAnchorElement;
           el.style.background = "#b37a50";
           el.style.borderColor = "#b37a50";
           el.style.transform = "translateY(-2px)";
+          el.style.boxShadow = "0 6px 28px rgba(197,137,91,0.45)";
         }}
         onMouseLeave={(e) => {
           const el = e.currentTarget as HTMLAnchorElement;
           el.style.background = "#C5895B";
           el.style.borderColor = "#C5895B";
           el.style.transform = "translateY(0)";
+          el.style.boxShadow = "0 2px 14px rgba(197,137,91,0.22)";
         }}
       >
         {children}
