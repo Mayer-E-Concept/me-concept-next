@@ -33,8 +33,40 @@ export function Hero3DCanvas() {
 
     /* ── Helpers ── */
     const V = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
+    // Polylines are resampled to ~SEG vertices so setDrawRange can trace them
+    // progressively during the draw-in; original corner points are preserved.
+    const resamplePts = (pts: THREE.Vector3[], SEG = 24): THREE.Vector3[] => {
+      const lens: number[] = [];
+      let total = 0;
+      for (let i = 1; i < pts.length; i++) {
+        const l = pts[i].distanceTo(pts[i - 1]);
+        lens.push(l);
+        total += l;
+      }
+      if (total === 0) return pts.slice();
+      const out: THREE.Vector3[] = [pts[0].clone()];
+      for (let i = 1; i < pts.length; i++) {
+        const k = Math.max(1, Math.round((lens[i - 1] / total) * SEG));
+        for (let j = 1; j <= k; j++) {
+          out.push(new THREE.Vector3().lerpVectors(pts[i - 1], pts[i], j / k));
+        }
+      }
+      return out;
+    };
     const mkLine = (pts: THREE.Vector3[], mat: THREE.LineBasicMaterial) =>
-      new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), mat);
+      new THREE.Line(new THREE.BufferGeometry().setFromPoints(resamplePts(pts)), mat);
+
+    /* ── Draw-in choreography — phase windows in seconds from mount ── */
+    const PH = { WALLS: 0, FLOORS: 1, ROOF: 2, SURF: 3, ELEC: 4 } as const;
+    const PHASE_TIME: [number, number][] = [
+      [0.0, 1.2], // WALLS  — wall edges trace in
+      [0.8, 1.8], // FLOORS — slabs + partitions
+      [1.4, 2.2], // ROOF   — ridge + rafters
+      [2.0, 2.8], // SURF   — face fills, gables, solar panels fade
+      [2.4, 3.2], // ELEC   — panel, meter, wiring, filament tubes
+    ];
+    const LIVE_START = 3.2, LIVE_END = 3.8; // sparks/pulses/bulbs ramp in last
+    const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
 
     /* ── Materials ── */
     const matWall      = new THREE.LineBasicMaterial({ color: COLORS.ink,   transparent: true, opacity: 0.88 });
@@ -54,6 +86,16 @@ export function Hero3DCanvas() {
     const house = new THREE.Group();
     scene.add(house);
 
+    // Tags every child added since the previous call with a draw-in phase.
+    // Key is `drawPhase` — pulses already use userData.phase for their own timing.
+    let phaseMark = 0;
+    const markPhase = (phase: number) => {
+      for (let i = phaseMark; i < house.children.length; i++) {
+        house.children[i].userData.drawPhase = phase;
+      }
+      phaseMark = house.children.length;
+    };
+
     const W = 3.0, D = 2.0, Hw = 3.0, Hr = 1.0, FLOORS = 3;
     const PER = Hw / FLOORS;
     const yWallBottom = -Hw / 2;
@@ -70,6 +112,7 @@ export function Hero3DCanvas() {
     ([
       [0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7],
     ] as [number,number][]).forEach(([a, b]) => house.add(mkLine([c[a], c[b]], matWall)));
+    markPhase(PH.WALLS);
 
     // Floor slabs
     for (let f = 0; f <= FLOORS; f++) {
@@ -79,11 +122,13 @@ export function Hero3DCanvas() {
         V( W/2, y,  D/2), V(-W/2, y,  D/2), V(-W/2, y, -D/2),
       ], f === 0 || f === FLOORS ? matWall : matWallSoft));
     }
+    markPhase(PH.FLOORS);
 
     // Face fills
     const facePlane = new THREE.PlaneGeometry(W, Hw);
     const backMesh  = new THREE.Mesh(facePlane, matFill); backMesh.position.z  = -D/2; house.add(backMesh);
     const frontMesh = new THREE.Mesh(facePlane, matFill); frontMesh.position.z =  D/2 - 0.001; house.add(frontMesh);
+    markPhase(PH.SURF);
 
     // Pitched roof
     const ridgeBack  = V(0, yApex, -D/2);
@@ -93,6 +138,7 @@ export function Hero3DCanvas() {
     house.add(mkLine([c[5], ridgeBack],  matWall));
     house.add(mkLine([c[7], ridgeFront], matWall));
     house.add(mkLine([c[6], ridgeFront], matWall));
+    markPhase(PH.ROOF);
     const gableGeo = (z: number) => {
       const g = new THREE.BufferGeometry();
       g.setAttribute("position", new THREE.Float32BufferAttribute([
@@ -103,6 +149,7 @@ export function Hero3DCanvas() {
     };
     house.add(new THREE.Mesh(gableGeo( D/2), matFill));
     house.add(new THREE.Mesh(gableGeo(-D/2), matFill));
+    markPhase(PH.SURF);
 
     // Internal partitions
     for (let f = 0; f < FLOORS; f++) {
@@ -113,6 +160,7 @@ export function Hero3DCanvas() {
       house.add(mkLine([V(xSplit, yLo,  D/2), V(xSplit, yHi,  D/2)], matWallSoft));
       house.add(mkLine([V(xSplit, yLo, -D/2), V(xSplit, yLo,  D/2)], matWallFaint));
     }
+    markPhase(PH.FLOORS);
 
     /* ── Distribution panel ── */
     const panel = new THREE.Group();
@@ -147,6 +195,7 @@ export function Hero3DCanvas() {
       V(-pD/2 - 0.003, pH/2 - 0.04, -pW/2 + 0.04),
       V(-pD/2 - 0.003, pH/2 - 0.04,  pW/2 - 0.04),
     ], matWall));
+    markPhase(PH.ELEC);
 
     /* ── Smart meter ── */
     const meter = new THREE.Group();
@@ -166,6 +215,7 @@ export function Hero3DCanvas() {
     meter.add(mkLine([V(-mDm/2 - 0.001, -0.03,  0.06), V(-mDm/2 - 0.001,  0.03,  0.06)], matWiring));
     meter.add(mkLine([V(-mDm/2 - 0.001, -0.03, -0.06), V(-mDm/2 - 0.001, -0.03,  0.06)], matWiring));
     meter.add(mkLine([V(-mDm/2 - 0.001,  0.03, -0.06), V(-mDm/2 - 0.001,  0.03,  0.06)], matWiring));
+    markPhase(PH.ELEC);
 
     /* ── Solar panels ── */
     const solarGroup = new THREE.Group();
@@ -213,6 +263,7 @@ export function Hero3DCanvas() {
         }
       }
     });
+    markPhase(PH.SURF);
 
     /* ── Interior label sprites ── */
     function makeSmallLabel(text: string, color = "#0E323D") {
@@ -285,6 +336,7 @@ export function Hero3DCanvas() {
     );
     lampHalo.position.copy(lampHead.position);
     lamp.add(lampHalo);
+    markPhase(PH.ELEC);
 
     /* ── Outlets + ceiling lights ── */
     const ceilingLights: THREE.Mesh[] = [];
@@ -308,6 +360,7 @@ export function Hero3DCanvas() {
         house.add(pad);
       });
     }
+    markPhase(PH.ELEC);
 
     /* ── Wiring tree ── */
     const riserX = -W/2 + 0.08;
@@ -321,6 +374,7 @@ export function Hero3DCanvas() {
     }
     house.add(mkLine([V(riserX, yWallTop - 0.10, riserZ), V(0, yApex - 0.1, riserZ)], matWiringDim));
     house.add(mkLine([V(0, yApex - 0.1, riserZ), V(W/3, yApex - 0.6, D/2 + 0.02)], matWiringDim));
+    markPhase(PH.ELEC);
 
     /* ─────────────────────────────────────────────────────────────────────
        2b) CATMULL-ROM FILAMENTS — inside house, routes follow wiring tree
@@ -358,6 +412,7 @@ export function Hero3DCanvas() {
         sparkMeshes.push({ mesh: spark, curve, speed: 0.10 + ci * 0.018, phase: ci * 0.25, offset: si * 0.5 });
       }
     });
+    markPhase(PH.ELEC);
 
     /* ── Pulsing nodes ── */
     const buildingPulses: THREE.Mesh[] = [];
@@ -378,7 +433,61 @@ export function Hero3DCanvas() {
       house.add(m);
       buildingPulses.push(m);
     });
+    markPhase(PH.ELEC);
 
+    /* ─────────────────────────────────────────────────────────────────────
+       1b) DRAW-IN — collect traceable lines + fadeable materials
+    ───────────────────────────────────────────────────────────────────── */
+    // Live elements (sparks, pulses, bulbs, lamp glow) already set their
+    // opacity every frame — they are gated by liveGate, not faded here.
+    const liveSet = new Set<THREE.Object3D>([
+      ...sparkMeshes.map((s) => s.mesh),
+      ...buildingPulses,
+      ...ceilingLights,
+      lampHead,
+      lampHalo,
+    ]);
+    const drawLines: { geo: THREE.BufferGeometry; total: number; phase: number; idx: number }[] = [];
+    const phaseCounts = [0, 0, 0, 0, 0];
+    const drawMats = new Map<THREE.MeshBasicMaterial, { target: number; phase: number }>();
+    house.children.forEach((child) => {
+      const phase = child.userData.drawPhase as number | undefined;
+      if (phase === undefined) return;
+      child.traverse((obj) => {
+        if ((obj as THREE.Line).isLine) {
+          const geo = (obj as THREE.Line).geometry as THREE.BufferGeometry;
+          geo.setDrawRange(0, 0);
+          drawLines.push({ geo, total: geo.getAttribute("position").count, phase, idx: phaseCounts[phase]++ });
+        } else if ((obj as THREE.Mesh).isMesh && !liveSet.has(obj)) {
+          const mat = (obj as THREE.Mesh).material as THREE.MeshBasicMaterial;
+          if (!drawMats.has(mat)) {
+            drawMats.set(mat, { target: mat.opacity, phase });
+            mat.transparent = true;
+            mat.opacity = 0;
+          }
+        }
+      });
+    });
+
+    let drawDone = false;
+    const applyDrawIn = (t: number) => {
+      if (drawDone) return;
+      for (const dl of drawLines) {
+        const [s, e] = PHASE_TIME[dl.phase];
+        const span = e - s;
+        const n = phaseCounts[dl.phase];
+        const start = s + (n > 1 ? (dl.idx / (n - 1)) * span * 0.5 : 0);
+        const p = Math.min(Math.max((t - start) / (span * 0.5), 0), 1);
+        dl.geo.setDrawRange(0, Math.round(easeOutCubic(p) * dl.total));
+      }
+      for (const [mat, info] of drawMats) {
+        const [s, e] = PHASE_TIME[info.phase];
+        const p = Math.min(Math.max((t - s) / (e - s), 0), 1);
+        mat.opacity = info.target * easeOutCubic(p);
+      }
+      // All phase windows end at or before LIVE_END — final values are exact.
+      if (t >= LIVE_END) drawDone = true;
+    };
 
     /* ─────────────────────────────────────────────────────────────────────
        2) MOUSE PARALLAX
@@ -447,6 +556,10 @@ export function Hero3DCanvas() {
       frameId = requestAnimationFrame(tick);
       const t = clock.getElapsedTime();
 
+      applyDrawIn(t);
+      // 0 → 1 after the wiring is drawn: current only flows through built cables
+      const liveGate = Math.min(Math.max((t - LIVE_START) / (LIVE_END - LIVE_START), 0), 1);
+
       const tgtY = baseRotY + mouseTarget.x * 0.35 + t * 0.04;
       const tgtX = baseRotX + mouseTarget.y * 0.15;
       house.rotation.y += (tgtY - house.rotation.y) * 0.045;
@@ -459,18 +572,18 @@ export function Hero3DCanvas() {
         const s = 0.7 + Math.sin(t * 2.2 + (p.userData.phase as number)) * 0.5;
         p.scale.setScalar(s);
         (p.material as THREE.MeshBasicMaterial).opacity =
-          0.45 + Math.sin(t * 2.2 + (p.userData.phase as number)) * 0.45;
+          (0.45 + Math.sin(t * 2.2 + (p.userData.phase as number)) * 0.45) * liveGate;
       });
 
       ceilingLights.forEach((b, i) => {
         const ph = i * 0.9;
         const flicker = Math.sin(t * 1.3 + ph) > 0.7 ? 0.6 + Math.random() * 0.4 : 1;
-        (b.material as THREE.MeshBasicMaterial).opacity = (0.65 + Math.sin(t * 1.3 + ph) * 0.25) * flicker;
+        (b.material as THREE.MeshBasicMaterial).opacity = (0.65 + Math.sin(t * 1.3 + ph) * 0.25) * flicker * liveGate;
         b.scale.setScalar(0.85 + Math.sin(t * 1.3 + ph) * 0.15);
       });
 
-      (lampHead.material as THREE.MeshBasicMaterial).opacity = 0.65 + Math.sin(t * 1.0) * 0.25;
-      (lampHalo.material as THREE.MeshBasicMaterial).opacity = 0.14 + Math.sin(t * 1.0) * 0.10;
+      (lampHead.material as THREE.MeshBasicMaterial).opacity = (0.65 + Math.sin(t * 1.0) * 0.25) * liveGate;
+      (lampHalo.material as THREE.MeshBasicMaterial).opacity = (0.14 + Math.sin(t * 1.0) * 0.10) * liveGate;
       lampHalo.scale.setScalar(1 + Math.sin(t * 1.0) * 0.12);
 
 
@@ -479,7 +592,7 @@ export function Hero3DCanvas() {
         const progress = ((t * s.speed + s.phase + s.offset) % 1 + 1) % 1;
         s.mesh.position.copy(s.curve.getPoint(progress));
         (s.mesh.material as THREE.MeshBasicMaterial).opacity =
-          0.30 + Math.sin(t * 5 + s.phase * 9) * 0.30;
+          (0.30 + Math.sin(t * 5 + s.phase * 9) * 0.30) * liveGate;
         s.mesh.scale.setScalar(0.7 + Math.sin(t * 3.5 + s.offset * 4) * 0.35);
       });
 
