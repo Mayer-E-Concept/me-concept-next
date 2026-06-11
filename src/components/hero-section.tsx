@@ -1,6 +1,6 @@
 "use client";
 import type { ReactNode } from "react";
-import { Hero3DCanvas } from "@/components/hero-3d-canvas";
+import { Hero3DLazy } from "@/components/hero-3d-lazy";
 import { HeroFilamentsSvg } from "@/components/hero-filaments-svg";
 import { HeroStatsStrip } from "@/components/hero-stats-strip";
 
@@ -153,7 +153,7 @@ export function HeroSection() {
 
       {/* Three.js 3D canvas — hidden on mobile */}
       <div className="hero-canvas-wrapper" style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
-        <Hero3DCanvas />
+        <Hero3DLazy />
       </div>
 
       {/* SVG horizontal lines — from logo centre, with animated amber dots */}
