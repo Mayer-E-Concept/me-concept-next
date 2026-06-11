@@ -169,7 +169,7 @@ export function ServicesSectionDe() {
                 marginBottom: 18,
               }}
             >
-              Vollständige Leistungen
+              Wohnprojekte
             </div>
             <h2
               style={{
@@ -182,7 +182,7 @@ export function ServicesSectionDe() {
                 maxWidth: "22ch",
               }}
             >
-              Bei Mayer E-Concept bieten wir vollständige Elektroplanung-Lösungen
+              Für Ihr Zuhause: komplette Elektroplanung, vom Hausanschluss bis zum Smart Home
             </h2>
           </div>
           <div

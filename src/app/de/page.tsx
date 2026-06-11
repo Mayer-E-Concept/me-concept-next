@@ -2,8 +2,8 @@ import { SITE_URL } from "@/lib/site";
 import { SiteHeaderDe } from "@/components/de/site-header";
 import { HeroSectionDe } from "@/components/de/hero-section";
 import { ExpertiseSectionDe } from "@/components/de/expertise-section";
-import { TrustSectionDe } from "@/components/de/trust-section";
-import { SpecialistsSectionDe } from "@/components/de/specialists-section";
+import { AboutSectionDe } from "@/components/de/about-section";
+import { ReferencesSectionDe } from "@/components/de/references-section";
 import { ProcessSectionDe } from "@/components/de/process-section";
 import { ServicesSectionDe } from "@/components/de/services-section";
 import { ContactSectionDe } from "@/components/de/contact-section";
@@ -44,9 +44,9 @@ export default function HomeDe() {
       <main>
         <HeroSectionDe />
         <FadeIn><ExpertiseSectionDe /></FadeIn>
-        <FadeIn><TrustSectionDe /></FadeIn>
-        <FadeIn><SpecialistsSectionDe /></FadeIn>
         <FadeIn><ProcessSectionDe /></FadeIn>
+        <FadeIn><AboutSectionDe /></FadeIn>
+        <FadeIn><ReferencesSectionDe /></FadeIn>
         <FadeIn><ServicesSectionDe /></FadeIn>
         <FadeIn><ContactSectionDe /></FadeIn>
       </main>

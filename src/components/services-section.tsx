@@ -172,7 +172,7 @@ export function ServicesSection() {
                 marginBottom: 18,
               }}
             >
-              Servicii complete
+              Proiectare rezidențială
             </div>
             <h2
               style={{
@@ -185,7 +185,7 @@ export function ServicesSection() {
                 maxWidth: "22ch",
               }}
             >
-              La Mayer E Concept, oferim soluții complete de proiectare electrică
+              Pentru locuința ta: proiect electric complet, de la branșament la smart home
             </h2>
           </div>
           <div

@@ -3,8 +3,8 @@ import { SITE_URL } from "@/lib/site";
 import { SiteHeader } from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
 import { ExpertiseSection } from "@/components/expertise-section";
-import { TrustSection } from "@/components/trust-section";
-import { SpecialistsSection } from "@/components/specialists-section";
+import { AboutSection } from "@/components/about-section";
+import { ReferencesSection } from "@/components/references-section";
 import { ProcessSection } from "@/components/process-section";
 import { ServicesSection } from "@/components/services-section";
 import { ContactSection } from "@/components/contact-section";
@@ -69,9 +69,9 @@ export default function Home() {
       <main>
         <HeroSection />
         <FadeIn><ExpertiseSection /></FadeIn>
-        <FadeIn><TrustSection /></FadeIn>
-        <FadeIn><SpecialistsSection /></FadeIn>
         <FadeIn><ProcessSection /></FadeIn>
+        <FadeIn><AboutSection /></FadeIn>
+        <FadeIn><ReferencesSection /></FadeIn>
         <FadeIn><ServicesSection /></FadeIn>
         <FadeIn><ContactSection /></FadeIn>
       </main>
