@@ -43,10 +43,11 @@ export function FeaturesSection() {
       id="servicii"
       style={{
         position: "relative",
-        background: "#D9EAEC",
+        background: "#0E323D",
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
         scrollMarginTop: "72px",
+        overflow: "hidden",
       }}
     >
       <style>{`
@@ -55,7 +56,33 @@ export function FeaturesSection() {
         }
       `}</style>
 
-      <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
+      {/* linie cupru sus + textură circuit — limbajul premium al secțiunilor dark */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 2,
+          background: "linear-gradient(90deg, transparent, #C5895B 30%, #C5895B 70%, transparent)",
+          opacity: 0.45,
+        }}
+      />
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: 'url("/assets/circuit-pattern.svg")',
+          backgroundSize: "260px 260px",
+          filter: "invert(1)",
+          opacity: 0.03,
+          pointerEvents: "none",
+        }}
+      />
+
+      <div style={{ position: "relative", zIndex: 1, maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
         {/* Header row */}
         <div
           style={{
@@ -88,7 +115,7 @@ export function FeaturesSection() {
                 fontWeight: 800,
                 letterSpacing: "-0.02em",
                 lineHeight: 1.1,
-                color: "#0E323D",
+                color: "#F4F2EC",
                 maxWidth: "22ch",
                 margin: 0,
               }}
@@ -101,7 +128,7 @@ export function FeaturesSection() {
               fontFamily: "var(--font-body)",
               fontSize: "clamp(14px, 1.1vw, 16px)",
               lineHeight: 1.7,
-              color: "#335058",
+              color: "rgba(244,242,236,0.60)",
               maxWidth: "46ch",
               margin: 0,
             }}
@@ -117,7 +144,7 @@ export function FeaturesSection() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: 2,
+            gap: 16,
           }}
         >
           {FEATURES.map((f, i) => (
@@ -127,19 +154,19 @@ export function FeaturesSection() {
               onMouseLeave={() => setHoveredIdx(null)}
               style={{
                 position: "relative",
-                background: "#FFFFFF",
-                border: "1px solid transparent",
-                borderRadius: 0,
-                padding: "36px 32px 32px",
+                background: hoveredIdx === i ? "rgba(255,255,255,0.055)" : "rgba(255,255,255,0.035)",
+                border: "1px solid",
+                borderRadius: 12,
+                padding: "30px 30px 32px",
                 overflow: "hidden",
                 height: "100%",
-                transition: "transform .25s ease, box-shadow .25s ease, border-color .25s ease",
+                transition: "transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease",
                 transform: hoveredIdx === i ? "translateY(-4px)" : "translateY(0)",
                 boxShadow: hoveredIdx === i
-                  ? "0 8px 32px rgba(14,50,61,0.15)"
-                  : "0 2px 16px rgba(14,50,61,0.08)",
+                  ? "0 16px 40px rgba(0,0,0,0.35)"
+                  : "none",
                 cursor: "default",
-                borderColor: hoveredIdx === i ? "#C5895B" : "transparent",
+                borderColor: hoveredIdx === i ? "rgba(197,137,91,0.55)" : "rgba(255,255,255,0.08)",
               }}
             >
               {/* Copper top accent */}
@@ -154,13 +181,28 @@ export function FeaturesSection() {
                   transition: "width .35s ease",
                 }}
               />
+              {/* Numerotare inginerească — 01 ─── */}
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 18 }}>
+                <span
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "12.5px",
+                    fontWeight: 800,
+                    letterSpacing: "0.1em",
+                    color: "#C5895B",
+                  }}
+                >
+                  {f.icon}
+                </span>
+                <span aria-hidden style={{ height: 1, flex: 1, background: "rgba(197,137,91,0.22)" }} />
+              </div>
               <h3
                 style={{
                   fontFamily: "var(--font-sans)",
                   fontSize: "clamp(16px, 1.3vw, 19px)",
                   fontWeight: 700,
                   letterSpacing: "-0.01em",
-                  color: "#0E323D",
+                  color: "#F4F2EC",
                   marginBottom: 12,
                   lineHeight: 1.25,
                 }}
@@ -172,7 +214,7 @@ export function FeaturesSection() {
                   fontFamily: "var(--font-body)",
                   fontSize: "14px",
                   lineHeight: 1.65,
-                  color: "#335058",
+                  color: "rgba(244,242,236,0.55)",
                   fontWeight: 400,
                   margin: 0,
                 }}
