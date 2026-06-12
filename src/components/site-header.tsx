@@ -35,10 +35,16 @@ export function SiteHeader() {
     <>
       <style>{`
         .nav-hamburger { display: none !important; }
-        .nav-desktop { display: flex !important; }
+        .nav-desktop { display: flex !important; gap: 32px; }
+        .nav-row { justify-content: center; }
         @media (max-width: 767px) {
           .nav-hamburger { display: flex !important; }
           .nav-desktop { display: none !important; }
+          .nav-row { justify-content: flex-end; }
+        }
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .nav-desktop { gap: 18px; }
+          .nav-desktop a { font-size: 11px !important; letter-spacing: 0.06em !important; }
         }
         .ham-bar {
           display: block;
@@ -99,17 +105,17 @@ export function SiteHeader() {
         }}
       >
         <div
+          className="nav-row"
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "flex-end",
             width: "92%",
             maxWidth: "1340px",
             margin: "0 auto",
           }}
         >
           {/* Desktop nav */}
-          <nav className="nav-desktop" style={{ gap: 32, alignItems: "center" }}>
+          <nav className="nav-desktop" style={{ alignItems: "center" }}>
             {navItems.map((item) => (
               <Link
                 key={item.label}
