@@ -45,7 +45,7 @@ function IconDeliver() {
 
 const STEPS: Step[] = [
   {
-    title: "Consultație inițială",
+    title: "Consultanță inițială",
     desc: "Discutăm cerințele, termenele și specificațiile tehnice. Fără obligații, fără costuri ascunse.",
     icon: <IconConsult />,
   },
@@ -233,7 +233,7 @@ export function ProcessSection() {
               opacity: 0.85,
             }}
           >
-            Solicită o consultație gratuită
+            Solicită o consultanță gratuită
             <svg
               width="14"
               height="14"

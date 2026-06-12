@@ -167,7 +167,7 @@ export function HeroSectionDe() {
           maxWidth: "1240px",
           margin: "0 auto",
           paddingLeft: "clamp(24px, 5vw, 100px)",
-          paddingRight: "clamp(420px, calc((100vw - 800px) * 0.46), 860px)",
+          paddingRight: "clamp(420px, calc((100vw - 800px) * 0.46), 516px)",
           paddingTop: "clamp(80px, 10vh, 120px)",
           paddingBottom: "clamp(80px, 10vh, 120px)",
           display: "flex",
