@@ -50,9 +50,13 @@ export async function POST(req: Request) {
     const safeTime    = escapeHtml(time);
     const safeMessage = escapeHtml(message);
 
-    const dateObj = new Date(date);
+    // `date` vine ca zi calendaristică locală (YYYY-MM-DD). O fixăm la miezul nopții UTC
+    // și formatăm tot în UTC, ca ziua afișată să fie exact cea aleasă, independent de
+    // fusul runtime-ului (Vercel rulează în UTC).
+    const dateObj = new Date(`${date}T00:00:00Z`);
     const dateRo  = dateObj.toLocaleDateString("ro-RO", {
       weekday: "long", day: "numeric", month: "long", year: "numeric",
+      timeZone: "UTC",
     });
 
     const notifyHtml = `

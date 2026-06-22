@@ -34,6 +34,11 @@ const isSlotUnavailable = (slot: string, selectedDate: Date | undefined): boolea
 const formatDate = (d: Date, locale: "ro" | "de") =>
   d.toLocaleDateString(locale === "de" ? "de-DE" : "ro-RO", { weekday: "long", day: "numeric", month: "long" });
 
+// Ziua calendaristică locală ca YYYY-MM-DD — NU folosi toISOString() (convertește în UTC
+// și decalează data cu o zi pentru fusurile cu offset pozitiv, ex. Europe/Bucharest).
+const toLocalISODate = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
 const T = {
   ro: {
     pickLabel: "Alege data și ora",
@@ -126,7 +131,7 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
       const res = await fetch("/api/book-appointment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ date: date?.toISOString(), time, name: form.name, email: form.email, phone: form.phone, message: form.message }),
+        body: JSON.stringify({ date: date ? toLocalISODate(date) : undefined, time, name: form.name, email: form.email, phone: form.phone, message: form.message }),
       });
       if (!res.ok) throw new Error();
       setStep("success");
