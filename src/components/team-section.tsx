@@ -17,7 +17,7 @@ interface TeamMember {
 
 const CEO: TeamMember = {
   name: "Martin Mayer",
-  role: "CEO, Proiectant Electrotehnic",
+  role: "CEO, Proiectant Electrotehnic, Coordonator BIM",
   bio: "Peste 20 de ani de experiență în proiectarea instalațiilor electrice.",
   img: "/uploads/echipa/ceo.jpg",
 };
@@ -26,7 +26,7 @@ const TEAM: TeamMember[] = [
   {
     name: "Ioan Chindea",
     role: "Inginer Instalații pentru Construcții",
-    bio: "Calculează sarcini electrice pentru proiecte de construcții.",
+    bio: "Planificare completă a instalațiilor electrice în AutoCAD și Revit MEP, cu atenție la detalii și coordonare precisă.",
     img: "/uploads/echipa/worker1.jpg",
   },
   {
@@ -59,7 +59,7 @@ const COLLABORATORS: TeamMember[] = [
   },
   {
     name: "Vadim Roșca",
-    role: "Inginer Proiectant",
+    role: "Inginer Proiectant, Specialist BIM",
     tag: "Colaborator",
     bio: "Proiectare și verificare tehnică a instalațiilor electrice.",
   },

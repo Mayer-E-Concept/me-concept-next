@@ -121,16 +121,21 @@ export function HeroFilamentsSvg() {
   // before anything happens) — each gets exactly one short branch that
   // continues the trunk's own bend direction, instead of forking off at an
   // unrelated angle.
+  // hero-topleft-1 starts above hero-topleft-2 (yFrac 0.08 vs 0.18) but used
+  // to bend DOWN while -2 bent UP — moving toward each other, which forces a
+  // crossing for the same reason as the hero-line-2/-7 issue: two rightward-
+  // only paths can't swap vertical order without physically intersecting.
+  // Both now bend the same direction (down) so -1 stays above -2 the whole way.
   const topLeftCables: FractionCableSpec[] = [
     // yFrac kept below ~0.075 clears the fixed header (it sits on top of the
     // hero and was clipping this line's origin, making it look cut-off/tiny).
     {
       id: "hero-topleft-1", yFrac: 0.08, startXFrac: 0, midXFrac: 0.15, bendDY: 0.07,
-      branches: [{ depart: 30, bendDY: 0.06, endXFrac: 0.26, opacity: 0.08 }],
+      branches: [{ depart: 30, bendDY: 0.05, endXFrac: 0.26, opacity: 0.08 }],
     },
     {
-      id: "hero-topleft-2", yFrac: 0.18, startXFrac: 0, midXFrac: 0.17, bendDY: -0.05,
-      branches: [{ depart: 30, bendDY: -0.05, endXFrac: 0.28, opacity: 0.08 }],
+      id: "hero-topleft-2", yFrac: 0.18, startXFrac: 0, midXFrac: 0.17, bendDY: 0.03,
+      branches: [{ depart: 30, bendDY: 0.04, endXFrac: 0.28, opacity: 0.08 }],
     },
     // Filler for the empty band directly under the nav divider — kept at a
     // very low yFrac with almost no bend so it stays well above the roof

@@ -87,10 +87,10 @@ export function AboutSection() {
               maxWidth: "52ch",
             }}
           >
-            De peste 20 de ani proiectăm instalații electrice pentru clădiri
-            rezidențiale, comerciale și industriale — din Sibiu, pentru România
-            și Germania. Proiectăm în BIM, cu modele 3D coordonate, iar fiecare
-            proiect trece printr-un sistem de calitate auditat anual.
+            Proiectăm instalații electrice pentru clădiri rezidențiale,
+            comerciale și industriale — din Sibiu, pentru România și Germania.
+            Lucrăm în BIM, cu modele 3D coordonate, iar fiecare proiect trece
+            printr-un sistem de calitate auditat anual.
           </p>
 
           <ul style={{ listStyle: "none", padding: 0, margin: 0, marginBottom: 36 }}>
@@ -126,43 +126,80 @@ export function AboutSection() {
             ))}
           </ul>
 
-          <Link
-            href="/echipa-noastra"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 10,
-              fontFamily: "var(--font-sans)",
-              fontSize: "12.5px",
-              fontWeight: 700,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "#fff",
-              textDecoration: "none",
-              padding: "14px 26px",
-              borderRadius: 4,
-              background: "#C5895B",
-              border: "1.5px solid #C5895B",
-              boxShadow: "0 2px 14px rgba(197,137,91,0.22)",
-              transition: "background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .25s ease",
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement;
-              el.style.background = "#b37a50";
-              el.style.borderColor = "#b37a50";
-              el.style.transform = "translateY(-2px)";
-              el.style.boxShadow = "0 6px 28px rgba(197,137,91,0.45)";
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement;
-              el.style.background = "#C5895B";
-              el.style.borderColor = "#C5895B";
-              el.style.transform = "translateY(0)";
-              el.style.boxShadow = "0 2px 14px rgba(197,137,91,0.22)";
-            }}
-          >
-            Echipa noastră →
-          </Link>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 14 }}>
+            <Link
+              href="/echipa-noastra"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                fontFamily: "var(--font-sans)",
+                fontSize: "12.5px",
+                fontWeight: 700,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "#fff",
+                textDecoration: "none",
+                padding: "14px 26px",
+                borderRadius: 4,
+                background: "#C5895B",
+                border: "1.5px solid #C5895B",
+                boxShadow: "0 2px 14px rgba(197,137,91,0.22)",
+                transition: "background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .25s ease",
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.background = "#b37a50";
+                el.style.borderColor = "#b37a50";
+                el.style.transform = "translateY(-2px)";
+                el.style.boxShadow = "0 6px 28px rgba(197,137,91,0.45)";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.background = "#C5895B";
+                el.style.borderColor = "#C5895B";
+                el.style.transform = "translateY(0)";
+                el.style.boxShadow = "0 2px 14px rgba(197,137,91,0.22)";
+              }}
+            >
+              Echipa noastră →
+            </Link>
+
+            <Link
+              href="/povestea-mea"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                fontFamily: "var(--font-sans)",
+                fontSize: "12.5px",
+                fontWeight: 700,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "#0E323D",
+                textDecoration: "none",
+                padding: "14px 26px",
+                borderRadius: 4,
+                background: "transparent",
+                border: "1.5px solid rgba(14,50,61,0.28)",
+                transition: "border-color .2s ease, transform .2s ease, background .2s ease",
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.borderColor = "#0E323D";
+                el.style.background = "rgba(14,50,61,0.05)";
+                el.style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.borderColor = "rgba(14,50,61,0.28)";
+                el.style.background = "transparent";
+                el.style.transform = "translateY(0)";
+              }}
+            >
+              Povestea mea →
+            </Link>
+          </div>
         </div>
 
         {/* Dreapta — echipă + ISO + citat */}

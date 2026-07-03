@@ -38,9 +38,11 @@ const FEATURED_PROJECTS_DE = [
   {
     id: "rewe",
     category: "Handel & Smart-Building",
-    title: "REWE + Sportzentrum",
-    desc: "Neubau mit synergetischer Verbindung von REWE-Supermarkt und öffentlichen Sportflächen, vollständig LPH 1–7 geplant. Flexibles Energie- und Beleuchtungskonzept für zwei unterschiedliche Nutzungstypen.",
+    title: "Supermarkt und Sportflächen",
+    desc: "Neubau mit synergetischer Verbindung von Supermarkt und öffentlichen Sportflächen, vollständig LPH 1–7 geplant. Flexibles Energie- und Beleuchtungskonzept für zwei unterschiedliche Nutzungstypen.",
     img: "/uploads/referinte/render-1.jpg",
+    // Blendet das Markenlogo auf der Fassade aus — oben rechts am Gebäude.
+    blurRegion: { left: 56, top: 50, width: 16, height: 14 },
     specs: [
       { label: "LPH", value: "1–7 komplett" },
       { label: "Fläche", value: "~2.500 m²" },
@@ -51,9 +53,11 @@ const FEATURED_PROJECTS_DE = [
   {
     id: "group7",
     category: "Industrie & Energie",
-    title: "Headquarter & Logistik GROUP7, Schwaig",
+    title: "Sitz & Logistik",
     desc: "Kombination aus 5.000 m² Bürofläche in Winkelform mit modernem Logistikzentrum. PV-Anlage auf dem Hallendach deckt den Strombedarf von ~100 Haushalten.",
     img: "/uploads/referinte/render-2.jpg",
+    // Blendet das Firmenlogo auf der Fassade aus.
+    blurRegion: { left: 54, top: 24, width: 24, height: 16 },
     specs: [
       { label: "LPH", value: "1–7" },
       { label: "Bürofläche", value: "5.000 m²" },
@@ -64,8 +68,8 @@ const FEATURED_PROJECTS_DE = [
   {
     id: "villa-maxima",
     category: "Wohnen & Denkmal",
-    title: "Villa MAXIMA – Haar, München",
-    desc: "120 Wohneinheiten in 3 denkmalgeschützten Gebäuden. Leitungsführung durch Gewölbekeller mit geringer Deckenhöhe — gelöst durch millimetergenaue BIM-Modellierung mit digitaler Kollisionsprüfung.",
+    title: "Sanierung Denkmalgeschütztes Gebäude",
+    desc: "Haar, München — 120 Wohneinheiten in 3 denkmalgeschützten Gebäuden. Leitungsführung durch Gewölbekeller mit geringer Deckenhöhe — gelöst durch millimetergenaue BIM-Modellierung mit digitaler Kollisionsprüfung.",
     img: "/uploads/referinte/render-3.jpg",
     specs: [
       { label: "LPH", value: "1–7" },
@@ -77,12 +81,11 @@ const FEATURED_PROJECTS_DE = [
   {
     id: "get-h2",
     category: "Energie & Infrastruktur",
-    title: "GET H₂ Nukleus – RWE, Lingen",
+    title: "Wasserstoff-Kraftwerk",
     desc: "Werk- und Montageplanung für die elektrotechnische Infrastruktur der ersten großskaligen H₂-Elektrolyseanlage Deutschlands. Intensive Gewerke-Koordination als zentrale Herausforderung.",
     img: "/uploads/referinte/render-4.jpg",
     specs: [
-      { label: "Rolle", value: "Ausführungsteam" },
-      { label: "Betreiber", value: "RWE AG" },
+      { label: "Rolle", value: "Detailplanung und Montageplanung" },
       { label: "Standort", value: "Lingen, Emsland" },
     ],
     award: null,
@@ -448,6 +451,20 @@ export function PortofoliuPageDe() {
                       background: "linear-gradient(to top, #0A2430 0%, transparent 55%)",
                     }}
                   />
+                  {p.blurRegion && (
+                    <div
+                      aria-hidden
+                      style={{
+                        position: "absolute",
+                        left: `${p.blurRegion.left}%`,
+                        top: `${p.blurRegion.top}%`,
+                        width: `${p.blurRegion.width}%`,
+                        height: `${p.blurRegion.height}%`,
+                        backdropFilter: "blur(14px)",
+                        background: "rgba(10,36,48,0.35)",
+                      }}
+                    />
+                  )}
                   {p.award && (
                     <div
                       style={{

@@ -60,19 +60,15 @@ export type CableSpec = {
     with what HeroFilamentsSvg renders — it's the single source of truth for
     both. */
 export const CABLE_SPECS: CableSpec[] = [
-  {
-    // Linia 2 — urcă moderat, un singur cot, terminal mediu. Fără ramuri: la
-    // yFrac 0.52 e chiar în banda pe unde stă titlul/butoanele, deci orice
-    // ramură spre dreapta ar trece prin text — mai bine rămâne linie simplă,
-    // exact ca înainte.
-    id: "hero-line-2",
-    yFrac: 0.52,
-    depart: 60,
-    bend1DY: -0.28,
-    midXFrac: 0,
-    bend2DY: 0,
-    endXFrac: 0.54,
-  },
+  // Linia 2 existed here (yFrac 0.52, right next to hero-line-7's anchor at
+  // 0.44) and repeatedly caused problems: bending toward the title forces a
+  // crossing with hero-line-7 (both are single-diagonal, rightward-only
+  // paths — swapping their vertical order is mathematically guaranteed to
+  // intersect somewhere), and its origin sits so close to the diamond's
+  // widest point that almost any reach lands behind the text regardless of
+  // bend direction. Rather than keep tuning coordinates blind across several
+  // rounds without a way to verify the actual render, it's removed — the fan
+  // still reads fine with hero-line-7/-5/-3/-9.
   {
     // Linia 7 — ANCORĂ pentru textul hero (hero-section.tsx). Nu se modifică forma —
     // titlul/butoanele sunt poziționate exact pe capătul acestei linii.

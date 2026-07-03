@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from "react";
 
 const STATS = [
-  { val: "20",  suffix: "+", lbl: "Jahre Erfahrung",             isNum: true  },
   { val: "100", suffix: "+", lbl: "Abgeschlossene Projekte",      isNum: true  },
   { val: "ISO", suffix: "",  lbl: "9001:2015 Zertifiziert",       isNum: false },
   { val: "BIM", suffix: "",  lbl: "Revit · AutoCAD · Dialux",     isNum: false },

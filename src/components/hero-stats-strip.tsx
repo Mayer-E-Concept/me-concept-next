@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from "react";
 
 const STATS = [
-  { val: "20",  suffix: "+", lbl: "Ani experiență",          isNum: true  },
   { val: "100", suffix: "+", lbl: "Proiecte finalizate",     isNum: true  },
   { val: "ISO", suffix: "",  lbl: "9001:2015 Certificat",    isNum: false },
   { val: "BIM", suffix: "",  lbl: "Revit · AutoCAD · Dialux",isNum: false },
@@ -80,8 +79,8 @@ export function HeroStatsStrip() {
         flexDirection: "row",
         flexWrap: "nowrap",
         gap: "clamp(14px, 2.2vw, 30px)",
-        marginTop: "clamp(32px, 4vw, 56px)",
-        paddingTop: 18,
+        marginTop: "clamp(6px, 1vw, 14px)",
+        paddingTop: 12,
         borderTop: "1px solid rgba(255,255,255,0.10)",
       }}
     >

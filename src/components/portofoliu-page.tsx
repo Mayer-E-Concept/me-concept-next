@@ -39,9 +39,11 @@ const FEATURED_PROJECTS = [
   {
     id: "rewe",
     category: "Comerț & Smart-Building",
-    title: "REWE + Centru Sportiv",
-    desc: "Clădire mixtă ce reunește un supermarket REWE și spații sportive publice, planificată integral LPH 1–7. Concept flexibil de iluminat și distribuție energetică pentru două tipologii distincte de utilizare.",
+    title: "Supermarket și Spații Sportive",
+    desc: "Clădire mixtă ce reunește un supermarket și spații sportive publice, planificată integral LPH 1–7. Concept flexibil de iluminat și distribuție energetică pentru două tipologii distincte de utilizare.",
     img: "/uploads/referinte/render-1.jpg",
+    // Ascunde marca de pe fațadă din vizualizare — logo situat în dreapta-sus a clădirii.
+    blurRegion: { left: 56, top: 50, width: 16, height: 14 },
     specs: [
       { label: "LPH", value: "1–7 complet" },
       { label: "Suprafață", value: "~2.500 m²" },
@@ -52,9 +54,11 @@ const FEATURED_PROJECTS = [
   {
     id: "group7",
     category: "Industrie & Energie",
-    title: "Sediu & Logistică GROUP7, Schwaig",
+    title: "Sediu și Logistică",
     desc: "Complex ce integrează 5.000 m² de birouri cu o hală logistică modernă. Instalație PV pe acoperiș — acoperă consumul energetic a ~100 de gospodării.",
     img: "/uploads/referinte/render-2.jpg",
+    // Ascunde sigla de pe fațada clădirii.
+    blurRegion: { left: 54, top: 24, width: 24, height: 16 },
     specs: [
       { label: "LPH", value: "1–7" },
       { label: "Birouri", value: "5.000 m²" },
@@ -65,8 +69,8 @@ const FEATURED_PROJECTS = [
   {
     id: "villa-maxima",
     category: "Rezidențial & Monument",
-    title: "Villa MAXIMA – Haar, München",
-    desc: "120 unități rezidențiale în 3 clădiri monument. Trasee de cabluri prin subsoluri boltite cu înălțime redusă — rezolvate prin modelare BIM milimetrică și verificare coliziuni în timp real.",
+    title: "Reabilitare Civilă Monument Istoric",
+    desc: "Haar, München — 120 unități rezidențiale în 3 clădiri monument. Trasee de cabluri prin subsoluri boltite cu înălțime redusă — rezolvate prin modelare BIM milimetrică și verificare coliziuni în timp real.",
     img: "/uploads/referinte/render-3.jpg",
     specs: [
       { label: "LPH", value: "1–7" },
@@ -78,12 +82,11 @@ const FEATURED_PROJECTS = [
   {
     id: "get-h2",
     category: "Energie & Infrastructură",
-    title: "GET H₂ Nukleus – RWE, Lingen",
+    title: "Centrală Electrică pe Hidrogen",
     desc: "Planificare Werk & Montaj pentru infrastructura electrică a primei instalații de electroliză H₂ la scară mare din Germania. Coordonare intensivă cu toate corpurile de meseriași.",
     img: "/uploads/referinte/render-4.jpg",
     specs: [
-      { label: "Rol", value: "Echipa de execuție" },
-      { label: "Operator", value: "RWE AG" },
+      { label: "Rol", value: "Proiectare detaliată și planificarea asamblării" },
       { label: "Locație", value: "Lingen, Emsland" },
     ],
     award: null,
@@ -482,6 +485,20 @@ export function PortofoliuPage() {
                       background: "linear-gradient(to top, #0A2430 0%, transparent 55%)",
                     }}
                   />
+                  {p.blurRegion && (
+                    <div
+                      aria-hidden
+                      style={{
+                        position: "absolute",
+                        left: `${p.blurRegion.left}%`,
+                        top: `${p.blurRegion.top}%`,
+                        width: `${p.blurRegion.width}%`,
+                        height: `${p.blurRegion.height}%`,
+                        backdropFilter: "blur(14px)",
+                        background: "rgba(10,36,48,0.35)",
+                      }}
+                    />
+                  )}
                   {p.award && (
                     <div
                       style={{
