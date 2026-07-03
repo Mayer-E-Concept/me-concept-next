@@ -18,7 +18,7 @@ interface TeamMember {
 const CEO: TeamMember = {
   name: "Martin Mayer",
   role: "CEO, Proiectant Electrotehnic",
-  bio: "Coordonează proiecte electrice de peste 20 de ani, fără să piardă vreun cablu din vedere.",
+  bio: "Peste 20 de ani de experiență în proiectarea instalațiilor electrice.",
   img: "/uploads/echipa/ceo.jpg",
 };
 
@@ -26,25 +26,25 @@ const TEAM: TeamMember[] = [
   {
     name: "Ioan Chindea",
     role: "Inginer Instalații pentru Construcții",
-    bio: "Calculează sarcini electrice cu precizie — Excel-ul e doar pentru factura de curent.",
+    bio: "Calculează sarcini electrice pentru proiecte de construcții.",
     img: "/uploads/echipa/worker1.jpg",
   },
   {
     name: "Raul Orban",
     role: "Desenator Tehnic",
-    bio: "Desenează planuri tehnice cu o precizie aproape suspectă.",
+    bio: "Realizează planuri tehnice de precizie pentru fiecare proiect.",
     img: "/uploads/echipa/worker2.jpg",
   },
   {
     name: "Marius Poenar",
     role: "Project Manager",
-    bio: "Ține proiectele pe drum, chiar și când termenele par imposibile.",
+    bio: "Coordonează proiectele și urmărește respectarea termenelor.",
     img: "/uploads/echipa/worker3.jpg",
   },
   {
     name: "Stefan Picu",
     role: "Desenator tehnic, Front/Back-End Developer",
-    bio: "Trece de la planuri tehnice la linii de cod fără să clipească.",
+    bio: "Realizează planuri tehnice și dezvoltă soluții software interne.",
     img: "/uploads/echipa/worker4.jpg",
   },
 ];
@@ -54,13 +54,14 @@ const COLLABORATORS: TeamMember[] = [
     name: "Iulia Mayer",
     role: "Management Economic",
     tag: "Colaborator",
-    bio: "Ține bugetele echilibrate mai bine decât orice tablou electric.",
+    bio: "Gestionează bugetele și administrarea economică a proiectelor.",
+    img: "/uploads/echipa/iulia.jpg",
   },
   {
     name: "Vadim Roșca",
     role: "Inginer Proiectant",
     tag: "Colaborator",
-    bio: "Vede detaliile de proiect pe care alții le trec cu vederea.",
+    bio: "Proiectare și verificare tehnică a instalațiilor electrice.",
   },
 ];
 
@@ -153,11 +154,11 @@ function TeamCard({ member, large = false }: { member: TeamMember; large?: boole
         <div
           style={{
             fontFamily: "var(--font-sans)",
-            fontSize: 10.5,
+            fontSize: 9,
             fontWeight: 700,
             letterSpacing: "0.1em",
             textTransform: "uppercase",
-            color: "#C5895B",
+            color: "#56707A",
             marginTop: 4,
           }}
         >

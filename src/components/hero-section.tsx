@@ -1,10 +1,87 @@
 "use client";
-import type { ReactNode } from "react";
+import { useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import { Hero3DLazy } from "@/components/hero-3d-lazy";
 import { HeroFilamentsSvg } from "@/components/hero-filaments-svg";
 import { HeroStatsStrip } from "@/components/hero-stats-strip";
+import {
+  useHeroCableAnchor,
+  CABLE_SPECS,
+  TRACE_START,
+  TRACE_DUR,
+  TRACE_STAGGER,
+} from "@/components/hero-filaments-data";
+
+const HERO_LEFT_INSET = "clamp(140px, 15vw, 220px)";
+const TITLE_ANCHOR_GAP = 24; // px of breathing room below the filament line before the heading starts
+
+/** Seconds after mount until the named cable finishes drawing in — used to
+    delay the text's own fade-in so it appears to arrive with its line
+    instead of popping in immediately on page load. */
+function cableArrivalTime(id: string) {
+  const index = CABLE_SPECS.findIndex((c) => c.id === id);
+  return TRACE_START + index * TRACE_STAGGER + TRACE_DUR;
+}
+
+/** Anchored children live inside `.hero-content`, but the filament lines (and
+    the anchor coordinates from useHeroCableAnchor) are measured relative to
+    `.hero-section` — and `.hero-section` vertically centers hero-content via
+    flexbox, so the two boxes don't share an origin. This measures that gap so
+    an anchor Y can be translated into a `top` that's correct inside
+    hero-content, at any viewport size. */
+function useContentOffsetWithinSection(ref: RefObject<HTMLElement | null>) {
+  const [offset, setOffset] = useState(0);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    const section = el?.closest(".hero-section") as HTMLElement | null;
+    if (!el || !section) return;
+
+    const measure = () => {
+      setOffset(el.getBoundingClientRect().top - section.getBoundingClientRect().top);
+    };
+    measure();
+
+    const ro = new ResizeObserver(measure);
+    ro.observe(section);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [ref]);
+
+  return offset;
+}
 
 export function HeroSection() {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const contentOffsetY = useContentOffsetWithinSection(contentRef);
+
+  // "Upper" anchor = the filament line the heading/buttons should sit just
+  // below; "lower" anchor = the line the stats strip should sit just below.
+  // Both resolve to null below the 1500px breakpoint, where the diamond (and
+  // its filament fan) aren't rendered at all — the blocks below fall back to
+  // plain document flow there, unaffected by any of this.
+  const upperAnchor = useHeroCableAnchor("hero-line-7");
+  const lowerAnchor = useHeroCableAnchor("hero-line-3");
+
+  const titleBlockStyle: React.CSSProperties | undefined = upperAnchor
+    ? {
+        position: "absolute",
+        top: upperAnchor.y - contentOffsetY + TITLE_ANCHOR_GAP,
+        left: HERO_LEFT_INSET,
+        opacity: 0,
+        animation: `hero-text-in 0.6s ease ${cableArrivalTime("hero-line-7").toFixed(2)}s both`,
+      }
+    : undefined;
+
+  const statsWrapperStyle: React.CSSProperties | undefined = lowerAnchor
+    ? {
+        position: "absolute",
+        top: lowerAnchor.y - contentOffsetY,
+        left: HERO_LEFT_INSET,
+        opacity: 0,
+        animation: `hero-text-in 0.6s ease ${cableArrivalTime("hero-line-3").toFixed(2)}s both`,
+      }
+    : undefined;
+
   return (
     <section
       className="hero-section"
@@ -97,9 +174,16 @@ export function HeroSection() {
           50%      { filter: brightness(0) invert(1) drop-shadow(0 0 18px rgba(255,205,150,0.85)) drop-shadow(0 0 46px rgba(197,137,91,0.9)); }
         }
 
+        /* ── Heading/buttons + stats fade in as their anchor filament line arrives ── */
+        @keyframes hero-text-in {
+          from { opacity: 0; transform: translateY(8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .hero-brand-group { animation: none !important; opacity: 1; }
           .hero-logo-icon { animation: none !important; }
+          .hero-title-block, .hero-stats-wrapper { animation: none !important; opacity: 1 !important; }
         }
       `}</style>
 
@@ -192,13 +276,14 @@ export function HeroSection() {
       {/* Text content — left column */}
       <div
         className="hero-content"
+        ref={contentRef}
         style={{
           position: "relative",
           zIndex: 30,
           width: "100%",
           maxWidth: "1240px",
           margin: "0 auto",
-          paddingLeft: "clamp(24px, 5vw, 100px)",
+          paddingLeft: HERO_LEFT_INSET,
           paddingRight: "clamp(420px, calc((100vw - 800px) * 0.46), 516px)",
           paddingTop: "clamp(80px, 10vh, 120px)",
           paddingBottom: "clamp(70px, 9vh, 110px)",
@@ -244,32 +329,36 @@ export function HeroSection() {
           />
         </div>
 
-        <h1
-          className="hero-h1"
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: "clamp(24px, 3vw, 42px)",
-            fontWeight: 800,
-            letterSpacing: "-0.026em",
-            lineHeight: 1.1,
-            color: "rgba(244,242,236,0.55)",
-            maxWidth: "22ch",
-            margin: "0 0 22px 0",
-            textAlign: "left",
-          }}
-        >
-          Instalații electrice sigure, eficiente, proiectate cu grijă
-        </h1>
+        <div className="hero-title-block" style={titleBlockStyle}>
+          <h1
+            className="hero-h1"
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "clamp(24px, 3vw, 42px)",
+              fontWeight: 800,
+              letterSpacing: "-0.026em",
+              lineHeight: 1.1,
+              color: "rgba(244,242,236,0.55)",
+              maxWidth: "22ch",
+              margin: "0 0 22px 0",
+              textAlign: "left",
+            }}
+          >
+            Instalații electrice sigure, eficiente, proiectate cu grijă
+          </h1>
 
-        <div
-          className="hero-buttons"
-          style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}
-        >
-          <HeroButton href="/#contact" variant="copper">Solicită consultanță</HeroButton>
-          <HeroButton href="/portofoliu" variant="outline">Vezi portofoliul</HeroButton>
+          <div
+            className="hero-buttons"
+            style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}
+          >
+            <HeroButton href="/#contact" variant="copper">Solicită consultanță</HeroButton>
+            <HeroButton href="/portofoliu" variant="outline">Vezi portofoliul</HeroButton>
+          </div>
         </div>
 
-        <HeroStatsStrip />
+        <div className="hero-stats-wrapper" style={statsWrapperStyle}>
+          <HeroStatsStrip />
+        </div>
       </div>
     </section>
   );
