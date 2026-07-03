@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { SectionDivider } from "@/components/section-divider";
 
 const POSTS = [
   {
@@ -10,7 +11,7 @@ const POSTS = [
     category: "Sfaturi",
     excerpt:
       "Dacă proiectul tău se desfășoară într-o zonă specifică, cum ar fi Sibiu, este util să colaborezi cu un specialist în proiectare instalații electrice. Un proiectant local cunoaște bine specificațiile regiunii, furnizorii locali de materiale și condițiile de execuție.",
-    img: "/uploads/ME-CONCEPT-089.jpg",
+    img: "/uploads/blog-sfaturi.jpg",
   },
   {
     slug: "cum-sa-gasesti-un-proiectant-de-instalatii-electrice-potrivit",
@@ -19,7 +20,7 @@ const POSTS = [
     category: "Ghid",
     excerpt:
       "Alegerea unui proiectant certificat este esențială. În România, legislația impune respectarea unor standarde stricte pentru instalațiile electrice. Un proiectant de calitate garantează conformitatea, siguranța și eficiența energetică a proiectului tău.",
-    img: "/uploads/ME-CONCEPT-083-1.jpg",
+    img: "/uploads/blog-ghid.jpg",
   },
   {
     slug: "proiectare-instalatii-electrice",
@@ -28,7 +29,7 @@ const POSTS = [
     category: "Blog",
     excerpt:
       "De ce este important să alegi un proiectant certificat? Legislația în domeniul construcțiilor impune respectarea unor standarde stricte. Descoperă pașii esențiali și ce înseamnă un proiect electric bine realizat.",
-    img: "/uploads/ME-CONCEPT-021.jpg",
+    img: "/uploads/blog-general.jpg",
   },
 ];
 
@@ -136,12 +137,14 @@ export function BlogPage() {
       {/* Posts grid */}
       <section
         style={{
+          position: "relative",
           background: "#D9EAEC",
           paddingTop: "clamp(72px, 9vw, 120px)",
           paddingBottom: "clamp(72px, 9vw, 120px)",
         }}
       >
-        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
+        <SectionDivider />
+        <div style={{ position: "relative", zIndex: 1, maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
           <div
             className="blog-grid"
             style={{

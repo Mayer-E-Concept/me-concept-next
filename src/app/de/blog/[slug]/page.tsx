@@ -32,7 +32,7 @@ const POSTS: Post[] = [
     category: "Blog",
     excerpt:
       "Warum ist ein zertifizierter Elektroingenieur so wichtig? Die Baugesetzgebung schreibt strenge Normen vor. Erfahren Sie die wesentlichen Schritte und was ein professionelles Elektroprojekt auszeichnet.",
-    img: "/uploads/ME-CONCEPT-021.jpg",
+    img: "/uploads/blog-general.jpg",
     readMin: 6,
     blocks: [
       {
@@ -103,7 +103,7 @@ const POSTS: Post[] = [
     category: "Ratgeber",
     excerpt:
       "Ein lokaler Elektroingenieur kennt die regionalen Besonderheiten, lokale Lieferanten und die spezifischen Ausführungsbedingungen. Das spart Zeit, Kosten und verhindert Missverständnisse.",
-    img: "/uploads/ME-CONCEPT-089.jpg",
+    img: "/uploads/blog-sfaturi.jpg",
     readMin: 5,
     blocks: [
       {
@@ -157,7 +157,7 @@ const POSTS: Post[] = [
     category: "Leitfaden",
     excerpt:
       "Die Wahl eines zertifizierten Ingenieurs ist entscheidend. In Deutschland schreiben HOAI und DIN VDE strenge Standards vor. Ein qualifizierter Planer garantiert Normkonformität, Sicherheit und Energieeffizienz.",
-    img: "/uploads/ME-CONCEPT-083-1.jpg",
+    img: "/uploads/blog-ghid.jpg",
     readMin: 7,
     blocks: [
       {

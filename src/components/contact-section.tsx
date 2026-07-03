@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { SectionDivider } from "@/components/section-divider";
 
 const AppointmentCalendar = dynamic(
   () => import("@/components/appointment-calendar").then((m) => m.AppointmentCalendar),
@@ -103,6 +104,8 @@ export function ContactSection() {
         color: "#F4F2EC",
       }}
     >
+      <SectionDivider />
+
       <style>{`
         @media (max-width: 767px) {
           .contact-grid { grid-template-columns: 1fr !important; gap: 48px !important; }

@@ -1,18 +1,19 @@
 "use client";
 import { useLayoutEffect, useRef, useState } from "react";
 
-const DOT_RADIUS     = 2.5;
+const DOT_RADIUS     = 3.5;
 const ANIM_DURATION  = 5; // seconds per full path traversal
 const DOTS_PER_LINE  = 3;
-/* Trace-in: cables draw from the logo edge outward, staggered top→bottom;
-   terminals fade in as their cable completes, packets start flowing after. */
-const TRACE_START   = 0.6;  // s after SVG mount — first cable begins
+/* Trace-in: cables draw from their origin outward, staggered; terminals fade
+   in as their cable completes, packets start flowing after. */
+const TRACE_START   = 2.2;  // s after SVG mount — first cable begins (once the logo entrance settles)
 const TRACE_DUR     = 0.9;  // s per cable
 const TRACE_STAGGER = 0.25; // s between cables
+const EDGE_STAGGER  = 0.4;  // s between the right-side ambient cables
 
 type CableSpec = {
   id: string;
-  /** Where on the diamond edge to anchor (0 = top, 0.5 = right apex, 1 = bottom) — calibrate here */
+  /** Where on the diamond edge to anchor (0 = top vertex, 0.5 = right vertex, 1 = bottom vertex) */
   yFrac: number;
   /** Horizontal pixels from diamond edge before first diagonal */
   depart: number;
@@ -24,6 +25,19 @@ type CableSpec = {
   bend2DY: number;
   /** Hero-width fraction of terminal dot */
   endXFrac: number;
+};
+
+/** Simple straight-line cables anchored to fixed points on the hero canvas
+    (fractions of hero width/height) rather than to the diamond — used for the
+    top-left corner fill-in and the right-edge ambient lines. Travel direction
+    (left→right or right→left) is inferred from start vs. mid X. */
+type FractionCableSpec = {
+  id: string;
+  yFrac: number;
+  startXFrac: number;
+  midXFrac: number;
+  /** Signed vertical bend (scaled by hero height); 0 = stays flat */
+  bendDY: number;
 };
 
 export function HeroFilamentsSvg() {
@@ -40,6 +54,7 @@ export function HeroFilamentsSvg() {
     dh:    number;
     dW:    number;
     heroW: number;
+    heroH: number;
     edgeByRow: Float32Array;
   } | null>(null);
 
@@ -63,11 +78,14 @@ export function HeroFilamentsSvg() {
         dh:    d.height,
         dW:    d.width,
         heroW: h.width,
+        heroH: h.height,
         edgeByRow: edgeRef.current,
       });
     };
 
-    // Scan PNG once → build per-row right-edge fraction table
+    // Scan the PNG once → build a per-row right-edge fraction table. This is
+    // pixel-exact (accounts for the icon's rounded corners and any transparent
+    // margin baked into the file) instead of guessing at a padding constant.
     const diamond = document.querySelector(
       ".hero-brand-group img:last-child",
     ) as HTMLImageElement | null;
@@ -99,21 +117,29 @@ export function HeroFilamentsSvg() {
     img.src = diamond.src;
 
     const hero = document.querySelector(".hero-section");
+    const brandGroup = document.querySelector(".hero-brand-group");
     const ro = new ResizeObserver(measure);
     if (hero) ro.observe(hero);
+    // The logo slides in via a CSS transform (hero-logo-in) — getBoundingClientRect()
+    // during that animation reports the mid-slide position, not where it settles.
+    // Re-measure once it's done so cable anchors match the logo's final, resting spot.
+    brandGroup?.addEventListener("animationend", measure);
 
-    return () => { stop = true; ro.disconnect(); };
+    return () => {
+      stop = true;
+      ro.disconnect();
+      brandGroup?.removeEventListener("animationend", measure);
+    };
   }, []);
 
   if (!layout) return null;
 
-  const { dLeft, dTop, dh, dW, heroW, edgeByRow } = layout;
+  const { dLeft, dTop, dh, dW, heroW, heroH, edgeByRow } = layout;
 
   /* ── Diamond edge by direct pixel lookup ────────────────────────────
-     For any y_frac, find the rightmost non-transparent pixel in that
-     row of the PNG and project it into hero-relative CSS pixels.
-     Pixel-perfect at any viewport because dW scales with rendering.
-  ─────────────────────────────────────────────────────────────────── */
+     For any y_frac, find the rightmost non-transparent pixel in that row of
+     the PNG and project it into hero-relative CSS pixels — exact at any
+     viewport because dW/dh scale with the rendered size. */
   const diamondEdge = (yFrac: number) => {
     const rowIdx = Math.min(edgeByRow.length - 1, Math.max(0, Math.round(yFrac * edgeByRow.length)));
     const edgeFrac = edgeByRow[rowIdx];
@@ -149,26 +175,29 @@ export function HeroFilamentsSvg() {
     return { id: spec.id, d: `M ${ox} ${sy} H ${x1} L ${x2} ${y2} H ${txMid} L ${x4} ${y4} H ${tx}`, endX: tx, endY: y4 };
   };
 
+  // Only mild/no upward bends here — steep upward lines used to cross into the
+  // "MAYER E-CONCEPT" text sitting above the diamond. Those now live in
+  // topLeftCables instead, anchored well above the whole brand lockup.
   const cables: CableSpec[] = [
-    {
-      // Linia 1 — urcă abrupt din sfertul superior, step mic jos, terminal scurt
-      id: "hero-line-1",
-      yFrac:     0.35,   // ← poziție calibrată, nu modifica
-      depart:    60,
-      bend1DY:  -0.62,   // UP 67px → lane sus
-      midXFrac:  0.30,
-      bend2DY:   0.08,   // step mic jos (2px) — rămâne bine deasupra liniei 2
-      endXFrac:  0.42,
-    },
     {
       // Linia 2 — urcă moderat, un singur cot, terminal mediu
       id: "hero-line-2",
       yFrac:     0.52,   // ← poziție calibrată
       depart:    60,
       bend1DY:  -0.28,   // UP 30px → lane sus-mijloc
-      midXFrac:  0,      // fără al doilea bend
+      midXFrac:  0,
       bend2DY:   0,
       endXFrac:  0.54,
+    },
+    {
+      // Linia 7 — umple golul de deasupra liniei 2 (fostă linia 1, mutată din calea textului)
+      id: "hero-line-7",
+      yFrac:     0.44,
+      depart:    55,
+      bend1DY:  -0.14,
+      midXFrac:  0,
+      bend2DY:   0,
+      endXFrac:  0.58,
     },
     {
       // Linia 5 — axa centrală a evantaiului, aproape plată, cea mai scurtă
@@ -186,13 +215,78 @@ export function HeroFilamentsSvg() {
       yFrac:     0.78,   // ← poziție calibrată
       depart:    60,
       bend1DY:   0.22,   // DOWN 24px → lane jos-mijloc
-      midXFrac:  0,      // fără al doilea bend
+      midXFrac:  0,
+      bend2DY:   0,
+      endXFrac:  0.44,
+    },
+    {
+      // Linia 9 — coboară spre colțul stânga-jos, gol lăsat sub diamant;
+      // un singur cot, apoi drept spre DREAPTA — endXFrac trebuie să rămână
+      // clar peste punctul unde se termină diagonala, altfel segmentul "H"
+      // se întoarce spre stânga în loc să continue spre dreapta.
+      id: "hero-line-9",
+      yFrac:     0.87,
+      depart:    50,
+      bend1DY:   0.65,
+      midXFrac:  0,
       bend2DY:   0,
       endXFrac:  0.44,
     },
   ];
 
-  const built = cables.map(buildCable);
+  const built = cables.map((spec, i) => ({
+    ...buildCable(spec),
+    start: TRACE_START + i * TRACE_STAGGER,
+  }));
+
+  /* ── Simple straight-line cables anchored by hero-relative fractions ──── */
+  const buildFractionCable = (spec: FractionCableSpec) => {
+    const sx = heroW * spec.startXFrac;
+    const sy = heroH * spec.yFrac;
+    const mx = heroW * spec.midXFrac;
+    if (!spec.bendDY) {
+      return { id: spec.id, d: `M ${sx} ${sy} H ${mx}`, endX: mx, endY: sy };
+    }
+    const dir = Math.sign(mx - sx) || 1;
+    const dy = spec.bendDY * heroH;
+    const x2 = mx + dir * Math.abs(dy);
+    const y2 = sy + dy;
+    return { id: spec.id, d: `M ${sx} ${sy} H ${mx} L ${x2} ${y2}`, endX: x2, endY: y2 };
+  };
+
+  // Top-left corner fill-in — replaces the old steep-upward diamond lines so
+  // nothing ever crosses the "MAYER E-CONCEPT" text above the icon. Kept well
+  // above the vertically-centered brand lockup (roughly the top ~20% of the
+  // hero). Traced in with the same early group as the diamond cables.
+  const topLeftCables: FractionCableSpec[] = [
+    // yFrac kept below ~0.075 clears the fixed header (it sits on top of the
+    // hero and was clipping this line's origin, making it look cut-off/tiny).
+    { id: "hero-topleft-1", yFrac: 0.08, startXFrac: 0, midXFrac: 0.15, bendDY:  0.07 },
+    { id: "hero-topleft-2", yFrac: 0.18, startXFrac: 0, midXFrac: 0.17, bendDY: -0.05 },
+  ];
+  const builtTopLeft = topLeftCables.map((spec, i) => ({
+    ...buildFractionCable(spec),
+    start: TRACE_START + (cables.length + i) * TRACE_STAGGER,
+  }));
+
+  // Right-edge ambient cables — deliberately irregular (varied Y spacing,
+  // bend direction and length) rather than a mirrored/symmetric fan. Drift in
+  // well after the left-side fan has finished.
+  const rightEdgeCables: FractionCableSpec[] = [
+    { id: "hero-edge-1", yFrac: 0.12, startXFrac: 1, midXFrac: 0.88, bendDY: -0.18 },
+    { id: "hero-edge-2", yFrac: 0.40, startXFrac: 1, midXFrac: 0.90, bendDY:  0.07 },
+    { id: "hero-edge-3", yFrac: 0.66, startXFrac: 1, midXFrac: 0.84, bendDY:  0 },
+    // Shortened — the house rotates continuously and its silhouette swings
+    // wide enough at some angles to reach this line if it runs any longer.
+    { id: "hero-edge-4", yFrac: 0.89, startXFrac: 1, midXFrac: 0.95, bendDY: -0.10 },
+  ];
+  const RIGHT_TRACE_START = TRACE_START + (cables.length + topLeftCables.length) * TRACE_STAGGER + TRACE_DUR + 0.4;
+  const builtRightEdge = rightEdgeCables.map((spec, i) => ({
+    ...buildFractionCable(spec),
+    start: RIGHT_TRACE_START + i * EDGE_STAGGER,
+  }));
+
+  const allBuilt = [...built, ...builtTopLeft, ...builtRightEdge];
 
   return (
     <svg
@@ -211,29 +305,29 @@ export function HeroFilamentsSvg() {
         @keyframes hf-fade  { to { opacity: 1; } }
       `}</style>
 
-      {/* Cable traces — drawn in from the logo edge outward (static at reduced motion) */}
-      {built.map((c, i) => (
+      {/* Cable traces — drawn in from their origin outward (static at reduced motion) */}
+      {allBuilt.map((c) => (
         <path
           key={`p-${c.id}`}
           id={c.id}
           d={c.d}
           fill="none"
-          stroke="rgba(255,255,255,0.18)"
-          strokeWidth={1.0}
+          stroke="rgba(255,255,255,0.5)"
+          strokeWidth={1.8}
           strokeLinejoin="miter"
           {...(!reduced && {
             pathLength: 1,
             strokeDasharray: 1,
             strokeDashoffset: 1,
             style: {
-              animation: `hf-trace ${TRACE_DUR}s cubic-bezier(0.4,0,0.2,1) ${(TRACE_START + i * TRACE_STAGGER).toFixed(2)}s forwards`,
+              animation: `hf-trace ${TRACE_DUR}s cubic-bezier(0.4,0,0.2,1) ${c.start.toFixed(2)}s forwards`,
             },
           })}
         />
       ))}
 
       {/* Destination terminals — fade in as their cable completes */}
-      {built.map((c, i) => (
+      {allBuilt.map((c) => (
         <g
           key={`t-${c.id}`}
           style={
@@ -241,7 +335,7 @@ export function HeroFilamentsSvg() {
               ? undefined
               : {
                   opacity: 0,
-                  animation: `hf-fade 0.4s ease ${(TRACE_START + i * TRACE_STAGGER + TRACE_DUR - 0.15).toFixed(2)}s forwards`,
+                  animation: `hf-fade 0.4s ease ${(c.start + TRACE_DUR - 0.15).toFixed(2)}s forwards`,
                 }
           }
         >
@@ -256,9 +350,9 @@ export function HeroFilamentsSvg() {
       ))}
 
       {/* Current packets — start flowing only after their cable is traced */}
-      {!reduced && built.map((c, ci) =>
+      {!reduced && allBuilt.map((c) =>
         Array.from({ length: DOTS_PER_LINE }, (_, i) => {
-          const begin = `${(TRACE_START + ci * TRACE_STAGGER + TRACE_DUR + i * (ANIM_DURATION / DOTS_PER_LINE)).toFixed(2)}s`;
+          const begin = `${(c.start + TRACE_DUR + i * (ANIM_DURATION / DOTS_PER_LINE)).toFixed(2)}s`;
           return (
             <circle key={`${c.id}-d${i}`} r={DOT_RADIUS} fill="#E8943A" opacity={0}>
               <animateMotion

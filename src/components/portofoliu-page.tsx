@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FeaturesSection } from "@/components/features-section";
+import { SectionDivider } from "@/components/section-divider";
 
 function parseCount(s: string): { num: number; suffix: string } {
   const m = s.match(/^(\d+)(\+?)$/);
@@ -251,6 +252,7 @@ export function PortofoliuPage() {
           overflow: "hidden",
         }}
       >
+        <SectionDivider />
         {/* subtle circuit texture */}
         <div
           aria-hidden
@@ -400,6 +402,7 @@ export function PortofoliuPage() {
           position: "relative",
         }}
       >
+        <SectionDivider />
         <div
           aria-hidden
           style={{
@@ -413,6 +416,8 @@ export function PortofoliuPage() {
         />
         <div
           style={{
+            position: "relative",
+            zIndex: 1,
             maxWidth: "1240px",
             margin: "0 auto",
             padding: "0 clamp(20px, 5vw, 60px)",

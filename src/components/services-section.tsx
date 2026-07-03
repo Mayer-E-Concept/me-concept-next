@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import { SectionDivider } from "@/components/section-divider";
 
 const SERVICES_LEFT = [
   { title: "Consultanță Personalizată", desc: "Adaptăm proiectele la nevoile specifice fiecărui client pentru a garanta rezultate optime." },
@@ -37,7 +38,7 @@ export function ServicesSection() {
       style={{
         position: "relative",
         padding: "18px 0 18px 48px",
-        borderBottom: "1px solid rgba(255,255,255,0.07)",
+        borderBottom: "1px solid rgba(14,50,61,0.10)",
         cursor: "default",
         transition: "padding-left .2s ease",
         paddingLeft: hovered === idx ? 52 : 48,
@@ -85,7 +86,7 @@ export function ServicesSection() {
           fontFamily: "var(--font-sans)",
           fontWeight: 600,
           fontSize: "clamp(13px, 1vw, 14.5px)",
-          color: hovered === idx ? "#C5895B" : "#F4F2EC",
+          color: hovered === idx ? "#C5895B" : "#0E323D",
           display: "block",
           marginBottom: 2,
           transition: "color .2s ease",
@@ -99,7 +100,7 @@ export function ServicesSection() {
           fontFamily: "var(--font-body)",
           fontWeight: 400,
           fontSize: "13px",
-          color: hovered === idx ? "rgba(197,137,91,0.80)" : "rgba(244,242,236,0.45)",
+          color: hovered === idx ? "rgba(197,137,91,0.80)" : "rgba(14,50,61,0.55)",
           lineHeight: 1.55,
           transition: "color .2s ease",
         }}
@@ -113,12 +114,14 @@ export function ServicesSection() {
     <section
       style={{
         position: "relative",
-        background: "#051E27",
+        background: "#D9EAEC",
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
         overflow: "hidden",
       }}
     >
+      <SectionDivider />
+
       <style>{`
         @media (max-width: 767px) {
           .services-top-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
@@ -134,8 +137,7 @@ export function ServicesSection() {
           inset: 0,
           backgroundImage: 'url("/assets/circuit-pattern.svg")',
           backgroundSize: "240px 240px",
-          filter: "invert(1)",
-          opacity: 0.035,
+          opacity: 0.045,
           pointerEvents: "none",
         }}
       />
@@ -181,22 +183,16 @@ export function ServicesSection() {
                 fontWeight: 800,
                 letterSpacing: "-0.025em",
                 lineHeight: 1.1,
-                color: "#F4F2EC",
+                color: "#0E323D",
                 maxWidth: "22ch",
               }}
             >
               Pentru locuința ta: proiect electric complet, de la branșament la smart home
             </h2>
           </div>
-          <div
-            style={{
-              borderRadius: 10,
-              overflow: "hidden",
-              border: "1px solid rgba(255,255,255,0.07)",
-            }}
-          >
+          <div>
             <Image
-              src="/uploads/ce-oferim.png"
+              src="/uploads/ce-oferim-transparent.png"
               alt="Prezentare Generală a Serviciilor Electrice"
               width={600}
               height={400}

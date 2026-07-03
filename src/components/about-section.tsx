@@ -1,4 +1,7 @@
+"use client";
 import Image from "next/image";
+import Link from "next/link";
+import { SectionDivider } from "@/components/section-divider";
 
 /* Fuziune Trust + Specialists: o singură secțiune „Despre noi" —
    poziționare concretă + echipă + credențiale, fără dubluri ISO. */
@@ -14,12 +17,15 @@ export function AboutSection() {
     <section
       id="despre"
       style={{
+        position: "relative",
         background: "#D9EAEC",
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
         scrollMarginTop: "72px",
       }}
     >
+      <SectionDivider />
+
       <style>{`
         @media (max-width: 767px) {
           .about-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
@@ -29,12 +35,14 @@ export function AboutSection() {
       <div
         className="about-grid"
         style={{
+          position: "relative",
+          zIndex: 1,
           maxWidth: "1240px",
           margin: "0 auto",
           padding: "0 clamp(20px, 5vw, 60px)",
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "clamp(40px, 6vw, 100px)",
+          gridTemplateColumns: "1fr 1.3fr",
+          gap: "clamp(24px, 3vw, 48px)",
           alignItems: "center",
         }}
       >
@@ -85,7 +93,7 @@ export function AboutSection() {
             proiect trece printr-un sistem de calitate auditat anual.
           </p>
 
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          <ul style={{ listStyle: "none", padding: 0, margin: 0, marginBottom: 36 }}>
             {CREDENTIALS.map((c) => (
               <li
                 key={c}
@@ -117,6 +125,44 @@ export function AboutSection() {
               </li>
             ))}
           </ul>
+
+          <Link
+            href="/echipa-noastra"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+              fontFamily: "var(--font-sans)",
+              fontSize: "12.5px",
+              fontWeight: 700,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "#fff",
+              textDecoration: "none",
+              padding: "14px 26px",
+              borderRadius: 4,
+              background: "#C5895B",
+              border: "1.5px solid #C5895B",
+              boxShadow: "0 2px 14px rgba(197,137,91,0.22)",
+              transition: "background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .25s ease",
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLAnchorElement;
+              el.style.background = "#b37a50";
+              el.style.borderColor = "#b37a50";
+              el.style.transform = "translateY(-2px)";
+              el.style.boxShadow = "0 6px 28px rgba(197,137,91,0.45)";
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLAnchorElement;
+              el.style.background = "#C5895B";
+              el.style.borderColor = "#C5895B";
+              el.style.transform = "translateY(0)";
+              el.style.boxShadow = "0 2px 14px rgba(197,137,91,0.22)";
+            }}
+          >
+            Echipa noastră →
+          </Link>
         </div>
 
         {/* Dreapta — echipă + ISO + citat */}
@@ -131,7 +177,7 @@ export function AboutSection() {
             }}
           >
             <Image
-              src="/uploads/echipa-159-duotone.jpg"
+              src="/uploads/echipa-team.jpg"
               alt="Echipa Mayer E-Concept — proiectare instalații electrice"
               fill
               sizes="(max-width:767px) 100vw, 50vw"
@@ -141,19 +187,19 @@ export function AboutSection() {
             <div
               style={{
                 position: "absolute",
-                left: 16,
-                bottom: 16,
+                left: 12,
+                bottom: 12,
                 background: "rgba(255,255,255,0.96)",
-                borderRadius: 8,
-                padding: "10px 14px",
+                borderRadius: 6,
+                padding: "6px 9px",
                 boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
               }}
             >
               <Image
                 src="/uploads/SKYCERT9001.png"
                 alt="ISO 9001:2015 SKYCERT"
-                width={96}
-                height={64}
+                width={64}
+                height={43}
                 style={{ objectFit: "contain", display: "block" }}
               />
             </div>

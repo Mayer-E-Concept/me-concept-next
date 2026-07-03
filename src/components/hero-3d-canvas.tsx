@@ -66,6 +66,8 @@ export function Hero3DCanvas() {
       [2.4, 3.2], // ELEC   — panel, meter, wiring, filament tubes
     ];
     const LIVE_START = 3.2, LIVE_END = 3.8; // sparks/pulses/bulbs ramp in last
+    // Entrance — house slides in from further right into its resting spot (mirrors the logo's slide-in from the left)
+    const ENTRY_DUR = 2.2, ENTRY_OFFSET = 3.6;
     // Labels: sequential fade + slide-up, top to bottom, after the house exists
     const LABEL_START = 3.0, LABEL_STAGGER = 0.3, LABEL_DUR = 0.6;
     const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
@@ -535,13 +537,13 @@ export function Hero3DCanvas() {
 
       let dist: number, fov: number, scale: number, houseX: number, baseHouseY: number, lookXFactor: number;
       if (aspect >= 2.4) {
-        dist = 12;   fov = 32; scale = 1.35; houseX = 6.0; baseHouseY = -0.10; lookXFactor = 0.15;
+        dist = 12;   fov = 32; scale = 1.35; houseX = 8.0; baseHouseY = -0.10; lookXFactor = 0.12;
       } else if (aspect >= 2.0) {
-        dist = 12.5; fov = 36; scale = 1.25; houseX = 5.0; baseHouseY = -0.10; lookXFactor = 0.25;
+        dist = 12.5; fov = 36; scale = 1.25; houseX = 7.0; baseHouseY = -0.10; lookXFactor = 0.18;
       } else if (aspect >= 1.5) {
-        dist = 13;   fov = 40; scale = 1.05; houseX = 3.6; baseHouseY = -0.10; lookXFactor = 0.40;
+        dist = 13;   fov = 40; scale = 1.05; houseX = 5.6; baseHouseY = -0.10; lookXFactor = 0.28;
       } else if (aspect >= 1.1) {
-        dist = 13.5; fov = 48; scale = 0.85; houseX = 2.4; baseHouseY = -0.20; lookXFactor = 0.55;
+        dist = 13.5; fov = 48; scale = 0.85; houseX = 3.6; baseHouseY = -0.20; lookXFactor = 0.42;
       } else {
         dist = 14;   fov = 58; scale = 0.72; houseX = 0.5; baseHouseY = -0.30; lookXFactor = 1.0;
       }
@@ -553,6 +555,7 @@ export function Hero3DCanvas() {
       camera.updateProjectionMatrix();
 
       house.scale.setScalar(scale);
+      house.userData.houseX = houseX;
       house.position.x = houseX;
       house.position.y = baseHouseY;
       house.userData.baseY = baseHouseY;
@@ -579,6 +582,13 @@ export function Hero3DCanvas() {
       applyLabelsIn(t);
       // 0 → 1 after the wiring is drawn: current only flows through built cables
       const liveGate = Math.min(Math.max((t - LIVE_START) / (LIVE_END - LIVE_START), 0), 1);
+
+      // Slide in from the right on mount; once settled, resize() owns position.x
+      if (t < ENTRY_DUR) {
+        const entryEase = easeOutCubic(Math.min(t / ENTRY_DUR, 1));
+        const targetX = (house.userData.houseX as number) ?? house.position.x;
+        house.position.x = targetX + (1 - entryEase) * ENTRY_OFFSET;
+      }
 
       const tgtY = baseRotY + mouseTarget.x * 0.12 + t * 0.04;
       const tgtX = baseRotX + mouseTarget.y * 0.08;

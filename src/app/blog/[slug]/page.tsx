@@ -32,7 +32,7 @@ const POSTS: Post[] = [
     category: "Blog",
     excerpt:
       "De ce este important să alegi un proiectant certificat? Legislația în domeniul construcțiilor impune respectarea unor standarde stricte. Descoperă pașii esențiali și ce înseamnă un proiect electric bine realizat.",
-    img: "/uploads/ME-CONCEPT-021.jpg",
+    img: "/uploads/blog-general.jpg",
     readMin: 6,
     blocks: [
       {
@@ -106,7 +106,7 @@ const POSTS: Post[] = [
     category: "Sfaturi",
     excerpt:
       "Dacă proiectul tău se desfășoară într-o zonă specifică, cum ar fi Sibiu, este util să colaborezi cu un specialist în proiectare instalații electrice. Un proiectant local cunoaște bine specificațiile regiunii, furnizorii locali de materiale și condițiile de execuție.",
-    img: "/uploads/ME-CONCEPT-089.jpg",
+    img: "/uploads/blog-sfaturi.jpg",
     readMin: 5,
     blocks: [
       {
@@ -163,7 +163,7 @@ const POSTS: Post[] = [
     category: "Ghid",
     excerpt:
       "Alegerea unui proiectant certificat este esențială. În România, legislația impune respectarea unor standarde stricte pentru instalațiile electrice. Un proiectant de calitate garantează conformitatea, siguranța și eficiența energetică a proiectului tău.",
-    img: "/uploads/ME-CONCEPT-083-1.jpg",
+    img: "/uploads/blog-ghid.jpg",
     readMin: 7,
     blocks: [
       {

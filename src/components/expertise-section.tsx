@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FadeIn } from "@/components/fade-in";
+import { SectionDivider } from "@/components/section-divider";
 
 const SERVICES = [
   {
@@ -57,18 +58,21 @@ export function ExpertiseSection() {
     <section
       id="servicii"
       style={{
+        position: "relative",
         background: "#0E323D",
         paddingTop: "clamp(72px, 9vw, 120px)",
         paddingBottom: "clamp(72px, 9vw, 120px)",
         scrollMarginTop: "72px",
       }}
     >
+      <SectionDivider />
+
       <style>{`
         @media (max-width: 767px) {
           .expertise-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
-      <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
+      <div style={{ position: "relative", zIndex: 1, maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
         <div style={{ marginBottom: "clamp(40px, 5vw, 64px)" }}>
           <div
             style={{
@@ -113,10 +117,10 @@ export function ExpertiseSection() {
             <FadeIn key={s.num} delay={(i % 4) * 100}>
             <div
               style={{
-                background: "#FFFFFF",
+                background: "#D9EAEC",
                 borderRadius: 12,
                 overflow: "hidden",
-                border: "1px solid rgba(255,255,255,0.10)",
+                border: "1px solid rgba(14,50,61,0.08)",
                 display: "flex",
                 flexDirection: "column",
                 height: "100%",

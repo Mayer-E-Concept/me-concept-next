@@ -60,18 +60,46 @@ export function HeroSection() {
           .hero-brand-group { display: none !important; }
         }
 
-        /* ── Large screens: vertically centered, scales with resolution ── */
+        /* ── Large screens: vertically centered, scales with resolution ──
+           The logo is now the dominant visual element on purpose — sized
+           generously off viewport width rather than capped to the gutter
+           beside the H1. It can extend toward/behind the heading; that's
+           fine now that the heading is a muted secondary color and sits on
+           top (z-index) of the watermark, not fighting it for attention. */
         @media (min-width: 1500px) {
           .hero-brand-group {
             left: clamp(20px, 3vw, 60px) !important;
             top: 50% !important;
-            transform: translateY(-50%) !important;
-            width: clamp(140px, calc((100vw - 1240px) / 2 - 30px), 520px) !important;
-            overflow: hidden !important;
+            width: clamp(320px, 26vw, 800px) !important;
+            overflow: visible !important;
           }
           .hero-brand-group img {
             width: 100% !important;
           }
+        }
+
+        /* ── Logo entrance — slides in from the left once, on mount ── */
+        .hero-brand-group {
+          animation: hero-logo-in 2.2s cubic-bezier(0.16,1,0.3,1) both;
+        }
+        @keyframes hero-logo-in {
+          from { opacity: 0; transform: translateY(-50%) translateX(-90px); }
+          to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+        }
+
+        /* ── Icon glow — pulses copper once the logo has settled, as if it's the power source for the filament lines ── */
+        .hero-logo-icon {
+          filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(120,74,44,0.35));
+          animation: hero-logo-pulse 3.2s ease-in-out 2.2s infinite;
+        }
+        @keyframes hero-logo-pulse {
+          0%, 100% { filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(120,74,44,0.35)); }
+          50%      { filter: brightness(0) invert(1) drop-shadow(0 0 18px rgba(255,205,150,0.85)) drop-shadow(0 0 46px rgba(197,137,91,0.9)); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .hero-brand-group { animation: none !important; opacity: 1; }
+          .hero-logo-icon { animation: none !important; }
         }
       `}</style>
 
@@ -133,20 +161,20 @@ export function HeroSection() {
             height: "auto",
             display: "block",
             filter: "brightness(0) invert(1)",
-            opacity: 0.22,
+            opacity: 0.45,
           }}
         />
 
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
+          className="hero-logo-icon"
           src="/uploads/base_icon_transparent.png"
           alt=""
           style={{
             width: "clamp(210px, 28vw, 500px)",
             height: "auto",
             display: "block",
-            filter: "brightness(0) invert(1)",
-            opacity: 0.22,
+            opacity: 0.6,
           }}
         />
       </div>
@@ -173,7 +201,7 @@ export function HeroSection() {
           paddingLeft: "clamp(24px, 5vw, 100px)",
           paddingRight: "clamp(420px, calc((100vw - 800px) * 0.46), 516px)",
           paddingTop: "clamp(80px, 10vh, 120px)",
-          paddingBottom: "clamp(80px, 10vh, 120px)",
+          paddingBottom: "clamp(70px, 9vh, 110px)",
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
@@ -220,13 +248,13 @@ export function HeroSection() {
           className="hero-h1"
           style={{
             fontFamily: "var(--font-sans)",
-            fontSize: "clamp(36px, 4.6vw, 68px)",
+            fontSize: "clamp(24px, 3vw, 42px)",
             fontWeight: 800,
             letterSpacing: "-0.026em",
-            lineHeight: 1.06,
-            color: "#F4F2EC",
-            maxWidth: "26ch",
-            margin: "0 0 36px 0",
+            lineHeight: 1.1,
+            color: "rgba(244,242,236,0.55)",
+            maxWidth: "22ch",
+            margin: "0 0 22px 0",
             textAlign: "left",
           }}
         >
@@ -235,7 +263,7 @@ export function HeroSection() {
 
         <div
           className="hero-buttons"
-          style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start" }}
+          style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}
         >
           <HeroButton href="/#contact" variant="copper">Solicită consultanță</HeroButton>
           <HeroButton href="/portofoliu" variant="outline">Vezi portofoliul</HeroButton>
@@ -260,13 +288,13 @@ function HeroButton({
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    width: 240,
-    height: 56,
+    width: 190,
+    height: 44,
     borderRadius: 4,
     fontFamily: "var(--font-sans)",
-    fontSize: "12.5px",
+    fontSize: "10.5px",
     fontWeight: 700,
-    letterSpacing: "0.14em",
+    letterSpacing: "0.12em",
     textTransform: "uppercase",
     textDecoration: "none",
     whiteSpace: "nowrap",

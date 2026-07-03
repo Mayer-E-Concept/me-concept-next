@@ -68,9 +68,9 @@ export default function Home() {
       <SiteHeader />
       <main>
         <HeroSection />
-        <FadeIn><ExpertiseSection /></FadeIn>
-        <FadeIn><ProcessSection /></FadeIn>
         <FadeIn><AboutSection /></FadeIn>
+        <FadeIn><ProcessSection /></FadeIn>
+        <FadeIn><ExpertiseSection /></FadeIn>
         <FadeIn><ReferencesSection /></FadeIn>
         <FadeIn><ServicesSection /></FadeIn>
         <FadeIn><ContactSection /></FadeIn>

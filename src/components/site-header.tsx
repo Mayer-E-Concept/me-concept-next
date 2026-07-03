@@ -1,10 +1,12 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { SectionDivider } from "@/components/section-divider";
 
 const navItems = [
-  { label: "Proiectare Instalații Electrice", href: "/" },
+  { label: "Acasă", href: "/" },
   { label: "Despre noi", href: "/#despre" },
+  { label: "Echipa noastră", href: "/echipa-noastra" },
   { label: "Portofoliu", href: "/portofoliu" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/#contact" },
@@ -98,12 +100,13 @@ export function SiteHeader() {
           right: 0,
           zIndex: 99999,
           padding: "18px 0",
-          backgroundColor: scrolled || menuOpen ? "rgba(5,30,39,0.96)" : "transparent",
-          backdropFilter: scrolled || menuOpen ? "saturate(130%) blur(12px)" : "none",
+          backgroundColor: "rgba(5,30,39,0.96)",
+          backdropFilter: "saturate(130%) blur(12px)",
           boxShadow: scrolled ? "0 2px 20px rgba(0,0,0,0.25)" : "none",
           transition: "background-color .3s ease, box-shadow .3s ease",
         }}
       >
+        <SectionDivider position="bottom" />
         <div
           className="nav-row"
           style={{
