@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRo: MetadataRoute.Sitemap = [
     { url: `${base}/`,             changeFrequency: "weekly",  priority: 1.0 },
     { url: `${base}/portofoliu`,   changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/echipa-noastra`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/povestea-mea`, changeFrequency: "yearly",  priority: 0.5 },
     { url: `${base}/blog`,         changeFrequency: "weekly",  priority: 0.8 },
     { url: `${base}/politica-de-confidentialitate`, changeFrequency: "yearly", priority: 0.2 },
@@ -29,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticDe: MetadataRoute.Sitemap = [
     { url: `${base}/de`,              changeFrequency: "weekly",  priority: 1.0 },
     { url: `${base}/de/portofoliu`,   changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/de/unser-team`,   changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/de/meine-geschichte`, changeFrequency: "yearly", priority: 0.5 },
     { url: `${base}/de/blog`,         changeFrequency: "weekly",  priority: 0.8 },
     { url: `${base}/de/datenschutzerklaerung`, changeFrequency: "yearly", priority: 0.2 },

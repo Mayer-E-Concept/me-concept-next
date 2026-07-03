@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FeaturesSectionDe } from "@/components/de/features-section";
+import { SectionDivider } from "@/components/section-divider";
 
 function parseCount(s: string): { num: number; suffix: string } {
   const m = s.match(/^(\d+)(\+?)$/);
@@ -241,6 +242,7 @@ export function PortofoliuPageDe() {
           overflow: "hidden",
         }}
       >
+        <SectionDivider />
         <div
           aria-hidden
           style={{
@@ -385,6 +387,7 @@ export function PortofoliuPageDe() {
           position: "relative",
         }}
       >
+        <SectionDivider />
         <div
           aria-hidden
           style={{

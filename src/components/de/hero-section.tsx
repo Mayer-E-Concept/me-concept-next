@@ -1,10 +1,92 @@
 "use client";
-import type { ReactNode } from "react";
+import { useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import { Hero3DLazy } from "@/components/hero-3d-lazy";
 import { HeroFilamentsSvg } from "@/components/hero-filaments-svg";
 import { HeroStatsStripDe } from "@/components/de/hero-stats-strip";
+import {
+  useHeroCableAnchor,
+  CABLE_SPECS,
+  TRACE_START,
+  TRACE_DUR,
+  TRACE_STAGGER,
+} from "@/components/hero-filaments-data";
+
+const HERO_LEFT_INSET = "clamp(140px, 15vw, 220px)";
+// Title-block only: nudged back from HERO_LEFT_INSET/TITLE_ANCHOR_GAP's RO
+// values — on the DE page the heading/buttons were landing visibly further
+// right and lower than their RO counterpart despite identical anchor code,
+// so this pulls them back toward parity.
+const TITLE_LEFT_INSET_DE = "clamp(100px, 11vw, 180px)";
+const TITLE_ANCHOR_GAP = 8; // px of breathing room below the filament line before the heading starts
+
+/** Seconds after mount until the named cable finishes drawing in — used to
+    delay the text's own fade-in so it appears to arrive with its line
+    instead of popping in immediately on page load. */
+function cableArrivalTime(id: string) {
+  const index = CABLE_SPECS.findIndex((c) => c.id === id);
+  return TRACE_START + index * TRACE_STAGGER + TRACE_DUR;
+}
+
+/** Anchored children live inside `.hero-content`, but the filament lines (and
+    the anchor coordinates from useHeroCableAnchor) are measured relative to
+    `.hero-section` — and `.hero-section` vertically centers hero-content via
+    flexbox, so the two boxes don't share an origin. This measures that gap so
+    an anchor Y can be translated into a `top` that's correct inside
+    hero-content, at any viewport size. */
+function useContentOffsetWithinSection(ref: RefObject<HTMLElement | null>) {
+  const [offset, setOffset] = useState(0);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    const section = el?.closest(".hero-section") as HTMLElement | null;
+    if (!el || !section) return;
+
+    const measure = () => {
+      setOffset(el.getBoundingClientRect().top - section.getBoundingClientRect().top);
+    };
+    measure();
+
+    const ro = new ResizeObserver(measure);
+    ro.observe(section);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [ref]);
+
+  return offset;
+}
 
 export function HeroSectionDe() {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const contentOffsetY = useContentOffsetWithinSection(contentRef);
+
+  // "Upper" anchor = the filament line the heading/buttons should sit just
+  // below; "lower" anchor = the line the stats strip should sit just below.
+  // Both resolve to null below the 1500px breakpoint, where the diamond (and
+  // its filament fan) aren't rendered at all — the blocks below fall back to
+  // plain document flow there, unaffected by any of this.
+  const upperAnchor = useHeroCableAnchor("hero-line-7");
+  const lowerAnchor = useHeroCableAnchor("hero-line-3");
+
+  const titleBlockStyle: React.CSSProperties | undefined = upperAnchor
+    ? {
+        position: "absolute",
+        top: upperAnchor.y - contentOffsetY + TITLE_ANCHOR_GAP,
+        left: TITLE_LEFT_INSET_DE,
+        opacity: 0,
+        animation: `hero-text-in 0.6s ease ${cableArrivalTime("hero-line-7").toFixed(2)}s both`,
+      }
+    : undefined;
+
+  const statsWrapperStyle: React.CSSProperties | undefined = lowerAnchor
+    ? {
+        position: "absolute",
+        top: lowerAnchor.y - contentOffsetY,
+        left: HERO_LEFT_INSET,
+        opacity: 0,
+        animation: `hero-text-in 0.6s ease ${cableArrivalTime("hero-line-3").toFixed(2)}s both`,
+      }
+    : undefined;
+
   return (
     <section
       className="hero-section"
@@ -18,6 +100,7 @@ export function HeroSectionDe() {
       }}
     >
       <style>{`
+        /* ── Mobile ───────────────────────────────────────── */
         @media (max-width: 767px) {
           .hero-section .hero-content {
             padding-right: clamp(20px, 5vw, 40px) !important;
@@ -37,8 +120,10 @@ export function HeroSectionDe() {
           .hero-mobile-brand { display: flex !important; }
         }
 
+        /* Hidden on tablet+ (desktop watermark handles it there) */
         .hero-mobile-brand { display: none; }
 
+        /* ── Tablet / Laptop 768–1199px ───────────────────── */
         @media (min-width: 768px) and (max-width: 1199px) {
           .hero-section .hero-content {
             padding-left: clamp(24px, 4vw, 56px) !important;
@@ -52,27 +137,61 @@ export function HeroSectionDe() {
           .hero-brand-group { display: none !important; }
         }
 
-        /* ── Hide brand watermark where it would overlap text ── */
+        /* ── Hide brand watermark on screens where it would overlap text ── */
         @media (min-width: 768px) and (max-width: 1499px) {
           .hero-brand-group { display: none !important; }
         }
 
-        /* ── Large screens: vertically centered, scales with resolution ── */
+        /* ── Large screens: vertically centered, scales with resolution ──
+           The logo is now the dominant visual element on purpose — sized
+           generously off viewport width rather than capped to the gutter
+           beside the H1. It can extend toward/behind the heading; that's
+           fine now that the heading is a muted secondary color and sits on
+           top (z-index) of the watermark, not fighting it for attention. */
         @media (min-width: 1500px) {
           .hero-brand-group {
             left: clamp(20px, 3vw, 60px) !important;
             top: 50% !important;
-            transform: translateY(-50%) !important;
-            width: clamp(140px, calc((100vw - 1240px) / 2 - 30px), 520px) !important;
-            overflow: hidden !important;
+            width: clamp(320px, 26vw, 800px) !important;
+            overflow: visible !important;
           }
           .hero-brand-group img {
             width: 100% !important;
           }
         }
+
+        /* ── Logo entrance — slides in from the left once, on mount ── */
+        .hero-brand-group {
+          animation: hero-logo-in 2.2s cubic-bezier(0.16,1,0.3,1) both;
+        }
+        @keyframes hero-logo-in {
+          from { opacity: 0; transform: translateY(-50%) translateX(-90px); }
+          to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+        }
+
+        /* ── Icon glow — pulses copper once the logo has settled, as if it's the power source for the filament lines ── */
+        .hero-logo-icon {
+          filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(120,74,44,0.35));
+          animation: hero-logo-pulse 3.2s ease-in-out 2.2s infinite;
+        }
+        @keyframes hero-logo-pulse {
+          0%, 100% { filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(120,74,44,0.35)); }
+          50%      { filter: brightness(0) invert(1) drop-shadow(0 0 18px rgba(255,205,150,0.85)) drop-shadow(0 0 46px rgba(197,137,91,0.9)); }
+        }
+
+        /* ── Heading/buttons + stats fade in as their anchor filament line arrives ── */
+        @keyframes hero-text-in {
+          from { opacity: 0; transform: translateY(8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .hero-brand-group { animation: none !important; opacity: 1; }
+          .hero-logo-icon { animation: none !important; }
+          .hero-title-block, .hero-stats-wrapper { animation: none !important; opacity: 1 !important; }
+        }
       `}</style>
 
-      {/* PCB circuit pattern */}
       {/* Gradient mesh — static depth layer under the circuit texture */}
       <div
         aria-hidden="true"
@@ -89,6 +208,7 @@ export function HeroSectionDe() {
         }}
       />
 
+      {/* PCB circuit pattern — white on dark */}
       <div
         aria-hidden="true"
         style={{
@@ -105,7 +225,7 @@ export function HeroSectionDe() {
         }}
       />
 
-      {/* Brand mark watermark */}
+      {/* Brand mark — icon watermark */}
       <div
         className="hero-brand-group"
         aria-hidden
@@ -130,19 +250,20 @@ export function HeroSectionDe() {
             height: "auto",
             display: "block",
             filter: "brightness(0) invert(1)",
-            opacity: 0.22,
+            opacity: 0.45,
           }}
         />
+
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
+          className="hero-logo-icon"
           src="/uploads/base_icon_transparent.png"
           alt=""
           style={{
             width: "clamp(210px, 28vw, 500px)",
             height: "auto",
             display: "block",
-            filter: "brightness(0) invert(1)",
-            opacity: 0.22,
+            opacity: 0.6,
           }}
         />
       </div>
@@ -157,25 +278,26 @@ export function HeroSectionDe() {
         <HeroFilamentsSvg />
       </div>
 
-      {/* Text content */}
+      {/* Text content — left column */}
       <div
         className="hero-content"
+        ref={contentRef}
         style={{
           position: "relative",
           zIndex: 30,
           width: "100%",
           maxWidth: "1240px",
           margin: "0 auto",
-          paddingLeft: "clamp(24px, 5vw, 100px)",
+          paddingLeft: HERO_LEFT_INSET,
           paddingRight: "clamp(420px, calc((100vw - 800px) * 0.46), 516px)",
           paddingTop: "clamp(80px, 10vh, 120px)",
-          paddingBottom: "clamp(80px, 10vh, 120px)",
+          paddingBottom: "clamp(70px, 9vh, 110px)",
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
         }}
       >
-        {/* Mobile-only brand block */}
+        {/* Mobile-only brand block — same images as desktop watermark */}
         <div
           className="hero-mobile-brand"
           aria-hidden="true"
@@ -212,32 +334,36 @@ export function HeroSectionDe() {
           />
         </div>
 
-        <h1
-          className="hero-h1"
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: "clamp(36px, 4.6vw, 68px)",
-            fontWeight: 800,
-            letterSpacing: "-0.026em",
-            lineHeight: 1.06,
-            color: "#F4F2EC",
-            maxWidth: "26ch",
-            margin: "0 0 36px 0",
-            textAlign: "left",
-          }}
-        >
-          Sichere, effiziente Elektroinstallationen – präzise geplant
-        </h1>
+        <div className="hero-title-block" style={titleBlockStyle}>
+          <h1
+            className="hero-h1"
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "clamp(24px, 3vw, 42px)",
+              fontWeight: 800,
+              letterSpacing: "-0.026em",
+              lineHeight: 1.1,
+              color: "rgba(244,242,236,0.55)",
+              maxWidth: "22ch",
+              margin: "0 0 22px 0",
+              textAlign: "left",
+            }}
+          >
+            Sichere, effiziente Elektroinstallationen – präzise geplant
+          </h1>
 
-        <div
-          className="hero-buttons"
-          style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start" }}
-        >
-          <HeroButton href="#contact" variant="copper">Beratung anfragen</HeroButton>
-          <HeroButton href="/de/portofoliu" variant="outline">Portfolio ansehen</HeroButton>
+          <div
+            className="hero-buttons"
+            style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}
+          >
+            <HeroButton href="/de/#contact" variant="copper">Beratung anfragen</HeroButton>
+            <HeroButton href="/de/portofoliu" variant="outline">Portfolio ansehen</HeroButton>
+          </div>
         </div>
 
-        <HeroStatsStripDe />
+        <div className="hero-stats-wrapper" style={statsWrapperStyle}>
+          <HeroStatsStripDe />
+        </div>
       </div>
     </section>
   );
@@ -256,13 +382,13 @@ function HeroButton({
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    width: 240,
-    height: 56,
+    width: 190,
+    height: 44,
     borderRadius: 4,
     fontFamily: "var(--font-sans)",
-    fontSize: "12.5px",
+    fontSize: "10.5px",
     fontWeight: 700,
-    letterSpacing: "0.14em",
+    letterSpacing: "0.12em",
     textTransform: "uppercase",
     textDecoration: "none",
     whiteSpace: "nowrap",

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FadeIn } from "@/components/fade-in";
+import { SectionDivider } from "@/components/section-divider";
 
 /* Referenz-Teaser auf der Startseite — konkreter Nachweis, Link zum Portfolio. */
 
@@ -59,18 +60,7 @@ export function ReferencesSectionDe() {
         }
       `}</style>
 
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 2,
-          background: "linear-gradient(90deg, transparent, #C5895B 30%, #C5895B 70%, transparent)",
-          opacity: 0.45,
-        }}
-      />
+      <SectionDivider />
 
       <div style={{ position: "relative", zIndex: 1, maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
         <div

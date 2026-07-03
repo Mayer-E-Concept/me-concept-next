@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { SectionDivider } from "@/components/section-divider";
 
 interface Step {
   title: string;
@@ -70,11 +71,13 @@ export function ProcessSectionDe() {
   return (
     <section
       style={{
+        position: "relative",
         background: "#051E27",
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
       }}
     >
+      <SectionDivider />
       <style>{`
         .process-steps-inner { display: flex; gap: 0; }
         .process-step {
@@ -218,7 +221,7 @@ export function ProcessSectionDe() {
         {/* CTA */}
         <div style={{ textAlign: "center", marginTop: "clamp(48px, 5vw, 64px)" }}>
           <a
-            href="#kontakt"
+            href="#contact"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: "12px",

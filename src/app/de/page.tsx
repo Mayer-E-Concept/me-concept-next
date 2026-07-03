@@ -43,9 +43,9 @@ export default function HomeDe() {
       <SiteHeaderDe />
       <main>
         <HeroSectionDe />
-        <FadeIn><ExpertiseSectionDe /></FadeIn>
-        <FadeIn><ProcessSectionDe /></FadeIn>
         <FadeIn><AboutSectionDe /></FadeIn>
+        <FadeIn><ProcessSectionDe /></FadeIn>
+        <FadeIn><ExpertiseSectionDe /></FadeIn>
         <FadeIn><ReferencesSectionDe /></FadeIn>
         <FadeIn><ServicesSectionDe /></FadeIn>
         <FadeIn><ContactSectionDe /></FadeIn>

@@ -13,6 +13,11 @@ export const metadata: Metadata = {
     "Cunoaște echipa Mayer E-Concept: ingineri proiectanți, manageri de proiect și colaboratori din spatele proiectelor de instalații electrice.",
   alternates: {
     canonical: "/echipa-noastra",
+    languages: {
+      ro: "/echipa-noastra",
+      de: "/de/unser-team",
+      "x-default": "/echipa-noastra",
+    },
   },
   openGraph: {
     title: "Echipa noastră — Mayer E-Concept",

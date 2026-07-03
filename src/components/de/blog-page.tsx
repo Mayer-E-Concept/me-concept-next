@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { SectionDivider } from "@/components/section-divider";
 
 export const DE_POSTS = [
   {
@@ -133,11 +134,13 @@ export function BlogPageDe() {
       {/* Posts grid */}
       <section
         style={{
+          position: "relative",
           background: "#D9EAEC",
           paddingTop: "clamp(72px, 9vw, 120px)",
           paddingBottom: "clamp(72px, 9vw, 120px)",
         }}
       >
+        <SectionDivider />
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
           <div
             className="blog-grid-de"
