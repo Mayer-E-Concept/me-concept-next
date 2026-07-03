@@ -12,12 +12,7 @@ import {
 } from "@/components/hero-filaments-data";
 
 const HERO_LEFT_INSET = "clamp(140px, 15vw, 220px)";
-// Title-block only: nudged back from HERO_LEFT_INSET/TITLE_ANCHOR_GAP's RO
-// values — on the DE page the heading/buttons were landing visibly further
-// right and lower than their RO counterpart despite identical anchor code,
-// so this pulls them back toward parity.
-const TITLE_LEFT_INSET_DE = "clamp(100px, 11vw, 180px)";
-const TITLE_ANCHOR_GAP = 8; // px of breathing room below the filament line before the heading starts
+const TITLE_ANCHOR_GAP = 24; // px of breathing room below the filament line before the heading starts
 
 /** Seconds after mount until the named cable finishes drawing in — used to
     delay the text's own fade-in so it appears to arrive with its line
@@ -71,7 +66,7 @@ export function HeroSectionDe() {
     ? {
         position: "absolute",
         top: upperAnchor.y - contentOffsetY + TITLE_ANCHOR_GAP,
-        left: TITLE_LEFT_INSET_DE,
+        left: HERO_LEFT_INSET,
         opacity: 0,
         animation: `hero-text-in 0.6s ease ${cableArrivalTime("hero-line-7").toFixed(2)}s both`,
       }
@@ -339,13 +334,17 @@ export function HeroSectionDe() {
             className="hero-h1"
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: "clamp(24px, 3vw, 42px)",
+              // Shrunk from RO's clamp(24,3vw,42) — the German headline wraps
+              // to 3 lines instead of RO's 2 (longer compound words), so it
+              // needs a smaller footprint to fit the same vertical budget
+              // between this anchor line and the stats line below it.
+              fontSize: "clamp(20px, 2.5vw, 34px)",
               fontWeight: 800,
               letterSpacing: "-0.026em",
               lineHeight: 1.1,
               color: "rgba(244,242,236,0.55)",
               maxWidth: "22ch",
-              margin: "0 0 22px 0",
+              margin: "0 0 14px 0",
               textAlign: "left",
             }}
           >
@@ -354,7 +353,7 @@ export function HeroSectionDe() {
 
           <div
             className="hero-buttons"
-            style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}
+            style={{ display: "flex", flexDirection: "column", gap: 6, alignItems: "flex-start" }}
           >
             <HeroButton href="/de/#contact" variant="copper">Beratung anfragen</HeroButton>
             <HeroButton href="/de/portofoliu" variant="outline">Portfolio ansehen</HeroButton>
@@ -383,10 +382,10 @@ function HeroButton({
     alignItems: "center",
     justifyContent: "center",
     width: 190,
-    height: 44,
+    height: 38,
     borderRadius: 4,
     fontFamily: "var(--font-sans)",
-    fontSize: "10.5px",
+    fontSize: "9.5px",
     fontWeight: 700,
     letterSpacing: "0.12em",
     textTransform: "uppercase",

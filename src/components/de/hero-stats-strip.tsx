@@ -62,7 +62,7 @@ export function HeroStatsStripDe() {
   return (
     <>
       <style>{`
-        @media (max-width: 560px) {
+        @media (max-width: 767px) {
           .hero-stats-strip {
             flex-wrap: wrap !important;
             gap: 20px 32px !important;
@@ -77,9 +77,9 @@ export function HeroStatsStripDe() {
         display: "flex",
         flexDirection: "row",
         flexWrap: "nowrap",
-        gap: "clamp(16px, 2.8vw, 40px)",
-        marginTop: "clamp(28px, 4vw, 52px)",
-        paddingTop: 24,
+        gap: "clamp(14px, 2.2vw, 30px)",
+        marginTop: "clamp(6px, 1vw, 14px)",
+        paddingTop: 12,
         borderTop: "1px solid rgba(255,255,255,0.10)",
       }}
     >
@@ -88,12 +88,12 @@ export function HeroStatsStripDe() {
           <span
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: "clamp(22px, 2.4vw, 32px)",
+              fontSize: "clamp(16px, 1.8vw, 24px)",
               fontWeight: 800,
               color: "#C5895B",
               letterSpacing: "-0.02em",
               lineHeight: 1,
-              marginBottom: 7,
+              marginBottom: 5,
             }}
           >
             {s.isNum ? (
@@ -105,12 +105,12 @@ export function HeroStatsStripDe() {
           <span
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: "10.5px",
+              fontSize: "9px",
               fontWeight: 600,
-              letterSpacing: "0.15em",
+              letterSpacing: "0.13em",
               textTransform: "uppercase",
               color: "rgba(255,255,255,0.45)",
-              lineHeight: 1.45,
+              lineHeight: 1.4,
             }}
           >
             {s.lbl}
