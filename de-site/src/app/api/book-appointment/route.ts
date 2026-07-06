@@ -3,7 +3,7 @@ import { Resend } from "resend";
 import { escapeHtml } from "@/lib/escape-html";
 import { rateLimit } from "@/lib/rate-limit";
 
-const NOTIFY_TO = "info@me-concept.de";
+const NOTIFY_TO = "contact@me-concept.ro";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: Request) {
@@ -82,7 +82,7 @@ export async function POST(req: Request) {
           <p style="margin:4px 0 0;font-size:18px;color:rgba(244,242,236,0.75);">um ${safeTime}</p>
         </div>
         <p style="color:rgba(244,242,236,0.55);font-size:14px;margin:0 0 4px;">Wir melden uns in Kürze, um die Verfügbarkeit zu bestätigen.</p>
-        <p style="color:rgba(244,242,236,0.55);font-size:14px;margin:0;">Fragen? Schreiben Sie uns an <a href="mailto:info@me-concept.de" style="color:#1A6F7A;">info@me-concept.de</a></p>
+        <p style="color:rgba(244,242,236,0.55);font-size:14px;margin:0;">Fragen? Schreiben Sie uns an <a href="mailto:contact@me-concept.ro" style="color:#1A6F7A;">contact@me-concept.ro</a></p>
         <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:28px 0 16px;"/>
         <p style="color:rgba(244,242,236,0.25);font-size:12px;margin:0;">Mayer E-Concept SRL · Strada Măslinului nr. 9, Sibiu</p>
       </div>`;

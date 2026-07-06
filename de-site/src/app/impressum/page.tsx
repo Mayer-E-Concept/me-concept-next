@@ -111,7 +111,7 @@ export default function ImpressumPage() {
                 <span>Telefon: </span>
                 <a href="tel:+40752099791" style={{ color: "#F4F2EC", textDecoration: "none" }}>+40 752 099 791</a><br />
                 <span>E-Mail: </span>
-                <a href="mailto:info@me-concept.de" style={{ color: "#C5895B", textDecoration: "none" }}>info@me-concept.de</a><br />
+                <a href="mailto:contact@me-concept.ro" style={{ color: "#C5895B", textDecoration: "none" }}>contact@me-concept.ro</a><br />
                 <span>Website: </span>
                 <a href="https://me-concept.de" style={{ color: "#1A6F7A", textDecoration: "none" }}>https://me-concept.de</a>
               </div>

@@ -53,7 +53,7 @@ export function ContactSectionDe() {
       setSubmitted(true);
     } catch {
       setApiError(
-        "Die Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt an info@me-concept.de."
+        "Die Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt an contact@me-concept.ro."
       );
     } finally {
       setLoading(false);
@@ -170,7 +170,7 @@ export function ContactSectionDe() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 40 }}>
             {[
-              { label: "E-Mail", value: "info@me-concept.de", href: "mailto:info@me-concept.de" },
+              { label: "E-Mail", value: "contact@me-concept.ro", href: "mailto:contact@me-concept.ro" },
             ].map(({ label, value, href }) => (
               <div key={label}>
                 <div style={{ fontFamily: "var(--font-sans)", fontSize: "11px", fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "#1A6F7A", marginBottom: 4 }}>

@@ -21,7 +21,7 @@ export default function DatenschutzPage() {
         {
           title: "1. Verantwortlicher",
           content:
-            "Verantwortlicher im Sinne der DSGVO ist: MAYER E-CONCEPT S.R.L., Str. Atena, Nr. 5, Ap. 1, 550049 Sibiu (Hermannstadt), Rumänien. Telefon: +40 752 099 791. E-Mail: info@me-concept.de. Wir haben keinen gesetzlich vorgeschriebenen Datenschutzbeauftragten benannt, da die Schwellenwerte nach Art. 37 DSGVO und § 38 BDSG nicht erreicht werden. Bei datenschutzbezogenen Anfragen wenden Sie sich bitte direkt an die oben genannte E-Mail-Adresse.",
+            "Verantwortlicher im Sinne der DSGVO ist: MAYER E-CONCEPT S.R.L., Str. Atena, Nr. 5, Ap. 1, 550049 Sibiu (Hermannstadt), Rumänien. Telefon: +40 752 099 791. E-Mail: contact@me-concept.ro. Wir haben keinen gesetzlich vorgeschriebenen Datenschutzbeauftragten benannt, da die Schwellenwerte nach Art. 37 DSGVO und § 38 BDSG nicht erreicht werden. Bei datenschutzbezogenen Anfragen wenden Sie sich bitte direkt an die oben genannte E-Mail-Adresse.",
         },
         {
           title: "2. Erhebung und Verarbeitung personenbezogener Daten",
@@ -98,7 +98,7 @@ export default function DatenschutzPage() {
         address: "Str. Atena, Nr. 5, Ap. 1, 550049 Sibiu",
         country: "Rumänien",
         website: "https://me-concept.de",
-        email: "info@me-concept.de",
+        email: "contact@me-concept.ro",
         phone: "+40 752 099 791",
       }}
     />

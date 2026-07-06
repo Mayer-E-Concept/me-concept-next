@@ -3,7 +3,7 @@ import { Resend } from "resend";
 import { escapeHtml } from "@/lib/escape-html";
 import { rateLimit } from "@/lib/rate-limit";
 
-const NOTIFY_TO = "info@me-concept.de";
+const NOTIFY_TO = "contact@me-concept.ro";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: Request) {

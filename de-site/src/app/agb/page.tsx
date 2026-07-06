@@ -139,7 +139,7 @@ export default function AgbPage() {
         address: "Str. Atena, Nr. 5, Ap. 1, Sibiu, Kreis Sibiu",
         country: "Rumänien",
         website: `${SITE_URL}/`,
-        email: "info@me-concept.de",
+        email: "contact@me-concept.ro",
       }}
     />
   );

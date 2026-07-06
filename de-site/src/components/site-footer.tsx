@@ -79,12 +79,12 @@ export function SiteFooterDe() {
             </p>
             <div style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "rgba(255,255,255,0.50)" }}>
               <a
-                href="mailto:info@me-concept.de"
+                href="mailto:contact@me-concept.ro"
                 style={{ color: "rgba(255,255,255,0.50)", textDecoration: "none" }}
                 onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#C5895B")}
                 onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.50)")}
               >
-                info@me-concept.de
+                contact@me-concept.ro
               </a>
             </div>
           </div>
