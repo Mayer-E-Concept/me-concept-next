@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" preserveAspectRatio="none">
+  <!--
+    me-concept hero — emphasized "active" PCB traces.
+    Routed only in the SAFE bands of the hero: above the title and below
+    the stats strip. They emerge from a connector cluster near the brand
+    mark (x ≈ 120) and terminate in arrow pads near the house entry
+    (x ≈ 1450). Routes follow PCB aesthetic: 90° + 45° miters only.
+  -->
+
+  <defs>
+    <filter id="mecActiveGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="0.8" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Trace cluster — softer glow, more refined opacity. -->
+  <g stroke="#C5895B" stroke-width="1.4" fill="none"
+     stroke-linecap="square" stroke-linejoin="miter"
+     opacity="0.62" filter="url(#mecActiveGlow)">
+
+    <!-- TOP route → REVIT/SMART HOME area (clears the title) -->
+    <path d="M 120 140 L 980 140 L 1020 110 L 1430 110" />
+    <path d="M 120 170 L 920 170 L 960 200 L 1450 200" />
+
+    <!-- BOTTOM route → ISO/HOAI area (clears the stats strip) -->
+    <path d="M 120 555 L 1280 555 L 1320 530 L 1450 530" />
+    <path d="M 120 585 L 1230 585 L 1270 560 L 1440 560" />
+  </g>
+
+  <!-- Emergence pads at the logo end — connector header (4-pin) -->
+  <g fill="#C5895B" stroke="none" opacity="0.85">
+    <rect x="100" y="135" width="14" height="11" rx="1.5"/>
+    <rect x="100" y="165" width="14" height="11" rx="1.5"/>
+    <rect x="100" y="550" width="14" height="11" rx="1.5"/>
+    <rect x="100" y="580" width="14" height="11" rx="1.5"/>
+  </g>
+  <!-- Connector outline groups (top + bottom clusters) -->
+  <g fill="none" stroke="#C5895B" stroke-width="0.7" opacity="0.50">
+    <rect x="96" y="130" width="22" height="48" rx="2"/>
+    <rect x="96" y="545" width="22" height="48" rx="2"/>
+  </g>
+  <!-- "Pin 1" indicators -->
+  <g fill="#C5895B" opacity="0.85">
+    <circle cx="106" cy="134" r="1.3"/>
+    <circle cx="106" cy="549" r="1.3"/>
+  </g>
+
+  <!-- Vias at direction changes -->
+  <g fill="none" stroke="#C5895B" stroke-width="0.8" opacity="0.65">
+    <circle cx="980"  cy="140" r="2.6"/>
+    <circle cx="1020" cy="110" r="2.6"/>
+    <circle cx="920"  cy="170" r="2.6"/>
+    <circle cx="960"  cy="200" r="2.6"/>
+    <circle cx="1280" cy="555" r="2.6"/>
+    <circle cx="1320" cy="530" r="2.6"/>
+    <circle cx="1230" cy="585" r="2.6"/>
+    <circle cx="1270" cy="560" r="2.6"/>
+  </g>
+
+  <!-- Live LED nodes at trace terminals — subtle pulse -->
+  <g fill="#C5895B" opacity="0.92">
+    <circle cx="1430" cy="110" r="3.0">
+      <animate attributeName="opacity" values="0.50;0.95;0.50"
+               dur="2.8s" repeatCount="indefinite" begin="0s"/>
+    </circle>
+    <circle cx="1450" cy="200" r="3.0">
+      <animate attributeName="opacity" values="0.50;0.95;0.50"
+               dur="2.8s" repeatCount="indefinite" begin="0.7s"/>
+    </circle>
+    <circle cx="1450" cy="530" r="3.0">
+      <animate attributeName="opacity" values="0.50;0.95;0.50"
+               dur="2.8s" repeatCount="indefinite" begin="1.4s"/>
+    </circle>
+    <circle cx="1440" cy="560" r="3.0">
+      <animate attributeName="opacity" values="0.50;0.95;0.50"
+               dur="2.8s" repeatCount="indefinite" begin="2.1s"/>
+    </circle>
+  </g>
+
+  <!-- Terminal arrows pointing INTO the house -->
+  <g fill="#C5895B" stroke="none" opacity="0.78">
+    <polygon points="1438,106 1454,110 1438,114"/>
+    <polygon points="1458,196 1474,200 1458,204"/>
+    <polygon points="1458,526 1474,530 1458,534"/>
+    <polygon points="1448,556 1464,560 1448,564"/>
+  </g>
+
+  <!-- Small passive components along the long horizontal runs (resistor + pads) -->
+  <g stroke="#C5895B" stroke-width="0.9" fill="none" opacity="0.55">
+    <path d="M 500 140 L 504 135 L 508 145 L 512 135 L 516 145 L 520 135 L 524 140"/>
+    <path d="M 700 555 L 704 550 L 708 560 L 712 550 L 716 560 L 720 550 L 724 555"/>
+  </g>
+  <g fill="#C5895B" stroke="none" opacity="0.60">
+    <rect x="380" y="166" width="12" height="4" rx="0.8"/>
+    <rect x="396" y="166" width="12" height="4" rx="0.8"/>
+    <rect x="900" y="581" width="12" height="4" rx="0.8"/>
+    <rect x="916" y="581" width="12" height="4" rx="0.8"/>
+  </g>
+</svg>

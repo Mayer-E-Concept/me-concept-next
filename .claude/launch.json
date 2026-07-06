@@ -2,16 +2,16 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "me-concept-next",
+      "name": "me-concept-ro",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "port": 3000
+      "runtimeArgs": ["--prefix", "ro-site", "run", "dev", "--", "-p", "3010"],
+      "port": 3010
     },
     {
-      "name": "me-concept-next-prod",
+      "name": "me-concept-de",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["start", "--", "-p", "3001"],
-      "port": 3001
+      "runtimeArgs": ["--prefix", "de-site", "run", "dev", "--", "-p", "3011"],
+      "port": 3011
     }
   ]
 }

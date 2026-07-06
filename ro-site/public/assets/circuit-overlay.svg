@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <!--
+    Depth layer — sparser, smaller tile, offset position in CSS.
+    Adds the sense of multiple PCB layers stacked.
+  -->
+  <g stroke="#1A6F7A" stroke-width="0.4" fill="none"
+     stroke-linecap="square" opacity="0.32">
+
+    <!-- Sparse routing -->
+    <path d="M 0 40 L 70 40 L 90 60 L 90 140"/>
+    <path d="M 130 0 L 130 70 L 160 70 L 160 200"/>
+    <path d="M 90 140 L 200 140"/>
+    <path d="M 20 100 L 60 100 L 70 90"/>
+    <path d="M 160 175 L 195 175"/>
+
+    <!-- Small vias -->
+    <circle cx="70" cy="40" r="1.4"/>
+    <circle cx="90" cy="60" r="1.4"/>
+    <circle cx="160" cy="70" r="1.4"/>
+    <circle cx="90" cy="140" r="1.4"/>
+    <circle cx="70" cy="90" r="1.2"/>
+  </g>
+
+  <!-- A few subtle SMD pads -->
+  <g fill="#1A6F7A" stroke="none" opacity="0.28">
+    <rect x="10" y="160" width="6" height="2" rx="0.6"/>
+    <rect x="170" y="20" width="2" height="6" rx="0.6"/>
+    <rect x="100" y="180" width="6" height="2" rx="0.6"/>
+  </g>
+</svg>
