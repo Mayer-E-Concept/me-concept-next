@@ -32,19 +32,19 @@ const TEAM: TeamMember[] = [
   {
     name: "Raul Orban",
     role: "Desenator Tehnic",
-    bio: "Realizează planuri tehnice de precizie pentru fiecare proiect.",
+    bio: "Realizează planuri tehnice de precizie pentru fiecare proiect, cu accent pe claritate și respectarea standardelor tehnice.",
     img: "/uploads/echipa/worker2.jpg",
   },
   {
     name: "Marius Poenar",
     role: "Project Manager",
-    bio: "Coordonează proiectele și urmărește respectarea termenelor.",
+    bio: "Coordonează proiectele de la concept până la finalizare, urmărind îndeaproape termenele și comunicarea cu clienții.",
     img: "/uploads/echipa/worker3.jpg",
   },
   {
     name: "Stefan Picu",
     role: "Desenator tehnic, Front/Back-End Developer",
-    bio: "Realizează planuri tehnice și dezvoltă soluții software interne.",
+    bio: "Realizează planuri tehnice și dezvoltă soluții software interne, optimizând fluxurile de lucru ale echipei.",
     img: "/uploads/echipa/worker4.jpg",
   },
 ];
@@ -54,14 +54,14 @@ const COLLABORATORS: TeamMember[] = [
     name: "Iulia Mayer",
     role: "Management Economic",
     tag: "Colaborator",
-    bio: "Gestionează bugetele și administrarea economică a proiectelor.",
+    bio: "Gestionează bugetele și administrarea economică a proiectelor, asigurând o planificare financiară riguroasă.",
     img: "/uploads/echipa/iulia.jpg",
   },
   {
     name: "Vadim Roșca",
     role: "Inginer Proiectant, Specialist BIM",
     tag: "Colaborator",
-    bio: "Proiectare și verificare tehnică a instalațiilor electrice.",
+    bio: "Proiectare și verificare tehnică a instalațiilor electrice, cu accent pe precizia modelării BIM și respectarea normativelor.",
   },
 ];
 

@@ -32,19 +32,19 @@ const TEAM: TeamMember[] = [
   {
     name: "Raul Orban",
     role: "Technischer Zeichner",
-    bio: "Erstellt präzise technische Pläne für jedes Projekt.",
+    bio: "Erstellt präzise technische Pläne für jedes Projekt, mit besonderem Augenmerk auf Klarheit und einheitliche Zeichenstandards.",
     img: "/uploads/echipa/worker2.jpg",
   },
   {
     name: "Marius Poenar",
     role: "Projektmanager",
-    bio: "Koordiniert Projekte und überwacht die Einhaltung der Termine.",
+    bio: "Koordiniert Projekte vom Konzept bis zur Fertigstellung und behält Termine sowie Kundenkommunikation stets im Blick.",
     img: "/uploads/echipa/worker3.jpg",
   },
   {
     name: "Stefan Picu",
     role: "Technischer Zeichner, Front-/Backend-Entwickler",
-    bio: "Erstellt technische Pläne und entwickelt interne Softwarelösungen.",
+    bio: "Erstellt technische Pläne und entwickelt interne Softwarelösungen zur Optimierung der Arbeitsabläufe im Team.",
     img: "/uploads/echipa/worker4.jpg",
   },
 ];
@@ -54,14 +54,14 @@ const COLLABORATORS: TeamMember[] = [
     name: "Iulia Mayer",
     role: "Wirtschaftsmanagement",
     tag: "Freie Mitarbeiterin",
-    bio: "Verwaltet Budgets und die wirtschaftliche Abwicklung der Projekte.",
+    bio: "Verwaltet Budgets und die wirtschaftliche Abwicklung der Projekte mit sorgfältiger und vorausschauender Finanzplanung.",
     img: "/uploads/echipa/iulia.jpg",
   },
   {
     name: "Vadim Roșca",
     role: "Planungsingenieur, BIM-Spezialist",
     tag: "Freier Mitarbeiter",
-    bio: "Planung und technische Prüfung von Elektroinstallationen.",
+    bio: "Planung und technische Prüfung von Elektroinstallationen mit Fokus auf präzise BIM-Modellierung und Normkonformität.",
   },
 ];
 

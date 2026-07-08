@@ -250,7 +250,7 @@ export function AboutSectionDe() {
               }}
             >
               „Wir planen sichere, effiziente und zertifizierte
-              Elektroinstallationen — vom Konzept bis zum Ausführungsdetail."
+              Elektroinstallationen — vom Konzept bis zum Ausführungsdetail.&#34;
             </p>
             <div
               style={{

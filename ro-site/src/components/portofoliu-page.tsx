@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { FeaturesSection } from "@/components/features-section";
 import { SectionDivider } from "@/components/section-divider";
+import { FeaturedProjectCard } from "@/components/featured-project-card";
+import { FEATURED_PROJECTS } from "@/components/featured-projects-data";
 
 function parseCount(s: string): { num: number; suffix: string } {
   const m = s.match(/^(\d+)(\+?)$/);
@@ -35,64 +36,6 @@ function AnimatedCount({ raw, active }: { raw: string; active: boolean }) {
   return <>{cur}{suffix}</>;
 }
 
-const FEATURED_PROJECTS = [
-  {
-    id: "rewe",
-    category: "Comerț & Smart-Building",
-    title: "Supermarket și Spații Sportive",
-    desc: "Clădire mixtă ce reunește un supermarket și spații sportive publice, planificată integral LPH 1–7. Concept flexibil de iluminat și distribuție energetică pentru două tipologii distincte de utilizare.",
-    img: "/uploads/referinte/render-1.jpg",
-    // Ascunde marca de pe fațadă din vizualizare — logo situat în dreapta-sus a clădirii.
-    blurRegion: { left: 56, top: 50, width: 16, height: 14 },
-    specs: [
-      { label: "LPH", value: "1–7 complet" },
-      { label: "Suprafață", value: "~2.500 m²" },
-      { label: "Standard", value: "Smart-Building" },
-    ],
-    award: null,
-  },
-  {
-    id: "group7",
-    category: "Industrie & Energie",
-    title: "Sediu și Logistică",
-    desc: "Complex ce integrează 5.000 m² de birouri cu o hală logistică modernă. Instalație PV pe acoperiș — acoperă consumul energetic a ~100 de gospodării.",
-    img: "/uploads/referinte/render-2.jpg",
-    // Ascunde sigla de pe fațada clădirii.
-    blurRegion: { left: 54, top: 24, width: 24, height: 16 },
-    specs: [
-      { label: "LPH", value: "1–7" },
-      { label: "Birouri", value: "5.000 m²" },
-      { label: "PV", value: "~100 gospodării" },
-    ],
-    award: null,
-  },
-  {
-    id: "villa-maxima",
-    category: "Rezidențial & Monument",
-    title: "Reabilitare Civilă Monument Istoric",
-    desc: "Haar, München — 120 unități rezidențiale în 3 clădiri monument. Trasee de cabluri prin subsoluri boltite cu înălțime redusă — rezolvate prin modelare BIM milimetrică și verificare coliziuni în timp real.",
-    img: "/uploads/referinte/render-3.jpg",
-    specs: [
-      { label: "LPH", value: "1–7" },
-      { label: "Unități", value: "120 WE" },
-      { label: "Fibră optică", value: "Toate unitățile" },
-    ],
-    award: "BIM-Preis Bayern 2025",
-  },
-  {
-    id: "get-h2",
-    category: "Energie & Infrastructură",
-    title: "Centrală Electrică pe Hidrogen",
-    desc: "Planificare Werk & Montaj pentru infrastructura electrică a primei instalații de electroliză H₂ la scară mare din Germania. Coordonare intensivă cu toate corpurile de meseriași.",
-    img: "/uploads/referinte/render-4.jpg",
-    specs: [
-      { label: "Rol", value: "Proiectare detaliată și planificarea asamblării" },
-      { label: "Locație", value: "Lingen, Emsland" },
-    ],
-    award: null,
-  },
-];
-
 const PROJECTS = [
   { count: "50+", label: "Proiecte rezidențiale mari", desc: "Ansambluri de 50+ unități, planificate integral în Revit 3D cu faze LPH 1–8." },
   { count: "30+", label: "Proiecte rezidențiale mici", desc: "Case individuale și vile, soluții personalizate pentru fiecare beneficiar." },
@@ -101,15 +44,6 @@ const PROJECTS = [
   { count: "4", label: "Birouri & administrație", desc: "Clădiri planificate integral în Revit 3D, incl. pardoseală tehnică, iluminat Dialux și structură flexibilă." },
   { count: "3", label: "Monument & renovare", desc: "Renovări complexe de clădiri istorice, planificare BIM cu gestionarea patrimoniului construit." },
   { count: "10+", label: "Industrie & energie", desc: "Hale industriale și sisteme fotovoltaice, integrare completă în infrastructura electrică existentă." },
-];
-
-const GALLERY = [
-  { src: "/uploads/ME-CONCEPT-021.jpg", alt: "Proiect instalații electrice" },
-  { src: "/uploads/ME-CONCEPT-162.jpg", alt: "Planificare electrică Revit" },
-  { src: "/uploads/Design-fara-titlu-32.jpg", alt: "Proiect rezidențial" },
-  { src: "/uploads/ME-CONCEPT-083-1.jpg", alt: "Instalații electrice" },
-  { src: "/uploads/electrician_31.jpg", alt: "Proiectare electrică" },
-  { src: "/uploads/PROIECTARE-INSTALATII-ELECTRICE.jpg", alt: "Proiect comercial" },
 ];
 
 export function PortofoliuPage() {
@@ -450,180 +384,7 @@ export function PortofoliuPage() {
             }}
           >
             {FEATURED_PROJECTS.map((p) => (
-              <div
-                key={p.id}
-                style={{
-                  background: "#0A2430",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  borderRadius: 14,
-                  overflow: "hidden",
-                  display: "flex",
-                  flexDirection: "column",
-                  position: "relative",
-                }}
-              >
-                {/* Image with overlay */}
-                <div style={{ position: "relative", aspectRatio: "16/9", overflow: "hidden" }}>
-                  <Image
-                    src={p.img}
-                    alt={p.title}
-                    width={620}
-                    height={349}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      display: "block",
-                      filter: "brightness(0.65) saturate(0.8)",
-                    }}
-                  />
-                  <div
-                    aria-hidden
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      background: "linear-gradient(to top, #0A2430 0%, transparent 55%)",
-                    }}
-                  />
-                  {p.blurRegion && (
-                    <div
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        left: `${p.blurRegion.left}%`,
-                        top: `${p.blurRegion.top}%`,
-                        width: `${p.blurRegion.width}%`,
-                        height: `${p.blurRegion.height}%`,
-                        backdropFilter: "blur(14px)",
-                        background: "rgba(10,36,48,0.35)",
-                      }}
-                    />
-                  )}
-                  {p.award && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: 14,
-                        right: 14,
-                        background: "#C5895B",
-                        color: "#051E27",
-                        fontFamily: "var(--font-sans)",
-                        fontSize: "9px",
-                        fontWeight: 800,
-                        letterSpacing: "0.14em",
-                        textTransform: "uppercase",
-                        padding: "5px 10px",
-                        borderRadius: 6,
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      {p.award}
-                    </div>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div
-                  style={{
-                    padding: "24px 28px 28px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 10,
-                    flex: 1,
-                    position: "relative",
-                  }}
-                >
-                  {/* copper left bar */}
-                  <div
-                    aria-hidden
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      bottom: 0,
-                      width: 3,
-                      background: "linear-gradient(180deg, #C5895B 0%, rgba(197,137,91,0.08) 100%)",
-                    }}
-                  />
-                  <div
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: "10px",
-                      fontWeight: 700,
-                      letterSpacing: "0.2em",
-                      textTransform: "uppercase",
-                      color: "#C5895B",
-                    }}
-                  >
-                    {p.category}
-                  </div>
-                  <h3
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: "clamp(17px, 1.8vw, 22px)",
-                      fontWeight: 800,
-                      color: "#F4F2EC",
-                      letterSpacing: "-0.02em",
-                      lineHeight: 1.2,
-                      margin: 0,
-                    }}
-                  >
-                    {p.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: 13.5,
-                      lineHeight: 1.65,
-                      color: "rgba(244,242,236,0.52)",
-                      margin: 0,
-                      flex: 1,
-                    }}
-                  >
-                    {p.desc}
-                  </p>
-                  {/* Spec chips */}
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 4 }}>
-                    {p.specs.map((s) => (
-                      <div
-                        key={s.label}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 6,
-                          background: "rgba(255,255,255,0.05)",
-                          border: "1px solid rgba(255,255,255,0.09)",
-                          borderRadius: 6,
-                          padding: "4px 10px",
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontFamily: "var(--font-sans)",
-                            fontSize: "9px",
-                            fontWeight: 600,
-                            letterSpacing: "0.12em",
-                            textTransform: "uppercase",
-                            color: "rgba(244,242,236,0.38)",
-                          }}
-                        >
-                          {s.label}
-                        </span>
-                        <span
-                          style={{
-                            fontFamily: "var(--font-sans)",
-                            fontSize: "11px",
-                            fontWeight: 700,
-                            color: "#F4F2EC",
-                          }}
-                        >
-                          {s.value}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <FeaturedProjectCard key={p.id} project={p} />
             ))}
           </div>
         </div>

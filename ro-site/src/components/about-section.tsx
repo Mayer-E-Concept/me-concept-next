@@ -256,7 +256,7 @@ export function AboutSection() {
               }}
             >
               „Proiectăm instalații electrice sigure, eficiente și certificate —
-              de la concept la detaliu de execuție."
+              de la concept la detaliu de execuție.&#34;
             </p>
             <div
               style={{

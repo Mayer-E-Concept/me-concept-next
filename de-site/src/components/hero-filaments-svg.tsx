@@ -13,9 +13,10 @@ import {
 } from "@/components/hero-filaments-data";
 
 const ANIM_DURATION   = 5; // seconds per full path traversal
-const PULSES_PER_LINE = 3; // evenly-spaced glow segments travelling each line at once
+const PULSES_PER_LINE = 3; // glow packets travelling each line at once — rendered as separate
+                            // paths (see below) so each one visibly departs from the line's
+                            // start instead of being pre-seeded mid-path at reveal time
 const PULSE_LEN       = 0.045; // fraction of path length lit up per pulse
-const PULSE_GAP       = (1 - PULSE_LEN * PULSES_PER_LINE) / PULSES_PER_LINE;
 const EDGE_STAGGER    = 0.4;  // s between the right-side ambient cables
 const BRANCH_STAGGER  = 0.15; // s between a trunk's own branches
 
@@ -39,13 +40,20 @@ type FractionCableSpec = {
 /** Attach `start` (trace-in delay) to each segment of a built cable: the
     trunk starts at `trunkStart`; each branch starts once the trunk has
     finished drawing, staggered slightly from each other. */
-function withTiming(segments: CableSegment[], trunkStart: number) {
+function withTiming<T extends CableSegment>(segments: T[], trunkStart: number) {
   return segments.map((seg, i) =>
     i === 0
       ? { ...seg, start: trunkStart }
       : { ...seg, start: trunkStart + TRACE_DUR + (i - 1) * BRANCH_STAGGER },
   );
 }
+
+/** A bend vertex along an ambient (non-diamond) cable, in hero-relative
+    pixels — used to place small PCB-via marks at each corner, echoing the
+    reference circuit artwork's node pads. Only tracked for the fraction-
+    anchored ambient lines (top-left fill + right-edge lines), never for the
+    diamond-anchored fan — those must stay exactly as they are. */
+type FractionSegment = CableSegment & { vertices: { x: number; y: number }[] };
 
 export function HeroFilamentsSvg() {
   // Static fallback: cabluri desenate complet, fara trasare/SMIL/pachete
@@ -73,19 +81,19 @@ export function HeroFilamentsSvg() {
     const sy = heroH * spec.yFrac;
     const mx = heroW * spec.midXFrac;
     if (!spec.bendDY) {
-      return { d: `M ${sx} ${sy} H ${mx}`, endX: mx, endY: sy };
+      return { d: `M ${sx} ${sy} H ${mx}`, endX: mx, endY: sy, vertices: [] as { x: number; y: number }[] };
     }
     const dir = Math.sign(mx - sx) || 1;
     const dy = spec.bendDY * heroH;
     const x2 = mx + dir * Math.abs(dy);
     const y2 = sy + dy;
-    return { d: `M ${sx} ${sy} H ${mx} L ${x2} ${y2}`, endX: x2, endY: y2 };
+    return { d: `M ${sx} ${sy} H ${mx} L ${x2} ${y2}`, endX: x2, endY: y2, vertices: [{ x: mx, y: sy }] };
   };
 
-  const buildFractionCableSegments = (spec: FractionCableSpec): CableSegment[] => {
+  const buildFractionCableSegments = (spec: FractionCableSpec): FractionSegment[] => {
     const trunk = buildFractionCable(spec);
     const trunkOpacity = (spec.opacity ?? 0.5) * OPACITY_SCALE;
-    const segments: CableSegment[] = [
+    const segments: FractionSegment[] = [
       {
         id: spec.id,
         d: trunk.d,
@@ -93,6 +101,7 @@ export function HeroFilamentsSvg() {
         endY: trunk.endY,
         isJunction: !!spec.branches?.length,
         opacity: trunkOpacity,
+        vertices: trunk.vertices,
       },
     ];
     spec.branches?.forEach((b, i) => {
@@ -111,6 +120,7 @@ export function HeroFilamentsSvg() {
         endY: by2,
         isJunction: false,
         opacity: (b.opacity ?? trunkOpacity / OPACITY_SCALE) * OPACITY_SCALE,
+        vertices: [{ x: bx1, y: hubY }, { x: bx2, y: by2 }],
       });
     });
     return segments;
@@ -214,6 +224,8 @@ export function HeroFilamentsSvg() {
   );
 
   const allBuilt = [...built, ...builtTopLeft, ...builtRightEdge];
+  // Ambient-only (never the diamond fan) — the set that gets PCB-via pad marks.
+  const allAmbient = [...builtTopLeft, ...builtRightEdge];
 
   return (
     <svg
@@ -275,39 +287,80 @@ export function HeroFilamentsSvg() {
         </g>
       ))}
 
+      {/* PCB-via pad marks — small diamond nodes at each bend of the ambient
+          (non-diamond-fan) lines, echoing the reference circuit artwork's
+          corner pads. Fades in alongside that segment's own terminal dot.
+          Kept off the diamond-anchored fan entirely — those lines stay
+          exactly as they were. */}
+      {allAmbient.flatMap((c) => {
+        const fadeAt = (c.start + TRACE_DUR - 0.15).toFixed(2);
+        const padStyle = reduced ? undefined : { opacity: 0, animation: `hf-fade 0.4s ease ${fadeAt}s forwards` };
+        const padOpacity = Math.min(c.opacity * 1.8, 0.5);
+        const pads = c.vertices.map((v, i) => (
+          <g key={`via-${c.id}-${i}`} style={padStyle}>
+            <path
+              d={`M ${v.x} ${v.y - 3} L ${v.x + 3} ${v.y} L ${v.x} ${v.y + 3} L ${v.x - 3} ${v.y} Z`}
+              fill="#FFFFFF"
+              opacity={padOpacity}
+            />
+          </g>
+        ));
+        // Junction hubs (where a trunk splits into branches) get a slightly
+        // larger copper pad instead — reads as the "active node" the branches
+        // fan out from, matching the reference image's lit-up hub points.
+        if (c.isJunction) {
+          pads.push(
+            <g key={`via-hub-${c.id}`} style={padStyle}>
+              <path
+                d={`M ${c.endX} ${c.endY - 4} L ${c.endX + 4} ${c.endY} L ${c.endX} ${c.endY + 4} L ${c.endX - 4} ${c.endY} Z`}
+                fill="#C5895B"
+                opacity={0.55}
+              />
+            </g>,
+          );
+        }
+        return pads;
+      })}
+
       {/* Traveling current glow — the logo's pulse, carried through the
           lines: a soft blurred highlight flowing through each cable once
-          it's traced in, rather than discrete dots/rings. pathLength=1
-          normalizes stroke-dasharray to fractions of the path, so
-          PULSES_PER_LINE evenly-spaced segments repeat automatically and a
-          looping stroke-dashoffset carries them along. Junctions don't get
-          their own glow; it continues visually via the glow on each branch. */}
-      {!reduced && allBuilt.filter((c) => !c.isJunction).map((c) => {
-        const begin = (c.start + TRACE_DUR).toFixed(2);
-        return (
-          <path
-            key={`g-${c.id}`}
-            d={c.d}
-            fill="none"
-            stroke="#E8943A"
-            strokeWidth={3}
-            strokeLinecap="round"
-            pathLength={1}
-            strokeDasharray={`${PULSE_LEN} ${PULSE_GAP}`}
-            opacity={0}
-            style={{ filter: "blur(2.5px)" }}
-          >
-            <animate attributeName="opacity" from="0" to="0.85" dur="0.4s" begin={`${begin}s`} fill="freeze" />
-            <animate
-              attributeName="stroke-dashoffset"
-              from="0"
-              to={-1}
-              dur={`${ANIM_DURATION}s`}
-              begin={`${begin}s`}
-              repeatCount="indefinite"
-            />
-          </path>
-        );
+          it's traced in, rather than discrete dots/rings. Each of the
+          PULSES_PER_LINE packets is its own path with a single dash, so its
+          stroke-dashoffset always starts at 0 (the path's own origin) the
+          moment it's introduced — instead of pre-seeding several evenly-
+          spaced dashes on one shared path, which made every packet but the
+          first appear to pop in already partway down the line. Junctions
+          don't get their own glow; it continues visually via the glow on
+          each branch. */}
+      {!reduced && allBuilt.filter((c) => !c.isJunction).flatMap((c) => {
+        const baseBegin = c.start + TRACE_DUR;
+        return Array.from({ length: PULSES_PER_LINE }, (_, i) => {
+          const begin = (baseBegin + i * (ANIM_DURATION / PULSES_PER_LINE)).toFixed(2);
+          return (
+            <path
+              key={`g-${c.id}-${i}`}
+              d={c.d}
+              fill="none"
+              stroke="#E8943A"
+              strokeWidth={3}
+              strokeLinecap="round"
+              pathLength={1}
+              strokeDasharray={`${PULSE_LEN} ${1 - PULSE_LEN}`}
+              opacity={0}
+              style={{ filter: "blur(2.5px)" }}
+            >
+              <animate attributeName="opacity" from="0" to="0.85" dur="0.4s" begin={`${begin}s`} fill="freeze" />
+              <animate
+                attributeName="stroke-dashoffset"
+                from="0"
+                to={-1}
+                dur={`${ANIM_DURATION}s`}
+                begin={`${begin}s`}
+                repeatCount="indefinite"
+              />
+            </path>
+          );
+        });
       })}
     </svg>
   );

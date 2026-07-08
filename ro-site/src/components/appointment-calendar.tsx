@@ -57,7 +57,7 @@ const T = {
     submitBtn: "Confirmă programarea",
     sendingBtn: "Se trimite...",
     successTitle: "Programare confirmată!",
-    successMsg: (email: string) => `Am primit solicitarea ta. Vei primi un email de confirmare la `,
+    successMsg: () => `Am primit solicitarea ta. Vei primi un email de confirmare la `,
     successEmail: true,
     successDot: ".",
     anotherBtn: "Altă programare",
@@ -80,7 +80,7 @@ const T = {
     submitBtn: "Termin bestätigen",
     sendingBtn: "Wird gesendet...",
     successTitle: "Termin bestätigt!",
-    successMsg: (email: string) => `Ihre Anfrage wurde erhalten. Sie erhalten eine Bestätigung an `,
+    successMsg: () => `Ihre Anfrage wurde erhalten. Sie erhalten eine Bestätigung an `,
     successEmail: true,
     successDot: ".",
     anotherBtn: "Weiterer Termin",
@@ -152,7 +152,7 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
         {t.successTitle}
       </h3>
       <p style={{ fontFamily: "var(--font-body)", fontSize: 14, lineHeight: 1.65, color: "rgba(244,242,236,0.60)", margin: 0, maxWidth: "34ch" }}>
-        {t.successMsg(form.email)}<span style={{ color: "#1A6F7A" }}>{form.email}</span>{t.successDot}
+        {t.successMsg()}<span style={{ color: "#1A6F7A" }}>{form.email}</span>{t.successDot}
       </p>
       <div style={{ background: "rgba(26,111,122,0.10)", border: "1px solid rgba(26,111,122,0.25)", borderRadius: 8, padding: "14px 20px", marginTop: 8 }}>
         <p style={{ fontFamily: "var(--font-sans)", fontSize: 15, fontWeight: 600, color: "#F4F2EC", margin: "0 0 2px", textTransform: "capitalize" }}>
