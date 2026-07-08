@@ -1,11 +1,12 @@
+import Image from "next/image";
 import Link from "next/link";
 import { FadeIn } from "@/components/fade-in";
 import { SectionDivider } from "@/components/section-divider";
-import { FeaturedProjectCard } from "@/components/featured-project-card";
 import { FEATURED_PROJECTS } from "@/components/featured-projects-data";
 
-/* Teaser referințe pe homepage — aceleași carduri ca pe pagina de portofoliu,
-   cu dovada concretă și link spre portofoliu complet. */
+/* Teaser referințe pe homepage — card simplu (nu cardul bogat de pe pagina
+   de portofoliu), dar cu aceleași date (categorie/titlu/specificații) ca
+   FEATURED_PROJECTS, ca cele două pagini să nu mai poată desincroniza. */
 
 export function ReferencesSection() {
   return (
@@ -21,8 +22,11 @@ export function ReferencesSection() {
       <SectionDivider />
 
       <style>{`
-        @media (max-width: 767px) {
-          .refs-featured-grid { grid-template-columns: 1fr !important; }
+        @media (max-width: 1023px) {
+          .refs-grid { grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (max-width: 600px) {
+          .refs-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
 
@@ -87,16 +91,115 @@ export function ReferencesSection() {
         </div>
 
         <div
-          className="refs-featured-grid"
+          className="refs-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: 20,
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap: 16,
           }}
         >
           {FEATURED_PROJECTS.map((p, i) => (
             <FadeIn key={p.id} delay={(i % 4) * 100}>
-              <FeaturedProjectCard project={p} />
+              <div
+                style={{
+                  background: "rgba(255,255,255,0.035)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: 12,
+                  overflow: "hidden",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <div style={{ position: "relative", aspectRatio: "16/9", overflow: "hidden" }}>
+                  <Image
+                    src={p.img}
+                    alt={p.title}
+                    width={420}
+                    height={236}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                      filter: "brightness(0.7) saturate(0.85)",
+                    }}
+                  />
+                  {p.blurRegion && (
+                    <div
+                      aria-hidden
+                      style={{
+                        position: "absolute",
+                        left: `${p.blurRegion.left}%`,
+                        top: `${p.blurRegion.top}%`,
+                        width: `${p.blurRegion.width}%`,
+                        height: `${p.blurRegion.height}%`,
+                        backdropFilter: "blur(12px)",
+                        background: "rgba(10,36,48,0.16)",
+                      }}
+                    />
+                  )}
+                  {p.award && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 10,
+                        right: 10,
+                        background: "#C5895B",
+                        color: "#051E27",
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "9px",
+                        fontWeight: 800,
+                        letterSpacing: "0.12em",
+                        textTransform: "uppercase",
+                        padding: "4px 9px",
+                        borderRadius: 6,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {p.award}
+                    </div>
+                  )}
+                </div>
+                <div style={{ padding: "18px 20px 20px", display: "flex", flexDirection: "column", gap: 6, flex: 1 }}>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "10px",
+                      fontWeight: 700,
+                      letterSpacing: "0.18em",
+                      textTransform: "uppercase",
+                      color: "#C5895B",
+                    }}
+                  >
+                    {p.category}
+                  </div>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "clamp(15px, 1.4vw, 17px)",
+                      fontWeight: 700,
+                      color: "#F4F2EC",
+                      letterSpacing: "-0.015em",
+                      lineHeight: 1.25,
+                      margin: 0,
+                    }}
+                  >
+                    {p.title}
+                  </h3>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "12.5px",
+                      color: "rgba(244,242,236,0.5)",
+                      lineHeight: 1.5,
+                      marginTop: "auto",
+                    }}
+                  >
+                    {p.specs.map((s) => s.value).join(" · ")}
+                  </span>
+                </div>
+              </div>
             </FadeIn>
           ))}
         </div>

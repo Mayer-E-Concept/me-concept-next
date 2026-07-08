@@ -33,9 +33,37 @@ type FractionCableSpec = {
   midXFrac: number;
   /** Signed vertical bend (scaled by hero height); 0 = stays flat */
   bendDY: number;
+  /** Hero-width fraction of where the trace lands after the corner — omit to
+      stop right at the corner. Gives every ambient line a real second leg
+      instead of ending mid-bend, which both reaches further (fills more of
+      the frame) and gives branches a properly-placed hub to fork from. */
+  endXFrac?: number;
   opacity?: number;
   branches?: BranchSpec[];
 };
+
+/** Short 45° corner clip instead of one long diagonal spanning the whole
+    bend — reads as an actual PCB trace (mostly-straight runs, brief chamfered
+    corners) rather than a soft diagonal sweep. Shared by both ambient trunks
+    and their branches. */
+const CHAMFER = 14;
+
+function chamferedRoute(x0: number, y0: number, midX: number, bendPx: number, dirX: number, finalX: number) {
+  if (!bendPx) {
+    return { d: `M ${x0} ${y0} H ${finalX}`, vertices: [] as { x: number; y: number }[], endX: finalX, endY: y0 };
+  }
+  const vDir = Math.sign(bendPx) || 1;
+  const chamfer = Math.min(CHAMFER, Math.abs(bendPx));
+  const cornerX = midX + dirX * chamfer;
+  const cornerY = y0 + vDir * chamfer;
+  const endY = y0 + bendPx;
+  return {
+    d: `M ${x0} ${y0} H ${midX} L ${cornerX} ${cornerY} V ${endY} H ${finalX}`,
+    vertices: [{ x: midX, y: y0 }, { x: cornerX, y: endY }],
+    endX: finalX,
+    endY,
+  };
+}
 
 /** Attach `start` (trace-in delay) to each segment of a built cable: the
     trunk starts at `trunkStart`; each branch starts once the trunk has
@@ -81,13 +109,15 @@ export function HeroFilamentsSvg() {
     const sy = heroH * spec.yFrac;
     const mx = heroW * spec.midXFrac;
     if (!spec.bendDY) {
-      return { d: `M ${sx} ${sy} H ${mx}`, endX: mx, endY: sy, vertices: [] as { x: number; y: number }[] };
+      const finalX = spec.endXFrac != null ? heroW * spec.endXFrac : mx;
+      return { d: `M ${sx} ${sy} H ${finalX}`, endX: finalX, endY: sy, vertices: [] as { x: number; y: number }[] };
     }
     const dir = Math.sign(mx - sx) || 1;
-    const dy = spec.bendDY * heroH;
-    const x2 = mx + dir * Math.abs(dy);
-    const y2 = sy + dy;
-    return { d: `M ${sx} ${sy} H ${mx} L ${x2} ${y2}`, endX: x2, endY: y2, vertices: [{ x: mx, y: sy }] };
+    const bendPx = spec.bendDY * heroH;
+    const cornerXIfNoFinal = mx + dir * Math.min(CHAMFER, Math.abs(bendPx));
+    const finalX = spec.endXFrac != null ? heroW * spec.endXFrac : cornerXIfNoFinal;
+    const route = chamferedRoute(sx, sy, mx, bendPx, dir, finalX);
+    return route;
   };
 
   const buildFractionCableSegments = (spec: FractionCableSpec): FractionSegment[] => {
@@ -109,18 +139,17 @@ export function HeroFilamentsSvg() {
       const hubY = trunk.endY;
       const btx = heroW * b.endXFrac;
       const dir = Math.sign(btx - hubX) || 1;
-      const bx1 = hubX + dir * b.depart;
-      const bBend = b.bendDY * heroH;
-      const bx2 = bx1 + dir * Math.abs(bBend);
-      const by2 = hubY + bBend;
+      const midX = hubX + dir * b.depart;
+      const bendPx = b.bendDY * heroH;
+      const branchRoute = chamferedRoute(hubX, hubY, midX, bendPx, dir, btx);
       segments.push({
         id: `${spec.id}-b${i}`,
-        d: `M ${hubX} ${hubY} H ${bx1} L ${bx2} ${by2} H ${btx}`,
-        endX: btx,
-        endY: by2,
+        d: branchRoute.d,
+        endX: branchRoute.endX,
+        endY: branchRoute.endY,
         isJunction: false,
         opacity: (b.opacity ?? trunkOpacity / OPACITY_SCALE) * OPACITY_SCALE,
-        vertices: [{ x: bx1, y: hubY }, { x: bx2, y: by2 }],
+        vertices: branchRoute.vertices,
       });
     });
     return segments;
@@ -142,12 +171,14 @@ export function HeroFilamentsSvg() {
     // yFrac kept below ~0.075 clears the fixed header (it sits on top of the
     // hero and was clipping this line's origin, making it look cut-off/tiny).
     {
-      id: "hero-topleft-1", yFrac: 0.08, startXFrac: 0, midXFrac: 0.15, bendDY: 0.07,
-      branches: [{ depart: 30, bendDY: 0.05, endXFrac: 0.26, opacity: 0.08 }],
+      id: "hero-topleft-1", yFrac: 0.08, startXFrac: 0, midXFrac: 0.15, bendDY: 0.07, endXFrac: 0.20,
+      opacity: 0.6,
+      branches: [{ depart: 30, bendDY: 0.05, endXFrac: 0.30, opacity: 0.12 }],
     },
     {
-      id: "hero-topleft-2", yFrac: 0.18, startXFrac: 0, midXFrac: 0.17, bendDY: 0.03,
-      branches: [{ depart: 30, bendDY: 0.04, endXFrac: 0.28, opacity: 0.08 }],
+      id: "hero-topleft-2", yFrac: 0.18, startXFrac: 0, midXFrac: 0.17, bendDY: 0.03, endXFrac: 0.23,
+      opacity: 0.6,
+      branches: [{ depart: 30, bendDY: 0.04, endXFrac: 0.32, opacity: 0.12 }],
     },
     // Filler for the empty band directly under the nav divider — kept at a
     // very low yFrac with almost no bend so it stays well above the roof
@@ -156,20 +187,34 @@ export function HeroFilamentsSvg() {
     // line on the roof" bug, not hero-fill-topA, which was a red herring and
     // has been removed).
     {
-      id: "hero-fill-topB", yFrac: 0.05, startXFrac: 0.60, midXFrac: 0.80, bendDY: 0.04,
-      opacity: 0.09,
+      id: "hero-fill-topB", yFrac: 0.05, startXFrac: 0.60, midXFrac: 0.80, bendDY: 0.04, endXFrac: 0.92,
+      opacity: 0.14,
     },
     // A little more under the nav, between the top-left cluster and hero-fill-topB.
     {
-      id: "hero-fill-topC", yFrac: 0.04, startXFrac: 0.22, midXFrac: 0.42, bendDY: 0.05,
-      opacity: 0.13,
-      branches: [{ depart: 30, bendDY: 0.04, endXFrac: 0.52, opacity: 0.08 }],
+      id: "hero-fill-topC", yFrac: 0.04, startXFrac: 0.22, midXFrac: 0.42, bendDY: 0.05, endXFrac: 0.58,
+      opacity: 0.18,
+      branches: [{ depart: 30, bendDY: 0.04, endXFrac: 0.62, opacity: 0.12 }],
     },
     // Filler for the empty bottom-left corner, below the diamond and left of the stats.
     {
-      id: "hero-fill-bottomleft", yFrac: 0.80, startXFrac: 0, midXFrac: 0.20, bendDY: 0.12,
-      opacity: 0.09,
-      branches: [{ depart: 25, bendDY: 0.08, endXFrac: 0.32, opacity: 0.07 }],
+      id: "hero-fill-bottomleft", yFrac: 0.80, startXFrac: 0, midXFrac: 0.20, bendDY: 0.12, endXFrac: 0.30,
+      opacity: 0.14,
+      branches: [{ depart: 25, bendDY: 0.08, endXFrac: 0.38, opacity: 0.11 }],
+    },
+    // Far top-right sliver — extreme top edge, well clear of the brand text
+    // and the diamond, fills what was empty space before the right-edge
+    // cluster starts.
+    {
+      id: "hero-fill-topD", yFrac: 0.02, startXFrac: 0.85, midXFrac: 0.95, bendDY: 0.03, endXFrac: 1,
+      opacity: 0.13,
+    },
+    // Second, lower bottom-left line beneath hero-fill-bottomleft — the very
+    // bottom band still had room.
+    {
+      id: "hero-fill-bottomleft2", yFrac: 0.94, startXFrac: 0, midXFrac: 0.14, bendDY: 0.04, endXFrac: 0.26,
+      opacity: 0.13,
+      branches: [{ depart: 20, bendDY: 0.03, endXFrac: 0.34, opacity: 0.1 }],
     },
   ];
   const builtTopLeft = topLeftCables.flatMap((spec, i) =>
@@ -188,35 +233,44 @@ export function HeroFilamentsSvg() {
     // hero-edge-1/-2 sit clear above/at the top of the house, so a small
     // branch continuing their own bend direction is safe.
     {
-      id: "hero-edge-1", yFrac: 0.12, startXFrac: 1, midXFrac: 0.88, bendDY: -0.18,
-      branches: [{ depart: 25, bendDY: -0.08, endXFrac: 0.74, opacity: 0.08 }],
+      id: "hero-edge-1", yFrac: 0.12, startXFrac: 1, midXFrac: 0.88, bendDY: -0.18, endXFrac: 0.78,
+      opacity: 0.55,
+      branches: [{ depart: 25, bendDY: -0.08, endXFrac: 0.70, opacity: 0.12 }],
     },
     {
-      id: "hero-edge-2", yFrac: 0.40, startXFrac: 1, midXFrac: 0.90, bendDY: -0.14,
-      branches: [{ depart: 20, bendDY: -0.06, endXFrac: 0.80, opacity: 0.08 }],
+      id: "hero-edge-2", yFrac: 0.40, startXFrac: 1, midXFrac: 0.90, bendDY: -0.14, endXFrac: 0.82,
+      opacity: 0.55,
+      branches: [{ depart: 20, bendDY: -0.06, endXFrac: 0.76, opacity: 0.12 }],
     },
     // Sits right at the house's own height — pulled almost all the way to the
     // edge with a very slight bend, since the house rotates and even a small
     // dip/reach here risks grazing it. No branch — kept minimal on purpose.
-    { id: "hero-edge-3", yFrac: 0.66, startXFrac: 1, midXFrac: 0.96, bendDY: 0.05 },
+    { id: "hero-edge-3", yFrac: 0.66, startXFrac: 1, midXFrac: 0.96, bendDY: 0.05, endXFrac: 0.90, opacity: 0.45 },
     // Shortened — the house rotates continuously and its silhouette swings
     // wide enough at some angles to reach this line if it runs any longer.
     // bendDY pulled back from -0.20 to -0.08: that steeper bend swept its
     // endpoint up into the house's bottom-right corner. No branch here either.
-    { id: "hero-edge-4", yFrac: 0.89, startXFrac: 1, midXFrac: 0.94, bendDY: -0.08 },
-    // Two new faint fillers in the gaps between the lines above — same
-    // conservative reach (0.91+) as hero-edge-3/-4 since they also sit
+    { id: "hero-edge-4", yFrac: 0.89, startXFrac: 1, midXFrac: 0.94, bendDY: -0.08, endXFrac: 0.84, opacity: 0.45 },
+    // Two faint fillers in the gaps between the lines above — same
+    // conservative reach (0.90+) as hero-edge-3/-4 since they also sit
     // roughly at the house's height.
     {
-      id: "hero-edge-r1", yFrac: 0.25, startXFrac: 1, midXFrac: 0.91, bendDY: -0.10,
-      opacity: 0.15,
-      branches: [{ depart: 20, bendDY: -0.05, endXFrac: 0.78, opacity: 0.08 }],
+      id: "hero-edge-r1", yFrac: 0.25, startXFrac: 1, midXFrac: 0.91, bendDY: -0.10, endXFrac: 0.80,
+      opacity: 0.20,
+      branches: [{ depart: 20, bendDY: -0.05, endXFrac: 0.74, opacity: 0.11 }],
     },
     {
-      id: "hero-edge-r2", yFrac: 0.78, startXFrac: 1, midXFrac: 0.93, bendDY: 0.08,
-      opacity: 0.15,
-      branches: [{ depart: 18, bendDY: 0.04, endXFrac: 0.80, opacity: 0.08 }],
+      id: "hero-edge-r2", yFrac: 0.78, startXFrac: 1, midXFrac: 0.93, bendDY: 0.08, endXFrac: 0.84,
+      opacity: 0.20,
+      branches: [{ depart: 18, bendDY: 0.04, endXFrac: 0.76, opacity: 0.11 }],
     },
+    // New: fills the 0.40–0.66 gap — very conservative reach, mid-height
+    // near the house, kept minimal like hero-edge-3.
+    { id: "hero-edge-r3", yFrac: 0.53, startXFrac: 1, midXFrac: 0.95, bendDY: -0.05, endXFrac: 0.90, opacity: 0.35 },
+    // New: extreme top-right and bottom-right corners — clear of the house
+    // at any rotation, safe to reach further.
+    { id: "hero-edge-r4", yFrac: 0.04, startXFrac: 1, midXFrac: 0.92, bendDY: 0.04, endXFrac: 0.84, opacity: 0.4 },
+    { id: "hero-edge-r5", yFrac: 0.97, startXFrac: 1, midXFrac: 0.90, bendDY: -0.04, endXFrac: 0.80, opacity: 0.4 },
   ];
   const RIGHT_TRACE_START = TRACE_START + (CABLE_SPECS.length + topLeftCables.length) * TRACE_STAGGER + TRACE_DUR + 0.4;
   const builtRightEdge = rightEdgeCables.flatMap((spec, i) =>
@@ -295,11 +349,11 @@ export function HeroFilamentsSvg() {
       {allAmbient.flatMap((c) => {
         const fadeAt = (c.start + TRACE_DUR - 0.15).toFixed(2);
         const padStyle = reduced ? undefined : { opacity: 0, animation: `hf-fade 0.4s ease ${fadeAt}s forwards` };
-        const padOpacity = Math.min(c.opacity * 1.8, 0.5);
+        const padOpacity = Math.min(c.opacity * 2.4, 0.7);
         const pads = c.vertices.map((v, i) => (
           <g key={`via-${c.id}-${i}`} style={padStyle}>
             <path
-              d={`M ${v.x} ${v.y - 3} L ${v.x + 3} ${v.y} L ${v.x} ${v.y + 3} L ${v.x - 3} ${v.y} Z`}
+              d={`M ${v.x} ${v.y - 5} L ${v.x + 5} ${v.y} L ${v.x} ${v.y + 5} L ${v.x - 5} ${v.y} Z`}
               fill="#FFFFFF"
               opacity={padOpacity}
             />
@@ -312,9 +366,9 @@ export function HeroFilamentsSvg() {
           pads.push(
             <g key={`via-hub-${c.id}`} style={padStyle}>
               <path
-                d={`M ${c.endX} ${c.endY - 4} L ${c.endX + 4} ${c.endY} L ${c.endX} ${c.endY + 4} L ${c.endX - 4} ${c.endY} Z`}
+                d={`M ${c.endX} ${c.endY - 6} L ${c.endX + 6} ${c.endY} L ${c.endX} ${c.endY + 6} L ${c.endX - 6} ${c.endY} Z`}
                 fill="#C5895B"
-                opacity={0.55}
+                opacity={0.7}
               />
             </g>,
           );
