@@ -134,7 +134,7 @@ export function ReferencesSection() {
                         top: `${p.blurRegion.top}%`,
                         width: `${p.blurRegion.width}%`,
                         height: `${p.blurRegion.height}%`,
-                        backdropFilter: "blur(10px)",
+                        backdropFilter: "blur(8px)",
                         background: "rgba(10,36,48,0.10)",
                       }}
                     />

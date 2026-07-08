@@ -10,8 +10,8 @@ export const FEATURED_PROJECTS_DE: FeaturedProject[] = [
     title: "Supermarkt und Sportflächen",
     desc: "Neubau mit synergetischer Verbindung von Supermarkt und öffentlichen Sportflächen, vollständig LPH 1–7 geplant. Flexibles Energie- und Beleuchtungskonzept für zwei unterschiedliche Nutzungstypen.",
     img: "/uploads/referinte/render-1.jpg",
-    // Blendet das Markenlogo auf der Fassade aus — oben rechts am Gebäude.
-    blurRegion: { left: 58.4, top: 52.1, width: 11.2, height: 9.8 },
+    // Blendet das Markenlogo auf der Fassade aus — Box eng um das Logo geschnitten.
+    blurRegion: { left: 60.9, top: 55.8, width: 8.2, height: 4.8 },
     specs: [
       { label: "LPH", value: "1–7 komplett" },
       { label: "Fläche", value: "~2.500 m²" },
@@ -25,8 +25,8 @@ export const FEATURED_PROJECTS_DE: FeaturedProject[] = [
     title: "Sitz & Logistik",
     desc: "Kombination aus 5.000 m² Bürofläche in Winkelform mit modernem Logistikzentrum. PV-Anlage auf dem Hallendach deckt den Strombedarf von ~100 Haushalten.",
     img: "/uploads/referinte/render-2.jpg",
-    // Blendet das Firmenlogo auf der Fassade aus.
-    blurRegion: { left: 55.8, top: 25.2, width: 20.4, height: 13.6 },
+    // Blendet das Firmenlogo auf der Fassade aus — Box eng um das Logo geschnitten.
+    blurRegion: { left: 59.7, top: 29.6, width: 11.6, height: 4.0 },
     specs: [
       { label: "LPH", value: "1–7" },
       { label: "Bürofläche", value: "5.000 m²" },

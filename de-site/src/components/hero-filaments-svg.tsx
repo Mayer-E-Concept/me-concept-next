@@ -40,6 +40,13 @@ type FractionCableSpec = {
   endXFrac?: number;
   opacity?: number;
   branches?: BranchSpec[];
+  /** Opt this specific line into the traveling current glow. Ambient lines
+      default to none — with 16+ of them, giving every eligible segment its
+      own pulse read as far too busy, so only a deliberately small, curated
+      set actually animates. Ignored (and impossible) for any line with
+      branches — junctions never pulse, keeping the model simple: only a
+      handful of plain single lines carry visible current. */
+  pulse?: boolean;
 };
 
 /** Short 45° corner clip instead of one long diagonal spanning the whole
@@ -81,7 +88,13 @@ function withTiming<T extends CableSegment>(segments: T[], trunkStart: number) {
     reference circuit artwork's node pads. Only tracked for the fraction-
     anchored ambient lines (top-left fill + right-edge lines), never for the
     diamond-anchored fan — those must stay exactly as they are. */
-type FractionSegment = CableSegment & { vertices: { x: number; y: number }[] };
+type FractionSegment = CableSegment & {
+  vertices: { x: number; y: number }[];
+  /** true only for a trunk whose spec explicitly opted into the pulse
+      allowlist; always false for branches (they never pulse, regardless of
+      any flag) and for junction trunks (structurally excluded below). */
+  ambientPulse: boolean;
+};
 
 export function HeroFilamentsSvg() {
   // Static fallback: cabluri desenate complet, fara trasare/SMIL/pachete
@@ -132,6 +145,7 @@ export function HeroFilamentsSvg() {
         isJunction: !!spec.branches?.length,
         opacity: trunkOpacity,
         vertices: trunk.vertices,
+        ambientPulse: !!spec.pulse,
       },
     ];
     spec.branches?.forEach((b, i) => {
@@ -150,6 +164,7 @@ export function HeroFilamentsSvg() {
         isJunction: false,
         opacity: (b.opacity ?? trunkOpacity / OPACITY_SCALE) * OPACITY_SCALE,
         vertices: branchRoute.vertices,
+        ambientPulse: false,
       });
     });
     return segments;
@@ -170,10 +185,13 @@ export function HeroFilamentsSvg() {
   const topLeftCables: FractionCableSpec[] = [
     // yFrac kept below ~0.075 clears the fixed header (it sits on top of the
     // hero and was clipping this line's origin, making it look cut-off/tiny).
+    // No branches on this one (unlike -2 below) — kept a single plain line on
+    // purpose so it's eligible for a full pulse that visibly departs from
+    // the screen edge, rather than only from a mid-path branch hub.
     {
       id: "hero-topleft-1", yFrac: 0.08, startXFrac: 0, midXFrac: 0.15, bendDY: 0.07, endXFrac: 0.20,
       opacity: 0.6,
-      branches: [{ depart: 30, bendDY: 0.05, endXFrac: 0.30, opacity: 0.12 }],
+      pulse: true,
     },
     {
       id: "hero-topleft-2", yFrac: 0.18, startXFrac: 0, midXFrac: 0.17, bendDY: 0.03, endXFrac: 0.23,
@@ -196,11 +214,13 @@ export function HeroFilamentsSvg() {
       opacity: 0.18,
       branches: [{ depart: 30, bendDY: 0.04, endXFrac: 0.62, opacity: 0.12 }],
     },
-    // Filler for the empty bottom-left corner, below the diamond and left of the stats.
+    // Filler for the empty bottom-left corner, below the diamond and left of
+    // the stats. No branches (unlike -bottomleft2 below) — plain line, so it
+    // gets a full edge-to-edge pulse like hero-topleft-1 above.
     {
       id: "hero-fill-bottomleft", yFrac: 0.80, startXFrac: 0, midXFrac: 0.20, bendDY: 0.12, endXFrac: 0.30,
       opacity: 0.14,
-      branches: [{ depart: 25, bendDY: 0.08, endXFrac: 0.38, opacity: 0.11 }],
+      pulse: true,
     },
     // Far top-right sliver — extreme top edge, well clear of the brand text
     // and the diamond, fills what was empty space before the right-edge
@@ -208,6 +228,7 @@ export function HeroFilamentsSvg() {
     {
       id: "hero-fill-topD", yFrac: 0.02, startXFrac: 0.85, midXFrac: 0.95, bendDY: 0.03, endXFrac: 1,
       opacity: 0.13,
+      pulse: true,
     },
     // Second, lower bottom-left line beneath hero-fill-bottomleft — the very
     // bottom band still had room.
@@ -245,7 +266,7 @@ export function HeroFilamentsSvg() {
     // Sits right at the house's own height — pulled almost all the way to the
     // edge with a very slight bend, since the house rotates and even a small
     // dip/reach here risks grazing it. No branch — kept minimal on purpose.
-    { id: "hero-edge-3", yFrac: 0.66, startXFrac: 1, midXFrac: 0.96, bendDY: 0.05, endXFrac: 0.90, opacity: 0.45 },
+    { id: "hero-edge-3", yFrac: 0.66, startXFrac: 1, midXFrac: 0.96, bendDY: 0.05, endXFrac: 0.90, opacity: 0.45, pulse: true },
     // Shortened — the house rotates continuously and its silhouette swings
     // wide enough at some angles to reach this line if it runs any longer.
     // bendDY pulled back from -0.20 to -0.08: that steeper bend swept its
@@ -269,7 +290,7 @@ export function HeroFilamentsSvg() {
     { id: "hero-edge-r3", yFrac: 0.53, startXFrac: 1, midXFrac: 0.95, bendDY: -0.05, endXFrac: 0.90, opacity: 0.35 },
     // New: extreme top-right and bottom-right corners — clear of the house
     // at any rotation, safe to reach further.
-    { id: "hero-edge-r4", yFrac: 0.04, startXFrac: 1, midXFrac: 0.92, bendDY: 0.04, endXFrac: 0.84, opacity: 0.4 },
+    { id: "hero-edge-r4", yFrac: 0.04, startXFrac: 1, midXFrac: 0.92, bendDY: 0.04, endXFrac: 0.84, opacity: 0.4, pulse: true },
     { id: "hero-edge-r5", yFrac: 0.97, startXFrac: 1, midXFrac: 0.90, bendDY: -0.04, endXFrac: 0.80, opacity: 0.4 },
   ];
   const RIGHT_TRACE_START = TRACE_START + (CABLE_SPECS.length + topLeftCables.length) * TRACE_STAGGER + TRACE_DUR + 0.4;
@@ -384,9 +405,16 @@ export function HeroFilamentsSvg() {
           moment it's introduced — instead of pre-seeding several evenly-
           spaced dashes on one shared path, which made every packet but the
           first appear to pop in already partway down the line. Junctions
-          don't get their own glow; it continues visually via the glow on
-          each branch. */}
-      {!reduced && allBuilt.filter((c) => !c.isJunction).flatMap((c) => {
+          don't get their own glow at all (ambient or diamond). The 4 diamond
+          lines always pulse; ambient lines only pulse when their spec opted
+          in via `pulse: true` — deliberately rare, not "every line that
+          happens to be eligible". Computed as two separately-typed filters
+          (rather than filtering the mixed allBuilt array) so the ambient-only
+          `ambientPulse` field never has to be accessed on a diamond segment. */}
+      {!reduced && [
+        ...built.filter((c) => !c.isJunction),
+        ...allAmbient.filter((c) => !c.isJunction && c.ambientPulse),
+      ].flatMap((c) => {
         const baseBegin = c.start + TRACE_DUR;
         return Array.from({ length: PULSES_PER_LINE }, (_, i) => {
           const begin = (baseBegin + i * (ANIM_DURATION / PULSES_PER_LINE)).toFixed(2);

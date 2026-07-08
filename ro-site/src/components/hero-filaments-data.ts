@@ -108,21 +108,17 @@ export const CABLE_SPECS: CableSpec[] = [
     endXFrac: 0.44,
   },
   {
-    // Linia 9 — coboară spre colțul stânga-jos, sub banda de text/statistici,
-    // apoi două ramuri care continuă ÎN ACELAȘI SENS (tot în jos), doar cu
-    // lungimi diferite — fără să-și schimbe brusc direcția, ca traseele
-    // reale de pe o placă.
+    // Linia 9 — o a doua "subliniere" sub statistici, imediat sub linia 3,
+    // fără ramuri (simplă, ca linia 3) astfel încât să primească propriul
+    // impuls de curent pornind chiar din logo, nu doar dintr-un nod la
+    // jumătatea traseului.
     id: "hero-line-9",
     yFrac: 0.82,
     depart: 50,
-    bend1DY: 0.65,
+    bend1DY: 0.24,
     midXFrac: 0,
     bend2DY: 0,
     endXFrac: 0.44,
-    branches: [
-      { depart: 30, bendDY: 0.08, endXFrac: 0.5, opacity: 0.08 },
-      { depart: 18, bendDY: 0.04, endXFrac: 0.40, opacity: 0.07 },
-    ],
   },
 ];
 
