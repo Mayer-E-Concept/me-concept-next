@@ -113,7 +113,7 @@ export const CABLE_SPECS: CableSpec[] = [
     // lungimi diferite — fără să-și schimbe brusc direcția, ca traseele
     // reale de pe o placă.
     id: "hero-line-9",
-    yFrac: 0.87,
+    yFrac: 0.82,
     depart: 50,
     bend1DY: 0.65,
     midXFrac: 0,
