@@ -170,7 +170,10 @@ export function ContactSectionDe() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 40 }}>
             {[
+              { label: "Adresse", value: "Strada Măslinului nr. 9, Sibiu" },
+              { label: "Telefon", value: "+40 752 129 500", href: "tel:+40752129500" },
               { label: "E-Mail", value: "contact@me-concept.ro", href: "mailto:contact@me-concept.ro" },
+              { label: "Öffnungszeiten", value: "Montag–Freitag, 09:00–18:00 Uhr" },
             ].map(({ label, value, href }) => (
               <div key={label}>
                 <div style={{ fontFamily: "var(--font-sans)", fontSize: "11px", fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "#1A6F7A", marginBottom: 4 }}>
@@ -188,6 +191,10 @@ export function ContactSectionDe() {
           </div>
 
           <div style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
+            <a href="https://anpc.ro/" target="_blank" rel="noopener noreferrer"
+              style={{ background: "rgba(255,255,255,0.08)", borderRadius: 8, padding: "8px 12px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Image src="/uploads/images.png" alt="ANPC SAL" width={80} height={50} style={{ objectFit: "contain", display: "block" }} />
+            </a>
             <div style={{ background: "rgba(255,255,255,0.08)", borderRadius: 8, padding: "8px 12px", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <Image src="/uploads/SKYCERT9001.png" alt="ISO 9001:2015 SKYCERT" width={80} height={50} style={{ objectFit: "contain", display: "block" }} />
             </div>

@@ -71,7 +71,7 @@ export function ExpertiseSectionDe() {
           .expertise-grid-de { grid-template-columns: 1fr !important; }
         }
       `}</style>
-      <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
+      <div style={{ position: "relative", zIndex: 1, maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
         <div style={{ marginBottom: "clamp(40px, 5vw, 64px)" }}>
           <div
             style={{

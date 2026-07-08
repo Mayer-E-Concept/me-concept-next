@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { SectionDivider } from "@/components/section-divider";
 
 /* Fusion Trust + Specialists: eine einzige „Über uns"-Sektion —
    konkrete Positionierung + Team + Referenzen, ohne ISO-Dubletten. */
@@ -16,12 +17,15 @@ export function AboutSectionDe() {
     <section
       id="ueber-uns"
       style={{
+        position: "relative",
         background: "#D9EAEC",
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
         scrollMarginTop: "72px",
       }}
     >
+      <SectionDivider />
+
       <style>{`
         @media (max-width: 767px) {
           .about-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
@@ -31,12 +35,14 @@ export function AboutSectionDe() {
       <div
         className="about-grid"
         style={{
+          position: "relative",
+          zIndex: 1,
           maxWidth: "1240px",
           margin: "0 auto",
           padding: "0 clamp(20px, 5vw, 60px)",
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "clamp(40px, 6vw, 100px)",
+          gridTemplateColumns: "1fr 1.3fr",
+          gap: "clamp(24px, 3vw, 48px)",
           alignItems: "center",
         }}
       >
@@ -208,7 +214,7 @@ export function AboutSectionDe() {
             }}
           >
             <Image
-              src="/uploads/echipa-159-duotone.jpg"
+              src="/uploads/echipa-team.jpg"
               alt="Team Mayer E-Concept — Elektroplanung"
               fill
               sizes="(max-width:767px) 100vw, 50vw"
@@ -218,19 +224,19 @@ export function AboutSectionDe() {
             <div
               style={{
                 position: "absolute",
-                left: 16,
-                bottom: 16,
+                left: 12,
+                bottom: 12,
                 background: "rgba(255,255,255,0.96)",
-                borderRadius: 8,
-                padding: "10px 14px",
+                borderRadius: 6,
+                padding: "6px 9px",
                 boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
               }}
             >
               <Image
                 src="/uploads/SKYCERT9001.png"
                 alt="ISO 9001:2015 SKYCERT"
-                width={96}
-                height={64}
+                width={64}
+                height={43}
                 style={{ objectFit: "contain", display: "block" }}
               />
             </div>

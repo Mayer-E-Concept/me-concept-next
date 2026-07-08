@@ -116,6 +116,8 @@ export function ProcessSectionDe() {
 
       <div
         style={{
+          position: "relative",
+          zIndex: 1,
           maxWidth: "1240px",
           margin: "0 auto",
           padding: "0 clamp(20px, 5vw, 60px)",

@@ -17,11 +17,13 @@ const inter = Inter({
   display: "swap",
 });
 
+const OG_IMAGE = `${SITE_URL}/uploads/me-concept-proiectare-instalatii-electrice-romania.jpg`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "ME-Concept — Instalații Electrice de Calitate",
   description:
-    "Proiectare și execuție instalații electrice. Profesionalism, precizie, calitate garantată.",
+    "Proiectare și execuție instalații electrice. Profesionalism, precizie, calitate garantată. Certificat ISO 9001:2015.",
   alternates: {
     canonical: "/",
     languages: {
@@ -31,12 +33,20 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    siteName: "Mayer E-Concept",
-    locale: "ro_RO",
+    title: "ME-Concept — Instalații Electrice de Calitate",
+    description:
+      "Proiectare și execuție instalații electrice. Profesionalism, precizie, calitate garantată.",
+    url: `${SITE_URL}/`,
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Mayer E-Concept — Proiectare instalații electrice" }],
     type: "website",
+    locale: "ro_RO",
+    siteName: "Mayer E-Concept",
   },
   twitter: {
     card: "summary_large_image",
+    title: "ME-Concept — Instalații Electrice de Calitate",
+    description: "Proiectare instalații electrice profesionistă. Atestat ANRE, ISO 9001:2015.",
+    images: [OG_IMAGE],
   },
 };
 

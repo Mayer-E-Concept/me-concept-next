@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 import { SiteHeaderDe } from "@/components/site-header";
 import { HeroSectionDe } from "@/components/hero-section";
@@ -10,12 +11,36 @@ import { ContactSectionDe } from "@/components/contact-section";
 import { SiteFooterDe } from "@/components/site-footer";
 import { FadeIn } from "@/components/fade-in";
 
+const OG_IMAGE = `${SITE_URL}/uploads/me-concept-proiectare-instalatii-electrice-romania.jpg`;
+
+export const metadata: Metadata = {
+  title: "ME-Concept — Elektroplanung | Sibiu & Deutschland",
+  description:
+    "Elektroplanung für Wohn- und Gewerbebauten. ANRE-zertifiziert, ISO 9001:2015, BIM-Expertise mit Revit. Sibiu & Deutschland.",
+  openGraph: {
+    title: "ME-Concept — Elektroplanung",
+    description:
+      "Elektroplanung für Wohn- und Gewerbebauten. ANRE-zertifiziert, ISO 9001:2015.",
+    url: `${SITE_URL}/`,
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Mayer E-Concept — Elektroplanung" }],
+    type: "website",
+    locale: "de_DE",
+    siteName: "Mayer E-Concept",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ME-Concept — Elektroplanung",
+    description: "Professionelle Elektroplanung. ANRE-zertifiziert, ISO 9001:2015.",
+    images: [OG_IMAGE],
+  },
+};
+
 const orgLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "Mayer E-Concept",
   url: `${SITE_URL}/`,
-  image: `${SITE_URL}/uploads/me-concept-proiectare-instalatii-electrice-romania.jpg`,
+  image: OG_IMAGE,
   telephone: "+40752129500",
   address: {
     "@type": "PostalAddress",

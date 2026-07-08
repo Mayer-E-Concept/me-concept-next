@@ -10,6 +10,11 @@ export const metadata: Metadata = {
     "Povestea lui Martin Mayer: de la electrician la antreprenor, între Germania și România.",
   alternates: {
     canonical: "/povestea-mea",
+    languages: {
+      ro: "/povestea-mea",
+      de: "https://me-concept.de/meine-geschichte",
+      "x-default": "/povestea-mea",
+    },
   },
   openGraph: {
     title: "Povestea mea — Mayer E-Concept",

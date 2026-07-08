@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
 import { SectionDivider } from "@/components/section-divider";
+import { ServicesInfographicDe } from "@/components/services-infographic";
 
 const SERVICES_LEFT = [
   { title: "Individuelle Beratung", desc: "Wir passen Projekte an die spezifischen Bedürfnisse jedes Kunden an, um optimale Ergebnisse zu garantieren." },
@@ -187,13 +187,7 @@ export function ServicesSectionDe() {
             </h2>
           </div>
           <div>
-            <Image
-              src="/assets/ce-oferim-de.svg"
-              alt="Übersicht der elektrischen Dienstleistungen"
-              width={600}
-              height={400}
-              style={{ width: "100%", height: "auto", objectFit: "contain", display: "block" }}
-            />
+            <ServicesInfographicDe />
           </div>
         </div>
 
