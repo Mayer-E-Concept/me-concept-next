@@ -52,10 +52,10 @@ const POSTS: Post[] = [
       {
         t: "ul",
         items: [
-          "Faza SF / PAC — studiu de fezabilitate și proiect pentru autorizarea construirii",
-          "Faza PT — proiect tehnic de execuție, cu detalii complete",
-          "Detalii de execuție (DE) — desene la scară pentru execuție",
-          "Documentație pentru obținerea avizelor (E-Distribuție, DSP, ISU etc.)",
+          "Faza SF — studiu de fezabilitate",
+          "Faza DTAC — documentația tehnică pentru autorizarea construirii",
+          "Faza PTh+DE — proiect tehnic de execuție și detalii de execuție",
+          "Documentație pentru obținerea avizelor (DEER, DSP, ISU etc.)",
           "Asistență tehnică pe șantier",
         ],
       },
@@ -119,7 +119,7 @@ const POSTS: Post[] = [
       },
       {
         t: "p",
-        text: "Fiecare regiune din România are particularitățile sale: operatorul de distribuție (în Sibiu este E-Distribuție Transilvania), normele locale de avizare, condițiile de teren și chiar practicile constructive locale. Un proiectant care activează în Sibiu știe deja cum să pregătească documentația pentru avizul E-Distribuție, ce termene sunt realiste și care sunt cerințele specifice ale inspectoratelor locale.",
+        text: "Fiecare regiune din România are particularitățile sale: operatorul de distribuție (în Sibiu este DEER — Distribuție Energie Electrică România, din grupul Electrica), normele locale de avizare, condițiile de teren și chiar practicile constructive locale. Un proiectant care activează în Sibiu știe deja cum să pregătească documentația pentru avizul DEER, ce termene sunt realiste și care sunt cerințele specifice ale inspectoratelor locale.",
       },
       { t: "h2", text: "Disponibilitate și comunicare" },
       {
@@ -178,10 +178,10 @@ const POSTS: Post[] = [
       {
         t: "ul",
         items: [
-          "Atestat ANRE tip Dp (proiectare instalații electrice)",
+          "Atestat ANRE tip A (proiectare instalații electrice)",
           "Înscrierea în registrul public pe site-ul ANRE",
           "Certificare ISO 9001 — semnalează procese de calitate verificate",
-          "Membru al asociațiilor profesionale (AAIR, AGIR etc.)",
+          "Membru al asociațiilor profesionale (AIIR, AGIR etc.)",
         ],
       },
       { t: "h2", text: "2. Analizează experiența și portofoliul" },
@@ -201,7 +201,7 @@ const POSTS: Post[] = [
       { t: "h2", text: "4. Înțelege ce include oferta" },
       {
         t: "p",
-        text: "Înainte de a semna contractul, asigură-te că știi exact ce livrează proiectantul: câte planuri, ce faze (PAC, PT, DE), dacă include memoriu tehnic, liste de cantități și asistență tehnică pe șantier. Ofertele aparent mai ieftine pot ascunde costuri suplimentare pentru fiecare modificare.",
+        text: "Înainte de a semna contractul, asigură-te că știi exact ce livrează proiectantul: câte planuri, ce faze (SF, DTAC, PTh+DE), dacă include memoriu tehnic, liste de cantități și asistență tehnică pe șantier. Ofertele aparent mai ieftine pot ascunde costuri suplimentare pentru fiecare modificare.",
       },
       {
         t: "ul",

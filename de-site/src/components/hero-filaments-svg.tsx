@@ -7,15 +7,17 @@ import {
   TRACE_START,
   TRACE_DUR,
   TRACE_STAGGER,
+  OPACITY_SCALE,
   type BranchSpec,
   type CableSegment,
 } from "@/components/hero-filaments-data";
 
-const DOT_RADIUS     = 3.5;
-const ANIM_DURATION  = 5; // seconds per full path traversal
-const DOTS_PER_LINE  = 3;
-const EDGE_STAGGER   = 0.4;  // s between the right-side ambient cables
-const BRANCH_STAGGER = 0.15; // s between a trunk's own branches
+const ANIM_DURATION   = 5; // seconds per full path traversal
+const PULSES_PER_LINE = 3; // evenly-spaced glow segments travelling each line at once
+const PULSE_LEN       = 0.045; // fraction of path length lit up per pulse
+const PULSE_GAP       = (1 - PULSE_LEN * PULSES_PER_LINE) / PULSES_PER_LINE;
+const EDGE_STAGGER    = 0.4;  // s between the right-side ambient cables
+const BRANCH_STAGGER  = 0.15; // s between a trunk's own branches
 
 /** Simple straight-line cables anchored to fixed points on the hero canvas
     (fractions of hero width/height) rather than to the diamond — used for the
@@ -82,7 +84,7 @@ export function HeroFilamentsSvg() {
 
   const buildFractionCableSegments = (spec: FractionCableSpec): CableSegment[] => {
     const trunk = buildFractionCable(spec);
-    const trunkOpacity = spec.opacity ?? 0.5;
+    const trunkOpacity = (spec.opacity ?? 0.5) * OPACITY_SCALE;
     const segments: CableSegment[] = [
       {
         id: spec.id,
@@ -108,7 +110,7 @@ export function HeroFilamentsSvg() {
         endX: btx,
         endY: by2,
         isJunction: false,
-        opacity: b.opacity ?? trunkOpacity,
+        opacity: (b.opacity ?? trunkOpacity / OPACITY_SCALE) * OPACITY_SCALE,
       });
     });
     return segments;
@@ -253,9 +255,10 @@ export function HeroFilamentsSvg() {
         />
       ))}
 
-      {/* Destination terminals — fade in as their cable completes. Junctions
-          (a trunk that splits into branches) skip the dot — the line just
-          continues into its branches instead of terminating. */}
+      {/* Destination terminals — small static dot, fades in as its cable
+          completes. Junctions (a trunk that splits into branches) skip the
+          dot — the line just continues into its branches instead of
+          terminating. */}
       {allBuilt.filter((c) => !c.isJunction).map((c) => (
         <g
           key={`t-${c.id}`}
@@ -268,44 +271,44 @@ export function HeroFilamentsSvg() {
                 }
           }
         >
-          {!reduced && (
-            <circle cx={c.endX} cy={c.endY} r={3} fill="none" stroke="#C5895B" strokeWidth={1.0}>
-              <animate attributeName="r"       values="3;8;3"       dur="2.4s" repeatCount="indefinite" />
-              <animate attributeName="opacity" values="0.50;0;0.50" dur="2.4s" repeatCount="indefinite" />
-            </circle>
-          )}
           <circle cx={c.endX} cy={c.endY} r={3} fill="#C5895B" opacity={0.60} />
         </g>
       ))}
 
-      {/* Current packets — start flowing only after their cable is traced.
-          Junctions don't get their own packets; the flow continues visually
-          via the packets on each branch instead. */}
-      {!reduced && allBuilt.filter((c) => !c.isJunction).map((c) =>
-        Array.from({ length: DOTS_PER_LINE }, (_, i) => {
-          const begin = `${(c.start + TRACE_DUR + i * (ANIM_DURATION / DOTS_PER_LINE)).toFixed(2)}s`;
-          return (
-            <circle key={`${c.id}-d${i}`} r={DOT_RADIUS} fill="#E8943A" opacity={0}>
-              <animateMotion
-                dur={`${ANIM_DURATION}s`}
-                repeatCount="indefinite"
-                begin={begin}
-                rotate="auto"
-              >
-                <mpath href={`#${c.id}`} />
-              </animateMotion>
-              <animate
-                attributeName="opacity"
-                values="0;1;1;0"
-                keyTimes="0;0.08;0.92;1"
-                dur={`${ANIM_DURATION}s`}
-                repeatCount="indefinite"
-                begin={begin}
-              />
-            </circle>
-          );
-        })
-      )}
+      {/* Traveling current glow — the logo's pulse, carried through the
+          lines: a soft blurred highlight flowing through each cable once
+          it's traced in, rather than discrete dots/rings. pathLength=1
+          normalizes stroke-dasharray to fractions of the path, so
+          PULSES_PER_LINE evenly-spaced segments repeat automatically and a
+          looping stroke-dashoffset carries them along. Junctions don't get
+          their own glow; it continues visually via the glow on each branch. */}
+      {!reduced && allBuilt.filter((c) => !c.isJunction).map((c) => {
+        const begin = (c.start + TRACE_DUR).toFixed(2);
+        return (
+          <path
+            key={`g-${c.id}`}
+            d={c.d}
+            fill="none"
+            stroke="#E8943A"
+            strokeWidth={3}
+            strokeLinecap="round"
+            pathLength={1}
+            strokeDasharray={`${PULSE_LEN} ${PULSE_GAP}`}
+            opacity={0}
+            style={{ filter: "blur(2.5px)" }}
+          >
+            <animate attributeName="opacity" from="0" to="0.85" dur="0.4s" begin={`${begin}s`} fill="freeze" />
+            <animate
+              attributeName="stroke-dashoffset"
+              from="0"
+              to={-1}
+              dur={`${ANIM_DURATION}s`}
+              begin={`${begin}s`}
+              repeatCount="indefinite"
+            />
+          </path>
+        );
+      })}
     </svg>
   );
 }

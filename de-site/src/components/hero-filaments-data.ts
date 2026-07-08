@@ -8,6 +8,11 @@ export const TRACE_START   = 2.2;  // s after SVG mount — first cable begins (
 export const TRACE_DUR     = 0.9;  // s per cable
 export const TRACE_STAGGER = 0.25; // s between cables
 
+/** Multiplies every cable's stroke opacity (trunk + branches) — the fan reads
+    as too dense at full strength, so everything is dimmed by the same factor
+    rather than re-tuning each line's opacity by hand. */
+export const OPACITY_SCALE = 0.55;
+
 export type DiamondLayout = {
   dLeft: number;
   dTop: number;
@@ -263,7 +268,7 @@ export type CableSegment = {
     the hero text anchors). */
 export function buildCableSegments(layout: DiamondLayout, spec: CableSpec): CableSegment[] {
   const trunk = buildCable(layout, spec);
-  const trunkOpacity = spec.opacity ?? 0.5;
+  const trunkOpacity = (spec.opacity ?? 0.5) * OPACITY_SCALE;
   const segments: CableSegment[] = [
     {
       id: spec.id,
@@ -290,7 +295,7 @@ export function buildCableSegments(layout: DiamondLayout, spec: CableSpec): Cabl
       endX: btx,
       endY: by2,
       isJunction: false,
-      opacity: b.opacity ?? trunkOpacity,
+      opacity: (b.opacity ?? trunkOpacity / OPACITY_SCALE) * OPACITY_SCALE,
     });
   });
 
