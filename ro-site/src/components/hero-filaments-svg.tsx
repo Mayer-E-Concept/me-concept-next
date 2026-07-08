@@ -271,7 +271,7 @@ export function HeroFilamentsSvg() {
     // wide enough at some angles to reach this line if it runs any longer.
     // bendDY pulled back from -0.20 to -0.08: that steeper bend swept its
     // endpoint up into the house's bottom-right corner. No branch here either.
-    { id: "hero-edge-4", yFrac: 0.89, startXFrac: 1, midXFrac: 0.94, bendDY: -0.08, endXFrac: 0.84, opacity: 0.45 },
+    { id: "hero-edge-4", yFrac: 0.89, startXFrac: 1, midXFrac: 0.94, bendDY: -0.08, endXFrac: 0.84, opacity: 0.45, pulse: true },
     // Two faint fillers in the gaps between the lines above — same
     // conservative reach (0.90+) as hero-edge-3/-4 since they also sit
     // roughly at the house's height.
@@ -287,11 +287,11 @@ export function HeroFilamentsSvg() {
     },
     // New: fills the 0.40–0.66 gap — very conservative reach, mid-height
     // near the house, kept minimal like hero-edge-3.
-    { id: "hero-edge-r3", yFrac: 0.53, startXFrac: 1, midXFrac: 0.95, bendDY: -0.05, endXFrac: 0.90, opacity: 0.35 },
+    { id: "hero-edge-r3", yFrac: 0.53, startXFrac: 1, midXFrac: 0.95, bendDY: -0.05, endXFrac: 0.90, opacity: 0.35, pulse: true },
     // New: extreme top-right and bottom-right corners — clear of the house
     // at any rotation, safe to reach further.
     { id: "hero-edge-r4", yFrac: 0.04, startXFrac: 1, midXFrac: 0.92, bendDY: 0.04, endXFrac: 0.84, opacity: 0.4, pulse: true },
-    { id: "hero-edge-r5", yFrac: 0.97, startXFrac: 1, midXFrac: 0.90, bendDY: -0.04, endXFrac: 0.80, opacity: 0.4 },
+    { id: "hero-edge-r5", yFrac: 0.97, startXFrac: 1, midXFrac: 0.90, bendDY: -0.04, endXFrac: 0.80, opacity: 0.4, pulse: true },
   ];
   const RIGHT_TRACE_START = TRACE_START + (CABLE_SPECS.length + topLeftCables.length) * TRACE_STAGGER + TRACE_DUR + 0.4;
   const builtRightEdge = rightEdgeCables.flatMap((spec, i) =>

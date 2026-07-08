@@ -115,7 +115,7 @@ export const CABLE_SPECS: CableSpec[] = [
     id: "hero-line-9",
     yFrac: 0.82,
     depart: 50,
-    bend1DY: 0.24,
+    bend1DY: 0.44,
     midXFrac: 0,
     bend2DY: 0,
     endXFrac: 0.44,
