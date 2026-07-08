@@ -302,6 +302,8 @@ export function HeroFilamentsSvg() {
   return (
     <svg
       aria-hidden
+      viewBox={`0 0 ${heroW} ${heroH}`}
+      preserveAspectRatio="none"
       style={{
         position: "absolute",
         inset: 0,

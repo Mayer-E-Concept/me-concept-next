@@ -220,7 +220,13 @@ export function HeroSection() {
             width: 500px !important;
           }
           .hero-brand-group img { width: 100% !important; }
-          .hero-canvas-wrapper { inset: 0 !important; }
+          /* Full-bleed (like the >=1500px desktop treatment) would let the
+             house's own aspect-ratio-based positioning (hero-3d-canvas.tsx)
+             size/place it as if it owned the whole viewport width, which is
+             exactly what the original 768–1499px fix (matching this box to
+             the text's reserved gutter) existed to prevent. Same fix,
+             re-applied here with the frozen design-space gutter width. */
+          .hero-canvas-wrapper { left: auto !important; width: 500px !important; }
         }
 
         /* ── Large screens: vertically centered, scales with resolution ──
