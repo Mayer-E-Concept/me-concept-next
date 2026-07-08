@@ -50,32 +50,86 @@ function useContentOffsetWithinSection(ref: RefObject<HTMLElement | null>) {
   return offset;
 }
 
+/** `.hero-scale-canvas` (the tablet/laptop + landscape "shrink the whole
+    desktop design" wrapper) applies a CSS `zoom` to render a fixed 1920px
+    design at the real viewport size. `useHeroCableAnchor` measures the
+    filament line's terminal point via getBoundingClientRect(), which
+    already reports the post-zoom (real, on-screen) pixel position — but
+    that number then gets assigned as an inline `top`/`left` on a descendant
+    of the zoomed canvas, where it's interpreted as a *design-space* length
+    and zoomed a second time on render. Dividing the measured delta by the
+    current zoom factor before assigning it cancels that out. Outside the
+    scaled ranges `zoom` is the CSS initial value 1, so this is a no-op. */
+function useScaleZoom(): number {
+  const [zoom, setZoom] = useState(1);
+
+  useLayoutEffect(() => {
+    const canvas = document.querySelector(".hero-scale-canvas") as HTMLElement | null;
+    if (!canvas) return;
+
+    const measure = () => {
+      const z = parseFloat(getComputedStyle(canvas).zoom || "1");
+      setZoom(Number.isFinite(z) && z > 0 ? z : 1);
+    };
+    measure();
+
+    const ro = new ResizeObserver(measure);
+    ro.observe(canvas);
+    return () => ro.disconnect();
+  }, []);
+
+  return zoom;
+}
+
+/** Mobile portrait gets its own bespoke composition (icon watermark behind
+    the text, ambient lines only, no house) rather than a shrunk copy of the
+    desktop layout — matched by width AND orientation so a rotated phone
+    (landscape) still gets the scaled-desktop treatment instead of this. */
+function useIsPortraitMobile(): boolean {
+  const [isPortrait, setIsPortrait] = useState(false);
+
+  useLayoutEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px) and (orientation: portrait)");
+    const update = () => setIsPortrait(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  return isPortrait;
+}
+
 export function HeroSection() {
   const contentRef = useRef<HTMLDivElement>(null);
   const contentOffsetY = useContentOffsetWithinSection(contentRef);
+  const scaleZoom = useScaleZoom();
+  const isPortraitMobile = useIsPortraitMobile();
 
   // "Upper" anchor = the filament line the heading/buttons should sit just
   // below; "lower" anchor = the line the stats strip should sit just below.
   // Both resolve to null below the 1500px breakpoint, where the diamond (and
   // its filament fan) aren't rendered at all — the blocks below fall back to
-  // plain document flow there, unaffected by any of this.
+  // plain document flow there, unaffected by any of this. Mobile portrait
+  // forces plain flow too even once the (now-visible) watermark icon makes
+  // the diamond fan measurable there — that anchor geometry was tuned for
+  // wide/short layouts, not a tall/narrow phone screen.
   const upperAnchor = useHeroCableAnchor("hero-line-7");
   const lowerAnchor = useHeroCableAnchor("hero-line-3");
 
-  const titleBlockStyle: React.CSSProperties | undefined = upperAnchor
+  const titleBlockStyle: React.CSSProperties | undefined = upperAnchor && !isPortraitMobile
     ? {
         position: "absolute",
-        top: upperAnchor.y - contentOffsetY + TITLE_ANCHOR_GAP,
+        top: (upperAnchor.y - contentOffsetY) / scaleZoom + TITLE_ANCHOR_GAP,
         left: HERO_LEFT_INSET,
         opacity: 0,
         animation: `hero-text-in 0.6s ease ${cableArrivalTime("hero-line-7").toFixed(2)}s both`,
       }
     : undefined;
 
-  const statsWrapperStyle: React.CSSProperties | undefined = lowerAnchor
+  const statsWrapperStyle: React.CSSProperties | undefined = lowerAnchor && !isPortraitMobile
     ? {
         position: "absolute",
-        top: lowerAnchor.y - contentOffsetY,
+        top: (lowerAnchor.y - contentOffsetY) / scaleZoom,
         left: HERO_LEFT_INSET,
         opacity: 0,
         animation: `hero-text-in 0.6s ease ${cableArrivalTime("hero-line-3").toFixed(2)}s both`,
@@ -95,16 +149,12 @@ export function HeroSection() {
       }}
     >
       <style>{`
-        /* ── Mobile ───────────────────────────────────────── */
-        @media (max-width: 767px) {
+        /* ── Mobile portrait ──────────────────────────────── */
+        @media (max-width: 767px) and (orientation: portrait) {
           .hero-section .hero-content {
             padding-right: clamp(20px, 5vw, 40px) !important;
             padding-top: 80px !important;
-            /* Reserves room below the stats for the house strip: a 40px gap
-               after the text, its own height, then a 24px margin to the
-               section's bottom edge — kept in one calc() so the box below
-               and this padding can never drift out of sync. */
-            padding-bottom: calc(64px + clamp(280px, 95vw, 380px)) !important;
+            padding-bottom: 72px !important;
             align-items: flex-start !important;
           }
           .hero-section .hero-h1 {
@@ -116,60 +166,61 @@ export function HeroSection() {
           .hero-section .hero-buttons {
             align-items: flex-start !important;
           }
-          .hero-mobile-brand { display: flex !important; }
-          /* The house gets its own boxed strip below the text instead of the
-             desktop's full-bleed overlay — full-bleed on a single-column
-             mobile layout would sit behind/through the text instead of
-             beside it. A fixed box in the flow below everything else can
-             never collide with the text above it. */
-          .hero-canvas-wrapper {
-            inset: auto !important;
-            left: 0 !important;
-            right: 0 !important;
-            bottom: 24px !important;
-            height: clamp(280px, 95vw, 380px) !important;
+          /* No house here (rendered conditionally, not just hidden — see
+             JSX) and the desktop-style anchored text/brand geometry doesn't
+             apply — instead the icon becomes a big, faint watermark sitting
+             behind the text, with the ambient lines (now measurable since
+             the icon is visible) filling the space around it. */
+          .hero-brand-group {
+            display: flex !important;
+            animation: none !important;
+            top: 30% !important;
+            left: 50% !important;
+            margin-left: -39vw !important;
+            width: 78vw !important;
+            z-index: 5 !important;
+          }
+          .hero-brand-group img:first-child { display: none !important; }
+          .hero-logo-icon {
+            width: 100% !important;
+            opacity: 0.09 !important;
+            animation: none !important;
+            filter: brightness(0) invert(1) !important;
           }
         }
 
-        /* Hidden on tablet+ (desktop watermark handles it there) */
-        .hero-mobile-brand { display: none; }
-
-        /* ── Tablet / Laptop 768–1199px ───────────────────── */
-        @media (min-width: 768px) and (max-width: 1199px) {
+        /* ── Scaled canvas: tablet/laptop (768–1499px) AND any landscape
+           phone (short height, regardless of width) ──────────────────────
+           Rather than tuning each element's own responsive formula
+           separately (which shrinks everything at different rates and never
+           quite reads as "the same design, smaller"), the whole composition
+           renders at a fixed 1920px-wide design size and gets uniformly
+           zoomed down to fit the real viewport. Every vw/vh-driven value
+           below is frozen to what it equals at that design width instead of
+           reading the true (narrower) viewport — otherwise it would shrink
+           twice over, once from its own formula and again from the zoom. */
+        @media (min-width: 768px) and (max-width: 1499px),
+               (orientation: landscape) and (max-height: 500px) {
+          .hero-scale-canvas {
+            width: 1920px !important;
+            zoom: calc(100vw / 1920px) !important;
+          }
           .hero-section .hero-content {
-            padding-left: clamp(24px, 4vw, 56px) !important;
-            padding-right: clamp(260px, 36vw, 460px) !important;
+            padding-left: 220px !important;
+            padding-right: 500px !important;
+            padding-top: 110px !important;
+            padding-bottom: 100px !important;
           }
-          /* The 3D house sizes/positions itself off its own canvas box
-             (see hero-3d-canvas.tsx resize()) — at full width (inset:0) that
-             box is the whole hero, so the house can render well past the
-             text's reserved gutter above and collide with it. Constraining
-             the canvas to exactly that same gutter forces the scene to lay
-             the house out within it instead. */
-          .hero-canvas-wrapper {
-            left: auto !important;
-            width: clamp(260px, 36vw, 460px) !important;
+          .hero-section .hero-h1 { font-size: 42px !important; }
+          .hero-mobile-brand { display: none !important; }
+          .hero-brand-group {
+            display: flex !important;
+            left: 56px !important;
+            top: 50% !important;
+            width: 500px !important;
           }
-        }
-
-        /* ── Laptop 1200–1499px ───────────────────────────── *
-           hero-content's base padding-right (below) is pinned at a flat
-           420px throughout this whole range — clamp(420px, calc((100vw -
-           800px) * 0.46), 516px) doesn't clear the 420px floor until past
-           ~1713px wide. Same fix as the 768–1199px block above, just with
-           that fixed value instead of a formula. */
-        @media (min-width: 1200px) and (max-width: 1499px) {
-          .hero-canvas-wrapper {
-            left: auto !important;
-            width: 420px !important;
-          }
-        }
-
-        /* ── Hide desktop brand watermark below 1500px — no room for the
-           full-size version, and the diamond fan it drives can't measure
-           anything on these layouts anyway. ── */
-        @media (max-width: 1499px) {
-          .hero-brand-group { display: none !important; }
+          .hero-brand-group img { width: 100% !important; }
+          .hero-canvas-wrapper { inset: 0 !important; }
         }
 
         /* ── Large screens: vertically centered, scales with resolution ──
@@ -222,121 +273,54 @@ export function HeroSection() {
         }
       `}</style>
 
-      {/* Gradient mesh — static depth layer under the circuit texture */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-          pointerEvents: "none",
-          background: [
-            "radial-gradient(ellipse 60% 55% at 72% 38%, rgba(74,171,184,0.10), transparent 70%)",
-            "radial-gradient(ellipse 55% 60% at 14% 78%, rgba(197,137,91,0.07), transparent 72%)",
-            "radial-gradient(ellipse 75% 55% at 42% 8%, rgba(14,50,61,0.55), transparent 75%)",
-          ].join(", "),
-        }}
-      />
-
-      {/* PCB circuit pattern — white on dark */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-          pointerEvents: "none",
-          backgroundImage: 'url("/assets/circuit-pattern.svg"), url("/assets/circuit-overlay.svg")',
-          backgroundRepeat: "repeat, repeat",
-          backgroundSize: "320px 320px, 200px 200px",
-          backgroundPosition: "0 0, 80px 60px",
-          filter: "invert(1)",
-          opacity: 0.055,
-        }}
-      />
-
-      {/* Brand mark — icon watermark */}
-      <div
-        className="hero-brand-group"
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "clamp(60px, 12vh, 140px)",
-          left: "clamp(20px, 12vw, 240px)",
-          zIndex: 10,
-          pointerEvents: "none",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 16,
-        }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/uploads/logo_text_only.png"
-          alt=""
-          style={{
-            width: "clamp(220px, 30vw, 520px)",
-            height: "auto",
-            display: "block",
-            filter: "brightness(0) invert(1)",
-            opacity: 0.45,
-          }}
-        />
-
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          className="hero-logo-icon"
-          src="/uploads/base_icon_transparent.png"
-          alt=""
-          style={{
-            width: "clamp(210px, 28vw, 500px)",
-            height: "auto",
-            display: "block",
-            opacity: 0.6,
-          }}
-        />
-      </div>
-
-      {/* Three.js 3D canvas — full-bleed on tablet+, its own boxed strip on mobile */}
-      <div className="hero-canvas-wrapper" style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
-        <Hero3DLazy />
-      </div>
-
-      {/* SVG horizontal lines — from logo centre, with animated amber dots */}
-      <div style={{ position: "absolute", inset: 0, zIndex: 20, pointerEvents: "none" }}>
-        <HeroFilamentsSvg />
-      </div>
-
-      {/* Text content — left column */}
-      <div
-        className="hero-content"
-        ref={contentRef}
-        style={{
-          position: "relative",
-          zIndex: 30,
-          width: "100%",
-          maxWidth: "1240px",
-          margin: "0 auto",
-          paddingLeft: HERO_LEFT_INSET,
-          paddingRight: "clamp(420px, calc((100vw - 800px) * 0.46), 516px)",
-          paddingTop: "clamp(80px, 10vh, 120px)",
-          paddingBottom: "clamp(70px, 9vh, 110px)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-        }}
-      >
-        {/* Mobile-only brand block — same images as desktop watermark */}
+      <div className="hero-scale-canvas" style={{ position: "relative", width: "100%", alignSelf: "stretch" }}>
+        {/* Gradient mesh — static depth layer under the circuit texture */}
         <div
-          className="hero-mobile-brand"
           aria-hidden="true"
           style={{
-            position: "relative",
+            position: "absolute",
+            inset: 0,
+            zIndex: 0,
+            pointerEvents: "none",
+            background: [
+              "radial-gradient(ellipse 60% 55% at 72% 38%, rgba(74,171,184,0.10), transparent 70%)",
+              "radial-gradient(ellipse 55% 60% at 14% 78%, rgba(197,137,91,0.07), transparent 72%)",
+              "radial-gradient(ellipse 75% 55% at 42% 8%, rgba(14,50,61,0.55), transparent 75%)",
+            ].join(", "),
+          }}
+        />
+
+        {/* PCB circuit pattern — white on dark */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 0,
+            pointerEvents: "none",
+            backgroundImage: 'url("/assets/circuit-pattern.svg"), url("/assets/circuit-overlay.svg")',
+            backgroundRepeat: "repeat, repeat",
+            backgroundSize: "320px 320px, 200px 200px",
+            backgroundPosition: "0 0, 80px 60px",
+            filter: "invert(1)",
+            opacity: 0.055,
+          }}
+        />
+
+        {/* Brand mark — icon watermark */}
+        <div
+          className="hero-brand-group"
+          aria-hidden
+          style={{
+            position: "absolute",
+            top: "clamp(60px, 12vh, 140px)",
+            left: "clamp(20px, 12vw, 240px)",
+            zIndex: 10,
+            pointerEvents: "none",
+            display: "flex",
             flexDirection: "column",
-            alignItems: "flex-start",
-            gap: 10,
-            marginBottom: 32,
+            alignItems: "center",
+            gap: 16,
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -344,56 +328,90 @@ export function HeroSection() {
             src="/uploads/logo_text_only.png"
             alt=""
             style={{
-              width: "clamp(150px, 44vw, 210px)",
+              width: "clamp(220px, 30vw, 520px)",
               height: "auto",
               display: "block",
               filter: "brightness(0) invert(1)",
-              opacity: 0.75,
+              opacity: 0.45,
             }}
           />
+
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
+            className="hero-logo-icon"
             src="/uploads/base_icon_transparent.png"
             alt=""
             style={{
-              width: "clamp(100px, 30vw, 150px)",
+              width: "clamp(210px, 28vw, 500px)",
               height: "auto",
               display: "block",
-              filter: "brightness(0) invert(1)",
-              opacity: 0.70,
+              opacity: 0.6,
             }}
           />
         </div>
 
-        <div className="hero-title-block" style={titleBlockStyle}>
-          <h1
-            className="hero-h1"
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "clamp(24px, 3vw, 42px)",
-              fontWeight: 800,
-              letterSpacing: "-0.026em",
-              lineHeight: 1.1,
-              color: "rgba(244,242,236,0.55)",
-              maxWidth: "22ch",
-              margin: "0 0 22px 0",
-              textAlign: "left",
-            }}
-          >
-            Instalații electrice sigure, eficiente, proiectate cu grijă
-          </h1>
-
-          <div
-            className="hero-buttons"
-            style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}
-          >
-            <HeroButton href="/#contact" variant="copper">Solicită consultanță</HeroButton>
-            <HeroButton href="/portofoliu" variant="outline">Vezi portofoliul</HeroButton>
+        {/* Three.js 3D canvas — full-bleed on tablet+/scaled; skipped entirely on
+            mobile portrait, where there's no collision-free spot for it */}
+        {!isPortraitMobile && (
+          <div className="hero-canvas-wrapper" style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
+            <Hero3DLazy />
           </div>
+        )}
+
+        {/* SVG horizontal lines — from logo centre, with animated amber dots */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 20, pointerEvents: "none" }}>
+          <HeroFilamentsSvg />
         </div>
 
-        <div className="hero-stats-wrapper" style={statsWrapperStyle}>
-          <HeroStatsStrip />
+        {/* Text content — left column */}
+        <div
+          className="hero-content"
+          ref={contentRef}
+          style={{
+            position: "relative",
+            zIndex: 30,
+            width: "100%",
+            maxWidth: "1240px",
+            margin: "0 auto",
+            paddingLeft: HERO_LEFT_INSET,
+            paddingRight: "clamp(420px, calc((100vw - 800px) * 0.46), 516px)",
+            paddingTop: "clamp(80px, 10vh, 120px)",
+            paddingBottom: "clamp(70px, 9vh, 110px)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+          }}
+        >
+          <div className="hero-title-block" style={titleBlockStyle}>
+            <h1
+              className="hero-h1"
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "clamp(24px, 3vw, 42px)",
+                fontWeight: 800,
+                letterSpacing: "-0.026em",
+                lineHeight: 1.1,
+                color: "rgba(244,242,236,0.55)",
+                maxWidth: "22ch",
+                margin: "0 0 22px 0",
+                textAlign: "left",
+              }}
+            >
+              Instalații electrice sigure, eficiente, proiectate cu grijă
+            </h1>
+
+            <div
+              className="hero-buttons"
+              style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}
+            >
+              <HeroButton href="/#contact" variant="copper">Solicită consultanță</HeroButton>
+              <HeroButton href="/portofoliu" variant="outline">Vezi portofoliul</HeroButton>
+            </div>
+          </div>
+
+          <div className="hero-stats-wrapper" style={statsWrapperStyle}>
+            <HeroStatsStrip />
+          </div>
         </div>
       </div>
     </section>
