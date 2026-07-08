@@ -17,8 +17,8 @@ const PULSES_PER_LINE = 3; // glow packets travelling each line at once — rend
                             // paths (see below) so each one visibly departs from the line's
                             // start instead of being pre-seeded mid-path at reveal time
 const PULSE_LEN       = 0.045; // fraction of path length lit up per pulse
-const EDGE_STAGGER    = 0.4;  // s between the right-side ambient cables
-const BRANCH_STAGGER  = 0.15; // s between a trunk's own branches
+const EDGE_STAGGER    = 0.12; // s between the right-side ambient cables
+const BRANCH_STAGGER  = 0.06; // s between a trunk's own branches
 
 /** Simple straight-line cables anchored to fixed points on the hero canvas
     (fractions of hero width/height) rather than to the diamond — used for the
@@ -83,13 +83,10 @@ function withTiming<T extends CableSegment>(segments: T[], trunkStart: number) {
   );
 }
 
-/** A bend vertex along an ambient (non-diamond) cable, in hero-relative
-    pixels — used to place small PCB-via marks at each corner, echoing the
-    reference circuit artwork's node pads. Only tracked for the fraction-
-    anchored ambient lines (top-left fill + right-edge lines), never for the
-    diamond-anchored fan — those must stay exactly as they are. */
+/** Ambient (non-diamond) cable segment — CableSegment already carries
+    `vertices` (bend points, for the via-pad markers shared with the diamond
+    fan) plus this pulse-eligibility flag, which only ambient lines need. */
 type FractionSegment = CableSegment & {
-  vertices: { x: number; y: number }[];
   /** true only for a trunk whose spec explicitly opted into the pulse
       allowlist; always false for branches (they never pulse, regardless of
       any flag) and for junction trunks (structurally excluded below). */
@@ -293,7 +290,7 @@ export function HeroFilamentsSvg() {
     { id: "hero-edge-r4", yFrac: 0.04, startXFrac: 1, midXFrac: 0.92, bendDY: 0.04, endXFrac: 0.84, opacity: 0.4, pulse: true },
     { id: "hero-edge-r5", yFrac: 0.97, startXFrac: 1, midXFrac: 0.90, bendDY: -0.04, endXFrac: 0.80, opacity: 0.4, pulse: true },
   ];
-  const RIGHT_TRACE_START = TRACE_START + (CABLE_SPECS.length + topLeftCables.length) * TRACE_STAGGER + TRACE_DUR + 0.4;
+  const RIGHT_TRACE_START = TRACE_START + (CABLE_SPECS.length + topLeftCables.length) * TRACE_STAGGER + TRACE_DUR + 0.15;
   const builtRightEdge = rightEdgeCables.flatMap((spec, i) =>
     withTiming(buildFractionCableSegments(spec), RIGHT_TRACE_START + i * EDGE_STAGGER),
   );
@@ -362,12 +359,11 @@ export function HeroFilamentsSvg() {
         </g>
       ))}
 
-      {/* PCB-via pad marks — small diamond nodes at each bend of the ambient
-          (non-diamond-fan) lines, echoing the reference circuit artwork's
-          corner pads. Fades in alongside that segment's own terminal dot.
-          Kept off the diamond-anchored fan entirely — those lines stay
-          exactly as they were. */}
-      {allAmbient.flatMap((c) => {
+      {/* PCB-via pad marks — small diamond nodes at every bend, on ambient
+          lines AND the 4 diamond-anchored ones. Fades in alongside that
+          segment's own terminal dot. Purely decorative metadata (vertices) —
+          never touches the diamond fan's actual d/endX/endY. */}
+      {allBuilt.flatMap((c) => {
         const fadeAt = (c.start + TRACE_DUR - 0.15).toFixed(2);
         const padStyle = reduced ? undefined : { opacity: 0, animation: `hf-fade 0.4s ease ${fadeAt}s forwards` };
         const padOpacity = Math.min(c.opacity * 2.4, 0.7);

@@ -15,7 +15,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     specs: [
       { label: "LPH", value: "1–7 complet" },
       { label: "Suprafață", value: "~2.500 m²" },
-      { label: "Standard", value: "Smart-Building" },
+      { label: "Standard", value: "Clădire comercială" },
     ],
     award: null,
   },

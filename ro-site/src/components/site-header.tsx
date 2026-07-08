@@ -39,10 +39,23 @@ export function SiteHeader() {
         .nav-hamburger { display: none !important; }
         .nav-desktop { display: flex !important; gap: 32px; }
         .nav-row { justify-content: center; }
+        .mobile-header-logo { display: none; }
         @media (max-width: 767px) {
           .nav-hamburger { display: flex !important; }
           .nav-desktop { display: none !important; }
           .nav-row { justify-content: flex-end; }
+          /* Centered independently of the flex row (which is now
+             right-aligned for the hamburger alone) — otherwise the bar
+             reads as empty on the left/center on mobile. */
+          .mobile-header-logo {
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            height: 26px;
+            width: auto;
+          }
         }
         @media (min-width: 768px) and (max-width: 1023px) {
           .nav-desktop { gap: 18px; }
@@ -107,6 +120,14 @@ export function SiteHeader() {
         }}
       >
         <SectionDivider position="bottom" />
+        <Link href="/" aria-label="Acasă" className="mobile-header-logo">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/uploads/base_icon_transparent.png"
+            alt=""
+            style={{ height: "100%", width: "auto", display: "block", filter: "brightness(0) invert(1)" }}
+          />
+        </Link>
         <div
           className="nav-row"
           style={{

@@ -2,6 +2,7 @@
 import { useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import { Hero3DLazy } from "@/components/hero-3d-lazy";
 import { HeroFilamentsSvg } from "@/components/hero-filaments-svg";
+import { HeroFilamentsMobileSvg, HeroFilamentsTabletSvg } from "@/components/hero-filaments-compact-svg";
 import { HeroStatsStrip } from "@/components/hero-stats-strip";
 import {
   useHeroCableAnchor,
@@ -113,16 +114,39 @@ export function HeroSection() {
             align-items: flex-start !important;
           }
           .hero-mobile-brand { display: flex !important; }
+          .hero-filaments-mobile { display: block !important; }
         }
 
         /* Hidden on tablet+ (desktop watermark handles it there) */
         .hero-mobile-brand { display: none; }
+        /* Hidden everywhere except mobile — the desktop diamond fan
+           (HeroFilamentsSvg) needs a large image it can't measure at all
+           on this stacked mobile layout, so mobile gets its own small,
+           fixed-coordinate line accent instead of nothing. */
+        .hero-filaments-mobile {
+          display: none;
+          width: min(32vw, 130px);
+          height: auto;
+          left: clamp(100px, 30vw, 150px);
+          bottom: 4px;
+          transform: translateY(20%);
+        }
 
         /* ── Tablet / Laptop 768–1199px ───────────────────── */
         @media (min-width: 768px) and (max-width: 1199px) {
           .hero-section .hero-content {
             padding-left: clamp(24px, 4vw, 56px) !important;
             padding-right: clamp(260px, 36vw, 460px) !important;
+          }
+          /* The 3D house sizes/positions itself off its own canvas box
+             (see hero-3d-canvas.tsx resize()) — at full width (inset:0) that
+             box is the whole hero, so the house can render well past the
+             text's reserved gutter above and collide with it. Constraining
+             the canvas to exactly that same gutter forces the scene to lay
+             the house out within it instead. */
+          .hero-canvas-wrapper {
+            left: auto !important;
+            width: clamp(260px, 36vw, 460px) !important;
           }
         }
 
@@ -132,9 +156,43 @@ export function HeroSection() {
           .hero-brand-group { display: none !important; }
         }
 
-        /* ── Hide brand watermark on screens where it would overlap text ── */
+        /* ── Hide the DESKTOP (anchor-driven) brand watermark on screens
+           where it would overlap text — .hero-tablet-brand below covers
+           this range instead, independently of text positioning. ── */
         @media (min-width: 768px) and (max-width: 1499px) {
           .hero-brand-group { display: none !important; }
+        }
+
+        /* ── Tablet/small-laptop brand mark + line accent (768–1499px) ──
+           Deliberately separate from .hero-brand-group: that element drives
+           useHeroCableAnchor (heading/buttons/stats position off its
+           filament lines), so enabling it here would also change the text
+           layout at these widths. This is a self-contained decoration that
+           can't affect that. */
+        .hero-tablet-brand { display: none; }
+        .hero-filaments-tablet { display: none; height: auto; }
+        @media (min-width: 768px) and (max-width: 1499px) {
+          /* Anchored near the top of the section (below the fixed nav) —
+             NOT vertically centered on the hero, since .hero-content itself
+             is centered as a block and its exact height (heading wrap,
+             button stack, stats) varies by width. A top offset stays clear
+             of the text regardless of that content height; centering on the
+             full section would drift into the button row instead. Both the
+             offset and the size also scale off vh, not just vw/px, so short
+             landscape-tablet heights shrink this instead of overlapping the
+             (unrelated, independently-centered) heading below it. */
+          .hero-tablet-brand {
+            display: block;
+            top: clamp(40px, 9vh, 90px);
+            left: clamp(16px, 3vw, 40px);
+            width: clamp(70px, min(9vw, 16vh), 140px);
+          }
+          .hero-filaments-tablet {
+            display: block;
+            width: min(32vw, 22vh, 280px);
+            left: 100%;
+            top: 0;
+          }
         }
 
         /* ── Large screens: vertically centered, scales with resolution ──
@@ -157,7 +215,7 @@ export function HeroSection() {
 
         /* ── Logo entrance — slides in from the left once, on mount ── */
         .hero-brand-group {
-          animation: hero-logo-in 2.2s cubic-bezier(0.16,1,0.3,1) both;
+          animation: hero-logo-in 1s cubic-bezier(0.16,1,0.3,1) both;
         }
         @keyframes hero-logo-in {
           from { opacity: 0; transform: translateY(-50%) translateX(-90px); }
@@ -167,7 +225,7 @@ export function HeroSection() {
         /* ── Icon glow — pulses copper once the logo has settled, as if it's the power source for the filament lines ── */
         .hero-logo-icon {
           filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(120,74,44,0.35));
-          animation: hero-logo-pulse 3.2s ease-in-out 2.2s infinite;
+          animation: hero-logo-pulse 3.2s ease-in-out 1s infinite;
         }
         @keyframes hero-logo-pulse {
           0%, 100% { filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(120,74,44,0.35)); }
@@ -263,6 +321,19 @@ export function HeroSection() {
         />
       </div>
 
+      {/* Tablet/small-laptop brand mark — self-contained (not the
+          anchor-driven .hero-brand-group above), so it can't shift where
+          the heading/buttons/stats land at these widths. */}
+      <div className="hero-tablet-brand" aria-hidden style={{ position: "absolute", zIndex: 10, pointerEvents: "none" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/uploads/base_icon_transparent.png"
+          alt=""
+          style={{ width: "100%", height: "auto", display: "block", filter: "brightness(0) invert(1)", opacity: 0.5 }}
+        />
+        <HeroFilamentsTabletSvg />
+      </div>
+
       {/* Three.js 3D canvas — hidden on mobile */}
       <div className="hero-canvas-wrapper" style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
         <Hero3DLazy />
@@ -297,12 +368,14 @@ export function HeroSection() {
           className="hero-mobile-brand"
           aria-hidden="true"
           style={{
+            position: "relative",
             flexDirection: "column",
             alignItems: "flex-start",
             gap: 10,
             marginBottom: 32,
           }}
         >
+          <HeroFilamentsMobileSvg />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/uploads/logo_text_only.png"

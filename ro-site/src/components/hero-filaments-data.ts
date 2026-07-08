@@ -4,9 +4,9 @@ import { useLayoutEffect, useRef, useState } from "react";
 /* Trace-in timing — shared with anything that needs to sync its own entrance
    to a specific cable finishing its draw-in (e.g. hero text fading in once
    its anchor line arrives). */
-export const TRACE_START   = 2.2;  // s after SVG mount — first cable begins (once the logo entrance settles)
-export const TRACE_DUR     = 0.9;  // s per cable
-export const TRACE_STAGGER = 0.25; // s between cables
+export const TRACE_START   = 1.0;  // s after SVG mount — first cable begins (once the logo entrance settles)
+export const TRACE_DUR     = 0.45; // s per cable
+export const TRACE_STAGGER = 0.08; // s between cables
 
 /** Multiplies every cable's stroke opacity (trunk + branches) — the fan reads
     as too dense at full strength, so everything is dimmed by the same factor
@@ -222,7 +222,10 @@ export function diamondEdge(layout: DiamondLayout, yFrac: number) {
   return { x, y: dTop + dh * yFrac };
 }
 
-/** Build a cable path (1 or 2 bends) + terminal point, in hero-relative pixels. */
+/** Build a cable path (1 or 2 bends) + terminal point, in hero-relative pixels.
+    `vertices` (the bend points, purely for decorative via-pad markers) is
+    additive metadata — it never affects `d`/endX/endY/startY, so it's safe
+    even though this function's output also feeds useHeroCableAnchor. */
 export function buildCable(layout: DiamondLayout, spec: CableSpec) {
   const { heroW, dh } = layout;
   const start = diamondEdge(layout, spec.yFrac);
@@ -236,14 +239,28 @@ export function buildCable(layout: DiamondLayout, spec: CableSpec) {
   const y2 = sy + b1;
 
   if (!spec.midXFrac || spec.bend2DY === 0) {
-    return { id: spec.id, d: `M ${ox} ${sy} H ${x1} L ${x2} ${y2} H ${tx}`, startY: sy, endX: tx, endY: y2 };
+    return {
+      id: spec.id,
+      d: `M ${ox} ${sy} H ${x1} L ${x2} ${y2} H ${tx}`,
+      startY: sy,
+      endX: tx,
+      endY: y2,
+      vertices: [{ x: x1, y: sy }, { x: x2, y: y2 }],
+    };
   }
 
   const txMid = heroW * spec.midXFrac;
   const b2 = spec.bend2DY * dh;
   const x4 = txMid + Math.abs(b2);
   const y4 = y2 + b2;
-  return { id: spec.id, d: `M ${ox} ${sy} H ${x1} L ${x2} ${y2} H ${txMid} L ${x4} ${y4} H ${tx}`, startY: sy, endX: tx, endY: y4 };
+  return {
+    id: spec.id,
+    d: `M ${ox} ${sy} H ${x1} L ${x2} ${y2} H ${txMid} L ${x4} ${y4} H ${tx}`,
+    startY: sy,
+    endX: tx,
+    endY: y4,
+    vertices: [{ x: x1, y: sy }, { x: x2, y: y2 }, { x: txMid, y: y2 }, { x: x4, y: y4 }],
+  };
 }
 
 export type CableSegment = {
@@ -255,6 +272,8 @@ export type CableSegment = {
       terminal, so the renderer skips its destination dot/packet flow. */
   isJunction: boolean;
   opacity: number;
+  /** Bend points along this segment, for the decorative via-pad markers. */
+  vertices: { x: number; y: number }[];
 };
 
 /** Build a cable's full render list: the trunk segment, plus one segment per
@@ -273,6 +292,7 @@ export function buildCableSegments(layout: DiamondLayout, spec: CableSpec): Cabl
       endY: trunk.endY,
       isJunction: !!spec.branches?.length,
       opacity: trunkOpacity,
+      vertices: trunk.vertices,
     },
   ];
 
@@ -292,6 +312,7 @@ export function buildCableSegments(layout: DiamondLayout, spec: CableSpec): Cabl
       endY: by2,
       isJunction: false,
       opacity: (b.opacity ?? trunkOpacity / OPACITY_SCALE) * OPACITY_SCALE,
+      vertices: [{ x: bx1, y: hubY }, { x: bx2, y: by2 }],
     });
   });
 

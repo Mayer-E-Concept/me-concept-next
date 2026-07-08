@@ -191,7 +191,7 @@ export function AboutSectionDe() {
                 el.style.transform = "translateY(0)";
               }}
             >
-              Meine Geschichte →
+              Wer sind wir? →
             </Link>
           </div>
         </div>

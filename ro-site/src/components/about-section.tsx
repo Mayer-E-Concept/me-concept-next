@@ -197,7 +197,7 @@ export function AboutSection() {
                 el.style.transform = "translateY(0)";
               }}
             >
-              Povestea mea →
+              Cine suntem? →
             </Link>
           </div>
         </div>
