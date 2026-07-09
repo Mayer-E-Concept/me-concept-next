@@ -4,8 +4,6 @@ import { Hero3DLazy } from "@/components/hero-3d-lazy";
 import { HeroFilamentsSvg } from "@/components/hero-filaments-svg";
 import { HeroStatsStripDe } from "@/components/hero-stats-strip";
 
-const HERO_LEFT_INSET = "clamp(140px, 15vw, 220px)";
-
 /** Mobile portrait gets its own bespoke composition (ambient lines only, no
     house) rather than a shrunk copy of the desktop layout — matched by width
     AND orientation so a rotated phone (landscape) still gets the
@@ -43,20 +41,12 @@ export function HeroSectionDe() {
         /* ── Mobile portrait ──────────────────────────────── */
         @media (max-width: 767px) and (orientation: portrait) {
           .hero-section .hero-content {
-            padding-right: clamp(20px, 5vw, 40px) !important;
-            padding-top: 80px !important;
-            padding-bottom: 72px !important;
-            align-items: flex-start !important;
+            padding: 80px clamp(20px, 5vw, 40px) 72px !important;
           }
           .hero-section .hero-h1 {
-            text-align: left !important;
-            max-width: 100% !important;
             font-size: clamp(28px, 7.5vw, 40px) !important;
-            margin-bottom: 28px !important;
           }
-          .hero-section .hero-buttons {
-            align-items: flex-start !important;
-          }
+          .hero-section .hero-icon-mark { display: none !important; }
         }
 
         /* ── Scaled canvas: tablet/laptop (768–1499px) AND any landscape
@@ -75,19 +65,13 @@ export function HeroSectionDe() {
             width: 1920px !important;
             zoom: calc(100vw / 1920px) !important;
           }
-          .hero-section .hero-content {
-            padding-left: 220px !important;
-            padding-right: 500px !important;
-            padding-top: 110px !important;
-            padding-bottom: 100px !important;
-          }
           .hero-section .hero-h1 { font-size: 34px !important; }
           /* Full-bleed (like the >=1500px desktop treatment) would let the
              house's own aspect-ratio-based positioning (hero-3d-canvas.tsx)
              size/place it as if it owned the whole viewport width, which is
              exactly what the original 768–1499px fix (matching this box to
              the text's reserved gutter) existed to prevent. Same fix,
-             re-applied here with the frozen design-space gutter width. */
+             re-applied here with a frozen design-space width. */
           .hero-canvas-wrapper { left: auto !important; width: 500px !important; }
         }
 
@@ -151,18 +135,19 @@ export function HeroSectionDe() {
           <HeroFilamentsSvg />
         </div>
 
-        {/* Icon-only brand mark — sits in the left gutter, vertically centered,
-            to the left of the heading. No wordmark (that lives in the header
-            now) and no watermark-scale sizing — just a modest mark. */}
+        {/* Icon-only brand mark — large, left side, vertically centered,
+            roughly matching the 3D house's scale on the right. No wordmark
+            (that lives in the header now). Sits behind the centered text. */}
         {!isPortraitMobile && (
           <div
             aria-hidden
+            className="hero-icon-mark"
             style={{
               position: "absolute",
-              left: "clamp(20px, 4vw, 50px)",
+              left: "clamp(20px, 6vw, 90px)",
               top: "50%",
               transform: "translateY(-50%)",
-              width: "clamp(70px, 8vw, 140px)",
+              width: "clamp(220px, 26vw, 460px)",
               zIndex: 10,
               pointerEvents: "none",
             }}
@@ -171,31 +156,30 @@ export function HeroSectionDe() {
             <img
               src="/uploads/icon_petrol.png"
               alt=""
-              style={{ width: "100%", height: "auto", display: "block", opacity: 0.55 }}
+              style={{ width: "100%", height: "auto", display: "block", opacity: 0.5 }}
             />
           </div>
         )}
 
-        {/* Text content — left column */}
+        {/* Text content — centered both horizontally and vertically */}
         <div
           className="hero-content"
           style={{
             position: "relative",
             zIndex: 30,
             width: "100%",
-            maxWidth: "1240px",
+            height: "100%",
             margin: "0 auto",
-            paddingLeft: HERO_LEFT_INSET,
-            paddingRight: "clamp(420px, calc((100vw - 800px) * 0.46), 516px)",
-            paddingTop: "clamp(80px, 10vh, 120px)",
-            paddingBottom: "clamp(70px, 9vh, 110px)",
+            padding: "clamp(80px, 10vh, 120px) clamp(24px, 6vw, 80px)",
             display: "flex",
             flexDirection: "column",
-            alignItems: "flex-start",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
           }}
         >
-          <div className="hero-title-block">
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+          <div className="hero-title-block" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 16 }}>
               <span style={{ width: 24, height: 1, background: "#5AC9D4", display: "block" }} />
               <span
                 style={{
@@ -217,8 +201,7 @@ export function HeroSectionDe() {
                 fontFamily: "var(--font-barlow)",
                 // Shrunk from RO's clamp(24,3vw,42) — the German headline wraps
                 // to 3 lines instead of RO's 2 (longer compound words), so it
-                // needs a smaller footprint to fit the same vertical budget
-                // between the eyebrow and the stats below it.
+                // needs a smaller footprint to fit the same vertical budget.
                 fontSize: "clamp(20px, 2.5vw, 34px)",
                 fontWeight: 800,
                 letterSpacing: "-0.026em",
@@ -226,7 +209,7 @@ export function HeroSectionDe() {
                 color: "#F2FBFC",
                 maxWidth: "22ch",
                 margin: "0 0 14px 0",
-                textAlign: "left",
+                textAlign: "center",
               }}
             >
               Sichere, effiziente Elektroinstallationen – präzise geplant
@@ -234,7 +217,7 @@ export function HeroSectionDe() {
 
             <div
               className="hero-buttons"
-              style={{ display: "flex", flexDirection: "column", gap: 6, alignItems: "flex-start" }}
+              style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: 10, alignItems: "center", justifyContent: "center" }}
             >
               <HeroButton href="/#contact" variant="copper">Beratung anfragen</HeroButton>
               <HeroButton href="/portofoliu" variant="outline">Portfolio ansehen</HeroButton>

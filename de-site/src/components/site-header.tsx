@@ -120,6 +120,8 @@ export function SiteHeaderDe() {
           transition: "background-color .3s ease, box-shadow .3s ease",
         }}
       >
+        {/* Tapered divider — pointed at the far edges, full-height and
+            connected through the middle (no diamond ornament). */}
         <div
           aria-hidden
           style={{
@@ -127,10 +129,30 @@ export function SiteHeaderDe() {
             bottom: 0,
             left: 0,
             right: 0,
-            height: 1,
-            background: "rgba(90,201,212,0.35)",
+            height: 3,
+            display: "flex",
+            padding: "0 clamp(20px, 5vw, 60px)",
           }}
-        />
+        >
+          <div
+            style={{
+              flex: 1,
+              height: "100%",
+              background: "#5AC9D4",
+              opacity: 0.5,
+              clipPath: "polygon(0% 50%, 100% 0%, 100% 100%)",
+            }}
+          />
+          <div
+            style={{
+              flex: 1,
+              height: "100%",
+              background: "#5AC9D4",
+              opacity: 0.5,
+              clipPath: "polygon(100% 50%, 0% 0%, 0% 100%)",
+            }}
+          />
+        </div>
         <Link href="/" aria-label="Startseite" className="mobile-header-logo-de">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img

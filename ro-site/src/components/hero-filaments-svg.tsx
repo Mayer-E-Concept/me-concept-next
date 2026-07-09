@@ -25,9 +25,7 @@ type LineSpec = {
 };
 
 const LINES: LineSpec[] = [
-  // Upper band, above the eyebrow — matches the reference banner's top-left
-  // trace: right, down, right again, then a switch symbol; "L1·L2·L3" tag
-  // at the origin corner.
+  // ── Left margin (clear of the centered text at any height) ──────────
   {
     id: "l1",
     points: [
@@ -39,95 +37,78 @@ const LINES: LineSpec[] = [
     endSymbol: { type: "switch", dir: "down" },
     label: { text: "L1·L2·L3", dx: 4, dy: -6, align: "start" },
   },
-  {
-    id: "l2",
-    points: [
-      { xFrac: 0.62, yFrac: 0.03 },
-      { xFrac: 0.62, yFrac: 0.08 },
-      { xFrac: 0.78, yFrac: 0.08 },
-    ],
-    pulse: true,
-  },
-  // Right side, clear of the 3D graphic — a couple of short traces.
+  { id: "l2", points: [{ xFrac: 0.005, yFrac: 0.18 }, { xFrac: 0.12, yFrac: 0.18 }], pulse: true },
   {
     id: "l3",
-    points: [
-      { xFrac: 0.995, yFrac: 0.14 },
-      { xFrac: 0.90, yFrac: 0.14 },
-      { xFrac: 0.90, yFrac: 0.22 },
-    ],
+    points: [{ xFrac: 0.005, yFrac: 0.30 }, { xFrac: 0.10, yFrac: 0.30 }, { xFrac: 0.10, yFrac: 0.35 }],
   },
   {
     id: "l4",
-    points: [
-      { xFrac: 0.995, yFrac: 0.86 },
-      { xFrac: 0.92, yFrac: 0.86 },
-      { xFrac: 0.92, yFrac: 0.94 },
-      { xFrac: 0.80, yFrac: 0.94 },
-    ],
+    points: [{ xFrac: 0.005, yFrac: 0.45 }, { xFrac: 0.14, yFrac: 0.45 }],
+    endSymbol: { type: "ground", dir: "down" },
     pulse: true,
   },
-  // Lower-left, below the stats row — ground symbol, matching the
-  // reference banner's bottom-left ground detail.
   {
     id: "l5",
-    points: [
-      { xFrac: 0.005, yFrac: 0.90 },
-      { xFrac: 0.10, yFrac: 0.90 },
-      { xFrac: 0.10, yFrac: 0.94 },
-      { xFrac: 0.22, yFrac: 0.94 },
-    ],
-    endSymbol: { type: "ground", dir: "down" },
-  },
-  {
-    id: "l6",
-    points: [
-      { xFrac: 0.34, yFrac: 0.995 },
-      { xFrac: 0.34, yFrac: 0.93 },
-      { xFrac: 0.44, yFrac: 0.93 },
-    ],
-  },
-  // Far corners, to avoid completely empty space without adding density
-  // anywhere near the text.
-  {
-    id: "l7",
-    points: [
-      { xFrac: 0.995, yFrac: 0.03 },
-      { xFrac: 0.94, yFrac: 0.03 },
-    ],
-  },
-  {
-    id: "l8",
-    points: [
-      { xFrac: 0.005, yFrac: 0.995 },
-      { xFrac: 0.005, yFrac: 0.955 },
-    ],
-  },
-  // Mid-right, between the two edge clusters above/below.
-  {
-    id: "l9",
-    points: [
-      { xFrac: 0.995, yFrac: 0.32 },
-      { xFrac: 0.87, yFrac: 0.32 },
-      { xFrac: 0.87, yFrac: 0.38 },
-    ],
-  },
-  {
-    id: "l10",
-    points: [
-      { xFrac: 0.995, yFrac: 0.60 },
-      { xFrac: 0.885, yFrac: 0.60 },
-    ],
+    points: [{ xFrac: 0.005, yFrac: 0.60 }, { xFrac: 0.12, yFrac: 0.60 }, { xFrac: 0.12, yFrac: 0.65 }],
     pulse: true,
   },
-  // Bottom-right corner tag, matching the reference banner's "KNX" corner label.
+  { id: "l6", points: [{ xFrac: 0.005, yFrac: 0.75 }, { xFrac: 0.15, yFrac: 0.75 }] },
+  {
+    id: "l7",
+    points: [{ xFrac: 0.005, yFrac: 0.90 }, { xFrac: 0.10, yFrac: 0.90 }, { xFrac: 0.10, yFrac: 0.94 }, { xFrac: 0.20, yFrac: 0.94 }],
+    endSymbol: { type: "ground", dir: "down" },
+    pulse: true,
+  },
+  { id: "l8", points: [{ xFrac: 0.22, yFrac: 0.995 }, { xFrac: 0.22, yFrac: 0.94 }, { xFrac: 0.28, yFrac: 0.94 }] },
+
+  // ── Center-top / center-bottom strips (clear of the text vertically) ──
+  { id: "l9", points: [{ xFrac: 0.34, yFrac: 0.03 }, { xFrac: 0.34, yFrac: 0.08 }, { xFrac: 0.44, yFrac: 0.08 }], pulse: true },
+  { id: "l10", points: [{ xFrac: 0.48, yFrac: 0.02 }, { xFrac: 0.58, yFrac: 0.02 }] },
   {
     id: "l11",
-    points: [
-      { xFrac: 0.995, yFrac: 0.92 },
-      { xFrac: 0.95, yFrac: 0.92 },
-      { xFrac: 0.95, yFrac: 0.96 },
-    ],
+    points: [{ xFrac: 0.36, yFrac: 0.995 }, { xFrac: 0.36, yFrac: 0.93 }, { xFrac: 0.46, yFrac: 0.93 }],
+    endSymbol: { type: "switch", dir: "up" },
+    pulse: true,
+  },
+  { id: "l12", points: [{ xFrac: 0.55, yFrac: 0.995 }, { xFrac: 0.55, yFrac: 0.95 }] },
+
+  // ── Between the text column and the house (top/bottom strips only) ──
+  { id: "l13", points: [{ xFrac: 0.62, yFrac: 0.03 }, { xFrac: 0.62, yFrac: 0.08 }, { xFrac: 0.78, yFrac: 0.08 }], pulse: true },
+  {
+    id: "l14",
+    points: [{ xFrac: 0.68, yFrac: 0.995 }, { xFrac: 0.68, yFrac: 0.94 }, { xFrac: 0.80, yFrac: 0.94 }],
+    pulse: true,
+  },
+
+  // ── Right edge, around/past the 3D graphic ──
+  { id: "l15", points: [{ xFrac: 0.995, yFrac: 0.03 }, { xFrac: 0.94, yFrac: 0.03 }], pulse: true },
+  {
+    id: "l16",
+    points: [{ xFrac: 0.995, yFrac: 0.14 }, { xFrac: 0.90, yFrac: 0.14 }, { xFrac: 0.90, yFrac: 0.22 }],
+  },
+  {
+    id: "l17",
+    points: [{ xFrac: 0.995, yFrac: 0.32 }, { xFrac: 0.87, yFrac: 0.32 }, { xFrac: 0.87, yFrac: 0.38 }],
+    endSymbol: { type: "switch", dir: "down" },
+    pulse: true,
+  },
+  { id: "l18", points: [{ xFrac: 0.995, yFrac: 0.48 }, { xFrac: 0.90, yFrac: 0.48 }, { xFrac: 0.90, yFrac: 0.54 }], pulse: true },
+  { id: "l19", points: [{ xFrac: 0.995, yFrac: 0.60 }, { xFrac: 0.885, yFrac: 0.60 }], pulse: true },
+  {
+    id: "l20",
+    points: [{ xFrac: 0.995, yFrac: 0.70 }, { xFrac: 0.93, yFrac: 0.70 }],
+    endSymbol: { type: "ground", dir: "down" },
+    pulse: true,
+  },
+  {
+    id: "l21",
+    points: [{ xFrac: 0.995, yFrac: 0.86 }, { xFrac: 0.92, yFrac: 0.86 }, { xFrac: 0.92, yFrac: 0.94 }, { xFrac: 0.80, yFrac: 0.94 }],
+    pulse: true,
+  },
+  {
+    id: "l22",
+    points: [{ xFrac: 0.995, yFrac: 0.92 }, { xFrac: 0.95, yFrac: 0.92 }, { xFrac: 0.95, yFrac: 0.96 }],
     label: { text: "KNX", dx: -8, dy: 16, align: "end" },
   },
 ];
