@@ -88,6 +88,44 @@ export function HeroSectionDe() {
         }
       `}</style>
 
+      {/* Full-bleed decorative layers — NOT part of the zoomed design canvas
+          below, so they always reach the true viewport edges regardless of
+          aspect ratio (no letterboxing on the ambient background/lines,
+          even though the icon/text/house canvas does letterbox to stay
+          uniformly scaled). */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: "none",
+          background: [
+            "radial-gradient(ellipse 60% 55% at 72% 38%, rgba(90,201,212,0.10), transparent 70%)",
+            "radial-gradient(ellipse 55% 60% at 14% 78%, rgba(143,224,232,0.06), transparent 72%)",
+            "radial-gradient(ellipse 75% 55% at 42% 8%, rgba(14,50,61,0.55), transparent 75%)",
+          ].join(", "),
+        }}
+      />
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: "none",
+          backgroundImage: 'url("/assets/circuit-pattern.svg"), url("/assets/circuit-overlay.svg")',
+          backgroundRepeat: "repeat, repeat",
+          backgroundSize: "320px 320px, 200px 200px",
+          backgroundPosition: "0 0, 80px 60px",
+          filter: "invert(1)",
+          opacity: 0.055,
+        }}
+      />
+      <div style={{ position: "absolute", inset: 0, zIndex: 20, pointerEvents: "none" }}>
+        <HeroFilamentsSvg />
+      </div>
+
       {/* Fixed design canvas — uniformly zoomed to fit the viewport. Every
           child below is positioned in this same 1920×1080 pixel space, so
           nothing needs its own vw/vh-driven responsive formula: the zoom
@@ -99,42 +137,10 @@ export function HeroSectionDe() {
           width: DESIGN_W,
           height: DESIGN_H,
           flexShrink: 0,
+          zIndex: 30,
           zoom: `min(calc(100vw / ${DESIGN_W}px), calc(100vh / ${DESIGN_H}px))`,
         }}
       >
-        {/* Gradient mesh — static depth layer under the circuit texture */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 0,
-            pointerEvents: "none",
-            background: [
-              "radial-gradient(ellipse 60% 55% at 72% 38%, rgba(90,201,212,0.10), transparent 70%)",
-              "radial-gradient(ellipse 55% 60% at 14% 78%, rgba(143,224,232,0.06), transparent 72%)",
-              "radial-gradient(ellipse 75% 55% at 42% 8%, rgba(14,50,61,0.55), transparent 75%)",
-            ].join(", "),
-          }}
-        />
-
-        {/* PCB circuit pattern — white on dark */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 0,
-            pointerEvents: "none",
-            backgroundImage: 'url("/assets/circuit-pattern.svg"), url("/assets/circuit-overlay.svg")',
-            backgroundRepeat: "repeat, repeat",
-            backgroundSize: "320px 320px, 200px 200px",
-            backgroundPosition: "0 0, 80px 60px",
-            filter: "invert(1)",
-            opacity: 0.055,
-          }}
-        />
-
         {/* Three.js 3D canvas — confined to its own right-hand column so it
             can never collide with the centered text column. Skipped
             entirely on mobile portrait. */}
@@ -146,11 +152,6 @@ export function HeroSectionDe() {
             <Hero3DLazy />
           </div>
         )}
-
-        {/* SVG ambient schematic lines — thin cyan traces with junction dots */}
-        <div style={{ position: "absolute", inset: 0, zIndex: 20, pointerEvents: "none" }}>
-          <HeroFilamentsSvg />
-        </div>
 
         {/* Icon-only brand mark — its own left-hand column, vertically
             centered, roughly matching the 3D house's scale. No wordmark
