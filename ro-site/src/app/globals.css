@@ -101,6 +101,22 @@
   --mec-bg-alt: oklch(0.951 0.005 205);
 }
 
+/* Petrol hero redesign tokens — scoped to header/hero only for now, see
+   design_handoff_website_petrol/PROMPT.md. Deliberately separate from the
+   --mec-* brand tokens above so the rest of the site is unaffected. */
+:root {
+  --petrol-bg-deep: #072327;
+  --petrol-800: #0B373D;
+  --petrol-700: #0F454D;
+  --petrol-600: #12525B;
+  --petrol-cyan: #5AC9D4;
+  --petrol-cyan-bright: #8FE0E8;
+  --petrol-amber: #EF7F28;
+  --petrol-text: #F2FBFC;
+  --petrol-text-muted: #A9C9CC;
+  --petrol-text-dim: #7FA2A6;
+}
+
 .dark {
   --background: oklch(0.16 0.042 210);
   --foreground: oklch(0.985 0 0);

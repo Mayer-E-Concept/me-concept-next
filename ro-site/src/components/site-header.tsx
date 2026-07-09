@@ -65,18 +65,18 @@ export function SiteHeader() {
           display: block;
           width: 24px;
           height: 2px;
-          background: rgba(255,255,255,0.85);
+          background: rgba(242,251,252,0.85);
           transition: transform .3s ease, opacity .3s ease, background .2s ease;
           border-radius: 1px;
         }
-        .ham-open-1 { transform: translateY(7px) rotate(45deg); background: #C5895B; }
+        .ham-open-1 { transform: translateY(7px) rotate(45deg); background: #8FE0E8; }
         .ham-open-2 { opacity: 0; }
-        .ham-open-3 { transform: translateY(-7px) rotate(-45deg); background: #C5895B; }
+        .ham-open-3 { transform: translateY(-7px) rotate(-45deg); background: #8FE0E8; }
         .mobile-overlay {
           position: fixed;
           inset: 0;
           z-index: 99990;
-          background: rgba(5,30,39,0.97);
+          background: rgba(7,35,39,0.97);
           backdrop-filter: blur(14px);
           display: flex;
           flex-direction: column;
@@ -88,21 +88,21 @@ export function SiteHeader() {
         .mobile-overlay-closed { transform: translateX(100%); opacity: 0; pointer-events: none; }
         .mobile-overlay-open   { transform: translateX(0);    opacity: 1; pointer-events: all; }
         .mobile-nav-link {
-          font-family: var(--font-sans);
-          font-size: 22px;
-          font-weight: 700;
-          letter-spacing: 0.08em;
+          font-family: var(--font-plex-mono);
+          font-size: 20px;
+          font-weight: 500;
+          letter-spacing: 0.14em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.80);
+          color: rgba(169,201,204,0.85);
           text-decoration: none;
           padding: 18px 40px;
           width: 100%;
           text-align: center;
           transition: color .2s ease;
-          border-bottom: 1px solid rgba(255,255,255,0.06);
+          border-bottom: 1px solid rgba(143,224,232,0.10);
         }
-        .mobile-nav-link:first-of-type { border-top: 1px solid rgba(255,255,255,0.06); }
-        .mobile-nav-link:hover { color: #C5895B; }
+        .mobile-nav-link:first-of-type { border-top: 1px solid rgba(143,224,232,0.10); }
+        .mobile-nav-link:hover { color: #8FE0E8; }
       `}</style>
 
       <header
@@ -113,19 +113,19 @@ export function SiteHeader() {
           right: 0,
           zIndex: 99999,
           padding: "18px 0",
-          backgroundColor: "rgba(5,30,39,0.96)",
+          backgroundColor: "rgba(7,35,39,0.96)",
           backdropFilter: "saturate(130%) blur(12px)",
           boxShadow: scrolled ? "0 2px 20px rgba(0,0,0,0.25)" : "none",
           transition: "background-color .3s ease, box-shadow .3s ease",
         }}
       >
-        <SectionDivider position="bottom" />
+        <SectionDivider position="bottom" color="#5AC9D4" />
         <Link href="/" aria-label="Acasă" className="mobile-header-logo">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/uploads/base_icon_transparent.png"
+            src="/uploads/icon_petrol.png"
             alt=""
-            style={{ height: "100%", width: "auto", display: "block", filter: "brightness(0) invert(1)" }}
+            style={{ height: "100%", width: "auto", display: "block" }}
           />
         </Link>
         <div
@@ -146,18 +146,18 @@ export function SiteHeader() {
                 href={item.href}
                 onClick={() => { if (item.href === "/") window.scrollTo({ top: 0, behavior: "smooth" }); }}
                 style={{
-                  fontSize: "12.5px",
-                  fontWeight: 600,
-                  letterSpacing: "0.10em",
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  letterSpacing: "0.14em",
                   textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.85)",
+                  color: "rgba(169,201,204,0.85)",
                   textDecoration: "none",
                   padding: "8px 0",
                   transition: "color .2s ease",
-                  fontFamily: "var(--font-sans)",
+                  fontFamily: "var(--font-plex-mono)",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#C5895B")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.85)")}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#8FE0E8")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(169,201,204,0.85)")}
               >
                 {item.label}
               </Link>
