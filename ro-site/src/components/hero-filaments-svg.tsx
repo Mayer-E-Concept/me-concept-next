@@ -1,9 +1,7 @@
 "use client";
 import { useState } from "react";
 import {
-  CABLE_SPECS,
-  buildCableSegments,
-  useDiamondLayout,
+  useHeroSize,
   TRACE_START,
   TRACE_DUR,
   TRACE_STAGGER,
@@ -18,14 +16,12 @@ const PULSES_PER_LINE = 3; // glow packets travelling each line at once — rend
                             // start instead of being pre-seeded mid-path at reveal time
 const PULSE_LEN       = 0.045; // fraction of path length lit up per pulse
 const EDGE_STAGGER    = 0.12; // s between the right-side ambient cables
-const BRANCH_STAGGER  = 0.06; // s between a trunk's own branches
 
 /** Simple straight-line cables anchored to fixed points on the hero canvas
-    (fractions of hero width/height) rather than to the diamond — used for the
-    top-left corner fill-in and the right-edge ambient lines. Travel direction
-    (left→right or right→left) is inferred from start vs. mid X. Can branch
-    just like the diamond cables, to read as circuit traces rather than
-    single wires. */
+    (fractions of hero width/height) — used for the top-left corner fill-in
+    and the right-edge ambient lines. Travel direction (left→right or
+    right→left) is inferred from start vs. mid X. Can branch just like a
+    trunk, to read as circuit traces rather than single wires. */
 type FractionCableSpec = {
   id: string;
   yFrac: number;
@@ -76,6 +72,7 @@ function chamferedRoute(x0: number, y0: number, midX: number, bendPx: number, di
     trunk starts at `trunkStart`; each branch starts once the trunk has
     finished drawing, staggered slightly from each other. */
 function withTiming<T extends CableSegment>(segments: T[], trunkStart: number) {
+  const BRANCH_STAGGER = 0.06;
   return segments.map((seg, i) =>
     i === 0
       ? { ...seg, start: trunkStart }
@@ -83,9 +80,8 @@ function withTiming<T extends CableSegment>(segments: T[], trunkStart: number) {
   );
 }
 
-/** Ambient (non-diamond) cable segment — CableSegment already carries
-    `vertices` (bend points, for the via-pad markers shared with the diamond
-    fan) plus this pulse-eligibility flag, which only ambient lines need. */
+/** Ambient cable segment — CableSegment already carries `vertices` (bend
+    points, for the via-pad markers) plus this pulse-eligibility flag. */
 type FractionSegment = CableSegment & {
   /** true only for a trunk whose spec explicitly opted into the pulse
       allowlist; always false for branches (they never pulse, regardless of
@@ -100,18 +96,11 @@ export function HeroFilamentsSvg() {
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
-  const layout = useDiamondLayout();
+  const size = useHeroSize();
 
-  if (!layout) return null;
+  if (!size) return null;
 
-  const { heroW, heroH } = layout;
-
-  // Only mild/no upward bends here — steep upward lines used to cross into the
-  // "MAYER E-CONCEPT" text sitting above the diamond. Those now live in
-  // topLeftCables instead, anchored well above the whole brand lockup.
-  const built = CABLE_SPECS.flatMap((spec, i) =>
-    withTiming(buildCableSegments(layout, spec), TRACE_START + i * TRACE_STAGGER),
-  );
+  const { heroW, heroH } = size;
 
   /* ── Simple straight-line cables anchored by hero-relative fractions ──── */
   const buildFractionCable = (spec: FractionCableSpec) => {
@@ -167,18 +156,10 @@ export function HeroFilamentsSvg() {
     return segments;
   };
 
-  // Top-left corner fill-in — replaces the old steep-upward diamond lines so
-  // nothing ever crosses the "MAYER E-CONCEPT" text above the icon. Kept well
-  // above the vertically-centered brand lockup (roughly the top ~20% of the
-  // hero). Back to the original short trunk length (no long boring stretch
-  // before anything happens) — each gets exactly one short branch that
+  // Top-left corner fill-in — kept well above the header/hero text (roughly
+  // the top ~20% of the hero). Each gets exactly one short branch that
   // continues the trunk's own bend direction, instead of forking off at an
   // unrelated angle.
-  // hero-topleft-1 starts above hero-topleft-2 (yFrac 0.08 vs 0.18) but used
-  // to bend DOWN while -2 bent UP — moving toward each other, which forces a
-  // crossing for the same reason as the hero-line-2/-7 issue: two rightward-
-  // only paths can't swap vertical order without physically intersecting.
-  // Both now bend the same direction (down) so -1 stays above -2 the whole way.
   const topLeftCables: FractionCableSpec[] = [
     // yFrac kept below ~0.075 clears the fixed header (it sits on top of the
     // hero and was clipping this line's origin, making it look cut-off/tiny).
@@ -197,10 +178,7 @@ export function HeroFilamentsSvg() {
     },
     // Filler for the empty band directly under the nav divider — kept at a
     // very low yFrac with almost no bend so it stays well above the roof
-    // regardless of its x-range (yFrac 0.28 previously put its flat segment
-    // right through the house's upper section — that was the real "random
-    // line on the roof" bug, not hero-fill-topA, which was a red herring and
-    // has been removed).
+    // regardless of its x-range.
     {
       id: "hero-fill-topB", yFrac: 0.05, startXFrac: 0.60, midXFrac: 0.80, bendDY: 0.04, endXFrac: 0.92,
       opacity: 0.14,
@@ -211,7 +189,7 @@ export function HeroFilamentsSvg() {
       opacity: 0.18,
       branches: [{ depart: 30, bendDY: 0.04, endXFrac: 0.62, opacity: 0.12 }],
     },
-    // Filler for the empty bottom-left corner, below the diamond and left of
+    // Filler for the empty bottom-left corner, below the text and left of
     // the stats. No branches (unlike -bottomleft2 below) — plain line, so it
     // gets a full edge-to-edge pulse like hero-topleft-1 above.
     {
@@ -219,9 +197,8 @@ export function HeroFilamentsSvg() {
       opacity: 0.14,
       pulse: true,
     },
-    // Far top-right sliver — extreme top edge, well clear of the brand text
-    // and the diamond, fills what was empty space before the right-edge
-    // cluster starts.
+    // Far top-right sliver — extreme top edge, well clear of the diagram on
+    // the right, fills what was empty space before the right-edge cluster starts.
     {
       id: "hero-fill-topD", yFrac: 0.02, startXFrac: 0.85, midXFrac: 0.95, bendDY: 0.03, endXFrac: 1,
       opacity: 0.13,
@@ -236,7 +213,7 @@ export function HeroFilamentsSvg() {
     },
   ];
   const builtTopLeft = topLeftCables.flatMap((spec, i) =>
-    withTiming(buildFractionCableSegments(spec), TRACE_START + (CABLE_SPECS.length + i) * TRACE_STAGGER),
+    withTiming(buildFractionCableSegments(spec), TRACE_START + i * TRACE_STAGGER),
   );
 
   // Right-edge ambient cables — deliberately irregular (varied Y spacing,
@@ -245,11 +222,7 @@ export function HeroFilamentsSvg() {
   // branches — but each one alternates bend direction and uses a distinctly
   // different reach (midXFrac) from its neighbours, so the stack reads as
   // varied traces rather than the same shape repeated at different heights.
-  // hero-edge-2/-3 (which sit right at the house's own height) stay pulled
-  // back for real clearance instead of hugging its edge.
   const rightEdgeCables: FractionCableSpec[] = [
-    // hero-edge-1/-2 sit clear above/at the top of the house, so a small
-    // branch continuing their own bend direction is safe.
     {
       id: "hero-edge-1", yFrac: 0.12, startXFrac: 1, midXFrac: 0.88, bendDY: -0.18, endXFrac: 0.78,
       opacity: 0.55,
@@ -260,18 +233,14 @@ export function HeroFilamentsSvg() {
       opacity: 0.55,
       branches: [{ depart: 20, bendDY: -0.06, endXFrac: 0.76, opacity: 0.12 }],
     },
-    // Sits right at the house's own height — pulled almost all the way to the
-    // edge with a very slight bend, since the house rotates and even a small
-    // dip/reach here risks grazing it. No branch — kept minimal on purpose.
+    // Sits right at the diagram's own height — pulled almost all the way to
+    // the edge with a very slight bend, since a small dip/reach here risks
+    // grazing it. No branch — kept minimal on purpose.
     { id: "hero-edge-3", yFrac: 0.66, startXFrac: 1, midXFrac: 0.96, bendDY: 0.05, endXFrac: 0.90, opacity: 0.45, pulse: true },
-    // Shortened — the house rotates continuously and its silhouette swings
-    // wide enough at some angles to reach this line if it runs any longer.
-    // bendDY pulled back from -0.20 to -0.08: that steeper bend swept its
-    // endpoint up into the house's bottom-right corner. No branch here either.
     { id: "hero-edge-4", yFrac: 0.89, startXFrac: 1, midXFrac: 0.94, bendDY: -0.08, endXFrac: 0.84, opacity: 0.45, pulse: true },
     // Two faint fillers in the gaps between the lines above — same
     // conservative reach (0.90+) as hero-edge-3/-4 since they also sit
-    // roughly at the house's height.
+    // roughly at the diagram's height.
     {
       id: "hero-edge-r1", yFrac: 0.25, startXFrac: 1, midXFrac: 0.91, bendDY: -0.10, endXFrac: 0.80,
       opacity: 0.20,
@@ -282,22 +251,18 @@ export function HeroFilamentsSvg() {
       opacity: 0.20,
       branches: [{ depart: 18, bendDY: 0.04, endXFrac: 0.76, opacity: 0.11 }],
     },
-    // New: fills the 0.40–0.66 gap — very conservative reach, mid-height
-    // near the house, kept minimal like hero-edge-3.
+    // New: fills the 0.40–0.66 gap — very conservative reach, mid-height.
     { id: "hero-edge-r3", yFrac: 0.53, startXFrac: 1, midXFrac: 0.95, bendDY: -0.05, endXFrac: 0.90, opacity: 0.35, pulse: true },
-    // New: extreme top-right and bottom-right corners — clear of the house
-    // at any rotation, safe to reach further.
+    // New: extreme top-right and bottom-right corners.
     { id: "hero-edge-r4", yFrac: 0.04, startXFrac: 1, midXFrac: 0.92, bendDY: 0.04, endXFrac: 0.84, opacity: 0.4, pulse: true },
     { id: "hero-edge-r5", yFrac: 0.97, startXFrac: 1, midXFrac: 0.90, bendDY: -0.04, endXFrac: 0.80, opacity: 0.4, pulse: true },
   ];
-  const RIGHT_TRACE_START = TRACE_START + (CABLE_SPECS.length + topLeftCables.length) * TRACE_STAGGER + TRACE_DUR + 0.15;
+  const RIGHT_TRACE_START = TRACE_START + topLeftCables.length * TRACE_STAGGER + TRACE_DUR + 0.15;
   const builtRightEdge = rightEdgeCables.flatMap((spec, i) =>
     withTiming(buildFractionCableSegments(spec), RIGHT_TRACE_START + i * EDGE_STAGGER),
   );
 
-  const allBuilt = [...built, ...builtTopLeft, ...builtRightEdge];
-  // Ambient-only (never the diamond fan) — the set that gets PCB-via pad marks.
-  const allAmbient = [...builtTopLeft, ...builtRightEdge];
+  const allBuilt = [...builtTopLeft, ...builtRightEdge];
 
   return (
     <svg
@@ -361,10 +326,9 @@ export function HeroFilamentsSvg() {
         </g>
       ))}
 
-      {/* PCB-via pad marks — small diamond nodes at every bend, on ambient
-          lines AND the 4 diamond-anchored ones. Fades in alongside that
-          segment's own terminal dot. Purely decorative metadata (vertices) —
-          never touches the diamond fan's actual d/endX/endY. */}
+      {/* PCB-via pad marks — small diamond nodes at every bend. Fades in
+          alongside that segment's own terminal dot. Purely decorative
+          metadata (vertices) — never touches d/endX/endY. */}
       {allBuilt.flatMap((c) => {
         const fadeAt = (c.start + TRACE_DUR - 0.15).toFixed(2);
         const padStyle = reduced ? undefined : { opacity: 0, animation: `hf-fade 0.4s ease ${fadeAt}s forwards` };
@@ -379,8 +343,8 @@ export function HeroFilamentsSvg() {
           </g>
         ));
         // Junction hubs (where a trunk splits into branches) get a slightly
-        // larger copper pad instead — reads as the "active node" the branches
-        // fan out from, matching the reference image's lit-up hub points.
+        // larger cyan-bright pad instead — reads as the "active node" the
+        // branches fan out from.
         if (c.isJunction) {
           pads.push(
             <g key={`via-hub-${c.id}`} style={padStyle}>
@@ -395,24 +359,14 @@ export function HeroFilamentsSvg() {
         return pads;
       })}
 
-      {/* Traveling current glow — the logo's pulse, carried through the
-          lines: a soft blurred highlight flowing through each cable once
-          it's traced in, rather than discrete dots/rings. Each of the
-          PULSES_PER_LINE packets is its own path with a single dash, so its
-          stroke-dashoffset always starts at 0 (the path's own origin) the
-          moment it's introduced — instead of pre-seeding several evenly-
-          spaced dashes on one shared path, which made every packet but the
-          first appear to pop in already partway down the line. Junctions
-          don't get their own glow at all (ambient or diamond). The 4 diamond
-          lines always pulse; ambient lines only pulse when their spec opted
-          in via `pulse: true` — deliberately rare, not "every line that
-          happens to be eligible". Computed as two separately-typed filters
-          (rather than filtering the mixed allBuilt array) so the ambient-only
-          `ambientPulse` field never has to be accessed on a diamond segment. */}
-      {!reduced && [
-        ...built.filter((c) => !c.isJunction),
-        ...allAmbient.filter((c) => !c.isJunction && c.ambientPulse),
-      ].flatMap((c) => {
+      {/* Traveling current glow — a soft blurred highlight flowing through
+          each cable once it's traced in, rather than discrete dots/rings.
+          Each of the PULSES_PER_LINE packets is its own path with a single
+          dash, so its stroke-dashoffset always starts at 0 (the path's own
+          origin) the moment it's introduced. Junctions don't get their own
+          glow at all; only lines that opted in via `pulse: true` animate —
+          deliberately rare, not "every line that happens to be eligible". */}
+      {!reduced && allBuilt.filter((c) => !c.isJunction && c.ambientPulse).flatMap((c) => {
         const baseBegin = c.start + TRACE_DUR;
         return Array.from({ length: PULSES_PER_LINE }, (_, i) => {
           const begin = (baseBegin + i * (ANIM_DURATION / PULSES_PER_LINE)).toFixed(2);

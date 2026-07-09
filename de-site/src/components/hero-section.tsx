@@ -1,90 +1,15 @@
 "use client";
-import { useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from "react";
+import { useLayoutEffect, useState, type ReactNode } from "react";
 import { Hero3DLazy } from "@/components/hero-3d-lazy";
 import { HeroFilamentsSvg } from "@/components/hero-filaments-svg";
 import { HeroStatsStripDe } from "@/components/hero-stats-strip";
-import {
-  useHeroCableAnchor,
-  CABLE_SPECS,
-  TRACE_START,
-  TRACE_DUR,
-  TRACE_STAGGER,
-} from "@/components/hero-filaments-data";
 
 const HERO_LEFT_INSET = "clamp(140px, 15vw, 220px)";
-const TITLE_ANCHOR_GAP = 24; // px of breathing room below the filament line before the heading starts
 
-/** Seconds after mount until the named cable finishes drawing in — used to
-    delay the text's own fade-in so it appears to arrive with its line
-    instead of popping in immediately on page load. */
-function cableArrivalTime(id: string) {
-  const index = CABLE_SPECS.findIndex((c) => c.id === id);
-  return TRACE_START + index * TRACE_STAGGER + TRACE_DUR;
-}
-
-/** Anchored children live inside `.hero-content`, but the filament lines (and
-    the anchor coordinates from useHeroCableAnchor) are measured relative to
-    `.hero-section` — and `.hero-section` vertically centers hero-content via
-    flexbox, so the two boxes don't share an origin. This measures that gap so
-    an anchor Y can be translated into a `top` that's correct inside
-    hero-content, at any viewport size. */
-function useContentOffsetWithinSection(ref: RefObject<HTMLElement | null>) {
-  const [offset, setOffset] = useState(0);
-
-  useLayoutEffect(() => {
-    const el = ref.current;
-    const section = el?.closest(".hero-section") as HTMLElement | null;
-    if (!el || !section) return;
-
-    const measure = () => {
-      setOffset(el.getBoundingClientRect().top - section.getBoundingClientRect().top);
-    };
-    measure();
-
-    const ro = new ResizeObserver(measure);
-    ro.observe(section);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, [ref]);
-
-  return offset;
-}
-
-/** `.hero-scale-canvas` (the tablet/laptop + landscape "shrink the whole
-    desktop design" wrapper) applies a CSS `zoom` to render a fixed 1920px
-    design at the real viewport size. `useHeroCableAnchor` measures the
-    filament line's terminal point via getBoundingClientRect(), which
-    already reports the post-zoom (real, on-screen) pixel position — but
-    that number then gets assigned as an inline `top`/`left` on a descendant
-    of the zoomed canvas, where it's interpreted as a *design-space* length
-    and zoomed a second time on render. Dividing the measured delta by the
-    current zoom factor before assigning it cancels that out. Outside the
-    scaled ranges `zoom` is the CSS initial value 1, so this is a no-op. */
-function useScaleZoom(): number {
-  const [zoom, setZoom] = useState(1);
-
-  useLayoutEffect(() => {
-    const canvas = document.querySelector(".hero-scale-canvas") as HTMLElement | null;
-    if (!canvas) return;
-
-    const measure = () => {
-      const z = parseFloat(getComputedStyle(canvas).zoom || "1");
-      setZoom(Number.isFinite(z) && z > 0 ? z : 1);
-    };
-    measure();
-
-    const ro = new ResizeObserver(measure);
-    ro.observe(canvas);
-    return () => ro.disconnect();
-  }, []);
-
-  return zoom;
-}
-
-/** Mobile portrait gets its own bespoke composition (icon watermark behind
-    the text, ambient lines only, no house) rather than a shrunk copy of the
-    desktop layout — matched by width AND orientation so a rotated phone
-    (landscape) still gets the scaled-desktop treatment instead of this. */
+/** Mobile portrait gets its own bespoke composition (ambient lines only, no
+    house) rather than a shrunk copy of the desktop layout — matched by width
+    AND orientation so a rotated phone (landscape) still gets the
+    scaled-desktop treatment instead of this. */
 function useIsPortraitMobile(): boolean {
   const [isPortrait, setIsPortrait] = useState(false);
 
@@ -100,41 +25,7 @@ function useIsPortraitMobile(): boolean {
 }
 
 export function HeroSectionDe() {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const contentOffsetY = useContentOffsetWithinSection(contentRef);
-  const scaleZoom = useScaleZoom();
   const isPortraitMobile = useIsPortraitMobile();
-
-  // "Upper" anchor = the filament line the heading/buttons should sit just
-  // below; "lower" anchor = the line the stats strip should sit just below.
-  // Both resolve to null below the 1500px breakpoint, where the diamond (and
-  // its filament fan) aren't rendered at all — the blocks below fall back to
-  // plain document flow there, unaffected by any of this. Mobile portrait
-  // forces plain flow too even once the (now-visible) watermark icon makes
-  // the diamond fan measurable there — that anchor geometry was tuned for
-  // wide/short layouts, not a tall/narrow phone screen.
-  const upperAnchor = useHeroCableAnchor("hero-line-7");
-  const lowerAnchor = useHeroCableAnchor("hero-line-3");
-
-  const titleBlockStyle: React.CSSProperties | undefined = upperAnchor && !isPortraitMobile
-    ? {
-        position: "absolute",
-        top: (upperAnchor.y - contentOffsetY) / scaleZoom + TITLE_ANCHOR_GAP,
-        left: HERO_LEFT_INSET,
-        opacity: 0,
-        animation: `hero-text-in 0.6s ease ${cableArrivalTime("hero-line-7").toFixed(2)}s both`,
-      }
-    : undefined;
-
-  const statsWrapperStyle: React.CSSProperties | undefined = lowerAnchor && !isPortraitMobile
-    ? {
-        position: "absolute",
-        top: (lowerAnchor.y - contentOffsetY) / scaleZoom,
-        left: HERO_LEFT_INSET,
-        opacity: 0,
-        animation: `hero-text-in 0.6s ease ${cableArrivalTime("hero-line-3").toFixed(2)}s both`,
-      }
-    : undefined;
 
   return (
     <section
@@ -160,32 +51,11 @@ export function HeroSectionDe() {
           .hero-section .hero-h1 {
             text-align: left !important;
             max-width: 100% !important;
-            font-size: clamp(30px, 8.5vw, 44px) !important;
+            font-size: clamp(28px, 7.5vw, 40px) !important;
             margin-bottom: 28px !important;
           }
           .hero-section .hero-buttons {
             align-items: flex-start !important;
-          }
-          /* No house here (rendered conditionally, not just hidden — see
-             JSX) and the desktop-style anchored text/brand geometry doesn't
-             apply — instead the icon becomes a big, faint watermark sitting
-             behind the text, with the ambient lines (now measurable since
-             the icon is visible) filling the space around it. */
-          .hero-brand-group {
-            display: flex !important;
-            animation: none !important;
-            top: 30% !important;
-            left: 50% !important;
-            margin-left: -39vw !important;
-            width: 78vw !important;
-            z-index: 5 !important;
-          }
-          .hero-brand-group img:first-child { display: none !important; }
-          .hero-logo-icon {
-            width: 100% !important;
-            opacity: 0.09 !important;
-            animation: none !important;
-            filter: none !important;
           }
         }
 
@@ -212,14 +82,6 @@ export function HeroSectionDe() {
             padding-bottom: 100px !important;
           }
           .hero-section .hero-h1 { font-size: 34px !important; }
-          .hero-mobile-brand { display: none !important; }
-          .hero-brand-group {
-            display: flex !important;
-            left: 56px !important;
-            top: 50% !important;
-            width: 500px !important;
-          }
-          .hero-brand-group img { width: 100% !important; }
           /* Full-bleed (like the >=1500px desktop treatment) would let the
              house's own aspect-ratio-based positioning (hero-3d-canvas.tsx)
              size/place it as if it owned the whole viewport width, which is
@@ -229,52 +91,15 @@ export function HeroSectionDe() {
           .hero-canvas-wrapper { left: auto !important; width: 500px !important; }
         }
 
-        /* ── Large screens: vertically centered, scales with resolution ──
-           The logo is now the dominant visual element on purpose — sized
-           generously off viewport width rather than capped to the gutter
-           beside the H1. It can extend toward/behind the heading; that's
-           fine now that the heading is a muted secondary color and sits on
-           top (z-index) of the watermark, not fighting it for attention. */
-        @media (min-width: 1500px) {
-          .hero-brand-group {
-            left: clamp(20px, 3vw, 60px) !important;
-            top: 50% !important;
-            width: clamp(320px, 26vw, 800px) !important;
-            overflow: visible !important;
-          }
-          .hero-brand-group img {
-            width: 100% !important;
-          }
-        }
-
-        /* ── Logo entrance — slides in from the left once, on mount ── */
-        .hero-brand-group {
-          animation: hero-logo-in 1s cubic-bezier(0.16,1,0.3,1) both;
-        }
-        @keyframes hero-logo-in {
-          from { opacity: 0; transform: translateY(-50%) translateX(-90px); }
-          to   { opacity: 1; transform: translateY(-50%) translateX(0); }
-        }
-
-        /* ── Icon glow — pulses cyan once the logo has settled, as if it's the power source for the filament lines ── */
-        .hero-logo-icon {
-          filter: drop-shadow(0 0 6px rgba(90,201,212,0.35));
-          animation: hero-logo-pulse 3.2s ease-in-out 1s infinite;
-        }
-        @keyframes hero-logo-pulse {
-          0%, 100% { filter: drop-shadow(0 0 6px rgba(90,201,212,0.35)); }
-          50%      { filter: drop-shadow(0 0 18px rgba(143,224,232,0.85)) drop-shadow(0 0 46px rgba(90,201,212,0.9)); }
-        }
-
-        /* ── Heading/buttons + stats fade in as their anchor filament line arrives ── */
+        /* ── Heading/buttons + stats fade in shortly after mount ── */
         @keyframes hero-text-in {
           from { opacity: 0; transform: translateY(8px); }
           to   { opacity: 1; transform: translateY(0); }
         }
+        .hero-title-block { animation: hero-text-in 0.6s ease 0.15s both; }
+        .hero-stats-wrapper { animation: hero-text-in 0.6s ease 0.45s both; }
 
         @media (prefers-reduced-motion: reduce) {
-          .hero-brand-group { animation: none !important; opacity: 1; }
-          .hero-logo-icon { animation: none !important; }
           .hero-title-block, .hero-stats-wrapper { animation: none !important; opacity: 1 !important; }
         }
       `}</style>
@@ -313,48 +138,6 @@ export function HeroSectionDe() {
           }}
         />
 
-        {/* Brand mark — icon watermark */}
-        <div
-          className="hero-brand-group"
-          aria-hidden
-          style={{
-            position: "absolute",
-            top: "clamp(60px, 12vh, 140px)",
-            left: "clamp(20px, 12vw, 240px)",
-            zIndex: 10,
-            pointerEvents: "none",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 16,
-          }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/uploads/textlogo_petrol.png"
-            alt=""
-            style={{
-              width: "clamp(220px, 30vw, 520px)",
-              height: "auto",
-              display: "block",
-              opacity: 0.45,
-            }}
-          />
-
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            className="hero-logo-icon"
-            src="/uploads/icon_petrol.png"
-            alt=""
-            style={{
-              width: "clamp(210px, 28vw, 500px)",
-              height: "auto",
-              display: "block",
-              opacity: 0.6,
-            }}
-          />
-        </div>
-
         {/* Three.js 3D canvas — full-bleed on tablet+/scaled; skipped entirely on
             mobile portrait, where there's no collision-free spot for it */}
         {!isPortraitMobile && (
@@ -363,7 +146,7 @@ export function HeroSectionDe() {
           </div>
         )}
 
-        {/* SVG horizontal lines — from logo centre, with animated amber dots */}
+        {/* SVG ambient schematic lines — thin cyan traces with junction dots */}
         <div style={{ position: "absolute", inset: 0, zIndex: 20, pointerEvents: "none" }}>
           <HeroFilamentsSvg />
         </div>
@@ -371,7 +154,6 @@ export function HeroSectionDe() {
         {/* Text content — left column */}
         <div
           className="hero-content"
-          ref={contentRef}
           style={{
             position: "relative",
             zIndex: 30,
@@ -387,7 +169,23 @@ export function HeroSectionDe() {
             alignItems: "flex-start",
           }}
         >
-          <div className="hero-title-block" style={titleBlockStyle}>
+          <div className="hero-title-block">
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+              <span style={{ width: 24, height: 1, background: "#5AC9D4", display: "block" }} />
+              <span
+                style={{
+                  fontFamily: "var(--font-plex-mono)",
+                  fontSize: 11,
+                  fontWeight: 500,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "#8FE0E8",
+                }}
+              >
+                Electrical Engineering
+              </span>
+            </div>
+
             <h1
               className="hero-h1"
               style={{
@@ -395,7 +193,7 @@ export function HeroSectionDe() {
                 // Shrunk from RO's clamp(24,3vw,42) — the German headline wraps
                 // to 3 lines instead of RO's 2 (longer compound words), so it
                 // needs a smaller footprint to fit the same vertical budget
-                // between this anchor line and the stats line below it.
+                // between the eyebrow and the stats below it.
                 fontSize: "clamp(20px, 2.5vw, 34px)",
                 fontWeight: 800,
                 letterSpacing: "-0.026em",
@@ -418,7 +216,7 @@ export function HeroSectionDe() {
             </div>
           </div>
 
-          <div className="hero-stats-wrapper" style={statsWrapperStyle}>
+          <div className="hero-stats-wrapper" style={{ marginTop: "clamp(28px, 4.5vh, 48px)" }}>
             <HeroStatsStripDe />
           </div>
         </div>

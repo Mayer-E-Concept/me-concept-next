@@ -38,12 +38,14 @@ export function SiteHeader() {
       <style>{`
         .nav-hamburger { display: none !important; }
         .nav-desktop { display: flex !important; gap: 32px; }
-        .nav-row { justify-content: center; }
+        .nav-row { justify-content: space-between; }
         .mobile-header-logo { display: none; }
+        .desktop-header-logo { display: flex; }
         @media (max-width: 767px) {
           .nav-hamburger { display: flex !important; }
           .nav-desktop { display: none !important; }
           .nav-row { justify-content: flex-end; }
+          .desktop-header-logo { display: none; }
           /* Centered independently of the flex row (which is now
              right-aligned for the hamburger alone) — otherwise the bar
              reads as empty on the left/center on mobile. */
@@ -138,6 +140,14 @@ export function SiteHeader() {
             margin: "0 auto",
           }}
         >
+          {/* Desktop logo lockup — icon + wordmark/tagline, left-aligned */}
+          <Link href="/" aria-label="Acasă" className="desktop-header-logo" style={{ alignItems: "center", gap: 10 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/uploads/icon_petrol.png" alt="" style={{ height: 38, width: "auto", display: "block" }} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/uploads/textlogo_petrol.png" alt="Mayer E-Concept" style={{ height: 30, width: "auto", display: "block" }} />
+          </Link>
+
           {/* Desktop nav */}
           <nav className="nav-desktop" style={{ alignItems: "center" }}>
             {navItems.map((item) => (
