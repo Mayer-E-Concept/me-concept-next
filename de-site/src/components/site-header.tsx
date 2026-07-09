@@ -167,9 +167,9 @@ export function SiteHeaderDe() {
           style={{
             display: "flex",
             alignItems: "center",
-            width: "92%",
-            maxWidth: "1340px",
-            margin: "0 auto",
+            width: "100%",
+            boxSizing: "border-box",
+            padding: "0 clamp(20px, 5vw, 60px)",
           }}
         >
           {/* Desktop logo lockup — icon + wordmark/tagline, left-aligned */}

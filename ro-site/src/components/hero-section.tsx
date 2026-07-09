@@ -182,6 +182,31 @@ export function HeroSection() {
           zoom,
         }}
       >
+        {/* Same blueprint grid as the rest of the site (globals.css body
+            background), but masked to a circle centered on the box so it
+            glows behind the text and fades to nothing well before it would
+            reach the icon or house — radius picked from the CLOSER of the
+            two (house's left edge, 360px from center; icon's right edge is
+            420px away, so it's already gone before reaching that too). */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 1,
+            pointerEvents: "none",
+            backgroundImage: [
+              "linear-gradient(rgba(143,224,232,0.09) 1px, transparent 1px)",
+              "linear-gradient(90deg, rgba(143,224,232,0.09) 1px, transparent 1px)",
+              "linear-gradient(rgba(143,224,232,0.05) 1px, transparent 1px)",
+              "linear-gradient(90deg, rgba(143,224,232,0.05) 1px, transparent 1px)",
+            ].join(", "),
+            backgroundSize: "240px 240px, 240px 240px, 48px 48px, 48px 48px",
+            WebkitMaskImage: "radial-gradient(circle 360px at 960px 540px, #fff 0%, #fff 55%, transparent 100%)",
+            maskImage: "radial-gradient(circle 360px at 960px 540px, #fff 0%, #fff 55%, transparent 100%)",
+          }}
+        />
+
         {/* Three.js 3D canvas — its own right-hand column, inset from the
             canvas edges to match the margin the lines live in. Skipped
             entirely on mobile portrait. */}
