@@ -4,10 +4,21 @@ import { Hero3DLazy } from "@/components/hero-3d-lazy";
 import { HeroFilamentsSvg } from "@/components/hero-filaments-svg";
 import { HeroStatsStrip } from "@/components/hero-stats-strip";
 
+/** The desktop/tablet/landscape composition lives in a fixed 1920×1080
+    design canvas that's uniformly scaled (via CSS zoom) to fit whatever
+    viewport it's shown in — width-ratio and height-ratio, whichever is
+    smaller, so the icon/text/house "boxes" always sit at the same relative
+    distance from each other and the same relative scale, on any window size
+    or aspect ratio (4:3, ultrawide, whatever). Only mobile portrait — where
+    a fixed-width canvas would either overflow or shrink text to nothing —
+    falls back to its own fluid single-column composition below. */
+const DESIGN_W = 1920;
+const DESIGN_H = 1080;
+
 /** Mobile portrait gets its own bespoke composition (ambient lines only, no
-    house) rather than a shrunk copy of the desktop layout — matched by width
-    AND orientation so a rotated phone (landscape) still gets the
-    scaled-desktop treatment instead of this. */
+    house, no fixed design canvas) rather than a shrunk copy of the desktop
+    layout — matched by width AND orientation so a rotated phone (landscape)
+    still gets the scaled-desktop treatment instead of this. */
 function useIsPortraitMobile(): boolean {
   const [isPortrait, setIsPortrait] = useState(false);
 
@@ -33,46 +44,35 @@ export function HeroSection() {
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
+        justifyContent: "center",
         background: "radial-gradient(130% 150% at 72% -10%, #12525B 0%, #0B373D 52%, #072327 100%)",
         overflow: "hidden",
       }}
     >
       <style>{`
-        /* ── Mobile portrait ──────────────────────────────── */
+        /* ── Mobile portrait — own fluid single-column composition ── */
         @media (max-width: 767px) and (orientation: portrait) {
-          .hero-section .hero-content {
+          .hero-canvas {
+            width: 100% !important;
+            height: auto !important;
+            min-height: 100vh !important;
+            zoom: 1 !important;
+          }
+          .hero-icon-mark, .hero-canvas-wrapper { display: none !important; }
+          .hero-content {
+            position: relative !important;
+            left: auto !important;
+            top: auto !important;
+            width: 100% !important;
+            height: auto !important;
+            min-height: 100vh !important;
             padding: 80px clamp(20px, 5vw, 40px) 72px !important;
+            align-items: flex-start !important;
+            text-align: left !important;
           }
-          .hero-section .hero-h1 {
-            font-size: clamp(30px, 8.5vw, 44px) !important;
-          }
-          .hero-section .hero-icon-mark { display: none !important; }
-        }
-
-        /* ── Scaled canvas: tablet/laptop (768–1499px) AND any landscape
-           phone (short height, regardless of width) ──────────────────────
-           Rather than tuning each element's own responsive formula
-           separately (which shrinks everything at different rates and never
-           quite reads as "the same design, smaller"), the whole composition
-           renders at a fixed 1920px-wide design size and gets uniformly
-           zoomed down to fit the real viewport. Every vw/vh-driven value
-           below is frozen to what it equals at that design width instead of
-           reading the true (narrower) viewport — otherwise it would shrink
-           twice over, once from its own formula and again from the zoom. */
-        @media (min-width: 768px) and (max-width: 1499px),
-               (orientation: landscape) and (max-height: 500px) {
-          .hero-scale-canvas {
-            width: 1920px !important;
-            zoom: calc(100vw / 1920px) !important;
-          }
-          .hero-section .hero-h1 { font-size: 42px !important; }
-          /* Full-bleed (like the >=1500px desktop treatment) would let the
-             house's own aspect-ratio-based positioning (hero-3d-canvas.tsx)
-             size/place it as if it owned the whole viewport width, which is
-             exactly what the original 768–1499px fix (matching this box to
-             the text's reserved gutter) existed to prevent. Same fix,
-             re-applied here with a frozen design-space width. */
-          .hero-canvas-wrapper { left: auto !important; width: 500px !important; }
+          .hero-title-block, .hero-stats-wrapper { align-items: flex-start !important; }
+          .hero-eyebrow, .hero-buttons { justify-content: flex-start !important; }
+          .hero-h1 { text-align: left !important; font-size: clamp(30px, 8.5vw, 44px) !important; }
         }
 
         /* ── Heading/buttons + stats fade in shortly after mount ── */
@@ -88,7 +88,20 @@ export function HeroSection() {
         }
       `}</style>
 
-      <div className="hero-scale-canvas" style={{ position: "relative", width: "100%", alignSelf: "stretch" }}>
+      {/* Fixed design canvas — uniformly zoomed to fit the viewport. Every
+          child below is positioned in this same 1920×1080 pixel space, so
+          nothing needs its own vw/vh-driven responsive formula: the zoom
+          factor is the only thing that changes with window size. */}
+      <div
+        className="hero-canvas"
+        style={{
+          position: "relative",
+          width: DESIGN_W,
+          height: DESIGN_H,
+          flexShrink: 0,
+          zoom: `min(calc(100vw / ${DESIGN_W}px), calc(100vh / ${DESIGN_H}px))`,
+        }}
+      >
         {/* Gradient mesh — static depth layer under the circuit texture */}
         <div
           aria-hidden="true"
@@ -122,10 +135,14 @@ export function HeroSection() {
           }}
         />
 
-        {/* Three.js 3D canvas — full-bleed on tablet+/scaled; skipped entirely on
-            mobile portrait, where there's no collision-free spot for it */}
+        {/* Three.js 3D canvas — confined to its own right-hand column so it
+            can never collide with the centered text column. Skipped
+            entirely on mobile portrait. */}
         {!isPortraitMobile && (
-          <div className="hero-canvas-wrapper" style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
+          <div
+            className="hero-canvas-wrapper"
+            style={{ position: "absolute", left: 1300, top: 0, width: 600, height: DESIGN_H, zIndex: 1, pointerEvents: "none" }}
+          >
             <Hero3DLazy />
           </div>
         )}
@@ -135,19 +152,19 @@ export function HeroSection() {
           <HeroFilamentsSvg />
         </div>
 
-        {/* Icon-only brand mark — large, left side, vertically centered,
-            roughly matching the 3D house's scale on the right. No wordmark
-            (that lives in the header now). Sits behind the centered text. */}
+        {/* Icon-only brand mark — its own left-hand column, vertically
+            centered, roughly matching the 3D house's scale. No wordmark
+            (that lives in the header now). Sits behind the text column. */}
         {!isPortraitMobile && (
           <div
             aria-hidden
             className="hero-icon-mark"
             style={{
               position: "absolute",
-              left: "clamp(20px, 6vw, 90px)",
+              left: 60,
               top: "50%",
               transform: "translateY(-50%)",
-              width: "clamp(220px, 26vw, 460px)",
+              width: 520,
               zIndex: 10,
               pointerEvents: "none",
             }}
@@ -161,16 +178,16 @@ export function HeroSection() {
           </div>
         )}
 
-        {/* Text content — centered both horizontally and vertically */}
+        {/* Text content — its own middle column, centered both ways within it */}
         <div
           className="hero-content"
           style={{
-            position: "relative",
+            position: "absolute",
+            left: 620,
+            top: 0,
+            width: 680,
+            height: DESIGN_H,
             zIndex: 30,
-            width: "100%",
-            height: "100%",
-            margin: "0 auto",
-            padding: "clamp(80px, 10vh, 120px) clamp(24px, 6vw, 80px)",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -179,7 +196,7 @@ export function HeroSection() {
           }}
         >
           <div className="hero-title-block" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 18 }}>
+            <div className="hero-eyebrow" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 18 }}>
               <span style={{ width: 24, height: 1, background: "#5AC9D4", display: "block" }} />
               <span
                 style={{
@@ -199,7 +216,7 @@ export function HeroSection() {
               className="hero-h1"
               style={{
                 fontFamily: "var(--font-barlow)",
-                fontSize: "clamp(24px, 3vw, 42px)",
+                fontSize: 40,
                 fontWeight: 600,
                 letterSpacing: "-0.02em",
                 lineHeight: 1.1,
@@ -221,7 +238,7 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="hero-stats-wrapper" style={{ marginTop: "clamp(32px, 5vh, 56px)" }}>
+          <div className="hero-stats-wrapper" style={{ marginTop: 48 }}>
             <HeroStatsStrip />
           </div>
         </div>

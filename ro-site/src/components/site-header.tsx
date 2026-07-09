@@ -138,6 +138,7 @@ export function SiteHeader() {
             style={{
               flex: 1,
               height: "100%",
+              marginRight: -1,
               background: "#5AC9D4",
               opacity: 0.5,
               clipPath: "polygon(0% 50%, 100% 0%, 100% 100%)",
@@ -174,9 +175,9 @@ export function SiteHeader() {
           {/* Desktop logo lockup — icon + wordmark/tagline, left-aligned */}
           <Link href="/" aria-label="Acasă" className="desktop-header-logo" style={{ alignItems: "center", gap: 12 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/uploads/icon_petrol.png" alt="" style={{ height: 52, width: "auto", display: "block" }} />
+            <img src="/uploads/icon_petrol.png" alt="" style={{ height: 62, width: "auto", display: "block" }} />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/uploads/textlogo_petrol.png" alt="Mayer E-Concept" style={{ height: 42, width: "auto", display: "block" }} />
+            <img src="/uploads/textlogo_petrol.png" alt="Mayer E-Concept" style={{ height: 52, width: "auto", display: "block" }} />
           </Link>
 
           {/* Desktop nav */}
