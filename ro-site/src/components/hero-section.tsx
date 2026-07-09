@@ -456,24 +456,24 @@ function HeroButton({
         href={href}
         style={{
           ...base,
-          background: "#EF7F28",
-          color: "#0A2E33",
-          border: "1.5px solid #EF7F28",
-          boxShadow: "0 2px 14px rgba(239,127,40,0.22)",
+          background: "#8FE0E8",
+          color: "#072327",
+          border: "1.5px solid #8FE0E8",
+          boxShadow: "0 2px 14px rgba(143,224,232,0.22)",
         }}
         onMouseEnter={(e) => {
           const el = e.currentTarget as HTMLAnchorElement;
-          el.style.background = "#d76f1f";
-          el.style.borderColor = "#d76f1f";
+          el.style.background = "#6fd0da";
+          el.style.borderColor = "#6fd0da";
           el.style.transform = "translateY(-2px)";
-          el.style.boxShadow = "0 6px 28px rgba(239,127,40,0.45)";
+          el.style.boxShadow = "0 6px 28px rgba(143,224,232,0.45)";
         }}
         onMouseLeave={(e) => {
           const el = e.currentTarget as HTMLAnchorElement;
-          el.style.background = "#EF7F28";
-          el.style.borderColor = "#EF7F28";
+          el.style.background = "#8FE0E8";
+          el.style.borderColor = "#8FE0E8";
           el.style.transform = "translateY(0)";
-          el.style.boxShadow = "0 2px 14px rgba(239,127,40,0.22)";
+          el.style.boxShadow = "0 2px 14px rgba(143,224,232,0.22)";
         }}
       >
         {children}

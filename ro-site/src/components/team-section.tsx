@@ -77,15 +77,14 @@ function TeamCard({ member, large = false }: { member: TeamMember; large?: boole
   return (
     <div
       style={{
-        background: "#D9EAEC",
-        border: "1px solid rgba(14,50,61,0.08)",
+        background: "#0B373D",
+        border: "1px solid rgba(143,224,232,0.12)",
         borderRadius: 14,
         padding: "28px 18px 22px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         textAlign: "center",
-        boxShadow: "0 8px 28px rgba(14,50,61,0.08)",
         height: "100%",
       }}
     >
@@ -116,7 +115,7 @@ function TeamCard({ member, large = false }: { member: TeamMember; large?: boole
             width: photoSize,
             height: photoSize,
             borderRadius: photoRadius,
-            background: "linear-gradient(135deg, #0E323D, #335058)",
+            background: "linear-gradient(135deg, #0F454D, #0B373D)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -137,28 +136,28 @@ function TeamCard({ member, large = false }: { member: TeamMember; large?: boole
       )}
       <div
         style={{
-          fontFamily: "var(--font-sans)",
+          fontFamily: "var(--font-barlow)",
           fontWeight: 700,
           fontSize: large ? 18 : 15.5,
-          color: "#0E323D",
+          color: "#F2FBFC",
           marginBottom: 6,
           letterSpacing: "-0.01em",
         }}
       >
         {member.name}
       </div>
-      <div style={{ fontFamily: "var(--font-body)", fontSize: 12.5, color: "#56707A", lineHeight: 1.4 }}>
+      <div style={{ fontFamily: "var(--font-barlow)", fontSize: 12.5, color: "#7FA2A6", lineHeight: 1.4 }}>
         {member.role}
       </div>
       {member.tag && (
         <div
           style={{
-            fontFamily: "var(--font-sans)",
+            fontFamily: "var(--font-plex-mono)",
             fontSize: 9,
             fontWeight: 700,
             letterSpacing: "0.1em",
             textTransform: "uppercase",
-            color: "#56707A",
+            color: "#7FA2A6",
             marginTop: 4,
           }}
         >
@@ -167,10 +166,10 @@ function TeamCard({ member, large = false }: { member: TeamMember; large?: boole
       )}
       <div
         style={{
-          fontFamily: "var(--font-body)",
+          fontFamily: "var(--font-barlow)",
           fontSize: 12,
           fontStyle: "italic",
-          color: "#7C97A0",
+          color: "#A9C9CC",
           lineHeight: 1.45,
           marginTop: 10,
         }}
@@ -185,7 +184,6 @@ export function TeamSection() {
   return (
     <section
       style={{
-        background: "#0E323D",
         paddingTop: "clamp(72px, 9vw, 120px)",
         paddingBottom: "clamp(72px, 9vw, 120px)",
       }}
@@ -200,7 +198,7 @@ export function TeamSection() {
         }
         .team-divider-v {
           width: 1px;
-          background: rgba(197,137,91,0.35);
+          background: rgba(143,224,232,0.35);
         }
         @media (max-width: 900px) {
           .team-row-all { grid-template-columns: repeat(2, minmax(0, 220px)); }
@@ -215,12 +213,12 @@ export function TeamSection() {
         <div style={{ textAlign: "center", marginBottom: "clamp(48px, 6vw, 72px)" }}>
           <div
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-plex-mono)",
               fontSize: "11px",
               fontWeight: 700,
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              color: "#C5895B",
+              color: "#8FE0E8",
               marginBottom: 16,
             }}
           >
@@ -228,12 +226,12 @@ export function TeamSection() {
           </div>
           <h2
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-barlow)",
               fontSize: "clamp(28px, 3.2vw, 40px)",
               fontWeight: 800,
               letterSpacing: "-0.025em",
               lineHeight: 1.15,
-              color: "#F4F2EC",
+              color: "#F2FBFC",
               margin: "0 auto",
               maxWidth: "26ch",
             }}

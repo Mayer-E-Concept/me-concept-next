@@ -22,8 +22,8 @@ export function SiteFooter() {
   return (
     <footer
       style={{
-        background: "#051E27",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
+        background: "#072327",
+        borderTop: "1px solid rgba(143,224,232,0.06)",
         paddingTop: 64,
         paddingBottom: 0,
       }}
@@ -66,10 +66,10 @@ export function SiteFooter() {
             </Link>
             <p
               style={{
-                fontFamily: "var(--font-body)",
+                fontFamily: "var(--font-barlow)",
                 fontSize: 14,
                 lineHeight: 1.65,
-                color: "rgba(255,255,255,0.50)",
+                color: "rgba(169,201,204,0.50)",
                 maxWidth: "36ch",
                 marginBottom: 20,
               }}
@@ -77,12 +77,12 @@ export function SiteFooter() {
               Proiectare instalații electrice pentru clădiri rezidențiale și
               comerciale. Certificare ISO 9001:2015. Sibiu & Germania.
             </p>
-            <div style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "rgba(255,255,255,0.50)" }}>
+            <div style={{ fontFamily: "var(--font-barlow)", fontSize: 13, color: "rgba(169,201,204,0.50)" }}>
               <a
                 href="mailto:contact@me-concept.ro"
-                style={{ color: "rgba(255,255,255,0.50)", textDecoration: "none" }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#C5895B")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.50)")}
+                style={{ color: "rgba(169,201,204,0.50)", textDecoration: "none" }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#8FE0E8")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(169,201,204,0.50)")}
               >
                 contact@me-concept.ro
               </a>
@@ -96,17 +96,17 @@ export function SiteFooter() {
                 key={item.label}
                 href={item.href}
                 style={{
-                  fontFamily: "var(--font-sans)",
+                  fontFamily: "var(--font-plex-mono)",
                   fontSize: "12.5px",
                   fontWeight: 600,
                   letterSpacing: "0.10em",
                   textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.50)",
+                  color: "rgba(169,201,204,0.50)",
                   textDecoration: "none",
                   transition: "color .2s ease",
                 }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#C5895B")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.50)")}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#8FE0E8")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(169,201,204,0.50)")}
               >
                 {item.label}
               </Link>
@@ -118,7 +118,7 @@ export function SiteFooter() {
         <div
           className="footer-bottom-bar"
           style={{
-            borderTop: "1px solid rgba(255,255,255,0.06)",
+            borderTop: "1px solid rgba(143,224,232,0.06)",
             padding: "18px 0",
             display: "flex",
             alignItems: "center",
@@ -127,7 +127,7 @@ export function SiteFooter() {
             gap: 12,
           }}
         >
-          <p style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "rgba(255,255,255,0.35)", margin: 0 }}>
+          <p style={{ fontFamily: "var(--font-barlow)", fontSize: 13, color: "rgba(169,201,204,0.35)", margin: 0 }}>
             © {new Date().getFullYear()} Mayer E-Concept SRL. Toate drepturile rezervate.
           </p>
           <div className="footer-legal-links" style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
@@ -136,14 +136,14 @@ export function SiteFooter() {
                 key={item.label}
                 href={item.href}
                 style={{
-                  fontFamily: "var(--font-body)",
+                  fontFamily: "var(--font-barlow)",
                   fontSize: 12,
-                  color: "rgba(255,255,255,0.35)",
+                  color: "rgba(169,201,204,0.35)",
                   textDecoration: "none",
                   transition: "color .2s ease",
                 }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#C5895B")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.35)")}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#8FE0E8")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(169,201,204,0.35)")}
               >
                 {item.label}
               </Link>

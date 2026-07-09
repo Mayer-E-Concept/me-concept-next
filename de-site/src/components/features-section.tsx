@@ -65,7 +65,7 @@ export function FeaturesSectionDe() {
           left: 0,
           right: 0,
           height: 2,
-          background: "linear-gradient(90deg, transparent, #C5895B 30%, #C5895B 70%, transparent)",
+          background: "linear-gradient(90deg, transparent, #5AC9D4 30%, #5AC9D4 70%, transparent)",
           opacity: 0.45,
         }}
       />
@@ -96,12 +96,12 @@ export function FeaturesSectionDe() {
           <div>
             <div
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-plex-mono)",
                 fontSize: "11px",
                 fontWeight: 700,
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
-                color: "#C5895B",
+                color: "#8FE0E8",
                 marginBottom: 14,
               }}
             >
@@ -109,12 +109,12 @@ export function FeaturesSectionDe() {
             </div>
             <h2
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-barlow)",
                 fontSize: "clamp(28px, 3.2vw, 42px)",
                 fontWeight: 800,
                 letterSpacing: "-0.02em",
                 lineHeight: 1.1,
-                color: "#F4F2EC",
+                color: "#F2FBFC",
                 maxWidth: "22ch",
                 margin: 0,
               }}
@@ -124,10 +124,10 @@ export function FeaturesSectionDe() {
           </div>
           <p
             style={{
-              fontFamily: "var(--font-body)",
+              fontFamily: "var(--font-barlow)",
               fontSize: "clamp(14px, 1.1vw, 16px)",
               lineHeight: 1.7,
-              color: "rgba(244,242,236,0.60)",
+              color: "#A9C9CC",
               maxWidth: "46ch",
               margin: 0,
             }}
@@ -153,7 +153,7 @@ export function FeaturesSectionDe() {
               onMouseLeave={() => setHoveredIdx(null)}
               style={{
                 position: "relative",
-                background: hoveredIdx === i ? "rgba(255,255,255,0.055)" : "rgba(255,255,255,0.035)",
+                background: "#0B373D",
                 border: "1px solid",
                 borderRadius: 12,
                 padding: "30px 30px 32px",
@@ -163,7 +163,7 @@ export function FeaturesSectionDe() {
                 transform: hoveredIdx === i ? "translateY(-4px)" : "translateY(0)",
                 boxShadow: hoveredIdx === i ? "0 16px 40px rgba(0,0,0,0.35)" : "none",
                 cursor: "default",
-                borderColor: hoveredIdx === i ? "rgba(197,137,91,0.55)" : "rgba(255,255,255,0.08)",
+                borderColor: hoveredIdx === i ? "rgba(143,224,232,0.55)" : "rgba(143,224,232,0.12)",
               }}
             >
               <div
@@ -173,7 +173,7 @@ export function FeaturesSectionDe() {
                   left: 0,
                   height: 2,
                   width: hoveredIdx === i ? "100%" : "0%",
-                  background: "#C5895B",
+                  background: "#5AC9D4",
                   transition: "width .35s ease",
                 }}
               />
@@ -181,24 +181,24 @@ export function FeaturesSectionDe() {
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 18 }}>
                 <span
                   style={{
-                    fontFamily: "var(--font-sans)",
+                    fontFamily: "var(--font-plex-mono)",
                     fontSize: "12.5px",
                     fontWeight: 800,
                     letterSpacing: "0.1em",
-                    color: "#C5895B",
+                    color: "#8FE0E8",
                   }}
                 >
                   {f.icon}
                 </span>
-                <span aria-hidden style={{ height: 1, flex: 1, background: "rgba(197,137,91,0.22)" }} />
+                <span aria-hidden style={{ height: 1, flex: 1, background: "rgba(143,224,232,0.22)" }} />
               </div>
               <h3
                 style={{
-                  fontFamily: "var(--font-sans)",
+                  fontFamily: "var(--font-barlow)",
                   fontSize: "clamp(16px, 1.3vw, 19px)",
                   fontWeight: 700,
                   letterSpacing: "-0.01em",
-                  color: "#F4F2EC",
+                  color: "#F2FBFC",
                   marginBottom: 12,
                   lineHeight: 1.25,
                 }}
@@ -207,10 +207,10 @@ export function FeaturesSectionDe() {
               </h3>
               <p
                 style={{
-                  fontFamily: "var(--font-body)",
+                  fontFamily: "var(--font-barlow)",
                   fontSize: "14px",
                   lineHeight: 1.65,
-                  color: "rgba(244,242,236,0.55)",
+                  color: "#A9C9CC",
                   fontWeight: 400,
                   margin: 0,
                 }}

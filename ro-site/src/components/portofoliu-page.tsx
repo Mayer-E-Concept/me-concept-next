@@ -122,26 +122,26 @@ export function PortofoliuPage() {
             <Link
               href="/"
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-plex-mono)",
                 fontSize: "12px",
                 fontWeight: 600,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: "rgba(255,255,255,0.45)",
+                color: "#7FA2A6",
                 textDecoration: "none",
               }}
             >
               Acasă
             </Link>
-            <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 12 }}>›</span>
+            <span style={{ color: "rgba(143,224,232,0.3)", fontSize: 12 }}>›</span>
             <span
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-plex-mono)",
                 fontSize: "12px",
                 fontWeight: 600,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: "#C5895B",
+                color: "#8FE0E8",
               }}
             >
               Portofoliu
@@ -150,12 +150,12 @@ export function PortofoliuPage() {
 
           <h1
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-barlow)",
               fontSize: "clamp(36px, 5vw, 72px)",
               fontWeight: 800,
               letterSpacing: "-0.025em",
               lineHeight: 1.05,
-              color: "#F4F2EC",
+              color: "#F2FBFC",
               maxWidth: "18ch",
               marginBottom: 24,
             }}
@@ -164,10 +164,10 @@ export function PortofoliuPage() {
           </h1>
           <p
             style={{
-              fontFamily: "var(--font-body)",
+              fontFamily: "var(--font-barlow)",
               fontSize: "clamp(16px, 1.4vw, 19px)",
               lineHeight: 1.65,
-              color: "rgba(244,242,236,0.65)",
+              color: "#A9C9CC",
               maxWidth: "55ch",
               marginBottom: 0,
             }}
@@ -213,7 +213,7 @@ export function PortofoliuPage() {
             left: 0,
             right: 0,
             height: 2,
-            background: "linear-gradient(90deg, transparent, #C5895B 30%, #C5895B 70%, transparent)",
+            background: "linear-gradient(90deg, transparent, #5AC9D4 30%, #5AC9D4 70%, transparent)",
             opacity: 0.45,
           }}
         />
@@ -223,12 +223,12 @@ export function PortofoliuPage() {
           <div style={{ marginBottom: "clamp(40px, 5vw, 64px)" }}>
             <div
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-plex-mono)",
                 fontSize: "11px",
                 fontWeight: 700,
                 letterSpacing: "0.24em",
                 textTransform: "uppercase",
-                color: "#C5895B",
+                color: "#8FE0E8",
                 marginBottom: 16,
               }}
             >
@@ -236,12 +236,12 @@ export function PortofoliuPage() {
             </div>
             <h2
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-barlow)",
                 fontSize: "clamp(28px, 3.2vw, 44px)",
                 fontWeight: 800,
                 letterSpacing: "-0.022em",
                 lineHeight: 1.1,
-                color: "#F4F2EC",
+                color: "#F2FBFC",
                 maxWidth: "28ch",
                 margin: 0,
               }}
@@ -264,8 +264,8 @@ export function PortofoliuPage() {
               <div
                 key={p.label}
                 style={{
-                  background: "rgba(255,255,255,0.035)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: "#0B373D",
+                  border: "1px solid rgba(143,224,232,0.12)",
                   borderRadius: 10,
                   padding: "clamp(20px, 2.4vw, 32px)",
                   display: "flex",
@@ -274,7 +274,7 @@ export function PortofoliuPage() {
                   overflow: "hidden",
                 }}
               >
-                {/* copper left accent */}
+                {/* cyan left accent */}
                 <div
                   aria-hidden
                   style={{
@@ -283,16 +283,16 @@ export function PortofoliuPage() {
                     left: 0,
                     bottom: 0,
                     width: 3,
-                    background: "linear-gradient(180deg, #C5895B 0%, rgba(197,137,91,0.15) 100%)",
+                    background: "linear-gradient(180deg, #5AC9D4 0%, rgba(143,224,232,0.15) 100%)",
                     borderRadius: "10px 0 0 10px",
                   }}
                 />
                 <div
                   style={{
-                    fontFamily: "var(--font-sans)",
+                    fontFamily: "var(--font-barlow)",
                     fontSize: "clamp(36px, 3.8vw, 54px)",
                     fontWeight: 800,
-                    color: "#C5895B",
+                    color: "#8FE0E8",
                     letterSpacing: "-0.04em",
                     lineHeight: 1,
                     marginBottom: 14,
@@ -302,10 +302,10 @@ export function PortofoliuPage() {
                 </div>
                 <h3
                   style={{
-                    fontFamily: "var(--font-sans)",
+                    fontFamily: "var(--font-barlow)",
                     fontSize: 14,
                     fontWeight: 700,
-                    color: "#F4F2EC",
+                    color: "#F2FBFC",
                     letterSpacing: "-0.01em",
                     lineHeight: 1.35,
                     marginBottom: 8,
@@ -315,10 +315,10 @@ export function PortofoliuPage() {
                 </h3>
                 <p
                   style={{
-                    fontFamily: "var(--font-body)",
+                    fontFamily: "var(--font-barlow)",
                     fontSize: 12.5,
                     lineHeight: 1.65,
-                    color: "rgba(244,242,236,0.45)",
+                    color: "#A9C9CC",
                     margin: 0,
                   }}
                 >
@@ -348,7 +348,7 @@ export function PortofoliuPage() {
             left: 0,
             right: 0,
             height: 1,
-            background: "rgba(255,255,255,0.06)",
+            background: "rgba(143,224,232,0.06)",
           }}
         />
         <div
@@ -363,12 +363,12 @@ export function PortofoliuPage() {
           <div style={{ marginBottom: "clamp(40px, 5vw, 64px)" }}>
             <div
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-plex-mono)",
                 fontSize: "11px",
                 fontWeight: 700,
                 letterSpacing: "0.24em",
                 textTransform: "uppercase",
-                color: "#C5895B",
+                color: "#8FE0E8",
               }}
             >
               Proiecte de referință — Germania

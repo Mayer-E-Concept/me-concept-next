@@ -37,9 +37,8 @@ export function LegalPageDe({
       <SiteHeaderDe />
       <main
         style={{
-          background: "#051E27",
           minHeight: "100vh",
-          color: "#F4F2EC",
+          color: "#F2FBFC",
           paddingTop: "calc(72px + clamp(48px, 6vw, 96px))",
           paddingBottom: "clamp(64px, 8vw, 120px)",
         }}
@@ -56,12 +55,12 @@ export function LegalPageDe({
             <Link
               href="/"
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-plex-mono)",
                 fontSize: "11.5px",
                 fontWeight: 600,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: "#1A6F7A",
+                color: "#8FE0E8",
                 textDecoration: "none",
               }}
             >
@@ -72,12 +71,12 @@ export function LegalPageDe({
           {/* Title */}
           <h1
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-barlow)",
               fontSize: "clamp(26px, 3.5vw, 40px)",
               fontWeight: 700,
               letterSpacing: "-0.02em",
               lineHeight: 1.15,
-              color: "#F4F2EC",
+              color: "#F2FBFC",
               marginBottom: 12,
             }}
           >
@@ -85,11 +84,11 @@ export function LegalPageDe({
           </h1>
           <p
             style={{
-              fontFamily: "var(--font-body)",
+              fontFamily: "var(--font-barlow)",
               fontSize: 14,
-              color: "rgba(244,242,236,0.45)",
+              color: "#7FA2A6",
               marginBottom: 56,
-              borderBottom: "1px solid rgba(255,255,255,0.08)",
+              borderBottom: "1px solid rgba(143,224,232,0.08)",
               paddingBottom: 32,
             }}
           >
@@ -102,11 +101,11 @@ export function LegalPageDe({
               <section key={i}>
                 <h2
                   style={{
-                    fontFamily: "var(--font-sans)",
+                    fontFamily: "var(--font-barlow)",
                     fontSize: "clamp(16px, 1.5vw, 19px)",
                     fontWeight: 700,
                     letterSpacing: "-0.01em",
-                    color: "#F4F2EC",
+                    color: "#F2FBFC",
                     marginBottom: 14,
                   }}
                 >
@@ -115,10 +114,10 @@ export function LegalPageDe({
                 {Array.isArray(section.content) ? (
                   <ul
                     style={{
-                      fontFamily: "var(--font-body)",
+                      fontFamily: "var(--font-barlow)",
                       fontSize: 15,
                       lineHeight: 1.75,
-                      color: "rgba(244,242,236,0.75)",
+                      color: "#A9C9CC",
                       paddingLeft: 24,
                       display: "flex",
                       flexDirection: "column",
@@ -132,24 +131,24 @@ export function LegalPageDe({
                 ) : (
                   <p
                     style={{
-                      fontFamily: "var(--font-body)",
+                      fontFamily: "var(--font-barlow)",
                       fontSize: 15,
                       lineHeight: 1.75,
-                      color: "rgba(244,242,236,0.75)",
+                      color: "#A9C9CC",
                     }}
                   >
                     {section.content}
                   </p>
                 )}
                 {section.subsections?.map((sub, j) => (
-                  <div key={j} style={{ marginTop: 20, paddingLeft: 16, borderLeft: "2px solid rgba(197,137,91,0.25)" }}>
+                  <div key={j} style={{ marginTop: 20, paddingLeft: 16, borderLeft: "2px solid rgba(143,224,232,0.25)" }}>
                     <h3
                       style={{
-                        fontFamily: "var(--font-sans)",
+                        fontFamily: "var(--font-barlow)",
                         fontSize: 14,
                         fontWeight: 700,
                         letterSpacing: "0.04em",
-                        color: "rgba(244,242,236,0.85)",
+                        color: "#F2FBFC",
                         marginBottom: 8,
                       }}
                     >
@@ -157,10 +156,10 @@ export function LegalPageDe({
                     </h3>
                     <p
                       style={{
-                        fontFamily: "var(--font-body)",
+                        fontFamily: "var(--font-barlow)",
                         fontSize: 15,
                         lineHeight: 1.75,
-                        color: "rgba(244,242,236,0.70)",
+                        color: "#A9C9CC",
                       }}
                     >
                       {sub.content}
@@ -174,8 +173,8 @@ export function LegalPageDe({
             {contactInfo && (
               <section
                 style={{
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.10)",
+                  background: "rgba(143,224,232,0.04)",
+                  border: "1px solid rgba(143,224,232,0.10)",
                   borderRadius: 8,
                   padding: "24px 28px",
                   marginTop: 8,
@@ -183,10 +182,10 @@ export function LegalPageDe({
               >
                 <h2
                   style={{
-                    fontFamily: "var(--font-sans)",
+                    fontFamily: "var(--font-barlow)",
                     fontSize: "clamp(16px, 1.5vw, 19px)",
                     fontWeight: 700,
-                    color: "#F4F2EC",
+                    color: "#F2FBFC",
                     marginBottom: 16,
                   }}
                 >
@@ -194,20 +193,20 @@ export function LegalPageDe({
                 </h2>
                 <div
                   style={{
-                    fontFamily: "var(--font-body)",
+                    fontFamily: "var(--font-barlow)",
                     fontSize: 15,
                     lineHeight: 1.8,
-                    color: "rgba(244,242,236,0.70)",
+                    color: "#A9C9CC",
                     display: "flex",
                     flexDirection: "column",
                     gap: 4,
                   }}
                 >
-                  <span style={{ color: "#F4F2EC", fontWeight: 600 }}>{contactInfo.company}</span>
+                  <span style={{ color: "#F2FBFC", fontWeight: 600 }}>{contactInfo.company}</span>
                   <span>{contactInfo.address}</span>
                   <span>{contactInfo.country}</span>
-                  <a href={contactInfo.website} style={{ color: "#1A6F7A", textDecoration: "none" }}>{contactInfo.website}</a>
-                  <a href={`mailto:${contactInfo.email}`} style={{ color: "#C5895B", textDecoration: "none" }}>{contactInfo.email}</a>
+                  <a href={contactInfo.website} style={{ color: "#8FE0E8", textDecoration: "none" }}>{contactInfo.website}</a>
+                  <a href={`mailto:${contactInfo.email}`} style={{ color: "#8FE0E8", textDecoration: "none" }}>{contactInfo.email}</a>
                   {contactInfo.phone && <span>{contactInfo.phone}</span>}
                 </div>
               </section>

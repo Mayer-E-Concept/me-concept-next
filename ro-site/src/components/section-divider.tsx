@@ -3,7 +3,7 @@
    model de romburi în centru. Se pune ca prim copil într-o secțiune cu
    position: relative. */
 
-export function SectionDivider({ position = "top", color = "#C5895B" }: { position?: "top" | "bottom"; color?: string }) {
+export function SectionDivider({ position = "top", color = "#5AC9D4" }: { position?: "top" | "bottom"; color?: string }) {
   return (
     <div
       aria-hidden

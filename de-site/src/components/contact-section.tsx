@@ -61,12 +61,12 @@ export function ContactSectionDe() {
   }
 
   const inputStyle: React.CSSProperties = {
-    background: "rgba(255,255,255,0.06)",
-    border: "1px solid rgba(255,255,255,0.16)",
+    background: "#0B373D",
+    border: "1px solid rgba(143,224,232,0.20)",
     borderRadius: 4,
-    color: "#fff",
+    color: "#F2FBFC",
     padding: "14px 16px",
-    fontFamily: "var(--font-body)",
+    fontFamily: "var(--font-barlow)",
     fontSize: 15,
     outline: "none",
     transition: "border-color .2s ease, background .2s ease",
@@ -75,16 +75,16 @@ export function ContactSectionDe() {
   };
 
   const labelStyle: React.CSSProperties = {
-    fontFamily: "var(--font-sans)",
+    fontFamily: "var(--font-plex-mono)",
     fontSize: "11.5px",
     fontWeight: 600,
     letterSpacing: "0.12em",
     textTransform: "uppercase" as const,
-    color: "rgba(244,242,236,0.65)",
+    color: "#7FA2A6",
   };
 
   const errorStyle: React.CSSProperties = {
-    fontFamily: "var(--font-body)",
+    fontFamily: "var(--font-barlow)",
     fontSize: "12px",
     color: "#E07B5A",
     marginTop: 4,
@@ -100,7 +100,7 @@ export function ContactSectionDe() {
         paddingBottom: "clamp(72px, 9vw, 130px)",
         overflow: "hidden",
         scrollMarginTop: "72px",
-        color: "#F4F2EC",
+        color: "#F2FBFC",
       }}
     >
       <SectionDivider />
@@ -109,6 +109,8 @@ export function ContactSectionDe() {
           .contact-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
           .contact-name-email-row { grid-template-columns: 1fr !important; }
         }
+        #contact input::placeholder,
+        #contact textarea::placeholder { color: #7FA2A6; }
       `}</style>
 
       <div
@@ -142,12 +144,12 @@ export function ContactSectionDe() {
         <div>
           <h2
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-barlow)",
               fontSize: "clamp(28px, 3.4vw, 42px)",
               fontWeight: 700,
               letterSpacing: "-0.02em",
               lineHeight: 1.12,
-              color: "#F4F2EC",
+              color: "#F2FBFC",
               maxWidth: "20ch",
               marginBottom: 28,
             }}
@@ -156,10 +158,10 @@ export function ContactSectionDe() {
           </h2>
           <p
             style={{
-              fontFamily: "var(--font-body)",
+              fontFamily: "var(--font-barlow)",
               fontSize: 16,
               lineHeight: 1.7,
-              color: "rgba(244,242,236,0.75)",
+              color: "#A9C9CC",
               marginBottom: 40,
               maxWidth: "46ch",
             }}
@@ -176,15 +178,15 @@ export function ContactSectionDe() {
               { label: "Öffnungszeiten", value: "Montag–Freitag, 09:00–18:00 Uhr" },
             ].map(({ label, value, href }) => (
               <div key={label}>
-                <div style={{ fontFamily: "var(--font-sans)", fontSize: "11px", fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "#1A6F7A", marginBottom: 4 }}>
+                <div style={{ fontFamily: "var(--font-plex-mono)", fontSize: "11px", fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8FE0E8", marginBottom: 4 }}>
                   {label}
                 </div>
                 {href ? (
-                  <a href={href} style={{ fontFamily: "var(--font-body)", fontSize: 15, color: "#F4F2EC", textDecoration: "none" }}>
+                  <a href={href} style={{ fontFamily: "var(--font-barlow)", fontSize: 15, color: "#F2FBFC", textDecoration: "none" }}>
                     {value}
                   </a>
                 ) : (
-                  <div style={{ fontFamily: "var(--font-body)", fontSize: 15, color: "#F4F2EC" }}>{value}</div>
+                  <div style={{ fontFamily: "var(--font-barlow)", fontSize: 15, color: "#F2FBFC" }}>{value}</div>
                 )}
               </div>
             ))}
@@ -204,7 +206,7 @@ export function ContactSectionDe() {
         {/* Right — tabs + form / calendar */}
         <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
           {/* Tab switcher */}
-          <div style={{ display: "flex", borderBottom: "1px solid rgba(255,255,255,0.10)", marginBottom: 28 }}>
+          <div style={{ display: "flex", borderBottom: "1px solid rgba(143,224,232,0.10)", marginBottom: 28 }}>
             {(["calendar", "form"] as ActiveTab[]).map((tab) => {
               const label = tab === "form" ? "Nachricht senden" : "Termin vereinbaren";
               const active = activeTab === tab;
@@ -215,22 +217,22 @@ export function ContactSectionDe() {
                   style={{
                     background: "none",
                     border: "none",
-                    borderBottom: active ? "2px solid #C5895B" : "2px solid transparent",
+                    borderBottom: active ? "2px solid #5AC9D4" : "2px solid transparent",
                     padding: "10px 0",
                     marginRight: 28,
                     marginBottom: -1,
-                    fontFamily: "var(--font-sans)",
+                    fontFamily: "var(--font-plex-mono)",
                     fontSize: "11.5px",
                     fontWeight: 700,
                     letterSpacing: "0.11em",
                     textTransform: "uppercase",
-                    color: active ? "#F4F2EC" : "rgba(244,242,236,0.38)",
+                    color: active ? "#F2FBFC" : "#7FA2A6",
                     cursor: "pointer",
                     transition: "color .2s, border-color .2s",
                     whiteSpace: "nowrap",
                   }}
-                  onMouseEnter={(e) => { if (!active) (e.currentTarget as HTMLButtonElement).style.color = "#C5895B"; }}
-                  onMouseLeave={(e) => { if (!active) (e.currentTarget as HTMLButtonElement).style.color = "rgba(244,242,236,0.38)"; }}
+                  onMouseEnter={(e) => { if (!active) (e.currentTarget as HTMLButtonElement).style.color = "#8FE0E8"; }}
+                  onMouseLeave={(e) => { if (!active) (e.currentTarget as HTMLButtonElement).style.color = "#7FA2A6"; }}
                 >
                   {label}
                 </button>
@@ -254,26 +256,26 @@ export function ContactSectionDe() {
               justifyContent: "center",
               gap: 20,
               padding: "48px 32px",
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(197,137,91,0.30)",
+              background: "rgba(143,224,232,0.04)",
+              border: "1px solid rgba(143,224,232,0.30)",
               borderRadius: 8,
               textAlign: "center",
             }}
           >
-            <div style={{ width: 56, height: 56, borderRadius: "50%", background: "rgba(197,137,91,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C5895B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <div style={{ width: 56, height: 56, borderRadius: "50%", background: "rgba(143,224,232,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8FE0E8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
-            <h3 style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(20px, 2vw, 26px)", fontWeight: 700, color: "#F4F2EC", margin: 0 }}>
+            <h3 style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(20px, 2vw, 26px)", fontWeight: 700, color: "#F2FBFC", margin: 0 }}>
               Nachricht gesendet!
             </h3>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: 15, lineHeight: 1.65, color: "rgba(244,242,236,0.65)", margin: 0, maxWidth: "36ch" }}>
+            <p style={{ fontFamily: "var(--font-barlow)", fontSize: 15, lineHeight: 1.65, color: "#A9C9CC", margin: 0, maxWidth: "36ch" }}>
               Vielen Dank! Wir melden uns innerhalb von 24 Stunden an Werktagen bei Ihnen.
             </p>
             <button
               onClick={() => setSubmitted(false)}
-              style={{ marginTop: 8, background: "none", border: "1px solid rgba(197,137,91,0.40)", color: "#C5895B", fontFamily: "var(--font-sans)", fontSize: "11.5px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "10px 24px", borderRadius: 4, cursor: "pointer", transition: "border-color .2s ease" }}
+              style={{ marginTop: 8, background: "none", border: "1px solid rgba(143,224,232,0.40)", color: "#8FE0E8", fontFamily: "var(--font-plex-mono)", fontSize: "11.5px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "10px 24px", borderRadius: 4, cursor: "pointer", transition: "border-color .2s ease" }}
             >
               Weitere Nachricht senden
             </button>
@@ -301,9 +303,9 @@ export function ContactSectionDe() {
                     name={field.name}
                     type={field.type}
                     placeholder={field.placeholder}
-                    style={{ ...inputStyle, borderColor: errors[field.name] ? "#E07B5A" : "rgba(255,255,255,0.16)" }}
-                    onFocus={(e) => { e.target.style.borderColor = "#1A6F7A"; e.target.style.background = "rgba(255,255,255,0.10)"; }}
-                    onBlur={(e) => { e.target.style.borderColor = errors[field.name] ? "#E07B5A" : "rgba(255,255,255,0.16)"; e.target.style.background = "rgba(255,255,255,0.06)"; }}
+                    style={{ ...inputStyle, borderColor: errors[field.name] ? "#E07B5A" : "rgba(143,224,232,0.20)" }}
+                    onFocus={(e) => { e.target.style.borderColor = "rgba(143,224,232,0.6)"; }}
+                    onBlur={(e) => { e.target.style.borderColor = errors[field.name] ? "#E07B5A" : "rgba(143,224,232,0.20)"; }}
                     onChange={() => setErrors((prev) => { const n = { ...prev }; delete n[field.name]; return n; })}
                   />
                   {errors[field.name] && <span style={errorStyle}>{errors[field.name]}</span>}
@@ -318,9 +320,9 @@ export function ContactSectionDe() {
                 name="message"
                 rows={5}
                 placeholder="Beschreiben Sie kurz Ihr Projekt oder Ihre Frage..."
-                style={{ ...inputStyle, resize: "vertical", borderColor: errors.message ? "#E07B5A" : "rgba(255,255,255,0.16)" }}
-                onFocus={(e) => { e.target.style.borderColor = "#1A6F7A"; e.target.style.background = "rgba(255,255,255,0.10)"; }}
-                onBlur={(e) => { e.target.style.borderColor = errors.message ? "#E07B5A" : "rgba(255,255,255,0.16)"; e.target.style.background = "rgba(255,255,255,0.06)"; }}
+                style={{ ...inputStyle, resize: "vertical", borderColor: errors.message ? "#E07B5A" : "rgba(143,224,232,0.20)" }}
+                onFocus={(e) => { e.target.style.borderColor = "rgba(143,224,232,0.6)"; }}
+                onBlur={(e) => { e.target.style.borderColor = errors.message ? "#E07B5A" : "rgba(143,224,232,0.20)"; }}
                 onChange={() => setErrors((prev) => { const n = { ...prev }; delete n.message; return n; })}
               />
               {errors.message && <span style={errorStyle}>{errors.message}</span>}
@@ -338,11 +340,11 @@ export function ContactSectionDe() {
                 gap: 10,
                 height: 56,
                 padding: "0 32px",
-                background: loading ? "#0E323D" : btnHovered ? "#C5895B" : "#0E323D",
-                color: "#ffffff",
-                border: `1.5px solid ${btnHovered && !loading ? "#C5895B" : "#0E323D"}`,
+                background: loading ? "#0E323D" : btnHovered ? "#8FE0E8" : "#0E323D",
+                color: btnHovered && !loading ? "#072327" : "#F2FBFC",
+                border: `1.5px solid ${btnHovered && !loading ? "#8FE0E8" : "#0E323D"}`,
                 borderRadius: 4,
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-plex-mono)",
                 fontSize: "12.5px",
                 fontWeight: 700,
                 letterSpacing: "0.14em",

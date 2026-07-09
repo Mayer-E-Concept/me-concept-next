@@ -80,18 +80,18 @@ export function HeroStatsStripDe() {
         gap: "clamp(14px, 2.2vw, 30px)",
         marginTop: "clamp(6px, 1vw, 14px)",
         paddingTop: 12,
-        borderTop: "1px solid rgba(255,255,255,0.10)",
+        borderTop: "1px solid rgba(143,224,232,0.14)",
       }}
     >
       {STATS.map((s) => (
         <div key={s.lbl} style={{ display: "flex", flexDirection: "column", minWidth: 60 }}>
           <span
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-oxanium)",
               fontSize: "clamp(16px, 1.8vw, 24px)",
-              fontWeight: 800,
-              color: "#C5895B",
-              letterSpacing: "-0.02em",
+              fontWeight: 700,
+              color: "#8FE0E8",
+              letterSpacing: "-0.01em",
               lineHeight: 1,
               marginBottom: 5,
             }}
@@ -104,12 +104,12 @@ export function HeroStatsStripDe() {
           </span>
           <span
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-plex-mono)",
               fontSize: "9px",
-              fontWeight: 600,
+              fontWeight: 500,
               letterSpacing: "0.13em",
               textTransform: "uppercase",
-              color: "rgba(255,255,255,0.45)",
+              color: "#7FA2A6",
               lineHeight: 1.4,
             }}
           >

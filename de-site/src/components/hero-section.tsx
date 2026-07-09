@@ -144,7 +144,7 @@ export function HeroSectionDe() {
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        backgroundColor: "#051E27",
+        background: "radial-gradient(130% 150% at 72% -10%, #12525B 0%, #0B373D 52%, #072327 100%)",
         overflow: "hidden",
       }}
     >
@@ -185,7 +185,7 @@ export function HeroSectionDe() {
             width: 100% !important;
             opacity: 0.09 !important;
             animation: none !important;
-            filter: brightness(0) invert(1) !important;
+            filter: none !important;
           }
         }
 
@@ -256,14 +256,14 @@ export function HeroSectionDe() {
           to   { opacity: 1; transform: translateY(-50%) translateX(0); }
         }
 
-        /* ── Icon glow — pulses copper once the logo has settled, as if it's the power source for the filament lines ── */
+        /* ── Icon glow — pulses cyan once the logo has settled, as if it's the power source for the filament lines ── */
         .hero-logo-icon {
-          filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(120,74,44,0.35));
+          filter: drop-shadow(0 0 6px rgba(90,201,212,0.35));
           animation: hero-logo-pulse 3.2s ease-in-out 1s infinite;
         }
         @keyframes hero-logo-pulse {
-          0%, 100% { filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(120,74,44,0.35)); }
-          50%      { filter: brightness(0) invert(1) drop-shadow(0 0 18px rgba(255,205,150,0.85)) drop-shadow(0 0 46px rgba(197,137,91,0.9)); }
+          0%, 100% { filter: drop-shadow(0 0 6px rgba(90,201,212,0.35)); }
+          50%      { filter: drop-shadow(0 0 18px rgba(143,224,232,0.85)) drop-shadow(0 0 46px rgba(90,201,212,0.9)); }
         }
 
         /* ── Heading/buttons + stats fade in as their anchor filament line arrives ── */
@@ -289,8 +289,8 @@ export function HeroSectionDe() {
             zIndex: 0,
             pointerEvents: "none",
             background: [
-              "radial-gradient(ellipse 60% 55% at 72% 38%, rgba(74,171,184,0.10), transparent 70%)",
-              "radial-gradient(ellipse 55% 60% at 14% 78%, rgba(197,137,91,0.07), transparent 72%)",
+              "radial-gradient(ellipse 60% 55% at 72% 38%, rgba(90,201,212,0.10), transparent 70%)",
+              "radial-gradient(ellipse 55% 60% at 14% 78%, rgba(143,224,232,0.06), transparent 72%)",
               "radial-gradient(ellipse 75% 55% at 42% 8%, rgba(14,50,61,0.55), transparent 75%)",
             ].join(", "),
           }}
@@ -331,13 +331,12 @@ export function HeroSectionDe() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/uploads/logo_text_only.png"
+            src="/uploads/textlogo_petrol.png"
             alt=""
             style={{
               width: "clamp(220px, 30vw, 520px)",
               height: "auto",
               display: "block",
-              filter: "brightness(0) invert(1)",
               opacity: 0.45,
             }}
           />
@@ -345,7 +344,7 @@ export function HeroSectionDe() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             className="hero-logo-icon"
-            src="/uploads/base_icon_transparent.png"
+            src="/uploads/icon_petrol.png"
             alt=""
             style={{
               width: "clamp(210px, 28vw, 500px)",
@@ -392,7 +391,7 @@ export function HeroSectionDe() {
             <h1
               className="hero-h1"
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-barlow)",
                 // Shrunk from RO's clamp(24,3vw,42) — the German headline wraps
                 // to 3 lines instead of RO's 2 (longer compound words), so it
                 // needs a smaller footprint to fit the same vertical budget
@@ -401,7 +400,7 @@ export function HeroSectionDe() {
                 fontWeight: 800,
                 letterSpacing: "-0.026em",
                 lineHeight: 1.1,
-                color: "rgba(244,242,236,0.55)",
+                color: "#F2FBFC",
                 maxWidth: "22ch",
                 margin: "0 0 14px 0",
                 textAlign: "left",
@@ -444,7 +443,7 @@ function HeroButton({
     width: 190,
     height: 38,
     borderRadius: 4,
-    fontFamily: "var(--font-sans)",
+    fontFamily: "var(--font-plex-mono)",
     fontSize: "9.5px",
     fontWeight: 700,
     letterSpacing: "0.12em",
@@ -461,24 +460,24 @@ function HeroButton({
         href={href}
         style={{
           ...base,
-          background: "#C5895B",
-          color: "#fff",
-          border: "1.5px solid #C5895B",
-          boxShadow: "0 2px 14px rgba(197,137,91,0.22)",
+          background: "#8FE0E8",
+          color: "#072327",
+          border: "1.5px solid #8FE0E8",
+          boxShadow: "0 2px 14px rgba(143,224,232,0.22)",
         }}
         onMouseEnter={(e) => {
           const el = e.currentTarget as HTMLAnchorElement;
-          el.style.background = "#b37a50";
-          el.style.borderColor = "#b37a50";
+          el.style.background = "#6fd0da";
+          el.style.borderColor = "#6fd0da";
           el.style.transform = "translateY(-2px)";
-          el.style.boxShadow = "0 6px 28px rgba(197,137,91,0.45)";
+          el.style.boxShadow = "0 6px 28px rgba(143,224,232,0.45)";
         }}
         onMouseLeave={(e) => {
           const el = e.currentTarget as HTMLAnchorElement;
-          el.style.background = "#C5895B";
-          el.style.borderColor = "#C5895B";
+          el.style.background = "#8FE0E8";
+          el.style.borderColor = "#8FE0E8";
           el.style.transform = "translateY(0)";
-          el.style.boxShadow = "0 2px 14px rgba(197,137,91,0.22)";
+          el.style.boxShadow = "0 2px 14px rgba(143,224,232,0.22)";
         }}
       >
         {children}
@@ -491,20 +490,20 @@ function HeroButton({
       href={href}
       style={{
         ...base,
-        background: "#051E27",
-        color: "rgba(255,255,255,0.75)",
-        border: "1.5px solid rgba(255,255,255,0.28)",
+        background: "#072327",
+        color: "#A9C9CC",
+        border: "1.5px solid rgba(143,224,232,0.4)",
       }}
       onMouseEnter={(e) => {
         const el = e.currentTarget as HTMLAnchorElement;
-        el.style.borderColor = "rgba(255,255,255,0.65)";
-        el.style.color = "#fff";
+        el.style.borderColor = "rgba(143,224,232,0.8)";
+        el.style.color = "#F2FBFC";
         el.style.transform = "translateY(-2px)";
       }}
       onMouseLeave={(e) => {
         const el = e.currentTarget as HTMLAnchorElement;
-        el.style.borderColor = "rgba(255,255,255,0.28)";
-        el.style.color = "rgba(255,255,255,0.75)";
+        el.style.borderColor = "rgba(143,224,232,0.4)";
+        el.style.color = "#A9C9CC";
         el.style.transform = "translateY(0)";
       }}
     >

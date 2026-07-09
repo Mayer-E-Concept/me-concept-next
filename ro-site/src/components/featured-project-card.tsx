@@ -22,8 +22,8 @@ export function FeaturedProjectCard({ project: p }: { project: FeaturedProject }
   return (
     <div
       style={{
-        background: "#0A2430",
-        border: "1px solid rgba(255,255,255,0.08)",
+        background: "#0B373D",
+        border: "1px solid rgba(143,224,232,0.12)",
         borderRadius: 14,
         overflow: "hidden",
         display: "flex",
@@ -51,7 +51,7 @@ export function FeaturedProjectCard({ project: p }: { project: FeaturedProject }
           style={{
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(to top, #0A2430 0%, transparent 55%)",
+            background: "linear-gradient(to top, #0B373D 0%, transparent 55%)",
           }}
         />
         {p.blurRegion && (
@@ -74,9 +74,9 @@ export function FeaturedProjectCard({ project: p }: { project: FeaturedProject }
               position: "absolute",
               top: 14,
               right: 14,
-              background: "#C5895B",
-              color: "#051E27",
-              fontFamily: "var(--font-sans)",
+              background: "#8FE0E8",
+              color: "#072327",
+              fontFamily: "var(--font-plex-mono)",
               fontSize: "9px",
               fontWeight: 800,
               letterSpacing: "0.14em",
@@ -110,27 +110,27 @@ export function FeaturedProjectCard({ project: p }: { project: FeaturedProject }
             left: 0,
             bottom: 0,
             width: 3,
-            background: "linear-gradient(180deg, #C5895B 0%, rgba(197,137,91,0.08) 100%)",
+            background: "linear-gradient(180deg, #5AC9D4 0%, rgba(143,224,232,0.08) 100%)",
           }}
         />
         <div
           style={{
-            fontFamily: "var(--font-sans)",
+            fontFamily: "var(--font-plex-mono)",
             fontSize: "10px",
             fontWeight: 700,
             letterSpacing: "0.2em",
             textTransform: "uppercase",
-            color: "#C5895B",
+            color: "#8FE0E8",
           }}
         >
           {p.category}
         </div>
         <h3
           style={{
-            fontFamily: "var(--font-sans)",
+            fontFamily: "var(--font-barlow)",
             fontSize: "clamp(17px, 1.8vw, 22px)",
             fontWeight: 800,
-            color: "#F4F2EC",
+            color: "#F2FBFC",
             letterSpacing: "-0.02em",
             lineHeight: 1.2,
             margin: 0,
@@ -140,10 +140,10 @@ export function FeaturedProjectCard({ project: p }: { project: FeaturedProject }
         </h3>
         <p
           style={{
-            fontFamily: "var(--font-body)",
+            fontFamily: "var(--font-barlow)",
             fontSize: 13.5,
             lineHeight: 1.65,
-            color: "rgba(244,242,236,0.52)",
+            color: "#A9C9CC",
             margin: 0,
             flex: 1,
           }}
@@ -159,30 +159,30 @@ export function FeaturedProjectCard({ project: p }: { project: FeaturedProject }
                 display: "flex",
                 alignItems: "center",
                 gap: 6,
-                background: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(255,255,255,0.09)",
+                background: "rgba(143,224,232,0.05)",
+                border: "1px solid rgba(143,224,232,0.09)",
                 borderRadius: 6,
                 padding: "4px 10px",
               }}
             >
               <span
                 style={{
-                  fontFamily: "var(--font-sans)",
+                  fontFamily: "var(--font-plex-mono)",
                   fontSize: "9px",
                   fontWeight: 600,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "rgba(244,242,236,0.38)",
+                  color: "#7FA2A6",
                 }}
               >
                 {s.label}
               </span>
               <span
                 style={{
-                  fontFamily: "var(--font-sans)",
+                  fontFamily: "var(--font-plex-mono)",
                   fontSize: "11px",
                   fontWeight: 700,
-                  color: "#F4F2EC",
+                  color: "#F2FBFC",
                 }}
               >
                 {s.value}

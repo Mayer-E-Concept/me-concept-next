@@ -19,9 +19,8 @@ export function StoryPageDe() {
       <SiteHeaderDe />
       <main
         style={{
-          background: "#051E27",
           minHeight: "100vh",
-          color: "#F4F2EC",
+          color: "#F2FBFC",
           paddingTop: "calc(72px + clamp(48px, 6vw, 96px))",
           paddingBottom: "clamp(64px, 8vw, 120px)",
         }}
@@ -42,12 +41,12 @@ export function StoryPageDe() {
             <Link
               href="/"
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-plex-mono)",
                 fontSize: "11.5px",
                 fontWeight: 600,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: "#1A6F7A",
+                color: "#8FE0E8",
                 textDecoration: "none",
               }}
             >
@@ -57,12 +56,12 @@ export function StoryPageDe() {
 
           <h1
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-barlow)",
               fontSize: "clamp(28px, 3.8vw, 44px)",
               fontWeight: 800,
               letterSpacing: "-0.02em",
               lineHeight: 1.15,
-              color: "#F4F2EC",
+              color: "#F2FBFC",
               maxWidth: "24ch",
               marginBottom: 32,
             }}
@@ -96,10 +95,10 @@ export function StoryPageDe() {
               <p
                 key={i}
                 style={{
-                  fontFamily: "var(--font-body)",
+                  fontFamily: "var(--font-barlow)",
                   fontSize: "clamp(15px, 1.3vw, 17px)",
                   lineHeight: 1.8,
-                  color: i === 0 ? "rgba(244,242,236,0.80)" : "rgba(244,242,236,0.75)",
+                  color: "#A9C9CC",
                   margin: "0 0 20px",
                 }}
               >

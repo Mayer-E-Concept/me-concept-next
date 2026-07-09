@@ -76,26 +76,26 @@ export function BlogPageDe() {
             <Link
               href="/"
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-plex-mono)",
                 fontSize: "12px",
                 fontWeight: 600,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: "rgba(255,255,255,0.45)",
+                color: "rgba(169,201,204,0.45)",
                 textDecoration: "none",
               }}
             >
               Startseite
             </Link>
-            <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 12 }}>›</span>
+            <span style={{ color: "rgba(169,201,204,0.3)", fontSize: 12 }}>›</span>
             <span
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-plex-mono)",
                 fontSize: "12px",
                 fontWeight: 600,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: "#C5895B",
+                color: "#8FE0E8",
               }}
             >
               Blog
@@ -104,12 +104,12 @@ export function BlogPageDe() {
 
           <h1
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-barlow)",
               fontSize: "clamp(36px, 5vw, 72px)",
               fontWeight: 800,
               letterSpacing: "-0.025em",
               lineHeight: 1.05,
-              color: "#F4F2EC",
+              color: "#F2FBFC",
               maxWidth: "18ch",
               marginBottom: 20,
             }}
@@ -118,10 +118,10 @@ export function BlogPageDe() {
           </h1>
           <p
             style={{
-              fontFamily: "var(--font-body)",
+              fontFamily: "var(--font-barlow)",
               fontSize: "clamp(15px, 1.3vw, 18px)",
               lineHeight: 1.65,
-              color: "rgba(244,242,236,0.60)",
+              color: "#A9C9CC",
               maxWidth: "52ch",
             }}
           >
@@ -135,7 +135,6 @@ export function BlogPageDe() {
       <section
         style={{
           position: "relative",
-          background: "#D9EAEC",
           paddingTop: "clamp(72px, 9vw, 120px)",
           paddingBottom: "clamp(72px, 9vw, 120px)",
         }}
@@ -154,21 +153,22 @@ export function BlogPageDe() {
               <article
                 key={post.slug}
                 style={{
-                  background: "#FFFFFF",
+                  background: "#0B373D",
+                  border: "1px solid rgba(143,224,232,0.12)",
                   borderRadius: 12,
                   overflow: "hidden",
-                  boxShadow: "0 2px 16px rgba(14,50,61,0.08)",
+                  boxShadow: "0 2px 16px rgba(143,224,232,0.08)",
                   display: "flex",
                   flexDirection: "column",
                   transition: "transform .25s ease, box-shadow .25s ease",
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 32px rgba(14,50,61,0.15)";
+                  (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 32px rgba(143,224,232,0.15)";
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                  (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 16px rgba(143,224,232,0.08)";
                 }}
               >
                 <div style={{ aspectRatio: "16/9", overflow: "hidden" }}>
@@ -184,30 +184,30 @@ export function BlogPageDe() {
                   <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
                     <span
                       style={{
-                        fontFamily: "var(--font-sans)",
+                        fontFamily: "var(--font-plex-mono)",
                         fontSize: "11px",
                         fontWeight: 700,
                         letterSpacing: "0.14em",
                         textTransform: "uppercase",
-                        color: "#C5895B",
-                        background: "rgba(197,137,91,0.10)",
+                        color: "#8FE0E8",
+                        background: "rgba(143,224,232,0.10)",
                         borderRadius: 4,
                         padding: "4px 10px",
                       }}
                     >
                       {post.category}
                     </span>
-                    <span style={{ fontFamily: "var(--font-body)", fontSize: 12, color: "#8A9498" }}>
+                    <span style={{ fontFamily: "var(--font-plex-mono)", fontSize: 12, color: "#7FA2A6" }}>
                       {post.date}
                     </span>
                   </div>
                   <h2
                     style={{
-                      fontFamily: "var(--font-sans)",
+                      fontFamily: "var(--font-barlow)",
                       fontSize: "clamp(17px, 1.4vw, 20px)",
                       fontWeight: 700,
                       letterSpacing: "-0.01em",
-                      color: "#0E323D",
+                      color: "#F2FBFC",
                       lineHeight: 1.3,
                       marginBottom: 12,
                     }}
@@ -216,10 +216,10 @@ export function BlogPageDe() {
                   </h2>
                   <p
                     style={{
-                      fontFamily: "var(--font-body)",
+                      fontFamily: "var(--font-barlow)",
                       fontSize: 14,
                       lineHeight: 1.65,
-                      color: "#335058",
+                      color: "#A9C9CC",
                       margin: "0 0 24px",
                       flex: 1,
                     }}
@@ -232,12 +232,12 @@ export function BlogPageDe() {
                       display: "inline-flex",
                       alignItems: "center",
                       gap: 8,
-                      fontFamily: "var(--font-sans)",
+                      fontFamily: "var(--font-plex-mono)",
                       fontSize: "12px",
                       fontWeight: 700,
                       letterSpacing: "0.12em",
                       textTransform: "uppercase",
-                      color: "#1A6F7A",
+                      color: "#8FE0E8",
                       textDecoration: "none",
                       alignSelf: "flex-start",
                     }}

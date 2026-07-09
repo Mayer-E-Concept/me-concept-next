@@ -59,7 +59,6 @@ export function ExpertiseSection() {
       id="servicii"
       style={{
         position: "relative",
-        background: "#0E323D",
         paddingTop: "clamp(72px, 9vw, 120px)",
         paddingBottom: "clamp(72px, 9vw, 120px)",
         scrollMarginTop: "72px",
@@ -76,15 +75,15 @@ export function ExpertiseSection() {
         <div style={{ marginBottom: "clamp(40px, 5vw, 64px)" }}>
           <div
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-plex-mono)",
               fontSize: "12px",
               fontWeight: 700,
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              color: "#C5895B",
+              color: "#8FE0E8",
               marginBottom: 14,
               paddingBottom: 14,
-              borderBottom: "1px solid rgba(255,255,255,0.12)",
+              borderBottom: "1px solid rgba(143,224,232,0.12)",
               display: "inline-block",
             }}
           >
@@ -92,12 +91,12 @@ export function ExpertiseSection() {
           </div>
           <h2
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-barlow)",
               fontSize: "clamp(28px, 3.2vw, 42px)",
               fontWeight: 700,
               letterSpacing: "-0.02em",
               lineHeight: 1.12,
-              color: "#F4F2EC",
+              color: "#F2FBFC",
               maxWidth: "28ch",
             }}
           >
@@ -117,10 +116,10 @@ export function ExpertiseSection() {
             <FadeIn key={s.num} delay={(i % 4) * 100}>
             <div
               style={{
-                background: "#D9EAEC",
+                background: "#0B373D",
                 borderRadius: 12,
                 overflow: "hidden",
-                border: "1px solid rgba(14,50,61,0.08)",
+                border: "1px solid rgba(143,224,232,0.08)",
                 display: "flex",
                 flexDirection: "column",
                 height: "100%",
@@ -138,10 +137,10 @@ export function ExpertiseSection() {
               <div style={{ padding: "24px 24px 28px" }}>
                 <h3
                   style={{
-                    fontFamily: "var(--font-sans)",
+                    fontFamily: "var(--font-barlow)",
                     fontSize: 17,
                     fontWeight: 700,
-                    color: "#0E323D",
+                    color: "#F2FBFC",
                     letterSpacing: "-0.01em",
                     marginBottom: 10,
                     lineHeight: 1.3,
@@ -151,10 +150,10 @@ export function ExpertiseSection() {
                 </h3>
                 <p
                   style={{
-                    fontFamily: "var(--font-body)",
+                    fontFamily: "var(--font-barlow)",
                     fontSize: 14,
                     lineHeight: 1.65,
-                    color: "#335058",
+                    color: "#A9C9CC",
                     margin: 0,
                   }}
                 >

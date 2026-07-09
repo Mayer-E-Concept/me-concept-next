@@ -9,7 +9,7 @@ interface Step {
 
 function IconConsult() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C5895B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5AC9D4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
     </svg>
   );
@@ -17,7 +17,7 @@ function IconConsult() {
 
 function IconDesign() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C5895B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5AC9D4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="3" width="18" height="18" rx="2" />
       <line x1="3" y1="9" x2="21" y2="9" />
       <line x1="9" y1="21" x2="9" y2="9" />
@@ -27,7 +27,7 @@ function IconDesign() {
 
 function IconVerify() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C5895B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5AC9D4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
       <polyline points="9 12 11 14 15 10" />
     </svg>
@@ -36,7 +36,7 @@ function IconVerify() {
 
 function IconDeliver() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C5895B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5AC9D4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
       <polyline points="7 10 12 15 17 10" />
       <line x1="12" y1="15" x2="12" y2="3" />
@@ -95,7 +95,7 @@ export function ProcessSection() {
           width: 54px; height: 54px;
           border-radius: 50%;
           background: #051E27;
-          border: 1px solid rgba(197,137,91,0.35);
+          border: 1px solid rgba(143,224,232,0.35);
           display: flex; align-items: center; justify-content: center;
           margin-bottom: 22px;
           flex-shrink: 0;
@@ -128,12 +128,12 @@ export function ProcessSection() {
         <div style={{ textAlign: "center", marginBottom: "clamp(48px, 6vw, 72px)" }}>
           <div
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-plex-mono)",
               fontSize: "11px",
               fontWeight: 700,
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              color: "#C5895B",
+              color: "#8FE0E8",
               marginBottom: 20,
             }}
           >
@@ -141,12 +141,12 @@ export function ProcessSection() {
           </div>
           <h2
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-barlow)",
               fontSize: "clamp(30px, 3.4vw, 44px)",
               fontWeight: 800,
               letterSpacing: "-0.025em",
               lineHeight: 1.1,
-              color: "#F4F2EC",
+              color: "#F2FBFC",
               margin: "0 auto 16px",
               maxWidth: "20ch",
             }}
@@ -155,9 +155,9 @@ export function ProcessSection() {
           </h2>
           <p
             style={{
-              fontFamily: "var(--font-body)",
+              fontFamily: "var(--font-barlow)",
               fontSize: "clamp(14px, 1.1vw, 16px)",
-              color: "rgba(244,242,236,0.50)",
+              color: "#A9C9CC",
               margin: "0 auto",
               maxWidth: "50ch",
               lineHeight: 1.65,
@@ -179,7 +179,7 @@ export function ProcessSection() {
               right: "12.5%",
               height: "1px",
               background:
-                "linear-gradient(90deg, rgba(197,137,91,0.06) 0%, rgba(197,137,91,0.28) 25%, rgba(197,137,91,0.28) 75%, rgba(197,137,91,0.06) 100%)",
+                "linear-gradient(90deg, rgba(143,224,232,0.06) 0%, rgba(143,224,232,0.28) 25%, rgba(143,224,232,0.28) 75%, rgba(143,224,232,0.06) 100%)",
               zIndex: 0,
             }}
           />
@@ -193,10 +193,10 @@ export function ProcessSection() {
                 <div className="process-step-text">
                   <h3
                     style={{
-                      fontFamily: "var(--font-sans)",
+                      fontFamily: "var(--font-barlow)",
                       fontSize: "clamp(14px, 1.05vw, 16px)",
                       fontWeight: 700,
-                      color: "#F4F2EC",
+                      color: "#F2FBFC",
                       marginBottom: 8,
                       lineHeight: 1.3,
                       letterSpacing: "-0.01em",
@@ -206,10 +206,10 @@ export function ProcessSection() {
                   </h3>
                   <p
                     style={{
-                      fontFamily: "var(--font-body)",
+                      fontFamily: "var(--font-barlow)",
                       fontSize: "13px",
                       lineHeight: 1.65,
-                      color: "rgba(244,242,236,0.45)",
+                      color: "#A9C9CC",
                       margin: 0,
                     }}
                   >
@@ -226,12 +226,12 @@ export function ProcessSection() {
           <a
             href="#contact"
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-plex-mono)",
               fontSize: "12px",
               fontWeight: 700,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              color: "#C5895B",
+              color: "#8FE0E8",
               textDecoration: "none",
               display: "inline-flex",
               alignItems: "center",

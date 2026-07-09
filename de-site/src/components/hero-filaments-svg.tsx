@@ -327,8 +327,8 @@ export function HeroFilamentsSvg() {
           id={c.id}
           d={c.d}
           fill="none"
-          stroke={`rgba(255,255,255,${c.opacity})`}
-          strokeWidth={1.8}
+          stroke={`rgba(90,201,212,${c.opacity})`}
+          strokeWidth={2}
           strokeLinejoin="miter"
           {...(!reduced && {
             pathLength: 1,
@@ -357,7 +357,7 @@ export function HeroFilamentsSvg() {
                 }
           }
         >
-          <circle cx={c.endX} cy={c.endY} r={3} fill="#C5895B" opacity={0.60} />
+          <circle cx={c.endX} cy={c.endY} r={3} fill="#8FE0E8" opacity={0.65} />
         </g>
       ))}
 
@@ -373,7 +373,7 @@ export function HeroFilamentsSvg() {
           <g key={`via-${c.id}-${i}`} style={padStyle}>
             <path
               d={`M ${v.x} ${v.y - 5} L ${v.x + 5} ${v.y} L ${v.x} ${v.y + 5} L ${v.x - 5} ${v.y} Z`}
-              fill="#FFFFFF"
+              fill="#5AC9D4"
               opacity={padOpacity}
             />
           </g>
@@ -386,7 +386,7 @@ export function HeroFilamentsSvg() {
             <g key={`via-hub-${c.id}`} style={padStyle}>
               <path
                 d={`M ${c.endX} ${c.endY - 6} L ${c.endX + 6} ${c.endY} L ${c.endX} ${c.endY + 6} L ${c.endX - 6} ${c.endY} Z`}
-                fill="#C5895B"
+                fill="#8FE0E8"
                 opacity={0.7}
               />
             </g>,
@@ -421,7 +421,7 @@ export function HeroFilamentsSvg() {
               key={`g-${c.id}-${i}`}
               d={c.d}
               fill="none"
-              stroke="#E8943A"
+              stroke="#8FE0E8"
               strokeWidth={3}
               strokeLinecap="round"
               pathLength={1}

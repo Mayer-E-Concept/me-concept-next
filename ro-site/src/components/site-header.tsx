@@ -119,7 +119,7 @@ export function SiteHeader() {
           transition: "background-color .3s ease, box-shadow .3s ease",
         }}
       >
-        <SectionDivider position="bottom" color="#5AC9D4" />
+        <SectionDivider position="bottom" />
         <Link href="/" aria-label="Acasă" className="mobile-header-logo">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img

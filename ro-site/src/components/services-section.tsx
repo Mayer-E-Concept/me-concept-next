@@ -38,7 +38,7 @@ export function ServicesSection() {
       style={{
         position: "relative",
         padding: "18px 0 18px 48px",
-        borderBottom: "1px solid rgba(14,50,61,0.10)",
+        borderBottom: "1px solid rgba(143,224,232,0.10)",
         cursor: "default",
         transition: "padding-left .2s ease",
         paddingLeft: hovered === idx ? 52 : 48,
@@ -53,7 +53,7 @@ export function ServicesSection() {
           transform: "translateY(-50%)",
           width: 28,
           height: 28,
-          background: hovered === idx ? "#C5895B" : "rgba(197,137,91,0.15)",
+          background: hovered === idx ? "#8FE0E8" : "rgba(143,224,232,0.15)",
           borderRadius: 6,
           transition: "background .25s ease",
           display: "block",
@@ -73,7 +73,7 @@ export function ServicesSection() {
           fontFamily: "var(--font-sans)",
           fontWeight: 700,
           fontSize: 16,
-          color: hovered === idx ? "#fff" : "#C5895B",
+          color: hovered === idx ? "#072327" : "#8FE0E8",
           lineHeight: 1,
           transition: "color .25s ease",
           zIndex: 1,
@@ -83,10 +83,10 @@ export function ServicesSection() {
       </span>
       <strong
         style={{
-          fontFamily: "var(--font-sans)",
+          fontFamily: "var(--font-barlow)",
           fontWeight: 600,
           fontSize: "clamp(13px, 1vw, 14.5px)",
-          color: hovered === idx ? "#C5895B" : "#0E323D",
+          color: hovered === idx ? "#8FE0E8" : "#F2FBFC",
           display: "block",
           marginBottom: 2,
           transition: "color .2s ease",
@@ -97,10 +97,10 @@ export function ServicesSection() {
       </strong>
       <span
         style={{
-          fontFamily: "var(--font-body)",
+          fontFamily: "var(--font-barlow)",
           fontWeight: 400,
           fontSize: "13px",
-          color: hovered === idx ? "rgba(197,137,91,0.80)" : "rgba(14,50,61,0.55)",
+          color: hovered === idx ? "rgba(143,224,232,0.80)" : "rgba(143,224,232,0.55)",
           lineHeight: 1.55,
           transition: "color .2s ease",
         }}
@@ -114,7 +114,6 @@ export function ServicesSection() {
     <section
       style={{
         position: "relative",
-        background: "#D9EAEC",
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
         overflow: "hidden",
@@ -128,19 +127,6 @@ export function ServicesSection() {
           .services-lists-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
         }
       `}</style>
-
-      {/* Subtle circuit overlay */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: 'url("/assets/circuit-pattern.svg")',
-          backgroundSize: "240px 240px",
-          opacity: 0.045,
-          pointerEvents: "none",
-        }}
-      />
 
       <div
         style={{
@@ -165,12 +151,12 @@ export function ServicesSection() {
           <div>
             <div
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-plex-mono)",
                 fontSize: "11px",
                 fontWeight: 700,
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
-                color: "#C5895B",
+                color: "#8FE0E8",
                 marginBottom: 18,
               }}
             >
@@ -178,12 +164,12 @@ export function ServicesSection() {
             </div>
             <h2
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-barlow)",
                 fontSize: "clamp(28px, 3.2vw, 42px)",
                 fontWeight: 800,
                 letterSpacing: "-0.025em",
                 lineHeight: 1.1,
-                color: "#0E323D",
+                color: "#F2FBFC",
                 maxWidth: "22ch",
               }}
             >

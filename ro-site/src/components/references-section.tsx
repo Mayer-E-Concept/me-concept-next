@@ -45,12 +45,12 @@ export function ReferencesSection() {
           <div>
             <div
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-plex-mono)",
                 fontSize: "11px",
                 fontWeight: 700,
                 letterSpacing: "0.24em",
                 textTransform: "uppercase",
-                color: "#C5895B",
+                color: "#8FE0E8",
                 marginBottom: 16,
               }}
             >
@@ -58,12 +58,12 @@ export function ReferencesSection() {
             </div>
             <h2
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-barlow)",
                 fontSize: "clamp(28px, 3.2vw, 44px)",
                 fontWeight: 800,
                 letterSpacing: "-0.022em",
                 lineHeight: 1.1,
-                color: "#F4F2EC",
+                color: "#F2FBFC",
                 maxWidth: "24ch",
                 margin: 0,
               }}
@@ -74,15 +74,15 @@ export function ReferencesSection() {
           <Link
             href="/portofoliu"
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-plex-mono)",
               fontSize: "12px",
               fontWeight: 700,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              color: "#C5895B",
+              color: "#8FE0E8",
               textDecoration: "none",
               paddingBottom: 4,
-              borderBottom: "1.5px solid rgba(197,137,91,0.4)",
+              borderBottom: "1.5px solid rgba(143,224,232,0.4)",
               whiteSpace: "nowrap",
             }}
           >
@@ -102,8 +102,8 @@ export function ReferencesSection() {
             <FadeIn key={p.id} delay={(i % 4) * 100}>
               <div
                 style={{
-                  background: "rgba(255,255,255,0.035)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: "#0B373D",
+                  border: "1px solid rgba(143,224,232,0.12)",
                   borderRadius: 12,
                   overflow: "hidden",
                   height: "100%",
@@ -145,9 +145,9 @@ export function ReferencesSection() {
                         position: "absolute",
                         top: 10,
                         right: 10,
-                        background: "#C5895B",
-                        color: "#051E27",
-                        fontFamily: "var(--font-sans)",
+                        background: "#8FE0E8",
+                        color: "#072327",
+                        fontFamily: "var(--font-plex-mono)",
                         fontSize: "9px",
                         fontWeight: 800,
                         letterSpacing: "0.12em",
@@ -164,22 +164,22 @@ export function ReferencesSection() {
                 <div style={{ padding: "18px 20px 20px", display: "flex", flexDirection: "column", gap: 6, flex: 1 }}>
                   <div
                     style={{
-                      fontFamily: "var(--font-sans)",
+                      fontFamily: "var(--font-plex-mono)",
                       fontSize: "10px",
                       fontWeight: 700,
                       letterSpacing: "0.18em",
                       textTransform: "uppercase",
-                      color: "#C5895B",
+                      color: "#8FE0E8",
                     }}
                   >
                     {p.category}
                   </div>
                   <h3
                     style={{
-                      fontFamily: "var(--font-sans)",
+                      fontFamily: "var(--font-barlow)",
                       fontSize: "clamp(15px, 1.4vw, 17px)",
                       fontWeight: 700,
-                      color: "#F4F2EC",
+                      color: "#F2FBFC",
                       letterSpacing: "-0.015em",
                       lineHeight: 1.25,
                       margin: 0,
@@ -189,9 +189,9 @@ export function ReferencesSection() {
                   </h3>
                   <span
                     style={{
-                      fontFamily: "var(--font-body)",
+                      fontFamily: "var(--font-barlow)",
                       fontSize: "12.5px",
-                      color: "rgba(244,242,236,0.5)",
+                      color: "#7FA2A6",
                       lineHeight: 1.5,
                       marginTop: "auto",
                     }}

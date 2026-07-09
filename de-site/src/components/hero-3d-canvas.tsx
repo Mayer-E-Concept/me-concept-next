@@ -3,11 +3,11 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 const COLORS = {
-  ink:      0x8BBDC8,   // light petrol — visible on dark #051E27 hero
-  accent:   0x4AABB8,
-  hover:    0xC5895B,
+  ink:      0x5AC9D4,   // cyan — visible on dark petrol hero
+  accent:   0x8FE0E8,
+  hover:    0x8FE0E8,
   warm:     0xF2D7B6,
-  solar:    0x5ABCCA,
+  solar:    0x5AC9D4,
 };
 
 export function Hero3DCanvas() {
@@ -298,7 +298,7 @@ export function Hero3DCanvas() {
 
     const BOX_DEFS = [
       { text: "REVIT · BIM",      color: "#1A6F7A", local: V(-0.65,  Hw/2 - PER * 0.5, 0.55) },
-      { text: "SMART HOME",       color: "#C5895B", local: V( 0.75,  Hw/2 - PER * 0.5, 0.55) },
+      { text: "SMART HOME",       color: "#0E6E7A", local: V( 0.75,  Hw/2 - PER * 0.5, 0.55) },
       { text: "ISO 9001:2015",    color: "#1A6F7A", local: V( 0.30,  0,                0.55) },
       { text: "HOAI · DIN · VDE", color: "#0E323D", local: V( 0.30, -Hw/2 + PER * 0.5, 0.55) },
     ];

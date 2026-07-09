@@ -340,41 +340,41 @@ export default async function BlogPostPage({
               <Link
                 href="/"
                 style={{
-                  fontFamily: "var(--font-sans)",
+                  fontFamily: "var(--font-plex-mono)",
                   fontSize: "12px",
                   fontWeight: 600,
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.45)",
+                  color: "rgba(169,201,204,0.45)",
                   textDecoration: "none",
                 }}
               >
                 Acasă
               </Link>
-              <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 12 }}>›</span>
+              <span style={{ color: "rgba(169,201,204,0.3)", fontSize: 12 }}>›</span>
               <Link
                 href="/blog"
                 style={{
-                  fontFamily: "var(--font-sans)",
+                  fontFamily: "var(--font-plex-mono)",
                   fontSize: "12px",
                   fontWeight: 600,
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.45)",
+                  color: "rgba(169,201,204,0.45)",
                   textDecoration: "none",
                 }}
               >
                 Blog
               </Link>
-              <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 12 }}>›</span>
+              <span style={{ color: "rgba(169,201,204,0.3)", fontSize: 12 }}>›</span>
               <span
                 style={{
-                  fontFamily: "var(--font-sans)",
+                  fontFamily: "var(--font-plex-mono)",
                   fontSize: "12px",
                   fontWeight: 600,
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
-                  color: "#C5895B",
+                  color: "#8FE0E8",
                 }}
               >
                 {post.category}
@@ -385,35 +385,35 @@ export default async function BlogPostPage({
             <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20, flexWrap: "wrap" }}>
               <span
                 style={{
-                  fontFamily: "var(--font-sans)",
+                  fontFamily: "var(--font-plex-mono)",
                   fontSize: "11px",
                   fontWeight: 700,
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
-                  color: "#C5895B",
-                  background: "rgba(197,137,91,0.15)",
+                  color: "#8FE0E8",
+                  background: "rgba(143,224,232,0.15)",
                   borderRadius: 4,
                   padding: "4px 10px",
                 }}
               >
                 {post.category}
               </span>
-              <span style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "rgba(255,255,255,0.45)" }}>
+              <span style={{ fontFamily: "var(--font-plex-mono)", fontSize: 13, color: "rgba(169,201,204,0.45)" }}>
                 {post.date}
               </span>
-              <span style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "rgba(255,255,255,0.35)" }}>
+              <span style={{ fontFamily: "var(--font-plex-mono)", fontSize: 13, color: "rgba(169,201,204,0.35)" }}>
                 · {post.readMin} min citire
               </span>
             </div>
 
             <h1
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-barlow)",
                 fontSize: "clamp(28px, 4vw, 56px)",
                 fontWeight: 800,
                 letterSpacing: "-0.025em",
                 lineHeight: 1.1,
-                color: "#F4F2EC",
+                color: "#F2FBFC",
                 maxWidth: "22ch",
                 marginBottom: 0,
               }}
@@ -447,7 +447,7 @@ export default async function BlogPostPage({
         </div>
 
         {/* Article body */}
-        <section style={{ background: "#D9EAEC", paddingTop: "clamp(56px, 7vw, 96px)", paddingBottom: "clamp(72px, 9vw, 120px)" }}>
+        <section style={{ paddingTop: "clamp(56px, 7vw, 96px)", paddingBottom: "clamp(72px, 9vw, 120px)" }}>
           <div
             style={{
               maxWidth: "1240px",
@@ -474,10 +474,10 @@ export default async function BlogPostPage({
                     <p
                       key={i}
                       style={{
-                        fontFamily: "var(--font-body)",
+                        fontFamily: "var(--font-barlow)",
                         fontSize: "clamp(15px, 1.1vw, 17px)",
                         lineHeight: 1.75,
-                        color: "#2C4349",
+                        color: "#A9C9CC",
                         marginBottom: 24,
                       }}
                     >
@@ -490,11 +490,11 @@ export default async function BlogPostPage({
                     <h2
                       key={i}
                       style={{
-                        fontFamily: "var(--font-sans)",
+                        fontFamily: "var(--font-barlow)",
                         fontSize: "clamp(20px, 1.8vw, 26px)",
                         fontWeight: 700,
                         letterSpacing: "-0.015em",
-                        color: "#0E323D",
+                        color: "#F2FBFC",
                         marginTop: 48,
                         marginBottom: 16,
                       }}
@@ -508,10 +508,10 @@ export default async function BlogPostPage({
                     <h3
                       key={i}
                       style={{
-                        fontFamily: "var(--font-sans)",
+                        fontFamily: "var(--font-barlow)",
                         fontSize: "clamp(17px, 1.4vw, 20px)",
                         fontWeight: 700,
-                        color: "#0E323D",
+                        color: "#F2FBFC",
                         marginTop: 32,
                         marginBottom: 12,
                       }}
@@ -534,10 +534,10 @@ export default async function BlogPostPage({
                         <li
                           key={j}
                           style={{
-                            fontFamily: "var(--font-body)",
+                            fontFamily: "var(--font-barlow)",
                             fontSize: "clamp(14px, 1.05vw, 16px)",
                             lineHeight: 1.65,
-                            color: "#2C4349",
+                            color: "#A9C9CC",
                             paddingLeft: 24,
                             marginBottom: 10,
                             position: "relative",
@@ -551,7 +551,7 @@ export default async function BlogPostPage({
                               width: 6,
                               height: 6,
                               borderRadius: "50%",
-                              background: "#C5895B",
+                              background: "#5AC9D4",
                               display: "inline-block",
                             }}
                           />
@@ -566,8 +566,8 @@ export default async function BlogPostPage({
                     <div
                       key={i}
                       style={{
-                        background: "rgba(26,111,122,0.07)",
-                        borderLeft: "3px solid #1A6F7A",
+                        background: "rgba(143,224,232,0.07)",
+                        borderLeft: "3px solid #8FE0E8",
                         borderRadius: "0 8px 8px 0",
                         padding: "16px 20px",
                         marginBottom: 24,
@@ -576,10 +576,10 @@ export default async function BlogPostPage({
                     >
                       <p
                         style={{
-                          fontFamily: "var(--font-body)",
+                          fontFamily: "var(--font-barlow)",
                           fontSize: "clamp(14px, 1.05vw, 16px)",
                           lineHeight: 1.65,
-                          color: "#1A6F7A",
+                          color: "#8FE0E8",
                           fontStyle: "italic",
                           margin: 0,
                         }}
@@ -597,7 +597,7 @@ export default async function BlogPostPage({
                 style={{
                   marginTop: 56,
                   paddingTop: 32,
-                  borderTop: "1px solid #D8DCDE",
+                  borderTop: "1px solid rgba(143,224,232,0.12)",
                   display: "flex",
                   alignItems: "center",
                   gap: 16,
@@ -608,22 +608,22 @@ export default async function BlogPostPage({
                     width: 44,
                     height: 44,
                     borderRadius: "50%",
-                    background: "#1A6F7A",
+                    background: "#8FE0E8",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     flexShrink: 0,
                   }}
                 >
-                  <span style={{ fontFamily: "var(--font-sans)", fontSize: 16, fontWeight: 700, color: "#fff" }}>
+                  <span style={{ fontFamily: "var(--font-sans)", fontSize: 16, fontWeight: 700, color: "#072327" }}>
                     M
                   </span>
                 </div>
                 <div>
-                  <p style={{ fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 700, color: "#0E323D", margin: 0 }}>
+                  <p style={{ fontFamily: "var(--font-barlow)", fontSize: 13, fontWeight: 700, color: "#F2FBFC", margin: 0 }}>
                     Mayer E-Concept
                   </p>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: 12, color: "#6B8086", margin: "2px 0 0" }}>
+                  <p style={{ fontFamily: "var(--font-barlow)", fontSize: 12, color: "#7FA2A6", margin: "2px 0 0" }}>
                     Proiectare instalații electrice · Sibiu & Germania
                   </p>
                 </div>
@@ -635,8 +635,8 @@ export default async function BlogPostPage({
               {/* Back to blog */}
               <div
                 style={{
-                  background: "#FFFFFF",
-                  border: "1px solid #D8DCDE",
+                  background: "#0B373D",
+                  border: "1px solid rgba(143,224,232,0.12)",
                   borderRadius: 12,
                   padding: "24px 24px 20px",
                   marginBottom: 24,
@@ -648,12 +648,12 @@ export default async function BlogPostPage({
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 8,
-                    fontFamily: "var(--font-sans)",
+                    fontFamily: "var(--font-plex-mono)",
                     fontSize: "12px",
                     fontWeight: 700,
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
-                    color: "#1A6F7A",
+                    color: "#8FE0E8",
                     textDecoration: "none",
                     marginBottom: 20,
                   }}
@@ -663,10 +663,10 @@ export default async function BlogPostPage({
                 </Link>
                 <p
                   style={{
-                    fontFamily: "var(--font-body)",
+                    fontFamily: "var(--font-barlow)",
                     fontSize: 13,
                     lineHeight: 1.6,
-                    color: "#6B8086",
+                    color: "#7FA2A6",
                     margin: 0,
                   }}
                 >
@@ -678,8 +678,8 @@ export default async function BlogPostPage({
               {related.length > 0 && (
                 <div
                   style={{
-                    background: "#FFFFFF",
-                    border: "1px solid #D8DCDE",
+                    background: "#0B373D",
+                    border: "1px solid rgba(143,224,232,0.12)",
                     borderRadius: 12,
                     padding: "24px",
                     marginBottom: 24,
@@ -687,12 +687,12 @@ export default async function BlogPostPage({
                 >
                   <p
                     style={{
-                      fontFamily: "var(--font-sans)",
+                      fontFamily: "var(--font-plex-mono)",
                       fontSize: "11px",
                       fontWeight: 700,
                       letterSpacing: "0.14em",
                       textTransform: "uppercase",
-                      color: "#6B8086",
+                      color: "#7FA2A6",
                       marginBottom: 16,
                     }}
                   >
@@ -725,17 +725,17 @@ export default async function BlogPostPage({
                           <div>
                             <p
                               style={{
-                                fontFamily: "var(--font-sans)",
+                                fontFamily: "var(--font-barlow)",
                                 fontSize: 13,
                                 fontWeight: 700,
-                                color: "#0E323D",
+                                color: "#F2FBFC",
                                 lineHeight: 1.35,
                                 margin: "0 0 4px",
                               }}
                             >
                               {r.title}
                             </p>
-                            <p style={{ fontFamily: "var(--font-body)", fontSize: 11, color: "#8A9498", margin: 0 }}>
+                            <p style={{ fontFamily: "var(--font-plex-mono)", fontSize: 11, color: "#7FA2A6", margin: 0 }}>
                               {r.date}
                             </p>
                           </div>
@@ -749,17 +749,17 @@ export default async function BlogPostPage({
               {/* CTA card */}
               <div
                 style={{
-                  background: "#0E323D",
+                  background: "#0B373D",
                   borderRadius: 12,
                   padding: "28px 24px",
                 }}
               >
                 <p
                   style={{
-                    fontFamily: "var(--font-sans)",
+                    fontFamily: "var(--font-barlow)",
                     fontSize: "15px",
                     fontWeight: 700,
-                    color: "#F4F2EC",
+                    color: "#F2FBFC",
                     lineHeight: 1.4,
                     marginBottom: 10,
                   }}
@@ -768,10 +768,10 @@ export default async function BlogPostPage({
                 </p>
                 <p
                   style={{
-                    fontFamily: "var(--font-body)",
+                    fontFamily: "var(--font-barlow)",
                     fontSize: 13,
                     lineHeight: 1.6,
-                    color: "rgba(244,242,236,0.60)",
+                    color: "#A9C9CC",
                     marginBottom: 20,
                   }}
                 >
@@ -781,9 +781,9 @@ export default async function BlogPostPage({
                   href="/#contact"
                   style={{
                     display: "inline-block",
-                    background: "#C5895B",
-                    color: "#fff",
-                    fontFamily: "var(--font-sans)",
+                    background: "#8FE0E8",
+                    color: "#072327",
+                    fontFamily: "var(--font-plex-mono)",
                     fontSize: "12px",
                     fontWeight: 700,
                     letterSpacing: "0.10em",

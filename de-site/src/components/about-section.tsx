@@ -18,7 +18,6 @@ export function AboutSectionDe() {
       id="ueber-uns"
       style={{
         position: "relative",
-        background: "#D9EAEC",
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
         scrollMarginTop: "72px",
@@ -50,12 +49,12 @@ export function AboutSectionDe() {
         <div>
           <div
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-plex-mono)",
               fontSize: "11px",
               fontWeight: 700,
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              color: "#C5895B",
+              color: "#8FE0E8",
               marginBottom: 20,
             }}
           >
@@ -64,12 +63,12 @@ export function AboutSectionDe() {
 
           <h2
             style={{
-              fontFamily: "var(--font-sans)",
+              fontFamily: "var(--font-barlow)",
               fontSize: "clamp(30px, 3.4vw, 44px)",
               fontWeight: 800,
               letterSpacing: "-0.025em",
               lineHeight: 1.1,
-              color: "#0E323D",
+              color: "#F2FBFC",
               maxWidth: "22ch",
               marginBottom: 24,
             }}
@@ -79,10 +78,10 @@ export function AboutSectionDe() {
 
           <p
             style={{
-              fontFamily: "var(--font-body)",
+              fontFamily: "var(--font-barlow)",
               fontSize: "clamp(14px, 1.1vw, 16px)",
               lineHeight: 1.75,
-              color: "#335058",
+              color: "#A9C9CC",
               marginBottom: 32,
               maxWidth: "52ch",
             }}
@@ -101,9 +100,9 @@ export function AboutSectionDe() {
                   position: "relative",
                   paddingLeft: 24,
                   marginBottom: 14,
-                  fontFamily: "var(--font-body)",
+                  fontFamily: "var(--font-barlow)",
                   fontSize: "clamp(14px, 1.05vw, 16px)",
-                  color: "#0E323D",
+                  color: "#F2FBFC",
                   lineHeight: 1.55,
                   display: "flex",
                   alignItems: "center",
@@ -117,7 +116,7 @@ export function AboutSectionDe() {
                     width: 6,
                     height: 6,
                     borderRadius: "50%",
-                    background: "#C5895B",
+                    background: "#5AC9D4",
                     flexShrink: 0,
                   }}
                 />
@@ -133,33 +132,33 @@ export function AboutSectionDe() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 10,
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-plex-mono)",
                 fontSize: "12.5px",
                 fontWeight: 700,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: "#fff",
+                color: "#072327",
                 textDecoration: "none",
                 padding: "14px 26px",
                 borderRadius: 4,
-                background: "#C5895B",
-                border: "1.5px solid #C5895B",
-                boxShadow: "0 2px 14px rgba(197,137,91,0.22)",
+                background: "#8FE0E8",
+                border: "1.5px solid #8FE0E8",
+                boxShadow: "0 2px 14px rgba(143,224,232,0.22)",
                 transition: "background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .25s ease",
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLAnchorElement;
-                el.style.background = "#b37a50";
-                el.style.borderColor = "#b37a50";
+                el.style.background = "#6fd0da";
+                el.style.borderColor = "#6fd0da";
                 el.style.transform = "translateY(-2px)";
-                el.style.boxShadow = "0 6px 28px rgba(197,137,91,0.45)";
+                el.style.boxShadow = "0 6px 28px rgba(143,224,232,0.45)";
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLAnchorElement;
-                el.style.background = "#C5895B";
-                el.style.borderColor = "#C5895B";
+                el.style.background = "#8FE0E8";
+                el.style.borderColor = "#8FE0E8";
                 el.style.transform = "translateY(0)";
-                el.style.boxShadow = "0 2px 14px rgba(197,137,91,0.22)";
+                el.style.boxShadow = "0 2px 14px rgba(143,224,232,0.22)";
               }}
             >
               Unser Team →
@@ -171,29 +170,31 @@ export function AboutSectionDe() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 10,
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-plex-mono)",
                 fontSize: "12.5px",
                 fontWeight: 700,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: "#0E323D",
+                color: "#A9C9CC",
                 textDecoration: "none",
                 padding: "14px 26px",
                 borderRadius: 4,
                 background: "transparent",
-                border: "1.5px solid rgba(14,50,61,0.28)",
-                transition: "border-color .2s ease, transform .2s ease, background .2s ease",
+                border: "1.5px solid rgba(143,224,232,0.4)",
+                transition: "border-color .2s ease, transform .2s ease, background .2s ease, color .2s ease",
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLAnchorElement;
-                el.style.borderColor = "#0E323D";
-                el.style.background = "rgba(14,50,61,0.05)";
+                el.style.borderColor = "rgba(143,224,232,0.8)";
+                el.style.background = "rgba(143,224,232,0.08)";
+                el.style.color = "#F2FBFC";
                 el.style.transform = "translateY(-2px)";
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLAnchorElement;
-                el.style.borderColor = "rgba(14,50,61,0.28)";
+                el.style.borderColor = "rgba(143,224,232,0.4)";
                 el.style.background = "transparent";
+                el.style.color = "#A9C9CC";
                 el.style.transform = "translateY(0)";
               }}
             >
@@ -210,7 +211,7 @@ export function AboutSectionDe() {
               borderRadius: 12,
               overflow: "hidden",
               aspectRatio: "4/3",
-              boxShadow: "0 12px 40px rgba(14,50,61,0.18)",
+              boxShadow: "0 12px 40px rgba(143,224,232,0.18)",
             }}
           >
             <Image
@@ -243,14 +244,14 @@ export function AboutSectionDe() {
           </div>
 
           <div style={{ marginTop: 28 }}>
-            <div style={{ width: 36, height: 2, background: "#C5895B", borderRadius: 1, marginBottom: 18 }} />
+            <div style={{ width: 36, height: 2, background: "#5AC9D4", borderRadius: 1, marginBottom: 18 }} />
             <p
               style={{
-                fontFamily: "var(--font-sans)",
+                fontFamily: "var(--font-barlow)",
                 fontSize: "clamp(15px, 1.4vw, 18px)",
                 fontWeight: 300,
                 lineHeight: 1.7,
-                color: "#335058",
+                color: "#A9C9CC",
                 fontStyle: "italic",
                 margin: "0 0 14px",
               }}
@@ -265,18 +266,18 @@ export function AboutSectionDe() {
                 justifyContent: "space-between",
                 gap: 16,
                 paddingTop: 14,
-                borderTop: "1px solid rgba(14,50,61,0.12)",
+                borderTop: "1px solid rgba(143,224,232,0.12)",
                 flexWrap: "wrap",
               }}
             >
               <span
                 style={{
-                  fontFamily: "var(--font-sans)",
+                  fontFamily: "var(--font-plex-mono)",
                   fontSize: "11px",
                   fontWeight: 700,
                   letterSpacing: "0.2em",
                   textTransform: "uppercase",
-                  color: "#C5895B",
+                  color: "#8FE0E8",
                 }}
               >
                 Mayer E-Concept
@@ -288,7 +289,7 @@ export function AboutSectionDe() {
                   gap: 10,
                   fontFamily: "var(--font-sans)",
                   fontSize: "12px",
-                  color: "#56707A",
+                  color: "#7FA2A6",
                   letterSpacing: "0.04em",
                 }}
               >
@@ -297,7 +298,7 @@ export function AboutSectionDe() {
                     width: 6,
                     height: 6,
                     borderRadius: "50%",
-                    background: "#C5895B",
+                    background: "#5AC9D4",
                     flexShrink: 0,
                   }}
                 />
