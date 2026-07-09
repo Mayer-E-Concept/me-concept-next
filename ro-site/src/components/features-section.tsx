@@ -52,7 +52,10 @@ export function FeaturesSection() {
     >
       <style>{`
         @media (max-width: 767px) {
-          .features-grid { grid-template-columns: 1fr !important; }
+          .features-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+          .features-card-body { padding: 16px 16px 18px !important; }
+          .features-card-title { font-size: 14px !important; margin-bottom: 8px !important; }
+          .features-card-desc { font-size: 12px !important; line-height: 1.5 !important; }
         }
       `}</style>
 
@@ -150,6 +153,7 @@ export function FeaturesSection() {
           {FEATURES.map((f, i) => (
             <FadeIn key={f.title} delay={(i % 3) * 100}>
             <div
+              className="features-card-body"
               onMouseEnter={() => setHoveredIdx(i)}
               onMouseLeave={() => setHoveredIdx(null)}
               style={{
@@ -197,6 +201,7 @@ export function FeaturesSection() {
                 <span aria-hidden style={{ height: 1, flex: 1, background: "rgba(143,224,232,0.22)" }} />
               </div>
               <h3
+                className="features-card-title"
                 style={{
                   fontFamily: "var(--font-barlow)",
                   fontSize: "clamp(16px, 1.3vw, 19px)",
@@ -210,6 +215,7 @@ export function FeaturesSection() {
                 {f.title}
               </h3>
               <p
+                className="features-card-desc"
                 style={{
                   fontFamily: "var(--font-barlow)",
                   fontSize: "14px",

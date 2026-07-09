@@ -67,7 +67,10 @@ export function ExpertiseSectionDe() {
       <SectionDivider />
       <style>{`
         @media (max-width: 767px) {
-          .expertise-grid-de { grid-template-columns: 1fr !important; }
+          .expertise-grid-de { grid-template-columns: repeat(2, 1fr) !important; gap: 14px !important; }
+          .expertise-card-body-de { padding: 14px 14px 16px !important; }
+          .expertise-card-title-de { font-size: 14px !important; margin-bottom: 6px !important; }
+          .expertise-card-desc-de { font-size: 12px !important; line-height: 1.5 !important; }
         }
       `}</style>
       <div style={{ position: "relative", zIndex: 1, maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
@@ -133,8 +136,9 @@ export function ExpertiseSectionDe() {
                   style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                 />
               </div>
-              <div style={{ padding: "24px 24px 28px" }}>
+              <div className="expertise-card-body-de" style={{ padding: "24px 24px 28px" }}>
                 <h3
+                  className="expertise-card-title-de"
                   style={{
                     fontFamily: "var(--font-barlow)",
                     fontSize: 17,
@@ -148,6 +152,7 @@ export function ExpertiseSectionDe() {
                   {s.title}
                 </h3>
                 <p
+                  className="expertise-card-desc-de"
                   style={{
                     fontFamily: "var(--font-barlow)",
                     fontSize: 14,

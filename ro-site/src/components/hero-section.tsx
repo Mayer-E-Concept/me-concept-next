@@ -4,21 +4,25 @@ import { Hero3DLazy } from "@/components/hero-3d-lazy";
 import { HeroFilamentsSvg } from "@/components/hero-filaments-svg";
 import { HeroStatsStrip } from "@/components/hero-stats-strip";
 
-/** The desktop/tablet/landscape composition lives in a fixed 1920×1080
-    design canvas that's uniformly scaled (via CSS zoom) to fit whatever
-    viewport it's shown in — width-ratio and height-ratio, whichever is
-    smaller, so the icon/text/house "boxes" always sit at the same relative
-    distance from each other and the same relative scale, on any window size
-    or aspect ratio (4:3, ultrawide, whatever). Only mobile portrait — where
-    a fixed-width canvas would either overflow or shrink text to nothing —
-    falls back to its own fluid single-column composition below. */
+/** The desktop/tablet/landscape composition lives in a single fixed
+    1920×1080 design canvas — backgrounds, circuit lines, icon, text AND
+    house all share this one coordinate space, so nothing can ever drift
+    out of alignment with anything else. The canvas is scaled by WIDTH only
+    (zoom: 100vw/1920px), never height — so it always spans the full
+    viewport edge-to-edge with zero horizontal letterboxing (the thing that
+    was pushing the icon/house out of sync with the lines before). The
+    section's own height simply follows the canvas's zoomed height, so
+    there's never empty space beyond where the composition actually ends.
+    Only mobile portrait — where a fixed-width canvas would either overflow
+    or shrink text to nothing — falls back to its own fluid composition. */
 const DESIGN_W = 1920;
 const DESIGN_H = 1080;
 
-/** Mobile portrait gets its own bespoke composition (ambient lines only, no
-    house, no fixed design canvas) rather than a shrunk copy of the desktop
-    layout — matched by width AND orientation so a rotated phone (landscape)
-    still gets the scaled-desktop treatment instead of this. */
+/** Mobile portrait gets its own bespoke composition — just the centered
+    text, with the icon as a faint watermark behind it (no separate icon
+    column, no house, no fixed design canvas) — matched by width AND
+    orientation so a rotated phone (landscape) still gets the
+    scaled-desktop treatment instead of this. */
 function useIsPortraitMobile(): boolean {
   const [isPortrait, setIsPortrait] = useState(false);
 
@@ -41,10 +45,6 @@ export function HeroSection() {
       className="hero-section"
       style={{
         position: "relative",
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
         background: "radial-gradient(130% 150% at 72% -10%, #12525B 0%, #0B373D 52%, #072327 100%)",
         overflow: "hidden",
       }}
@@ -53,12 +53,23 @@ export function HeroSection() {
         /* ── Mobile portrait — own fluid single-column composition ── */
         @media (max-width: 767px) and (orientation: portrait) {
           .hero-canvas {
+            position: relative !important;
             width: 100% !important;
             height: auto !important;
             min-height: 100vh !important;
             zoom: 1 !important;
           }
-          .hero-icon-mark, .hero-canvas-wrapper { display: none !important; }
+          .hero-canvas-wrapper { display: none !important; }
+          .hero-icon-mark {
+            display: block !important;
+            position: absolute !important;
+            left: 50% !important;
+            top: 50% !important;
+            width: 78vw !important;
+            transform: translate(-50%, -50%) !important;
+            opacity: 0.10 !important;
+            z-index: 5 !important;
+          }
           .hero-content {
             position: relative !important;
             left: auto !important;
@@ -88,66 +99,66 @@ export function HeroSection() {
         }
       `}</style>
 
-      {/* Full-bleed decorative layers — NOT part of the zoomed design canvas
-          below, so they always reach the true viewport edges regardless of
-          aspect ratio (no letterboxing on the ambient background/lines,
-          even though the icon/text/house canvas does letterbox to stay
-          uniformly scaled). */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-          pointerEvents: "none",
-          background: [
-            "radial-gradient(ellipse 60% 55% at 72% 38%, rgba(90,201,212,0.10), transparent 70%)",
-            "radial-gradient(ellipse 55% 60% at 14% 78%, rgba(143,224,232,0.06), transparent 72%)",
-            "radial-gradient(ellipse 75% 55% at 42% 8%, rgba(14,50,61,0.55), transparent 75%)",
-          ].join(", "),
-        }}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-          pointerEvents: "none",
-          backgroundImage: 'url("/assets/circuit-pattern.svg"), url("/assets/circuit-overlay.svg")',
-          backgroundRepeat: "repeat, repeat",
-          backgroundSize: "320px 320px, 200px 200px",
-          backgroundPosition: "0 0, 80px 60px",
-          filter: "invert(1)",
-          opacity: 0.055,
-        }}
-      />
-      <div style={{ position: "absolute", inset: 0, zIndex: 20, pointerEvents: "none" }}>
-        <HeroFilamentsSvg />
-      </div>
-
-      {/* Fixed design canvas — uniformly zoomed to fit the viewport. Every
-          child below is positioned in this same 1920×1080 pixel space, so
-          nothing needs its own vw/vh-driven responsive formula: the zoom
-          factor is the only thing that changes with window size. */}
+      {/* Fixed design canvas — scaled by width only, so it always spans the
+          full viewport edge-to-edge (no horizontal letterboxing) and the
+          section's height simply follows the canvas. Everything below
+          shares this one 1920×1080 coordinate space. */}
       <div
         className="hero-canvas"
         style={{
           position: "relative",
           width: DESIGN_W,
           height: DESIGN_H,
-          flexShrink: 0,
-          zIndex: 30,
-          zoom: `min(calc(100vw / ${DESIGN_W}px), calc(100vh / ${DESIGN_H}px))`,
+          zoom: `calc(100vw / ${DESIGN_W}px)`,
         }}
       >
-        {/* Three.js 3D canvas — confined to its own right-hand column so it
-            can never collide with the centered text column. Skipped
+        {/* Gradient mesh — static depth layer under the circuit texture */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 0,
+            pointerEvents: "none",
+            background: [
+              "radial-gradient(ellipse 60% 55% at 72% 38%, rgba(90,201,212,0.10), transparent 70%)",
+              "radial-gradient(ellipse 55% 60% at 14% 78%, rgba(143,224,232,0.06), transparent 72%)",
+              "radial-gradient(ellipse 75% 55% at 42% 8%, rgba(14,50,61,0.55), transparent 75%)",
+            ].join(", "),
+          }}
+        />
+
+        {/* PCB circuit pattern — white on dark */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 0,
+            pointerEvents: "none",
+            backgroundImage: 'url("/assets/circuit-pattern.svg"), url("/assets/circuit-overlay.svg")',
+            backgroundRepeat: "repeat, repeat",
+            backgroundSize: "320px 320px, 200px 200px",
+            backgroundPosition: "0 0, 80px 60px",
+            filter: "invert(1)",
+            opacity: 0.055,
+          }}
+        />
+
+        {/* SVG ambient schematic lines — thin cyan traces with junction dots,
+            confined to the margins around the icon/text/house box below
+            (see hero-filaments-svg.tsx for the exact boundary). */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 20, pointerEvents: "none" }}>
+          <HeroFilamentsSvg />
+        </div>
+
+        {/* Three.js 3D canvas — its own right-hand column, inset from the
+            canvas edges to match the margin the lines live in. Skipped
             entirely on mobile portrait. */}
         {!isPortraitMobile && (
           <div
             className="hero-canvas-wrapper"
-            style={{ position: "absolute", left: 1300, top: 0, width: 600, height: DESIGN_H, zIndex: 1, pointerEvents: "none" }}
+            style={{ position: "absolute", left: 1330, top: 170, width: 440, height: 740, zIndex: 10, pointerEvents: "none" }}
           >
             <Hero3DLazy />
           </div>
@@ -155,36 +166,35 @@ export function HeroSection() {
 
         {/* Icon-only brand mark — its own left-hand column, vertically
             centered, roughly matching the 3D house's scale. No wordmark
-            (that lives in the header now). Sits behind the text column. */}
-        {!isPortraitMobile && (
-          <div
-            aria-hidden
-            className="hero-icon-mark"
-            style={{
-              position: "absolute",
-              left: 60,
-              top: "50%",
-              transform: "translateY(-50%)",
-              width: 520,
-              zIndex: 10,
-              pointerEvents: "none",
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/uploads/icon_petrol.png"
-              alt=""
-              style={{ width: "100%", height: "auto", display: "block", opacity: 0.5 }}
-            />
-          </div>
-        )}
+            (that lives in the header now). */}
+        <div
+          aria-hidden
+          className="hero-icon-mark"
+          style={{
+            position: "absolute",
+            left: 150,
+            top: "50%",
+            transform: "translateY(-50%)",
+            width: 420,
+            zIndex: 10,
+            pointerEvents: "none",
+            display: isPortraitMobile ? "none" : "block",
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/uploads/icon_petrol.png"
+            alt=""
+            style={{ width: "100%", height: "auto", display: "block", opacity: 0.5 }}
+          />
+        </div>
 
         {/* Text content — its own middle column, centered both ways within it */}
         <div
           className="hero-content"
           style={{
             position: "absolute",
-            left: 620,
+            left: 610,
             top: 0,
             width: 680,
             height: DESIGN_H,

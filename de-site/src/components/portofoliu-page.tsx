@@ -71,8 +71,8 @@ export function PortofoliuPageDe() {
           .porto-featured-grid-de { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 480px) {
-          .porto-projects-grid-de { grid-template-columns: 1fr !important; }
-          .porto-gallery-grid-de { grid-template-columns: 1fr !important; }
+          .porto-projects-grid-de { gap: 12px !important; }
+          .porto-gallery-grid-de { gap: 12px !important; }
         }
         @media (min-width: 768px) and (max-width: 1099px) {
           .porto-projects-grid-de { grid-template-columns: repeat(2, 1fr) !important; }

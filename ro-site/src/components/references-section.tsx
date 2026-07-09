@@ -26,7 +26,7 @@ export function ReferencesSection() {
           .refs-grid { grid-template-columns: 1fr 1fr !important; }
         }
         @media (max-width: 600px) {
-          .refs-grid { grid-template-columns: 1fr !important; }
+          .refs-grid { gap: 14px !important; }
         }
       `}</style>
 

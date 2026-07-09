@@ -38,8 +38,19 @@ export function BlogPage() {
     <>
       <style>{`
         @media (max-width: 767px) {
-          .blog-grid { grid-template-columns: 1fr !important; }
+          .blog-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
           .blog-hero-inner { padding-top: 120px !important; padding-bottom: 60px !important; }
+          .blog-card-body { padding: 14px 14px 16px !important; }
+          .blog-card-title { font-size: 14px !important; margin-bottom: 6px !important; }
+          .blog-card-excerpt {
+            font-size: 12px !important;
+            line-height: 1.45 !important;
+            margin: 0 0 10px !important;
+            display: -webkit-box !important;
+            -webkit-line-clamp: 3 !important;
+            -webkit-box-orient: vertical !important;
+            overflow: hidden !important;
+          }
         }
       `}</style>
 
@@ -183,7 +194,7 @@ export function BlogPage() {
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   />
                 </div>
-                <div style={{ padding: "28px 28px 32px", display: "flex", flexDirection: "column", flex: 1 }}>
+                <div className="blog-card-body" style={{ padding: "28px 28px 32px", display: "flex", flexDirection: "column", flex: 1 }}>
                   <div
                     style={{
                       display: "flex",
@@ -218,6 +229,7 @@ export function BlogPage() {
                     </span>
                   </div>
                   <h2
+                    className="blog-card-title"
                     style={{
                       fontFamily: "var(--font-barlow)",
                       fontSize: "clamp(17px, 1.4vw, 20px)",
@@ -231,6 +243,7 @@ export function BlogPage() {
                     {post.title}
                   </h2>
                   <p
+                    className="blog-card-excerpt"
                     style={{
                       fontFamily: "var(--font-barlow)",
                       fontSize: 14,
