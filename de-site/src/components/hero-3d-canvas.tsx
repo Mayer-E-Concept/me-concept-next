@@ -550,8 +550,12 @@ export function Hero3DCanvas() {
         // whole column now instead of sharing frame space with the text via
         // a big lookAt offset, so it can render close to the original
         // wide-desktop size instead of the much smaller mobile-band tuning
-        // below.
-        dist = 13;   fov = 42; scale = 1.3;  houseX = 1.2; baseHouseY = -0.10; lookXFactor = 0.30;
+        // below. Scale kept a bit under what the column could technically
+        // fit — the house rotates continuously and its silhouette swings
+        // wider than its own static bounding box at some angles, so this
+        // leaves it room to swing without reaching the ambient lines in the
+        // margin just outside the column.
+        dist = 13;   fov = 42; scale = 1.12; houseX = 1.0; baseHouseY = -0.10; lookXFactor = 0.30;
       } else {
         dist = 14;   fov = 58; scale = 0.72; houseX = 0.5; baseHouseY = -0.30; lookXFactor = 1.0;
       }

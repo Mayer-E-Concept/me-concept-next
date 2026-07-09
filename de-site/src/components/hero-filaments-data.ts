@@ -12,10 +12,59 @@ export const TRACE_STAGGER = 0.08; // s between cables
     rather than re-tuning each line's opacity by hand. */
 export const OPACITY_SCALE = 0.55;
 
-export type HeroSize = {
-  heroW: number;
-  heroH: number;
+/** Full section size PLUS the icon/text/house box's actual on-screen rect
+    and zoom factor. The box is scaled by min(width-ratio, height-ratio) —
+    so it's letterboxed on exactly one axis whenever the viewport isn't
+    precisely 16:9, and boxLeft/boxTop capture how far that letterboxing has
+    pushed the box away from the section's true edge on that axis. Lines
+    need this to reach the TRUE edge on their own (rather than living inside
+    the box and drifting away from the edge along with it), while still
+    staying correctly positioned relative to the box itself. */
+export type HeroLayout = {
+  sectionW: number;
+  sectionH: number;
+  boxLeft: number;
+  boxTop: number;
+  boxW: number;
+  boxH: number;
+  zoom: number;
 };
+
+export function useHeroLayout(designW: number, designH: number): HeroLayout | null {
+  const [layout, setLayout] = useState<HeroLayout | null>(null);
+
+  useLayoutEffect(() => {
+    const section = document.querySelector(".hero-section") as HTMLElement | null;
+    const box = document.querySelector(".hero-canvas") as HTMLElement | null;
+    if (!section || !box) return;
+
+    const measure = () => {
+      const s = section.getBoundingClientRect();
+      const b = box.getBoundingClientRect();
+      if (s.width === 0 || b.width === 0) return;
+      setLayout({
+        sectionW: s.width,
+        sectionH: s.height,
+        boxLeft: b.left - s.left,
+        boxTop: b.top - s.top,
+        boxW: b.width,
+        boxH: b.height,
+        zoom: b.width / designW,
+      });
+    };
+    measure();
+
+    const ro = new ResizeObserver(measure);
+    ro.observe(section);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [designW, designH]);
+
+  return layout;
+}
 
 /** A single offshoot from a trunk's terminal point — same depart/bend/end
     shape as a cable's own 1st bend, just starting from the trunk's endpoint
@@ -43,28 +92,3 @@ export type CableSegment = {
   /** Bend points along this segment, for the decorative via-pad markers. */
   vertices: { x: number; y: number }[];
 };
-
-/** Measures `.hero-section` once on mount and on every resize, in CSS
-    pixels — the ambient ombient cables are purely fractions of this size,
-    so no icon/logo needs to exist in the DOM for them to render. */
-export function useHeroSize(): HeroSize | null {
-  const [size, setSize] = useState<HeroSize | null>(null);
-
-  useLayoutEffect(() => {
-    const hero = document.querySelector(".hero-section") as HTMLElement | null;
-    if (!hero) return;
-
-    const measure = () => {
-      const h = hero.getBoundingClientRect();
-      if (h.width === 0 || h.height === 0) return;
-      setSize({ heroW: h.width, heroH: h.height });
-    };
-    measure();
-
-    const ro = new ResizeObserver(measure);
-    ro.observe(hero);
-    return () => ro.disconnect();
-  }, []);
-
-  return size;
-}

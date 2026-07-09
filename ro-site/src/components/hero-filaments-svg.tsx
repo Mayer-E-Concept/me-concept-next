@@ -1,59 +1,69 @@
 "use client";
 import { useState } from "react";
-import { useHeroSize } from "@/components/hero-filaments-data";
+import { useHeroLayout } from "@/components/hero-filaments-data";
 
+const DESIGN_W = 1920;
+const DESIGN_H = 1080;
 const TRACE_START   = 0.4;  // s after mount — first line begins
 const TRACE_DUR     = 0.5;  // s per line
 const TRACE_STAGGER = 0.1;  // s between lines
 const LINE_OPACITY  = 0.32; // matches the reference design's calm, low-contrast lines
 const BRANCH_OPACITY = 0.14; // sub-lines branching off a trunk read as fainter, further-back traces
 
-/** A handful of simple right-angle traces, each just a few waypoints
-    (hero-relative fractions). Deliberately sparse — this is a calm
-    background layer, not a dense circuit board: a few thin lines with
-    plain dots, kept to the margins around the text/graphic. Some end in
-    a small electrical-symbol detail (switch/ground) or a short tag label,
-    matching the reference banner (assets/linkedin_banner.png). A few also
-    grow one subtle, lower-opacity branch off their own endpoint. */
+/** Each axis of each point resolves in one of two ways, independently:
+      - edgeX/edgeY true  — a fraction of the TRUE section width/height, so
+                  it reaches the real viewport edge even when the box is
+                  letterboxed away from that edge on this axis.
+      - (default) "box" — box.left/top + fraction of the 1920×1080 design
+                  space × zoom, so it stays correctly positioned relative to
+                  the icon/text/house box regardless of letterboxing.
+    Only the outermost point of each margin/corner line needs edgeX/edgeY on
+    the axis(es) meant to touch the true edge — everything else (inner
+    bends, symbols) stays box-relative for guaranteed clearance from the
+    box. A corner line (e.g. top-left) can set both — it touches the true
+    corner, then bends in toward the box on later points. */
+type Point = { xFrac: number; yFrac: number; edgeX?: boolean; edgeY?: boolean };
+
 type Branch = {
-  /** Horizontal pixels from the trunk's endpoint before the branch's own bend */
   depart: number;
-  /** Signed vertical bend (scaled by hero height); + = down, − = up */
   bendDY: number;
-  /** Hero-width fraction of the branch's own terminal */
   endXFrac: number;
 };
 
 type LineSpec = {
   id: string;
-  points: { xFrac: number; yFrac: number }[];
-  /** Perpendicular stub + symbol hanging off the line's last point. */
+  points: Point[];
   endSymbol?: { type: "switch" | "ground"; dir: "up" | "down" };
-  /** Small mono-uppercase tag near the line's first point. */
   label?: { text: string; dx: number; dy: number; align?: "start" | "end" };
-  /** Opts this line into a slow traveling glow. Rare — most lines stay static. */
   pulse?: boolean;
-  /** A single subtle, low-opacity offshoot from this line's endpoint. */
   branch?: Branch;
 };
 
-/* Safe zone: the icon/text/house "box" occupies x:[0.0521, 0.9479]
-   (100–1820px of the 1920-wide canvas) and y:[0.1019, 0.8981]
-   (110–970px of the 1080-tall canvas) — see hero-section.tsx for the
-   matching pixel values. Every line below stays either in the left/right
-   margin (x outside that x-range, any y) or in the top/bottom strip (y
-   outside that y-range, any x) — never both inside at once — so nothing
-   can ever visually cross the box. */
+/* Safe zone: the icon/text/house box occupies design-space x:[100,1820],
+   y:[110,970] (see hero-section.tsx for the matching pixel values — the
+   house column itself is the tightest fit, at x:[1320,1820]). Every line
+   below stays either in the left/right margin (x outside [100,1820], any y)
+   or the top/bottom strip (y outside [110,970], any x) — checked against
+   the box's DOM rect at render time, not just these nominal numbers, since
+   the house rotates and its silhouette swings a little wider than its
+   static container at some angles — the right-margin lines below start
+   further out (x ≥ 0.975 design-space) than the box's own edge would
+   strictly require, to leave room for that swing. */
 const LINES: LineSpec[] = [
-  // ── Top strip (y stays well above 0.102) ──────────────────────────────
+  // ── Top strip (y stays well above 110/1080) ───────────────────────────
   {
     id: "t1",
-    points: [{ xFrac: 0.005, yFrac: 0.025 }, { xFrac: 0.14, yFrac: 0.025 }, { xFrac: 0.14, yFrac: 0.06 }, { xFrac: 0.25, yFrac: 0.06 }],
+    points: [
+      { xFrac: 0.005, yFrac: 0.025, edgeX: true, edgeY: true },
+      { xFrac: 0.14, yFrac: 0.025 },
+      { xFrac: 0.14, yFrac: 0.06 },
+      { xFrac: 0.25, yFrac: 0.06 },
+    ],
     endSymbol: { type: "switch", dir: "down" },
     label: { text: "L1·L2·L3", dx: 4, dy: -6, align: "start" },
     branch: { depart: 30, bendDY: -0.025, endXFrac: 0.30 },
   },
-  { id: "t2", points: [{ xFrac: 0.30, yFrac: 0.015 }, { xFrac: 0.30, yFrac: 0.04 }, { xFrac: 0.40, yFrac: 0.04 }], pulse: true },
+  { id: "t2", points: [{ xFrac: 0.30, yFrac: 0.015, edgeY: true }, { xFrac: 0.30, yFrac: 0.04 }, { xFrac: 0.40, yFrac: 0.04 }], pulse: true },
   {
     id: "t3",
     points: [{ xFrac: 0.45, yFrac: 0.02 }, { xFrac: 0.45, yFrac: 0.06 }, { xFrac: 0.58, yFrac: 0.06 }],
@@ -64,23 +74,32 @@ const LINES: LineSpec[] = [
   { id: "t4", points: [{ xFrac: 0.63, yFrac: 0.05 }, { xFrac: 0.73, yFrac: 0.05 }], pulse: true, branch: { depart: 24, bendDY: 0.02, endXFrac: 0.78 } },
   {
     id: "t5",
-    points: [{ xFrac: 0.995, yFrac: 0.015 }, { xFrac: 0.88, yFrac: 0.015 }, { xFrac: 0.88, yFrac: 0.05 }],
+    points: [
+      { xFrac: 0.995, yFrac: 0.015, edgeX: true, edgeY: true },
+      { xFrac: 0.88, yFrac: 0.015 },
+      { xFrac: 0.88, yFrac: 0.05 },
+    ],
     endSymbol: { type: "switch", dir: "down" },
     pulse: true,
   },
   { id: "t6", points: [{ xFrac: 0.81, yFrac: 0.02 }, { xFrac: 0.81, yFrac: 0.05 }] },
 
-  // ── Bottom strip (y stays well below 0.898) ───────────────────────────
+  // ── Bottom strip (y stays well below 970/1080) ────────────────────────
   {
     id: "b1",
-    points: [{ xFrac: 0.005, yFrac: 0.93 }, { xFrac: 0.14, yFrac: 0.93 }, { xFrac: 0.14, yFrac: 0.965 }, { xFrac: 0.24, yFrac: 0.965 }],
+    points: [
+      { xFrac: 0.005, yFrac: 0.93, edgeX: true },
+      { xFrac: 0.14, yFrac: 0.93 },
+      { xFrac: 0.14, yFrac: 0.965 },
+      { xFrac: 0.24, yFrac: 0.965 },
+    ],
     endSymbol: { type: "ground", dir: "down" },
     label: { text: "230V", dx: 4, dy: -10, align: "start" },
     branch: { depart: 26, bendDY: 0.02, endXFrac: 0.30 },
   },
   {
     id: "b2",
-    points: [{ xFrac: 0.28, yFrac: 0.995 }, { xFrac: 0.28, yFrac: 0.955 }, { xFrac: 0.38, yFrac: 0.955 }],
+    points: [{ xFrac: 0.28, yFrac: 0.995, edgeY: true }, { xFrac: 0.28, yFrac: 0.955 }, { xFrac: 0.38, yFrac: 0.955 }],
     endSymbol: { type: "switch", dir: "up" },
     pulse: true,
   },
@@ -93,7 +112,7 @@ const LINES: LineSpec[] = [
   },
   {
     id: "b4",
-    points: [{ xFrac: 0.65, yFrac: 0.995 }, { xFrac: 0.65, yFrac: 0.945 }, { xFrac: 0.76, yFrac: 0.945 }],
+    points: [{ xFrac: 0.65, yFrac: 0.995, edgeY: true }, { xFrac: 0.65, yFrac: 0.945 }, { xFrac: 0.76, yFrac: 0.945 }],
     endSymbol: { type: "ground", dir: "up" },
     pulse: true,
   },
@@ -103,64 +122,74 @@ const LINES: LineSpec[] = [
     label: { text: "KNX", dx: -8, dy: -10, align: "end" },
     pulse: true,
   },
-  { id: "b6", points: [{ xFrac: 0.995, yFrac: 0.965 }, { xFrac: 0.94, yFrac: 0.965 }] },
+  { id: "b6", points: [{ xFrac: 0.995, yFrac: 0.965, edgeX: true }, { xFrac: 0.94, yFrac: 0.965 }] },
 
-  // ── Left margin (x stays well left of 0.052) ──────────────────────────
+  // ── Left margin (x stays well left of 100/1920) ───────────────────────
   {
     id: "lm1",
-    points: [{ xFrac: 0.005, yFrac: 0.20 }, { xFrac: 0.035, yFrac: 0.20 }, { xFrac: 0.035, yFrac: 0.24 }],
+    points: [{ xFrac: 0.005, yFrac: 0.20, edgeX: true }, { xFrac: 0.035, yFrac: 0.20 }, { xFrac: 0.035, yFrac: 0.24 }],
     endSymbol: { type: "switch", dir: "down" },
   },
-  { id: "lm2", points: [{ xFrac: 0.005, yFrac: 0.34 }, { xFrac: 0.04, yFrac: 0.34 }], pulse: true },
+  { id: "lm2", points: [{ xFrac: 0.005, yFrac: 0.34, edgeX: true }, { xFrac: 0.04, yFrac: 0.34 }], pulse: true },
   {
     id: "lm3",
-    points: [{ xFrac: 0.005, yFrac: 0.48 }, { xFrac: 0.035, yFrac: 0.48 }, { xFrac: 0.035, yFrac: 0.52 }],
+    points: [{ xFrac: 0.005, yFrac: 0.48, edgeX: true }, { xFrac: 0.035, yFrac: 0.48 }, { xFrac: 0.035, yFrac: 0.52 }],
     endSymbol: { type: "ground", dir: "down" },
     label: { text: "IP65", dx: 4, dy: -10, align: "start" },
   },
-  { id: "lm4", points: [{ xFrac: 0.005, yFrac: 0.62 }, { xFrac: 0.04, yFrac: 0.62 }], pulse: true },
+  { id: "lm4", points: [{ xFrac: 0.005, yFrac: 0.62, edgeX: true }, { xFrac: 0.04, yFrac: 0.62 }], pulse: true },
   {
     id: "lm5",
-    points: [{ xFrac: 0.005, yFrac: 0.76 }, { xFrac: 0.035, yFrac: 0.76 }, { xFrac: 0.035, yFrac: 0.80 }],
+    points: [{ xFrac: 0.005, yFrac: 0.76, edgeX: true }, { xFrac: 0.035, yFrac: 0.76 }, { xFrac: 0.035, yFrac: 0.80 }],
     pulse: true,
   },
 
-  // ── Right margin (x stays well right of 0.948) ────────────────────────
+  // ── Right margin — starts further out (0.975+) than the box's own edge
+  //    would strictly require, so the rotating house's silhouette swing
+  //    never reaches these lines. ──────────────────────────────────────
   {
     id: "rm1",
-    points: [{ xFrac: 0.995, yFrac: 0.20 }, { xFrac: 0.965, yFrac: 0.20 }, { xFrac: 0.965, yFrac: 0.24 }],
+    points: [{ xFrac: 0.995, yFrac: 0.20, edgeX: true }, { xFrac: 0.975, yFrac: 0.20 }, { xFrac: 0.975, yFrac: 0.24 }],
     endSymbol: { type: "switch", dir: "down" },
   },
-  { id: "rm2", points: [{ xFrac: 0.995, yFrac: 0.34 }, { xFrac: 0.96, yFrac: 0.34 }], pulse: true },
+  { id: "rm2", points: [{ xFrac: 0.995, yFrac: 0.34, edgeX: true }, { xFrac: 0.98, yFrac: 0.34 }], pulse: true },
   {
     id: "rm3",
-    points: [{ xFrac: 0.995, yFrac: 0.48 }, { xFrac: 0.965, yFrac: 0.48 }, { xFrac: 0.965, yFrac: 0.52 }],
+    points: [{ xFrac: 0.995, yFrac: 0.48, edgeX: true }, { xFrac: 0.975, yFrac: 0.48 }, { xFrac: 0.975, yFrac: 0.52 }],
     endSymbol: { type: "ground", dir: "down" },
     label: { text: "PEN", dx: -4, dy: -10, align: "end" },
   },
-  { id: "rm4", points: [{ xFrac: 0.995, yFrac: 0.62 }, { xFrac: 0.96, yFrac: 0.62 }], pulse: true },
+  { id: "rm4", points: [{ xFrac: 0.995, yFrac: 0.62, edgeX: true }, { xFrac: 0.98, yFrac: 0.62 }], pulse: true },
   {
     id: "rm5",
-    points: [{ xFrac: 0.995, yFrac: 0.76 }, { xFrac: 0.965, yFrac: 0.76 }, { xFrac: 0.965, yFrac: 0.80 }],
+    points: [{ xFrac: 0.995, yFrac: 0.76, edgeX: true }, { xFrac: 0.975, yFrac: 0.76 }, { xFrac: 0.975, yFrac: 0.80 }],
     pulse: true,
   },
 ];
 
 const TAG_FONT = { fontFamily: "var(--font-plex-mono)", fontSize: 10, letterSpacing: "0.14em" } as const;
 
-function buildPath(points: { xFrac: number; yFrac: number }[], heroW: number, heroH: number) {
-  const px = points.map((p) => ({ x: p.xFrac * heroW, y: p.yFrac * heroH }));
+function resolvePoint(p: Point, layout: { sectionW: number; sectionH: number; boxLeft: number; boxTop: number; zoom: number }) {
+  const x = p.edgeX ? p.xFrac * layout.sectionW : layout.boxLeft + p.xFrac * DESIGN_W * layout.zoom;
+  const y = p.edgeY ? p.yFrac * layout.sectionH : layout.boxTop + p.yFrac * DESIGN_H * layout.zoom;
+  return { x, y };
+}
+
+function buildPath(points: Point[], layout: { sectionW: number; sectionH: number; boxLeft: number; boxTop: number; zoom: number }) {
+  const px = points.map((p) => resolvePoint(p, layout));
   const d = px.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
   return { d, px };
 }
 
 /** Builds a single branch's path from a trunk's endpoint — same shape as a
-    trunk's own bend, just starting from the hub instead of the edge. */
-function buildBranch(hubX: number, hubY: number, branch: Branch, heroW: number, heroH: number) {
-  const btx = heroW * branch.endXFrac;
+    trunk's own bend, just starting from the hub instead of the edge. Purely
+    box-relative (branches only ever grow toward the box, never toward an
+    edge). */
+function buildBranch(hubX: number, hubY: number, branch: Branch, boxLeft: number, zoom: number) {
+  const btx = boxLeft + branch.endXFrac * DESIGN_W * zoom;
   const dir = Math.sign(btx - hubX) || 1;
   const midX = hubX + dir * branch.depart;
-  const bendPx = branch.bendDY * heroH;
+  const bendPx = branch.bendDY * DESIGN_H * zoom;
   const cornerX = midX + dir * Math.min(14, Math.abs(bendPx));
   const cornerY = hubY + Math.sign(bendPx || 1) * Math.min(14, Math.abs(bendPx));
   const endY = hubY + bendPx;
@@ -217,17 +246,17 @@ export function HeroFilamentsSvg() {
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
-  const size = useHeroSize();
+  const layout = useHeroLayout(DESIGN_W, DESIGN_H);
 
-  if (!size) return null;
-  const { heroW, heroH } = size;
+  if (!layout) return null;
+  const { sectionW, sectionH, boxLeft, zoom } = layout;
 
   const built = LINES.map((spec, i) => {
-    const { d, px } = buildPath(spec.points, heroW, heroH);
+    const { d, px } = buildPath(spec.points, layout);
     const last = px[px.length - 1];
     const first = px[0];
     const start = TRACE_START + i * TRACE_STAGGER;
-    const branch = spec.branch ? { ...buildBranch(last.x, last.y, spec.branch, heroW, heroH), start: start + TRACE_DUR } : null;
+    const branch = spec.branch ? { ...buildBranch(last.x, last.y, spec.branch, boxLeft, zoom), start: start + TRACE_DUR } : null;
     return {
       ...spec,
       d,
@@ -244,7 +273,7 @@ export function HeroFilamentsSvg() {
   return (
     <svg
       aria-hidden
-      viewBox={`0 0 ${heroW} ${heroH}`}
+      viewBox={`0 0 ${sectionW} ${sectionH}`}
       preserveAspectRatio="none"
       style={{
         position: "absolute",

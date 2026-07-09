@@ -128,6 +128,46 @@ export function HeroSectionDe() {
         }
       `}</style>
 
+      {/* Ambient background layers — NOT part of the zoomed box below, so
+          they always cover the true full section, edge to edge. The lines
+          layer computes true screen-space coordinates itself (see
+          hero-filaments-svg.tsx / useHeroLayout) rather than relying on a
+          CSS zoom, so it can reach the real viewport edge on whichever axis
+          the box is letterboxed on, while staying correctly positioned
+          relative to the box on the other. */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: "none",
+          background: [
+            "radial-gradient(ellipse 60% 55% at 72% 38%, rgba(90,201,212,0.10), transparent 70%)",
+            "radial-gradient(ellipse 55% 60% at 14% 78%, rgba(143,224,232,0.06), transparent 72%)",
+            "radial-gradient(ellipse 75% 55% at 42% 8%, rgba(14,50,61,0.55), transparent 75%)",
+          ].join(", "),
+        }}
+      />
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: "none",
+          backgroundImage: 'url("/assets/circuit-pattern.svg"), url("/assets/circuit-overlay.svg")',
+          backgroundRepeat: "repeat, repeat",
+          backgroundSize: "320px 320px, 200px 200px",
+          backgroundPosition: "0 0, 80px 60px",
+          filter: "invert(1)",
+          opacity: 0.055,
+        }}
+      />
+      <div style={{ position: "absolute", inset: 0, zIndex: 20, pointerEvents: "none" }}>
+        <HeroFilamentsSvg />
+      </div>
+
       {/* Fixed design canvas — scaled to always fit fully inside the
           viewport (no scrolling needed) while every child below shares this
           one 1920×1080 coordinate space, so nothing can drift out of sync. */}
@@ -138,49 +178,10 @@ export function HeroSectionDe() {
           width: DESIGN_W,
           height: DESIGN_H,
           flexShrink: 0,
+          zIndex: 30,
           zoom,
         }}
       >
-        {/* Gradient mesh — static depth layer under the circuit texture */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 0,
-            pointerEvents: "none",
-            background: [
-              "radial-gradient(ellipse 60% 55% at 72% 38%, rgba(90,201,212,0.10), transparent 70%)",
-              "radial-gradient(ellipse 55% 60% at 14% 78%, rgba(143,224,232,0.06), transparent 72%)",
-              "radial-gradient(ellipse 75% 55% at 42% 8%, rgba(14,50,61,0.55), transparent 75%)",
-            ].join(", "),
-          }}
-        />
-
-        {/* PCB circuit pattern — white on dark */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 0,
-            pointerEvents: "none",
-            backgroundImage: 'url("/assets/circuit-pattern.svg"), url("/assets/circuit-overlay.svg")',
-            backgroundRepeat: "repeat, repeat",
-            backgroundSize: "320px 320px, 200px 200px",
-            backgroundPosition: "0 0, 80px 60px",
-            filter: "invert(1)",
-            opacity: 0.055,
-          }}
-        />
-
-        {/* SVG ambient schematic lines — thin cyan traces with junction dots,
-            confined to the margins around the icon/text/house box below
-            (see hero-filaments-svg.tsx for the exact boundary). */}
-        <div style={{ position: "absolute", inset: 0, zIndex: 20, pointerEvents: "none" }}>
-          <HeroFilamentsSvg />
-        </div>
-
         {/* Three.js 3D canvas — its own right-hand column, inset from the
             canvas edges to match the margin the lines live in. Skipped
             entirely on mobile portrait. */}
@@ -223,9 +224,9 @@ export function HeroSectionDe() {
           className="hero-content"
           style={{
             position: "absolute",
-            left: 560,
+            left: 550,
             top: 0,
-            width: 740,
+            width: 760,
             height: DESIGN_H,
             zIndex: 30,
             display: "flex",
