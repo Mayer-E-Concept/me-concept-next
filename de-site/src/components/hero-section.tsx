@@ -107,12 +107,26 @@ export function HeroSectionDe() {
             height: auto !important;
             min-height: 100vh !important;
             padding: 80px clamp(20px, 5vw, 40px) 72px !important;
-            align-items: flex-start !important;
-            text-align: left !important;
+            align-items: center !important;
+            text-align: center !important;
           }
-          .hero-title-block, .hero-stats-wrapper { align-items: flex-start !important; }
-          .hero-eyebrow, .hero-buttons { justify-content: flex-start !important; }
-          .hero-h1 { text-align: left !important; font-size: clamp(28px, 7.5vw, 40px) !important; }
+          .hero-title-block, .hero-stats-wrapper { align-items: center !important; }
+          .hero-eyebrow, .hero-buttons { justify-content: center !important; }
+          .hero-h1 { text-align: center !important; font-size: clamp(28px, 7.5vw, 40px) !important; }
+
+          /* Circuit lines are a desktop-only ambient detail — on a narrow
+             portrait screen they'd either overlap the centered text or need
+             their own bespoke mobile geometry, so they're unmounted entirely
+             (see the conditional render below) rather than just hidden. */
+
+          /* The blueprint-grid fade normally centers on the 1920×1080 design
+             box's midpoint (960,540) — meaningless once that box collapses
+             to a fluid mobile column, so re-center it on the visible text
+             instead, with a tighter radius sized for a phone screen. */
+          .hero-grid-fade {
+            -webkit-mask-image: radial-gradient(circle 300px at 50% 44%, #fff 0%, #fff 55%, transparent 100%) !important;
+            mask-image: radial-gradient(circle 300px at 50% 44%, #fff 0%, #fff 55%, transparent 100%) !important;
+          }
         }
 
         /* ── Heading/buttons + stats fade in shortly after mount ── */
@@ -164,9 +178,11 @@ export function HeroSectionDe() {
           opacity: 0.055,
         }}
       />
-      <div style={{ position: "absolute", inset: 0, zIndex: 20, pointerEvents: "none" }}>
-        <HeroFilamentsSvg />
-      </div>
+      {!isPortraitMobile && (
+        <div style={{ position: "absolute", inset: 0, zIndex: 20, pointerEvents: "none" }}>
+          <HeroFilamentsSvg />
+        </div>
+      )}
 
       {/* Fixed design canvas — scaled to always fit fully inside the
           viewport (no scrolling needed) while every child below shares this
@@ -190,6 +206,7 @@ export function HeroSectionDe() {
             420px away, so it's already gone before reaching that too). */}
         <div
           aria-hidden="true"
+          className="hero-grid-fade"
           style={{
             position: "absolute",
             inset: 0,

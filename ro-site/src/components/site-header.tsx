@@ -49,13 +49,14 @@ export function SiteHeader() {
              right-aligned for the hamburger alone) — otherwise the bar
              reads as empty on the left/center on mobile. */
           .mobile-header-logo {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            height: 26px;
-            width: auto;
+            height: 24px;
           }
         }
         @media (min-width: 768px) and (max-width: 1023px) {
@@ -160,6 +161,12 @@ export function SiteHeader() {
             src="/uploads/icon_petrol.png"
             alt=""
             style={{ height: "100%", width: "auto", display: "block" }}
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/uploads/textlogo_petrol.png"
+            alt="Mayer E-Concept"
+            style={{ height: "82%", width: "auto", display: "block" }}
           />
         </Link>
         <div
