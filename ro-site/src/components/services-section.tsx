@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
 import { SectionDivider } from "@/components/section-divider";
+import { ServicesDiagram } from "@/components/services-diagram";
 
 const SERVICES_LEFT = [
   { title: "Consultanță Personalizată", desc: "Adaptăm proiectele la nevoile specifice fiecărui client pentru a garanta rezultate optime." },
@@ -177,13 +177,7 @@ export function ServicesSection() {
             </h2>
           </div>
           <div>
-            <Image
-              src="/uploads/ce-oferim-transparent.png"
-              alt="Prezentare Generală a Serviciilor Electrice"
-              width={600}
-              height={400}
-              style={{ width: "100%", height: "auto", objectFit: "contain", display: "block" }}
-            />
+            <ServicesDiagram />
           </div>
         </div>
 

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { SectionDivider } from "@/components/section-divider";
-import { ServicesInfographicDe } from "@/components/services-infographic";
+import { ServicesDiagramDe } from "@/components/services-diagram";
 
 const SERVICES_LEFT = [
   { title: "Individuelle Beratung", desc: "Wir passen Projekte an die spezifischen Bedürfnisse jedes Kunden an, um optimale Ergebnisse zu garantieren." },
@@ -174,7 +174,7 @@ export function ServicesSectionDe() {
             </h2>
           </div>
           <div>
-            <ServicesInfographicDe />
+            <ServicesDiagramDe />
           </div>
         </div>
 

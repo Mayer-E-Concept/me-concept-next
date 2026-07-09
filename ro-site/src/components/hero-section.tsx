@@ -151,6 +151,31 @@ export function HeroSection() {
           <HeroFilamentsSvg />
         </div>
 
+        {/* Icon-only brand mark — sits in the left gutter, vertically centered,
+            to the left of the heading. No wordmark (that lives in the header
+            now) and no watermark-scale sizing — just a modest mark. */}
+        {!isPortraitMobile && (
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              left: "clamp(20px, 4vw, 50px)",
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: "clamp(70px, 8vw, 140px)",
+              zIndex: 10,
+              pointerEvents: "none",
+            }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/uploads/icon_petrol.png"
+              alt=""
+              style={{ width: "100%", height: "auto", display: "block", opacity: 0.55 }}
+            />
+          </div>
+        )}
+
         {/* Text content — left column */}
         <div
           className="hero-content"

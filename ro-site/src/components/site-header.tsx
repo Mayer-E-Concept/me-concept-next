@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { SectionDivider } from "@/components/section-divider";
 
 const navItems = [
   { label: "Acasă", href: "/" },
@@ -121,7 +120,17 @@ export function SiteHeader() {
           transition: "background-color .3s ease, box-shadow .3s ease",
         }}
       >
-        <SectionDivider position="bottom" />
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: 1,
+            background: "rgba(90,201,212,0.35)",
+          }}
+        />
         <Link href="/" aria-label="Acasă" className="mobile-header-logo">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -141,11 +150,11 @@ export function SiteHeader() {
           }}
         >
           {/* Desktop logo lockup — icon + wordmark/tagline, left-aligned */}
-          <Link href="/" aria-label="Acasă" className="desktop-header-logo" style={{ alignItems: "center", gap: 10 }}>
+          <Link href="/" aria-label="Acasă" className="desktop-header-logo" style={{ alignItems: "center", gap: 12 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/uploads/icon_petrol.png" alt="" style={{ height: 38, width: "auto", display: "block" }} />
+            <img src="/uploads/icon_petrol.png" alt="" style={{ height: 52, width: "auto", display: "block" }} />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/uploads/textlogo_petrol.png" alt="Mayer E-Concept" style={{ height: 30, width: "auto", display: "block" }} />
+            <img src="/uploads/textlogo_petrol.png" alt="Mayer E-Concept" style={{ height: 42, width: "auto", display: "block" }} />
           </Link>
 
           {/* Desktop nav */}
