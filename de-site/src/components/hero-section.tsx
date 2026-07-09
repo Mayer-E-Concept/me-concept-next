@@ -7,16 +7,40 @@ import { HeroStatsStripDe } from "@/components/hero-stats-strip";
 /** The desktop/tablet/landscape composition lives in a single fixed
     1920×1080 design canvas — backgrounds, circuit lines, icon, text AND
     house all share this one coordinate space, so nothing can ever drift
-    out of alignment with anything else. The canvas is scaled by WIDTH only
-    (zoom: 100vw/1920px), never height — so it always spans the full
-    viewport edge-to-edge with zero horizontal letterboxing (the thing that
-    was pushing the icon/house out of sync with the lines before). The
-    section's own height simply follows the canvas's zoomed height, so
-    there's never empty space beyond where the composition actually ends.
-    Only mobile portrait — where a fixed-width canvas would either overflow
-    or shrink text to nothing — falls back to its own fluid composition. */
+    out of alignment with anything else. The canvas is scaled by
+    min(width-ratio, height-ratio) so it always fits fully inside the
+    viewport on any window size or aspect ratio — no scrolling needed to see
+    the whole section, and (since everything lives in the same canvas now)
+    no risk of the icon/house drifting out of sync with the lines the way a
+    width-only scale would on a non-16:9 window. Only mobile portrait — where
+    a fixed-width canvas would either overflow or shrink text to nothing —
+    falls back to its own fluid composition. */
 const DESIGN_W = 1920;
 const DESIGN_H = 1080;
+
+/** The zoom factor, computed in JS from document.documentElement's
+    client(Width|Height) rather than a CSS calc() over 100vw/100vh — vw/vh
+    include the page scrollbar's width, but clientWidth doesn't, so a CSS
+    calc() version renders the canvas a few pixels wider than the section
+    actually has room for whenever a vertical scrollbar is present (i.e.
+    on basically every real page). That mismatch is exactly what let the
+    canvas overflow past the true edge instead of fitting flush. */
+function useUniformZoom(designW: number, designH: number): number {
+  const [zoom, setZoom] = useState(1);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const w = document.documentElement.clientWidth;
+      const h = document.documentElement.clientHeight;
+      setZoom(Math.min(w / designW, h / designH));
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [designW, designH]);
+
+  return zoom;
+}
 
 /** Mobile portrait gets its own bespoke composition — just the centered
     text, with the icon as a faint watermark behind it (no separate icon
@@ -39,12 +63,17 @@ function useIsPortraitMobile(): boolean {
 
 export function HeroSectionDe() {
   const isPortraitMobile = useIsPortraitMobile();
+  const zoom = useUniformZoom(DESIGN_W, DESIGN_H);
 
   return (
     <section
       className="hero-section"
       style={{
         position: "relative",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
         background: "radial-gradient(130% 150% at 72% -10%, #12525B 0%, #0B373D 52%, #072327 100%)",
         overflow: "hidden",
       }}
@@ -99,17 +128,17 @@ export function HeroSectionDe() {
         }
       `}</style>
 
-      {/* Fixed design canvas — scaled by width only, so it always spans the
-          full viewport edge-to-edge (no horizontal letterboxing) and the
-          section's height simply follows the canvas. Everything below
-          shares this one 1920×1080 coordinate space. */}
+      {/* Fixed design canvas — scaled to always fit fully inside the
+          viewport (no scrolling needed) while every child below shares this
+          one 1920×1080 coordinate space, so nothing can drift out of sync. */}
       <div
         className="hero-canvas"
         style={{
           position: "relative",
           width: DESIGN_W,
           height: DESIGN_H,
-          zoom: `calc(100vw / ${DESIGN_W}px)`,
+          flexShrink: 0,
+          zoom,
         }}
       >
         {/* Gradient mesh — static depth layer under the circuit texture */}
@@ -158,7 +187,7 @@ export function HeroSectionDe() {
         {!isPortraitMobile && (
           <div
             className="hero-canvas-wrapper"
-            style={{ position: "absolute", left: 1330, top: 170, width: 440, height: 740, zIndex: 10, pointerEvents: "none" }}
+            style={{ position: "absolute", left: 1320, top: 110, width: 500, height: 860, zIndex: 10, pointerEvents: "none" }}
           >
             <Hero3DLazy />
           </div>
@@ -172,10 +201,10 @@ export function HeroSectionDe() {
           className="hero-icon-mark"
           style={{
             position: "absolute",
-            left: 150,
+            left: 100,
             top: "50%",
             transform: "translateY(-50%)",
-            width: 420,
+            width: 440,
             zIndex: 10,
             pointerEvents: "none",
             display: isPortraitMobile ? "none" : "block",
@@ -194,9 +223,9 @@ export function HeroSectionDe() {
           className="hero-content"
           style={{
             position: "absolute",
-            left: 610,
+            left: 560,
             top: 0,
-            width: 680,
+            width: 740,
             height: DESIGN_H,
             zIndex: 30,
             display: "flex",

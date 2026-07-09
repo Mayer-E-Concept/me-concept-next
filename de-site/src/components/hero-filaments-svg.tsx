@@ -4,15 +4,26 @@ import { useHeroSize } from "@/components/hero-filaments-data";
 
 const TRACE_START   = 0.4;  // s after mount — first line begins
 const TRACE_DUR     = 0.5;  // s per line
-const TRACE_STAGGER = 0.12; // s between lines
+const TRACE_STAGGER = 0.1;  // s between lines
 const LINE_OPACITY  = 0.32; // matches the reference design's calm, low-contrast lines
+const BRANCH_OPACITY = 0.14; // sub-lines branching off a trunk read as fainter, further-back traces
 
 /** A handful of simple right-angle traces, each just a few waypoints
     (hero-relative fractions). Deliberately sparse — this is a calm
     background layer, not a dense circuit board: a few thin lines with
     plain dots, kept to the margins around the text/graphic. Some end in
     a small electrical-symbol detail (switch/ground) or a short tag label,
-    matching the reference banner (assets/linkedin_banner.png). */
+    matching the reference banner (assets/linkedin_banner.png). A few also
+    grow one subtle, lower-opacity branch off their own endpoint. */
+type Branch = {
+  /** Horizontal pixels from the trunk's endpoint before the branch's own bend */
+  depart: number;
+  /** Signed vertical bend (scaled by hero height); + = down, − = up */
+  bendDY: number;
+  /** Hero-width fraction of the branch's own terminal */
+  endXFrac: number;
+};
+
 type LineSpec = {
   id: string;
   points: { xFrac: number; yFrac: number }[];
@@ -22,100 +33,117 @@ type LineSpec = {
   label?: { text: string; dx: number; dy: number; align?: "start" | "end" };
   /** Opts this line into a slow traveling glow. Rare — most lines stay static. */
   pulse?: boolean;
+  /** A single subtle, low-opacity offshoot from this line's endpoint. */
+  branch?: Branch;
 };
 
-/* Safe zone: the icon/text/house "box" occupies x:[0.078, 0.922] (150–1770px
-   of the 1920-wide canvas) and, for the icon/house row specifically,
-   y:[0.157, 0.843] (170–910px of the 1080-tall canvas) — see hero-section.tsx
-   for the matching pixel values. Every line below stays either in the
-   left/right margin (x outside that x-range, any y) or in the top/bottom
-   strip (y outside that y-range, any x) — never both inside at once — so
-   nothing can ever visually cross the box. */
+/* Safe zone: the icon/text/house "box" occupies x:[0.0521, 0.9479]
+   (100–1820px of the 1920-wide canvas) and y:[0.1019, 0.8981]
+   (110–970px of the 1080-tall canvas) — see hero-section.tsx for the
+   matching pixel values. Every line below stays either in the left/right
+   margin (x outside that x-range, any y) or in the top/bottom strip (y
+   outside that y-range, any x) — never both inside at once — so nothing
+   can ever visually cross the box. */
 const LINES: LineSpec[] = [
-  // ── Top strip (y stays well above 0.157) ──────────────────────────────
+  // ── Top strip (y stays well above 0.102) ──────────────────────────────
   {
     id: "t1",
-    points: [{ xFrac: 0.005, yFrac: 0.03 }, { xFrac: 0.15, yFrac: 0.03 }, { xFrac: 0.15, yFrac: 0.065 }, { xFrac: 0.28, yFrac: 0.065 }],
+    points: [{ xFrac: 0.005, yFrac: 0.025 }, { xFrac: 0.14, yFrac: 0.025 }, { xFrac: 0.14, yFrac: 0.06 }, { xFrac: 0.25, yFrac: 0.06 }],
     endSymbol: { type: "switch", dir: "down" },
     label: { text: "L1·L2·L3", dx: 4, dy: -6, align: "start" },
+    branch: { depart: 30, bendDY: -0.025, endXFrac: 0.30 },
   },
-  { id: "t2", points: [{ xFrac: 0.35, yFrac: 0.02 }, { xFrac: 0.35, yFrac: 0.05 }, { xFrac: 0.48, yFrac: 0.05 }], pulse: true },
+  { id: "t2", points: [{ xFrac: 0.30, yFrac: 0.015 }, { xFrac: 0.30, yFrac: 0.04 }, { xFrac: 0.40, yFrac: 0.04 }], pulse: true },
   {
     id: "t3",
-    points: [{ xFrac: 0.55, yFrac: 0.03 }, { xFrac: 0.55, yFrac: 0.07 }, { xFrac: 0.70, yFrac: 0.07 }],
+    points: [{ xFrac: 0.45, yFrac: 0.02 }, { xFrac: 0.45, yFrac: 0.06 }, { xFrac: 0.58, yFrac: 0.06 }],
     endSymbol: { type: "ground", dir: "down" },
     label: { text: "400V", dx: 4, dy: -10, align: "start" },
     pulse: true,
   },
-  { id: "t4", points: [{ xFrac: 0.75, yFrac: 0.06 }, { xFrac: 0.85, yFrac: 0.06 }], pulse: true },
+  { id: "t4", points: [{ xFrac: 0.63, yFrac: 0.05 }, { xFrac: 0.73, yFrac: 0.05 }], pulse: true, branch: { depart: 24, bendDY: 0.02, endXFrac: 0.78 } },
   {
     id: "t5",
-    points: [{ xFrac: 0.995, yFrac: 0.02 }, { xFrac: 0.90, yFrac: 0.02 }, { xFrac: 0.90, yFrac: 0.06 }],
+    points: [{ xFrac: 0.995, yFrac: 0.015 }, { xFrac: 0.88, yFrac: 0.015 }, { xFrac: 0.88, yFrac: 0.05 }],
     endSymbol: { type: "switch", dir: "down" },
     pulse: true,
   },
+  { id: "t6", points: [{ xFrac: 0.81, yFrac: 0.02 }, { xFrac: 0.81, yFrac: 0.05 }] },
 
-  // ── Bottom strip (y stays well below 0.843) ───────────────────────────
+  // ── Bottom strip (y stays well below 0.898) ───────────────────────────
   {
     id: "b1",
-    points: [{ xFrac: 0.005, yFrac: 0.90 }, { xFrac: 0.15, yFrac: 0.90 }, { xFrac: 0.15, yFrac: 0.94 }, { xFrac: 0.26, yFrac: 0.94 }],
+    points: [{ xFrac: 0.005, yFrac: 0.93 }, { xFrac: 0.14, yFrac: 0.93 }, { xFrac: 0.14, yFrac: 0.965 }, { xFrac: 0.24, yFrac: 0.965 }],
     endSymbol: { type: "ground", dir: "down" },
     label: { text: "230V", dx: 4, dy: -10, align: "start" },
+    branch: { depart: 26, bendDY: 0.02, endXFrac: 0.30 },
   },
   {
     id: "b2",
-    points: [{ xFrac: 0.30, yFrac: 0.995 }, { xFrac: 0.30, yFrac: 0.93 }, { xFrac: 0.42, yFrac: 0.93 }],
+    points: [{ xFrac: 0.28, yFrac: 0.995 }, { xFrac: 0.28, yFrac: 0.955 }, { xFrac: 0.38, yFrac: 0.955 }],
     endSymbol: { type: "switch", dir: "up" },
     pulse: true,
   },
   {
     id: "b3",
-    points: [{ xFrac: 0.48, yFrac: 0.94 }, { xFrac: 0.62, yFrac: 0.94 }],
+    points: [{ xFrac: 0.43, yFrac: 0.96 }, { xFrac: 0.55, yFrac: 0.96 }],
     label: { text: "MCB", dx: 4, dy: -10, align: "start" },
     pulse: true,
+    branch: { depart: 22, bendDY: -0.018, endXFrac: 0.60 },
   },
   {
     id: "b4",
-    points: [{ xFrac: 0.68, yFrac: 0.995 }, { xFrac: 0.68, yFrac: 0.92 }, { xFrac: 0.80, yFrac: 0.92 }],
+    points: [{ xFrac: 0.65, yFrac: 0.995 }, { xFrac: 0.65, yFrac: 0.945 }, { xFrac: 0.76, yFrac: 0.945 }],
     endSymbol: { type: "ground", dir: "up" },
     pulse: true,
   },
   {
     id: "b5",
-    points: [{ xFrac: 0.85, yFrac: 0.94 }, { xFrac: 0.95, yFrac: 0.94 }],
+    points: [{ xFrac: 0.81, yFrac: 0.96 }, { xFrac: 0.91, yFrac: 0.96 }],
     label: { text: "KNX", dx: -8, dy: -10, align: "end" },
     pulse: true,
   },
+  { id: "b6", points: [{ xFrac: 0.995, yFrac: 0.965 }, { xFrac: 0.94, yFrac: 0.965 }] },
 
-  // ── Left margin (x stays well left of 0.078) ──────────────────────────
+  // ── Left margin (x stays well left of 0.052) ──────────────────────────
   {
     id: "lm1",
-    points: [{ xFrac: 0.005, yFrac: 0.22 }, { xFrac: 0.045, yFrac: 0.22 }, { xFrac: 0.045, yFrac: 0.26 }],
+    points: [{ xFrac: 0.005, yFrac: 0.20 }, { xFrac: 0.035, yFrac: 0.20 }, { xFrac: 0.035, yFrac: 0.24 }],
     endSymbol: { type: "switch", dir: "down" },
   },
-  { id: "lm2", points: [{ xFrac: 0.005, yFrac: 0.38 }, { xFrac: 0.05, yFrac: 0.38 }], pulse: true },
+  { id: "lm2", points: [{ xFrac: 0.005, yFrac: 0.34 }, { xFrac: 0.04, yFrac: 0.34 }], pulse: true },
   {
     id: "lm3",
-    points: [{ xFrac: 0.005, yFrac: 0.55 }, { xFrac: 0.045, yFrac: 0.55 }, { xFrac: 0.045, yFrac: 0.60 }],
+    points: [{ xFrac: 0.005, yFrac: 0.48 }, { xFrac: 0.035, yFrac: 0.48 }, { xFrac: 0.035, yFrac: 0.52 }],
     endSymbol: { type: "ground", dir: "down" },
     label: { text: "IP65", dx: 4, dy: -10, align: "start" },
   },
-  { id: "lm4", points: [{ xFrac: 0.005, yFrac: 0.70 }, { xFrac: 0.05, yFrac: 0.70 }], pulse: true },
+  { id: "lm4", points: [{ xFrac: 0.005, yFrac: 0.62 }, { xFrac: 0.04, yFrac: 0.62 }], pulse: true },
+  {
+    id: "lm5",
+    points: [{ xFrac: 0.005, yFrac: 0.76 }, { xFrac: 0.035, yFrac: 0.76 }, { xFrac: 0.035, yFrac: 0.80 }],
+    pulse: true,
+  },
 
-  // ── Right margin (x stays well right of 0.922) ────────────────────────
+  // ── Right margin (x stays well right of 0.948) ────────────────────────
   {
     id: "rm1",
-    points: [{ xFrac: 0.995, yFrac: 0.22 }, { xFrac: 0.955, yFrac: 0.22 }, { xFrac: 0.955, yFrac: 0.26 }],
+    points: [{ xFrac: 0.995, yFrac: 0.20 }, { xFrac: 0.965, yFrac: 0.20 }, { xFrac: 0.965, yFrac: 0.24 }],
     endSymbol: { type: "switch", dir: "down" },
   },
-  { id: "rm2", points: [{ xFrac: 0.995, yFrac: 0.38 }, { xFrac: 0.95, yFrac: 0.38 }], pulse: true },
+  { id: "rm2", points: [{ xFrac: 0.995, yFrac: 0.34 }, { xFrac: 0.96, yFrac: 0.34 }], pulse: true },
   {
     id: "rm3",
-    points: [{ xFrac: 0.995, yFrac: 0.55 }, { xFrac: 0.955, yFrac: 0.55 }, { xFrac: 0.955, yFrac: 0.60 }],
+    points: [{ xFrac: 0.995, yFrac: 0.48 }, { xFrac: 0.965, yFrac: 0.48 }, { xFrac: 0.965, yFrac: 0.52 }],
     endSymbol: { type: "ground", dir: "down" },
     label: { text: "PEN", dx: -4, dy: -10, align: "end" },
   },
-  { id: "rm4", points: [{ xFrac: 0.995, yFrac: 0.70 }, { xFrac: 0.95, yFrac: 0.70 }], pulse: true },
+  { id: "rm4", points: [{ xFrac: 0.995, yFrac: 0.62 }, { xFrac: 0.96, yFrac: 0.62 }], pulse: true },
+  {
+    id: "rm5",
+    points: [{ xFrac: 0.995, yFrac: 0.76 }, { xFrac: 0.965, yFrac: 0.76 }, { xFrac: 0.965, yFrac: 0.80 }],
+    pulse: true,
+  },
 ];
 
 const TAG_FONT = { fontFamily: "var(--font-plex-mono)", fontSize: 10, letterSpacing: "0.14em" } as const;
@@ -124,6 +152,20 @@ function buildPath(points: { xFrac: number; yFrac: number }[], heroW: number, he
   const px = points.map((p) => ({ x: p.xFrac * heroW, y: p.yFrac * heroH }));
   const d = px.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
   return { d, px };
+}
+
+/** Builds a single branch's path from a trunk's endpoint — same shape as a
+    trunk's own bend, just starting from the hub instead of the edge. */
+function buildBranch(hubX: number, hubY: number, branch: Branch, heroW: number, heroH: number) {
+  const btx = heroW * branch.endXFrac;
+  const dir = Math.sign(btx - hubX) || 1;
+  const midX = hubX + dir * branch.depart;
+  const bendPx = branch.bendDY * heroH;
+  const cornerX = midX + dir * Math.min(14, Math.abs(bendPx));
+  const cornerY = hubY + Math.sign(bendPx || 1) * Math.min(14, Math.abs(bendPx));
+  const endY = hubY + bendPx;
+  if (!bendPx) return { d: `M ${hubX} ${hubY} H ${btx}`, endX: btx, endY: hubY };
+  return { d: `M ${hubX} ${hubY} H ${midX} L ${cornerX} ${cornerY} V ${endY} H ${btx}`, endX: btx, endY };
 }
 
 /** Switch symbol: short perpendicular stem off the line's endpoint, a small
@@ -184,6 +226,8 @@ export function HeroFilamentsSvg() {
     const { d, px } = buildPath(spec.points, heroW, heroH);
     const last = px[px.length - 1];
     const first = px[0];
+    const start = TRACE_START + i * TRACE_STAGGER;
+    const branch = spec.branch ? { ...buildBranch(last.x, last.y, spec.branch, heroW, heroH), start: start + TRACE_DUR } : null;
     return {
       ...spec,
       d,
@@ -192,7 +236,8 @@ export function HeroFilamentsSvg() {
       endY: last.y,
       startX: first.x,
       startY: first.y,
-      start: TRACE_START + i * TRACE_STAGGER,
+      start,
+      branch,
     };
   });
 
@@ -233,6 +278,31 @@ export function HeroFilamentsSvg() {
           })}
         />
       ))}
+
+      {/* Subtle, low-opacity branches off a trunk's endpoint — a fainter,
+          further-back offshoot rather than a second equally-bold line. */}
+      {built.filter((c) => c.branch).map((c) => (
+        <path
+          key={`br-${c.id}`}
+          d={c.branch!.d}
+          fill="none"
+          stroke="#5AC9D4"
+          strokeOpacity={BRANCH_OPACITY}
+          strokeWidth={1.5}
+          strokeLinejoin="miter"
+          {...(!reduced && {
+            pathLength: 1,
+            strokeDasharray: 1,
+            strokeDashoffset: 1,
+            style: { animation: `hf-trace ${TRACE_DUR}s cubic-bezier(0.4,0,0.2,1) ${c.branch!.start.toFixed(2)}s forwards` },
+          })}
+        />
+      ))}
+      {built.filter((c) => c.branch).map((c) => {
+        const fadeAt = (c.branch!.start + TRACE_DUR - 0.15).toFixed(2);
+        const style = reduced ? undefined : { opacity: 0, animation: `hf-fade 0.4s ease ${fadeAt}s forwards` };
+        return <circle key={`brd-${c.id}`} cx={c.branch!.endX} cy={c.branch!.endY} r={2.2} fill="#5AC9D4" opacity={0.4} style={style} />;
+      })}
 
       {/* Small dots at every waypoint (start, bends, end) — plain circles,
           same style throughout, matching the reference design. Lines with
