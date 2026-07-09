@@ -175,9 +175,9 @@ export function SiteHeaderDe() {
           {/* Desktop logo lockup — icon + wordmark/tagline, left-aligned */}
           <Link href="/" aria-label="Startseite" className="desktop-header-logo-de" style={{ alignItems: "center", gap: 12 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/uploads/icon_petrol.png" alt="" style={{ height: 62, width: "auto", display: "block" }} />
+            <img src="/uploads/icon_petrol.png" alt="" style={{ height: 54, width: "auto", display: "block" }} />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/uploads/textlogo_petrol.png" alt="Mayer E-Concept" style={{ height: 52, width: "auto", display: "block" }} />
+            <img src="/uploads/textlogo_petrol.png" alt="Mayer E-Concept" style={{ height: 45, width: "auto", display: "block" }} />
           </Link>
 
           {/* Desktop nav */}
