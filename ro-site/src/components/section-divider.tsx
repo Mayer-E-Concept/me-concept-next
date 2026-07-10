@@ -3,7 +3,12 @@
    model de romburi în centru. Wrapper-ul are exact înălțimea liniei, fără
    padding vertical care ar centra linia la distanță de marginea reală a
    secțiunii — trebuie să stea chiar pe granița de culoare dintre secțiuni.
-   Se pune ca prim copil într-o secțiune cu position: relative. */
+   Se pune ca prim copil într-o secțiune cu position: relative.
+
+   Subțierea se face printr-un fade de opacitate (linear-gradient spre
+   transparent), NU prin clip-path pe înălțime — un taper geometric de 4px
+   la 0px pe o distanță mare devine sub-pixel foarte repede și se vede ca
+   o linie care se oprește brusc ("cut off"), în loc să se estompeze lin. */
 
 export function SectionDivider({ position = "top", color = "#5AC9D4" }: { position?: "top" | "bottom"; color?: string }) {
   return (
@@ -25,10 +30,9 @@ export function SectionDivider({ position = "top", color = "#5AC9D4" }: { positi
       <div
         style={{
           flex: 1,
-          height: 4,
-          background: color,
+          height: 1.5,
+          background: `linear-gradient(to right, transparent, ${color})`,
           opacity: 0.6,
-          clipPath: "polygon(0% 50%, 100% 0%, 100% 100%)",
         }}
       />
       <div style={{ display: "flex", alignItems: "center", gap: 5, margin: "0 10px", flexShrink: 0 }}>
@@ -39,10 +43,9 @@ export function SectionDivider({ position = "top", color = "#5AC9D4" }: { positi
       <div
         style={{
           flex: 1,
-          height: 4,
-          background: color,
+          height: 1.5,
+          background: `linear-gradient(to left, transparent, ${color})`,
           opacity: 0.6,
-          clipPath: "polygon(100% 50%, 0% 0%, 0% 100%)",
         }}
       />
     </div>

@@ -139,19 +139,16 @@ export function SiteHeaderDe() {
             style={{
               flex: 1,
               height: "100%",
-              marginRight: -1,
-              background: "#5AC9D4",
+              background: "linear-gradient(to right, transparent, #5AC9D4)",
               opacity: 0.5,
-              clipPath: "polygon(0% 50%, 100% 0%, 100% 100%)",
             }}
           />
           <div
             style={{
               flex: 1,
               height: "100%",
-              background: "#5AC9D4",
+              background: "linear-gradient(to left, transparent, #5AC9D4)",
               opacity: 0.5,
-              clipPath: "polygon(100% 50%, 0% 0%, 0% 100%)",
             }}
           />
         </div>
