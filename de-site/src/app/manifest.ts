@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Mayer E-Concept",
     short_name: "ME-Concept",
-    description: "Proiectare instalații electrice — Sibiu & Germania",
+    description: "Elektroplanung — Sibiu & Deutschland",
     start_url: "/",
     display: "browser",
     background_color: "#051E27",

@@ -15,7 +15,6 @@ const LEGAL = [
   { label: "Termeni și condiții", href: "/termeni-si-conditii" },
   { label: "Politică de confidențialitate", href: "/politica-de-confidentialitate" },
   { label: "Blog", href: "/blog" },
-  { label: "Cariere", href: "#" },
 ];
 
 export function SiteFooter() {

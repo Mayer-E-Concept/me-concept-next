@@ -581,14 +581,15 @@ export function Hero3DCanvas() {
     /* ─────────────────────────────────────────────────────────────────────
        4) ANIMATION LOOP
     ───────────────────────────────────────────────────────────────────── */
-    const clock = new THREE.Clock();
+    const timer = new THREE.Timer();
     let frameId: number | null = null;
     let visible = true;
 
-    function tick() {
+    function tick(timestamp?: number) {
       if (!visible) { frameId = null; return; }
       frameId = requestAnimationFrame(tick);
-      const t = clock.getElapsedTime();
+      timer.update(timestamp);
+      const t = timer.getElapsed();
 
       applyDrawIn(t);
       applyLabelsIn(t);

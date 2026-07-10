@@ -195,10 +195,10 @@ export function ContactSectionDe() {
           <div style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
             <a href="https://anpc.ro/" target="_blank" rel="noopener noreferrer"
               style={{ background: "rgba(255,255,255,0.08)", borderRadius: 8, padding: "8px 12px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <Image src="/uploads/images.png" alt="ANPC SAL" width={80} height={50} style={{ objectFit: "contain", display: "block" }} />
+              <Image src="/uploads/images.png" alt="ANPC SAL" width={80} height={50} style={{ width: 80, height: 50, objectFit: "contain", display: "block" }} />
             </a>
             <div style={{ background: "rgba(255,255,255,0.08)", borderRadius: 8, padding: "8px 12px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <Image src="/uploads/SKYCERT9001.png" alt="ISO 9001:2015 SKYCERT" width={80} height={50} style={{ objectFit: "contain", display: "block" }} />
+              <Image src="/uploads/SKYCERT9001.png" alt="ISO 9001:2015 SKYCERT" width={80} height={50} style={{ width: 80, height: 50, objectFit: "contain", display: "block" }} />
             </div>
           </div>
         </div>

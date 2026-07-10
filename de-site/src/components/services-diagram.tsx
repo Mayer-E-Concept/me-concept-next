@@ -12,7 +12,6 @@ const VB_W = 700;
 const VB_H = 460;
 const BULB_CX = 350;
 const BULB_CY = 226;
-const BULB_R = 58;
 
 type Item = { label: string; icon: LucideIcon; y: number; bulbY: number; bulbX: number };
 
@@ -72,35 +71,38 @@ export function ServicesDiagramDe({ title = "Allgemeine Übersicht der Elektrodi
           );
         })}
 
-        {/* Lightbulb — glass dome + filament + screw base, plain line-art. */}
+        {/* Hub — rounded box matching the small chip icons around it, with a house glyph. */}
         <g>
-          <path
-            d={`M ${BULB_CX - BULB_R} ${BULB_CY}
-                A ${BULB_R} ${BULB_R} 0 1 1 ${BULB_CX + BULB_R} ${BULB_CY}
-                Q ${BULB_CX + BULB_R * 0.55} ${BULB_CY + BULB_R * 0.85} ${BULB_CX + 16} ${BULB_CY + BULB_R * 0.98}
-                L ${BULB_CX - 16} ${BULB_CY + BULB_R * 0.98}
-                Q ${BULB_CX - BULB_R * 0.55} ${BULB_CY + BULB_R * 0.85} ${BULB_CX - BULB_R} ${BULB_CY}
-                Z`}
-            fill="none"
-            stroke="#5AC9D4"
-            strokeOpacity={0.7}
-            strokeWidth={2}
-            strokeLinejoin="round"
-          />
-          {/* Screw base */}
-          <rect x={BULB_CX - 15} y={BULB_CY + BULB_R * 0.98} width={30} height={9} fill="none" stroke="#5AC9D4" strokeOpacity={0.7} strokeWidth={1.6} />
-          <path d={`M ${BULB_CX - 15} ${BULB_CY + BULB_R * 0.98 + 4.5} H ${BULB_CX + 15}`} stroke="#5AC9D4" strokeOpacity={0.5} strokeWidth={1} />
-          <rect x={BULB_CX - 11} y={BULB_CY + BULB_R * 0.98 + 9} width={22} height={7} rx={2} fill="none" stroke="#5AC9D4" strokeOpacity={0.7} strokeWidth={1.6} />
-          {/* Filament */}
-          <path
-            d={`M ${BULB_CX - 14} ${BULB_CY + 14} L ${BULB_CX - 8} ${BULB_CY - 8} L ${BULB_CX} ${BULB_CY + 6} L ${BULB_CX + 8} ${BULB_CY - 8} L ${BULB_CX + 14} ${BULB_CY + 14}`}
-            fill="none"
+          <rect
+            x={BULB_CX - 50}
+            y={BULB_CY - 50}
+            width={100}
+            height={100}
+            rx={18}
+            fill="#8FE0E8"
+            fillOpacity={0.1}
             stroke="#8FE0E8"
-            strokeOpacity={0.85}
-            strokeWidth={1.6}
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            strokeOpacity={0.25}
+            strokeWidth={1.5}
           />
+          <g transform={`translate(${BULB_CX - 20}, ${BULB_CY - 20}) scale(${40 / 24})`}>
+            <path
+              d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"
+              fill="none"
+              stroke="#8FE0E8"
+              strokeWidth={1.1}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+              fill="none"
+              stroke="#8FE0E8"
+              strokeWidth={1.1}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </g>
         </g>
       </svg>
 

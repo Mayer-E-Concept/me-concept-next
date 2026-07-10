@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { escapeHtml } from "@/lib/escape-html";
 import { rateLimit } from "@/lib/rate-limit";
+import { TIME_SLOTS, isValidBookingDate } from "@/lib/booking";
 
 const NOTIFY_TO = "contact@me-concept.ro";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -36,13 +37,19 @@ export async function POST(req: Request) {
     if (company) return NextResponse.json({ ok: true });
 
     if (!date || !time || !name || !email)
-      return NextResponse.json({ error: "Date incomplete." }, { status: 400 });
+      return NextResponse.json({ error: "Completează toate câmpurile obligatorii." }, { status: 400 });
 
     if (!EMAIL_RE.test(email))
       return NextResponse.json({ error: "Email invalid." }, { status: 400 });
 
-    if (name.length > 120 || email.length > 160 || phone.length > 30)
+    if (name.length > 120 || email.length > 160 || phone.length > 30 || message.length > 2000)
       return NextResponse.json({ error: "Câmpuri prea lungi." }, { status: 400 });
+
+    if (!isValidBookingDate(date))
+      return NextResponse.json({ error: "Dată invalidă sau indisponibilă pentru programare." }, { status: 400 });
+
+    if (!(TIME_SLOTS as readonly string[]).includes(time))
+      return NextResponse.json({ error: "Interval orar invalid." }, { status: 400 });
 
     const safeName    = escapeHtml(name);
     const safeEmail   = escapeHtml(email);

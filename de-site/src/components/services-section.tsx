@@ -22,26 +22,27 @@ const SERVICES_RIGHT = [
 ];
 
 export function ServicesSectionDe() {
-  const [hoveredLeft, setHoveredLeft] = useState<number | null>(null);
-  const [hoveredRight, setHoveredRight] = useState<number | null>(null);
+  const [hovered, setHovered] = useState<string | null>(null);
 
   const serviceItem = (
     item: { title: string; desc: string },
-    idx: number,
-    hovered: number | null,
-    setHovered: (i: number | null) => void,
+    key: string,
+    column: 1 | 2,
+    row: number,
   ) => (
     <li
-      key={item.title}
-      onMouseEnter={() => setHovered(idx)}
+      key={key}
+      onMouseEnter={() => setHovered(key)}
       onMouseLeave={() => setHovered(null)}
       style={{
         position: "relative",
+        gridColumn: column,
+        gridRow: row,
         padding: "18px 0 18px 48px",
         borderBottom: "1px solid rgba(143,224,232,0.10)",
         cursor: "default",
         transition: "padding-left .2s ease",
-        paddingLeft: hovered === idx ? 52 : 48,
+        paddingLeft: hovered === key ? 52 : 48,
       }}
     >
       <span
@@ -52,7 +53,7 @@ export function ServicesSectionDe() {
           transform: "translateY(-50%)",
           width: 28,
           height: 28,
-          background: hovered === idx ? "#8FE0E8" : "rgba(143,224,232,0.15)",
+          background: hovered === key ? "#8FE0E8" : "rgba(143,224,232,0.15)",
           borderRadius: 6,
           transition: "background .25s ease",
           display: "block",
@@ -72,7 +73,7 @@ export function ServicesSectionDe() {
           fontFamily: "var(--font-sans)",
           fontWeight: 700,
           fontSize: 16,
-          color: hovered === idx ? "#072327" : "#8FE0E8",
+          color: hovered === key ? "#072327" : "#8FE0E8",
           lineHeight: 1,
           transition: "color .25s ease",
           zIndex: 1,
@@ -85,7 +86,7 @@ export function ServicesSectionDe() {
           fontFamily: "var(--font-barlow)",
           fontWeight: 600,
           fontSize: "clamp(13px, 1vw, 14.5px)",
-          color: hovered === idx ? "#8FE0E8" : "#F2FBFC",
+          color: hovered === key ? "#8FE0E8" : "#F2FBFC",
           display: "block",
           marginBottom: 2,
           transition: "color .2s ease",
@@ -99,7 +100,7 @@ export function ServicesSectionDe() {
           fontFamily: "var(--font-barlow)",
           fontWeight: 400,
           fontSize: "13px",
-          color: hovered === idx ? "rgba(143,224,232,0.80)" : "rgba(143,224,232,0.55)",
+          color: hovered === key ? "rgba(143,224,232,0.80)" : "rgba(143,224,232,0.55)",
           lineHeight: 1.55,
           transition: "color .2s ease",
         }}
@@ -123,6 +124,7 @@ export function ServicesSectionDe() {
         @media (max-width: 767px) {
           .services-top-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
           .services-lists-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+          .services-lists-grid > li { grid-column: 1 !important; grid-row: auto !important; }
         }
       `}</style>
 
@@ -178,17 +180,23 @@ export function ServicesSectionDe() {
           </div>
         </div>
 
-        <div
+        {/* Two columns of services — a single grid so each left/right pair
+            shares a row and stretches to match height, keeping the "+"
+            markers aligned regardless of text length. */}
+        <ul
           className="services-lists-grid"
-          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(0px, 4vw, 60px)" }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            columnGap: "clamp(0px, 4vw, 60px)",
+            listStyle: "none",
+            padding: 0,
+            margin: 0,
+          }}
         >
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {SERVICES_LEFT.map((s, i) => serviceItem(s, i, hoveredLeft, setHoveredLeft))}
-          </ul>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {SERVICES_RIGHT.map((s, i) => serviceItem(s, i, hoveredRight, setHoveredRight))}
-          </ul>
-        </div>
+          {SERVICES_LEFT.map((s, i) => serviceItem(s, `L${i}`, 1, i + 1))}
+          {SERVICES_RIGHT.map((s, i) => serviceItem(s, `R${i}`, 2, i + 1))}
+        </ul>
       </div>
     </section>
   );

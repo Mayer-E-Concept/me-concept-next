@@ -4,12 +4,7 @@ import { useState } from "react";
 import { CalendarIcon, CheckCircle2, ChevronLeft, ClockIcon, MailIcon, PhoneIcon, UserIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
-const TIME_SLOTS = [
-  "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-  "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
-  "15:00", "15:30", "16:00", "16:30",
-];
+import { TIME_SLOTS } from "@/lib/booking";
 
 const isWeekend = (d: Date) => d.getDay() === 0 || d.getDay() === 6;
 const isPast = (d: Date) => {
@@ -297,7 +292,7 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
           background: rgba(143,224,232,0.04);
           color: rgba(242,251,252,0.70);
         }
-        .appt-time-btn:hover { background: rgba(143,224,232,0.10); color: #F2FBFC; }
+        .appt-time-btn:hover:not(:disabled) { background: rgba(143,224,232,0.10); color: #F2FBFC; }
         .appt-time-btn.selected {
           background: #8FE0E8; border-color: #8FE0E8; color: #072327;
         }

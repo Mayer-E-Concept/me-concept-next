@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { escapeHtml } from "@/lib/escape-html";
 import { rateLimit } from "@/lib/rate-limit";
+import { TIME_SLOTS, isValidBookingDate } from "@/lib/booking";
 
 const NOTIFY_TO = "contact@me-concept.ro";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -41,8 +42,14 @@ export async function POST(req: Request) {
     if (!EMAIL_RE.test(email))
       return NextResponse.json({ error: "Ungültige E-Mail." }, { status: 400 });
 
-    if (name.length > 120 || email.length > 160 || phone.length > 30)
+    if (name.length > 120 || email.length > 160 || phone.length > 30 || message.length > 2000)
       return NextResponse.json({ error: "Felder zu lang." }, { status: 400 });
+
+    if (!isValidBookingDate(date))
+      return NextResponse.json({ error: "Ungültiges oder nicht verfügbares Datum." }, { status: 400 });
+
+    if (!(TIME_SLOTS as readonly string[]).includes(time))
+      return NextResponse.json({ error: "Ungültige Uhrzeit." }, { status: 400 });
 
     const safeName    = escapeHtml(name);
     const safeEmail   = escapeHtml(email);

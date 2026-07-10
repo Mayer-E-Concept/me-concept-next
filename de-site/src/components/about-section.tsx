@@ -238,7 +238,7 @@ export function AboutSectionDe() {
                 alt="ISO 9001:2015 SKYCERT"
                 width={64}
                 height={43}
-                style={{ objectFit: "contain", display: "block" }}
+                style={{ width: 64, height: 43, objectFit: "contain", display: "block" }}
               />
             </div>
           </div>

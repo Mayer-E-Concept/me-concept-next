@@ -16,7 +16,6 @@ const LEGAL = [
   { label: "AGB", href: "/agb" },
   { label: "Datenschutzerklärung", href: "/datenschutzerklaerung" },
   { label: "Blog", href: "/blog" },
-  { label: "Karriere", href: "#" },
 ];
 
 export function SiteFooterDe() {

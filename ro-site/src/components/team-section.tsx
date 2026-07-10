@@ -249,12 +249,12 @@ export function TeamSection() {
 
         {/* Echipa + Colaboratori — un singur rând, separate printr-o linie verticală */}
         <div className="team-row-all">
-          {TEAM.map((m, i) => (
-            <TeamCard key={i} member={m} />
+          {TEAM.map((m) => (
+            <TeamCard key={m.name} member={m} />
           ))}
           <div className="team-divider-v" aria-hidden />
-          {COLLABORATORS.map((m, i) => (
-            <TeamCard key={i} member={m} />
+          {COLLABORATORS.map((m) => (
+            <TeamCard key={m.name} member={m} />
           ))}
         </div>
       </div>

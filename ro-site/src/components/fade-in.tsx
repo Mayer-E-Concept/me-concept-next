@@ -39,7 +39,7 @@ export function FadeIn({
         });
         observer.disconnect();
       },
-      { threshold: 0.07, rootMargin: "0px 0px -40px 0px" },
+      { threshold: 0, rootMargin: "0px 0px 300px 0px" },
     );
 
     observer.observe(el);

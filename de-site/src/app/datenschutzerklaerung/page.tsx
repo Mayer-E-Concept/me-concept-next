@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { LegalPageDe } from "@/components/legal-page";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Datenschutzerklärung — Mayer E-Concept",
@@ -97,7 +98,7 @@ export default function DatenschutzPage() {
         company: "Mayer E-Concept S.R.L.",
         address: "Str. Atena, Nr. 5, Ap. 1, 550049 Sibiu",
         country: "Rumänien",
-        website: "https://me-concept.de",
+        website: `${SITE_URL}/`,
         email: "contact@me-concept.ro",
         phone: "+40 752 099 791",
       }}
