@@ -40,7 +40,12 @@ export function SiteHeaderDe() {
         .nav-row-de { justify-content: space-between; }
         .mobile-header-logo-de { display: none; }
         .desktop-header-logo-de { display: flex; }
-        @media (max-width: 767px) {
+        /* Below 1280px the 6 nav links + fixed-size logo no longer reliably
+           fit on one line — links would wrap onto two lines and, being
+           vertically centered, shift upward into the logo. Rather than
+           fight that with ever-smaller fonts, use the hamburger menu for
+           this whole range (phones through small laptops). */
+        @media (max-width: 1279px) {
           .nav-hamburger-de { display: flex !important; }
           .nav-desktop-de   { display: none !important; }
           .nav-row-de { justify-content: flex-end; }
@@ -58,10 +63,6 @@ export function SiteHeaderDe() {
             transform: translate(-50%, -50%);
             height: 24px;
           }
-        }
-        @media (min-width: 768px) and (max-width: 1023px) {
-          .nav-desktop-de { gap: 18px; }
-          .nav-desktop-de a { font-size: 11px !important; letter-spacing: 0.06em !important; }
         }
         .ham-bar-de {
           display: block;
@@ -201,6 +202,7 @@ export function SiteHeaderDe() {
                   padding: "8px 0",
                   transition: "color .2s ease",
                   fontFamily: "var(--font-plex-mono)",
+                  whiteSpace: "nowrap",
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = "#8FE0E8")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(169,201,204,0.85)")}

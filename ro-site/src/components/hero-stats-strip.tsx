@@ -65,10 +65,15 @@ export function HeroStatsStrip() {
       <style>{`
         @media (max-width: 767px) {
           .hero-stats-strip {
-            flex-wrap: wrap !important;
+            display: grid !important;
+            grid-template-columns: repeat(2, auto) !important;
+            justify-content: center !important;
             gap: 20px 32px !important;
           }
-          .hero-stats-strip > div { min-width: calc(50% - 16px) !important; }
+          .hero-stats-strip > div:nth-child(3) {
+            grid-column: 1 / -1;
+            justify-self: center;
+          }
         }
       `}</style>
     <div
