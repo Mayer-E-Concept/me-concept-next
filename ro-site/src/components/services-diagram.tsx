@@ -15,18 +15,23 @@ const BULB_CY = 226;
 
 type Item = { label: string; icon: LucideIcon; y: number; bulbY: number; bulbX: number };
 
+// Anchor points sit exactly on the 100×100 hub's straight edges (hub spans
+// x:[300,400] y:[176,276], rx 18 — these avoid the rounded corners), one
+// pair per edge, so every spoke visibly touches the box instead of landing
+// short of it or underneath its fill (leftover math from the old circular
+// bulb hub, which these coordinates were originally computed for).
 const LEFT: Item[] = [
-  { label: "Consultanță Personalizată", icon: MessageSquare, y: 46, bulbX: 313, bulbY: 190 },
-  { label: "Soluții de Iluminat", icon: Lightbulb, y: 175, bulbX: 294, bulbY: 213 },
-  { label: "Contorizare Electrică", icon: Gauge, y: 285, bulbX: 294, bulbY: 247 },
-  { label: "Controlul Temperaturii", icon: Thermometer, y: 414, bulbX: 313, bulbY: 268 },
+  { label: "Consultanță Personalizată", icon: MessageSquare, y: 46, bulbX: 326, bulbY: 176 },
+  { label: "Soluții de Iluminat", icon: Lightbulb, y: 175, bulbX: 300, bulbY: 205 },
+  { label: "Contorizare Electrică", icon: Gauge, y: 285, bulbX: 300, bulbY: 247 },
+  { label: "Controlul Temperaturii", icon: Thermometer, y: 414, bulbX: 326, bulbY: 276 },
 ];
 
 const RIGHT: Item[] = [
-  { label: "Prize și Întrerupătoare", icon: ToggleLeft, y: 46, bulbX: 387, bulbY: 190 },
-  { label: "Ventilație în Băi", icon: Fan, y: 175, bulbX: 406, bulbY: 213 },
-  { label: "Branșament Electric", icon: Cable, y: 285, bulbX: 406, bulbY: 247 },
-  { label: "Automatizare Casă", icon: Smartphone, y: 414, bulbX: 387, bulbY: 268 },
+  { label: "Prize și Întrerupătoare", icon: ToggleLeft, y: 46, bulbX: 374, bulbY: 176 },
+  { label: "Ventilație în Băi", icon: Fan, y: 175, bulbX: 400, bulbY: 205 },
+  { label: "Branșament Electric", icon: Cable, y: 285, bulbX: 400, bulbY: 247 },
+  { label: "Automatizare Casă", icon: Smartphone, y: 414, bulbX: 374, bulbY: 276 },
 ];
 
 function pct(v: number, total: number) {
