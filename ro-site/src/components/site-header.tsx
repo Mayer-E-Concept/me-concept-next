@@ -87,17 +87,18 @@ export function SiteHeader() {
           .nav-desktop { display: none !important; }
           .nav-row { justify-content: flex-end; }
           .desktop-header-logo { display: none; }
-          /* Centered independently of the flex row (which is now
+          /* Positioned independently of the flex row (which is now
              right-aligned for the hamburger alone) — otherwise the bar
-             reads as empty on the left/center on mobile. */
+             reads as empty on the left on mobile. Left-aligned to match
+             the desktop logo's position, only vertically centered. */
           .mobile-header-logo {
             display: flex;
             align-items: center;
             gap: 8px;
             position: absolute;
-            left: 50%;
+            left: clamp(20px, 5vw, 60px);
             top: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateY(-50%);
             height: 24px;
           }
         }

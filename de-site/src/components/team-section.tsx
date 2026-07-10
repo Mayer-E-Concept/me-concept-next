@@ -71,7 +71,6 @@ function hasPhoto(img?: string): img is string {
 }
 
 function TeamCard({ member, large = false }: { member: TeamMember; large?: boolean }) {
-  const photoSize = large ? 220 : 184;
   const photoRadius = large ? 26 : 22;
   const photoAvailable = hasPhoto(member.img);
   return (
@@ -92,8 +91,8 @@ function TeamCard({ member, large = false }: { member: TeamMember; large?: boole
         <div
           style={{
             position: "relative",
-            width: photoSize,
-            height: photoSize,
+            width: "100%",
+            aspectRatio: "1",
             borderRadius: photoRadius,
             overflow: "hidden",
             marginBottom: 18,
@@ -104,7 +103,7 @@ function TeamCard({ member, large = false }: { member: TeamMember; large?: boole
             src={member.img as string}
             alt={member.name}
             fill
-            sizes={`${photoSize}px`}
+            sizes="(max-width: 520px) 45vw, (max-width: 900px) 220px, 220px"
             style={{ objectFit: "cover", objectPosition: "50% 18%" }}
           />
         </div>
@@ -112,8 +111,8 @@ function TeamCard({ member, large = false }: { member: TeamMember; large?: boole
         <div
           aria-hidden
           style={{
-            width: photoSize,
-            height: photoSize,
+            width: "100%",
+            aspectRatio: "1",
             borderRadius: photoRadius,
             background: "linear-gradient(135deg, #0F454D, #0B373D)",
             display: "flex",
@@ -205,7 +204,7 @@ export function TeamSectionDe() {
           .team-divider-v { display: none; }
         }
         @media (max-width: 520px) {
-          .team-row-all { grid-template-columns: minmax(0, 240px); }
+          .team-row-all { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
         }
       `}</style>
 

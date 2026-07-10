@@ -95,9 +95,9 @@ export function SiteHeaderDe() {
             align-items: center;
             gap: 8px;
             position: absolute;
-            left: 50%;
+            left: clamp(20px, 5vw, 60px);
             top: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateY(-50%);
             height: 24px;
           }
         }
