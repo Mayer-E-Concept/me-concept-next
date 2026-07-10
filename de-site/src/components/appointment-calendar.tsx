@@ -139,7 +139,7 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
 
   /* ── Step: success ── */
   if (step === "success") return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, padding: "40px 24px", textAlign: "center" }}>
+    <div role="status" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, padding: "40px 24px", textAlign: "center" }}>
       <div style={{ width: 60, height: 60, borderRadius: "50%", background: "rgba(143,224,232,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <CheckCircle2 size={30} color="#8FE0E8" />
       </div>
@@ -201,33 +201,40 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
           <UserIcon size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "rgba(242,251,252,0.35)", pointerEvents: "none" }} />
           <input
             placeholder={t.namePlaceholder}
+            aria-label={t.namePlaceholder}
             value={form.name}
+            aria-invalid={!!errors.name}
+            aria-describedby={errors.name ? "appt-name-error" : undefined}
             onChange={(e) => { setForm(p => ({ ...p, name: e.target.value })); setErrors(p => { const n = { ...p }; delete n.name; return n; }); }}
             style={{ ...inputBase, borderColor: errors.name ? "#E07B5A" : "rgba(143,224,232,0.20)" }}
             onFocus={(e) => { e.target.style.borderColor = "rgba(143,224,232,0.6)"; }}
             onBlur={(e) => { e.target.style.borderColor = errors.name ? "#E07B5A" : "rgba(143,224,232,0.20)"; }}
           />
-          {errors.name && <span style={{ fontSize: 11, color: "#E07B5A", marginTop: 3, display: "block" }}>{errors.name}</span>}
+          {errors.name && <span id="appt-name-error" role="alert" style={{ fontSize: 11, color: "#E07B5A", marginTop: 3, display: "block" }}>{errors.name}</span>}
         </div>
         {/* Email */}
         <div style={{ position: "relative" }}>
           <MailIcon size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "rgba(242,251,252,0.35)", pointerEvents: "none" }} />
           <input
             placeholder={t.emailPlaceholder}
+            aria-label={t.emailPlaceholder}
             type="email"
             value={form.email}
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "appt-email-error" : undefined}
             onChange={(e) => { setForm(p => ({ ...p, email: e.target.value })); setErrors(p => { const n = { ...p }; delete n.email; return n; }); }}
             style={{ ...inputBase, borderColor: errors.email ? "#E07B5A" : "rgba(143,224,232,0.20)" }}
             onFocus={(e) => { e.target.style.borderColor = "rgba(143,224,232,0.6)"; }}
             onBlur={(e) => { e.target.style.borderColor = errors.email ? "#E07B5A" : "rgba(143,224,232,0.20)"; }}
           />
-          {errors.email && <span style={{ fontSize: 11, color: "#E07B5A", marginTop: 3, display: "block" }}>{errors.email}</span>}
+          {errors.email && <span id="appt-email-error" role="alert" style={{ fontSize: 11, color: "#E07B5A", marginTop: 3, display: "block" }}>{errors.email}</span>}
         </div>
         {/* Phone (optional) */}
         <div style={{ position: "relative" }}>
           <PhoneIcon size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "rgba(242,251,252,0.35)", pointerEvents: "none" }} />
           <input
             placeholder={t.phonePlaceholder}
+            aria-label={t.phonePlaceholder}
             value={form.phone}
             onChange={(e) => setForm(p => ({ ...p, phone: e.target.value }))}
             style={inputBase}
@@ -239,6 +246,7 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
         <div>
           <textarea
             placeholder={t.messagePlaceholder}
+            aria-label={t.messagePlaceholder}
             value={form.message}
             rows={4}
             onChange={(e) => setForm(p => ({ ...p, message: e.target.value }))}
@@ -250,7 +258,7 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
       </div>
 
       {apiError && (
-        <p style={{ fontSize: 12, color: "#E07B5A", marginTop: 10, marginBottom: 0 }}>{apiError}</p>
+        <p role="alert" style={{ fontSize: 12, color: "#E07B5A", marginTop: 10, marginBottom: 0 }}>{apiError}</p>
       )}
 
       <button

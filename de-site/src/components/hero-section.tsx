@@ -1,5 +1,6 @@
 "use client";
 import { useLayoutEffect, useState, type ReactNode } from "react";
+import Image from "next/image";
 import { Hero3DLazy } from "@/components/hero-3d-lazy";
 import { HeroFilamentsSvg } from "@/components/hero-filaments-svg";
 import { HeroStatsStripDe } from "@/components/hero-stats-strip";
@@ -253,10 +254,18 @@ export function HeroSectionDe() {
             display: isPortraitMobile ? "none" : "block",
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          {/* This is the hero's LCP element — plain <img> served the full
+              1200x867 source for a ~320px slot with no priority hint,
+              measured at ~2.3s load time in Lighthouse. next/image fixes
+              both: responsive sizing + modern format, and `priority`
+              preloads it with fetchpriority=high instead of discovering it
+              late via CSS/JS. */}
+          <Image
             src="/uploads/icon_petrol.png"
             alt=""
+            width={440}
+            height={318}
+            priority
             style={{ width: "100%", height: "auto", display: "block", opacity: 0.5 }}
           />
         </div>

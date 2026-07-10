@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const navItems = [
   { label: "Acasă", href: "/" },
@@ -14,6 +14,9 @@ const navItems = [
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const hasOpenedRef = useRef(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.75);
@@ -31,6 +34,40 @@ export function SiteHeader() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
+  // Move focus into the overlay's first link on open, and back to the
+  // hamburger on close — without this, keyboard/screen-reader users lose
+  // their place when the overlay toggles.
+  useEffect(() => {
+    if (menuOpen) {
+      hasOpenedRef.current = true;
+      overlayRef.current?.querySelector<HTMLAnchorElement>(".mobile-nav-link")?.focus();
+    } else if (hasOpenedRef.current) {
+      hamburgerRef.current?.focus();
+    }
+  }, [menuOpen]);
+
+  // Trap Tab/Shift+Tab within the overlay's links while it's open, so
+  // keyboard focus can't wander into content hidden behind it.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const focusables = overlayRef.current?.querySelectorAll<HTMLElement>(".mobile-nav-link");
+      if (!focusables || focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen]);
 
   return (
     <>
@@ -214,9 +251,12 @@ export function SiteHeader() {
 
           {/* Hamburger button — mobile only */}
           <button
+            ref={hamburgerRef}
             className="nav-hamburger"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? "Închide meniu" : "Deschide meniu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
             style={{
               background: "none",
               border: "none",
@@ -236,7 +276,15 @@ export function SiteHeader() {
       </header>
 
       {/* Mobile menu overlay */}
-      <div className={`mobile-overlay ${menuOpen ? "mobile-overlay-open" : "mobile-overlay-closed"}`}>
+      <div
+        ref={overlayRef}
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Meniu principal"
+        inert={!menuOpen}
+        className={`mobile-overlay ${menuOpen ? "mobile-overlay-open" : "mobile-overlay-closed"}`}
+      >
         {navItems.map((item) => (
           <Link
             key={item.label}

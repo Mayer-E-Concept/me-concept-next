@@ -79,7 +79,7 @@ export function Calendar({ selected, onSelect, disabled, className, locale = "ro
         >
           <ChevronLeft size={16} strokeWidth={2} />
         </button>
-        <span style={{ fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#1A6F7A" }}>
+        <span aria-live="polite" style={{ fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#1A6F7A" }}>
           {L.months[viewMonth]} {viewYear}
         </span>
         <button
@@ -110,11 +110,18 @@ export function Calendar({ selected, onSelect, disabled, className, locale = "ro
           const isSelected = selected ? isSameDay(date, selected) : false;
           const isDisabled = disabled ? disabled(date) : false;
 
+          const fullLabel = date.toLocaleDateString(locale === "de" ? "de-DE" : "ro-RO", {
+            weekday: "long", day: "numeric", month: "long", year: "numeric",
+          });
+
           return (
             <button
               key={idx}
               onClick={() => !isDisabled && onSelect?.(isSelected ? undefined : date)}
               disabled={isDisabled}
+              aria-label={fullLabel}
+              aria-pressed={isSelected}
+              aria-current={isToday ? "date" : undefined}
               style={{
                 width: "100%",
                 aspectRatio: "1",

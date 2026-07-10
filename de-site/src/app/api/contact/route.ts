@@ -8,7 +8,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: Request) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
-  if (!rateLimit(ip)) {
+  if (!(await rateLimit(`contact:${ip}`))) {
     return NextResponse.json(
       { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },
       { status: 429 }

@@ -249,6 +249,7 @@ export function ContactSectionDe() {
           <div style={{ display: activeTab === "form" ? "block" : "none" }}>
           {submitted ? (
           <div
+            role="status"
             style={{
               display: "flex",
               flexDirection: "column",
@@ -303,12 +304,14 @@ export function ContactSectionDe() {
                     name={field.name}
                     type={field.type}
                     placeholder={field.placeholder}
+                    aria-invalid={!!errors[field.name]}
+                    aria-describedby={errors[field.name] ? `de-${field.name}-error` : undefined}
                     style={{ ...inputStyle, borderColor: errors[field.name] ? "#E07B5A" : "rgba(143,224,232,0.20)" }}
                     onFocus={(e) => { e.target.style.borderColor = "rgba(143,224,232,0.6)"; }}
                     onBlur={(e) => { e.target.style.borderColor = errors[field.name] ? "#E07B5A" : "rgba(143,224,232,0.20)"; }}
                     onChange={() => setErrors((prev) => { const n = { ...prev }; delete n[field.name]; return n; })}
                   />
-                  {errors[field.name] && <span style={errorStyle}>{errors[field.name]}</span>}
+                  {errors[field.name] && <span id={`de-${field.name}-error`} role="alert" style={errorStyle}>{errors[field.name]}</span>}
                 </div>
               ))}
             </div>
@@ -320,12 +323,14 @@ export function ContactSectionDe() {
                 name="message"
                 rows={5}
                 placeholder="Beschreiben Sie kurz Ihr Projekt oder Ihre Frage..."
+                aria-invalid={!!errors.message}
+                aria-describedby={errors.message ? "de-message-error" : undefined}
                 style={{ ...inputStyle, resize: "vertical", borderColor: errors.message ? "#E07B5A" : "rgba(143,224,232,0.20)" }}
                 onFocus={(e) => { e.target.style.borderColor = "rgba(143,224,232,0.6)"; }}
                 onBlur={(e) => { e.target.style.borderColor = errors.message ? "#E07B5A" : "rgba(143,224,232,0.20)"; }}
                 onChange={() => setErrors((prev) => { const n = { ...prev }; delete n.message; return n; })}
               />
-              {errors.message && <span style={errorStyle}>{errors.message}</span>}
+              {errors.message && <span id="de-message-error" role="alert" style={errorStyle}>{errors.message}</span>}
             </div>
 
             <button

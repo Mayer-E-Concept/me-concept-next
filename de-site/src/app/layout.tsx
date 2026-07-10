@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope, Inter, Oxanium, Barlow, IBM_Plex_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -83,7 +84,10 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${manrope.variable} ${inter.variable} ${oxanium.variable} ${barlow.variable} ${plexMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
