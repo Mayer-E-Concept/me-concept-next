@@ -325,26 +325,6 @@ export function Hero3DCanvas() {
       });
     }
 
-    /* ── Lamp post ── */
-    const lamp = new THREE.Group();
-    house.add(lamp);
-    lamp.position.set(W/2 + 0.65, 0, D/2 - 0.4);
-    lamp.add(mkLine([V(0, yWallBottom, 0), V(0, yWallBottom + 1.8, 0)], matWall));
-    lamp.add(mkLine([V(0, yWallBottom + 1.8, 0), V(-0.35, yWallBottom + 1.95, 0)], matWall));
-    const lampHead = new THREE.Mesh(
-      new THREE.SphereGeometry(0.10, 18, 18),
-      new THREE.MeshBasicMaterial({ color: COLORS.warm, transparent: true, opacity: 0.80 }),
-    );
-    lampHead.position.set(-0.35, yWallBottom + 1.92, 0);
-    lamp.add(lampHead);
-    const lampHalo = new THREE.Mesh(
-      new THREE.SphereGeometry(0.22, 18, 18),
-      new THREE.MeshBasicMaterial({ color: COLORS.warm, transparent: true, opacity: 0.18 }),
-    );
-    lampHalo.position.copy(lampHead.position);
-    lamp.add(lampHalo);
-    markPhase(PH.ELEC);
-
     /* ── Outlets + ceiling lights ── */
     const ceilingLights: THREE.Mesh[] = [];
     for (let f = 0; f < FLOORS; f++) {
@@ -445,14 +425,12 @@ export function Hero3DCanvas() {
     /* ─────────────────────────────────────────────────────────────────────
        1b) DRAW-IN — collect traceable lines + fadeable materials
     ───────────────────────────────────────────────────────────────────── */
-    // Live elements (sparks, pulses, bulbs, lamp glow) already set their
-    // opacity every frame — they are gated by liveGate, not faded here.
+    // Live elements (sparks, pulses, bulbs) already set their opacity every
+    // frame — they are gated by liveGate, not faded here.
     const liveSet = new Set<THREE.Object3D>([
       ...sparkMeshes.map((s) => s.mesh),
       ...buildingPulses,
       ...ceilingLights,
-      lampHead,
-      lampHalo,
     ]);
     const drawLines: { geo: THREE.BufferGeometry; total: number; phase: number; idx: number }[] = [];
     const phaseCounts = [0, 0, 0, 0, 0];
@@ -624,11 +602,6 @@ export function Hero3DCanvas() {
         (b.material as THREE.MeshBasicMaterial).opacity = (0.65 + Math.sin(t * 1.3 + ph) * 0.25) * flicker * liveGate;
         b.scale.setScalar(0.85 + Math.sin(t * 1.3 + ph) * 0.15);
       });
-
-      (lampHead.material as THREE.MeshBasicMaterial).opacity = (0.65 + Math.sin(t * 1.0) * 0.25) * liveGate;
-      (lampHalo.material as THREE.MeshBasicMaterial).opacity = (0.14 + Math.sin(t * 1.0) * 0.10) * liveGate;
-      lampHalo.scale.setScalar(1 + Math.sin(t * 1.0) * 0.12);
-
 
       // Sparks flowing along internal filament routes
       sparkMeshes.forEach((s) => {
