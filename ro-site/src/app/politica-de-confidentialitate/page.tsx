@@ -20,7 +20,7 @@ export default function PoliticaConfidentialitate() {
         {
           title: "1. Operatorul de date cu caracter personal",
           content:
-            "MAYER E-CONCEPT S.R.L., cu sediul în Str. Atena, Nr. 5, Ap. 1, Sibiu, Județul Sibiu, România, CUI RO48817141, este operatorul datelor cu caracter personal colectate prin intermediul acestui site web. Ne puteți contacta la adresa de e-mail: contact@me-concept.ro sau la numărul de telefon: +40 752 099 791.",
+            "MAYER E-CONCEPT S.R.L., cu sediul în Str. Atena, Nr. 5, Ap. 1, Sibiu, Județul Sibiu, România, CUI RO45533577, este operatorul datelor cu caracter personal colectate prin intermediul acestui site web. Ne puteți contacta la adresa de e-mail: contact@me-concept.ro sau la numărul de telefon: +40 752 099 791.",
         },
         {
           title: "2. Ce date colectăm și în ce scop",

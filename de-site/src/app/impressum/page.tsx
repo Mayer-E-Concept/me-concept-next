@@ -133,7 +133,7 @@ export default function ImpressumPage() {
               </h2>
               <div style={{ fontFamily: "var(--font-barlow)", fontSize: 15, lineHeight: 2, color: "#A9C9CC" }}>
                 <span>Eingetragen im Handelsregister Sibiu (Registrul Comerțului)</span><br />
-                <span>CUI (Steuernummer): RO48817141</span>
+                <span>CUI (Steuernummer): RO45533577</span>
               </div>
             </section>
 
