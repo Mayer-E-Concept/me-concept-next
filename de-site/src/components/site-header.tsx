@@ -7,6 +7,7 @@ const navItems = [
   { label: "Über uns", href: "/#ueber-uns" },
   { label: "Unser Team", href: "/unser-team" },
   { label: "Portfolio", href: "/portofoliu" },
+  { label: "ME-Tools", href: "/me-tools" },
   { label: "Blog", href: "/blog" },
   { label: "Kontakt", href: "/#contact" },
 ];

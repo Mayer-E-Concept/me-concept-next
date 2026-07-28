@@ -7,6 +7,7 @@ const navItems = [
   { label: "Despre noi", href: "/#despre" },
   { label: "Echipa noastră", href: "/echipa-noastra" },
   { label: "Portofoliu", href: "/portofoliu" },
+  { label: "ME-Tools", href: "/me-tools" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/#contact" },
 ];
