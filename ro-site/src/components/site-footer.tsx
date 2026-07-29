@@ -1,6 +1,8 @@
 "use client";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowUp } from "lucide-react";
 
 const NAV = [
   { label: "Acasă", href: "/" },
@@ -18,8 +20,59 @@ const LEGAL = [
   { label: "Blog", href: "/blog" },
 ];
 
+function BackToTopButton() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 480);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <button
+      type="button"
+      aria-label="Sus"
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      style={{
+        position: "fixed",
+        right: 24,
+        bottom: 24,
+        zIndex: 60,
+        width: 46,
+        height: 46,
+        borderRadius: "50%",
+        background: "#0B373D",
+        border: "1px solid rgba(143,224,232,0.30)",
+        color: "#8FE0E8",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer",
+        boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(12px)",
+        pointerEvents: visible ? "auto" : "none",
+        transition: "opacity .25s ease, transform .25s ease, border-color .2s ease, background .2s ease",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = "rgba(143,224,232,0.7)";
+        e.currentTarget.style.background = "#0E4550";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = "rgba(143,224,232,0.30)";
+        e.currentTarget.style.background = "#0B373D";
+      }}
+    >
+      <ArrowUp size={20} strokeWidth={2} />
+    </button>
+  );
+}
+
 export function SiteFooter() {
   return (
+    <>
     <footer
       style={{
         background: "#072327",
@@ -152,5 +205,7 @@ export function SiteFooter() {
         </div>
       </div>
     </footer>
+    <BackToTopButton />
+    </>
   );
 }

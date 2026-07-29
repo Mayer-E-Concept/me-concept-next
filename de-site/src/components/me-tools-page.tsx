@@ -250,9 +250,19 @@ export function MeToolsPageDe() {
           border: 1px solid rgba(143,224,232,0.18);
           box-shadow: 0 12px 34px rgba(0,0,0,0.30);
         }
+        .metools-diff-grid {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 20px 32px;
+        }
+        .metools-diff-item {
+          flex: 0 1 calc((100% - 64px) / 3);
+          min-width: 220px;
+        }
         @media (max-width: 767px) {
           .metools-tools-grid { grid-template-columns: 1fr 1fr !important; }
-          .metools-diff-grid { grid-template-columns: 1fr !important; }
+          .metools-diff-item { flex-basis: 100% !important; }
           .metools-pricing-grid { grid-template-columns: 1fr 1fr !important; }
           .metools-hero-badges { justify-content: center !important; }
           .metools-compare-grid { grid-template-columns: 1fr !important; }
@@ -268,26 +278,6 @@ export function MeToolsPageDe() {
           aria-hidden
           style={{ position: "absolute", inset: 0, backgroundImage: 'url("/assets/circuit-pattern.svg")', backgroundSize: "240px 240px", opacity: 0.06, filter: "invert(1)", pointerEvents: "none" }}
         />
-        {/* Same blueprint grid used behind the homepage hero text, masked to
-            glow behind the headline/CTA area and fade out toward the edges. */}
-        <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 0,
-            pointerEvents: "none",
-            backgroundImage: [
-              "linear-gradient(rgba(143,224,232,0.09) 1px, transparent 1px)",
-              "linear-gradient(90deg, rgba(143,224,232,0.09) 1px, transparent 1px)",
-              "linear-gradient(rgba(143,224,232,0.05) 1px, transparent 1px)",
-              "linear-gradient(90deg, rgba(143,224,232,0.05) 1px, transparent 1px)",
-            ].join(", "),
-            backgroundSize: "240px 240px, 240px 240px, 48px 48px, 48px 48px",
-            WebkitMaskImage: "radial-gradient(ellipse 65% 75% at 36% 42%, #fff 0%, #fff 50%, transparent 100%)",
-            maskImage: "radial-gradient(ellipse 65% 75% at 36% 42%, #fff 0%, #fff 50%, transparent 100%)",
-          }}
-        />
         <div
           style={{
             position: "relative",
@@ -299,60 +289,83 @@ export function MeToolsPageDe() {
             paddingBottom: "clamp(72px, 9vw, 120px)",
           }}
         >
-          <div style={eyebrowStyle}>Revit Add-in · Mayer E-Concept</div>
-          <h1
+          {/* Same blueprint grid used behind the homepage hero text, confined
+              to this text column (not the full-bleed section) and masked to
+              glow behind the headline/CTA area, fading out in a circle. */}
+          <div
+            aria-hidden
             style={{
-              fontFamily: "var(--font-barlow)",
-              fontSize: "clamp(32px, 5vw, 58px)",
-              fontWeight: 800,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.08,
-              color: "#F2FBFC",
-              maxWidth: "18ch",
-              marginBottom: 24,
+              position: "absolute",
+              inset: 0,
+              zIndex: 0,
+              pointerEvents: "none",
+              backgroundImage: [
+                "linear-gradient(rgba(143,224,232,0.09) 1px, transparent 1px)",
+                "linear-gradient(90deg, rgba(143,224,232,0.09) 1px, transparent 1px)",
+                "linear-gradient(rgba(143,224,232,0.05) 1px, transparent 1px)",
+                "linear-gradient(90deg, rgba(143,224,232,0.05) 1px, transparent 1px)",
+              ].join(", "),
+              backgroundSize: "240px 240px, 240px 240px, 48px 48px, 48px 48px",
+              WebkitMaskImage: "radial-gradient(ellipse 38% 45% at 36% 47%, #fff 0%, #fff 40%, transparent 100%)",
+              maskImage: "radial-gradient(ellipse 38% 45% at 36% 47%, #fff 0%, #fff 40%, transparent 100%)",
             }}
-          >
-            Revit weiß nicht, was ein Stromkreis ist. <span style={{ color: "#8FE0E8" }}>ME-Tools</span> schon.
-          </h1>
-          <p style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(15px, 1.2vw, 18px)", lineHeight: 1.7, color: "#A9C9CC", maxWidth: "62ch", marginBottom: 32 }}>
-            Eine professionelle Add-in-Suite für Revit, entwickelt von einem Elektroplanungsbüro für
-            MEP-Teams. Stromkreis-Kennzeichnung, Ebenen-Verwaltung, Familienplatzierung,
-            Teamkoordination und Projektprüfungen — elf Werkzeuge unter einem einzigen Ribbon-Tab
-            namens <strong style={{ color: "#F2FBFC" }}>ElecTriX</strong>.
-          </p>
+          />
+          <div style={{ position: "relative", zIndex: 1 }}>
+            <div style={eyebrowStyle}>Revit Add-in · Mayer E-Concept</div>
+            <h1
+              style={{
+                fontFamily: "var(--font-barlow)",
+                fontSize: "clamp(32px, 5vw, 58px)",
+                fontWeight: 800,
+                letterSpacing: "-0.03em",
+                lineHeight: 1.08,
+                color: "#F2FBFC",
+                maxWidth: "18ch",
+                marginBottom: 24,
+              }}
+            >
+              Revit weiß nicht, was ein Stromkreis ist. <span style={{ color: "#8FE0E8" }}>ME-Tools</span> schon.
+            </h1>
+            <p style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(15px, 1.2vw, 18px)", lineHeight: 1.7, color: "#A9C9CC", maxWidth: "62ch", marginBottom: 32 }}>
+              Eine professionelle Add-in-Suite für Revit, entwickelt von einem Elektroplanungsbüro für
+              MEP-Teams. Stromkreis-Kennzeichnung, Ebenen-Verwaltung, Familienplatzierung,
+              Teamkoordination und Projektprüfungen — elf Werkzeuge unter einem einzigen Ribbon-Tab
+              namens <strong style={{ color: "#F2FBFC" }}>ElecTriX</strong>.
+            </p>
 
-          <div className="metools-hero-badges" style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 36 }}>
-            {["Revit 2025 & 2026", "EN · DE · RO", "Lizenz pro Arbeitsplatz"].map((b) => (
-              <span
-                key={b}
-                style={{
-                  fontFamily: "var(--font-plex-mono)",
-                  fontSize: 11.5,
-                  fontWeight: 600,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  color: "#8FE0E8",
-                  border: "1px solid rgba(143,224,232,0.30)",
-                  borderRadius: 20,
-                  padding: "7px 16px",
-                }}
-              >
-                {b}
-              </span>
-            ))}
-          </div>
+            <div className="metools-hero-badges" style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 36 }}>
+              {["Revit 2025 & 2026", "EN · DE · RO", "Lizenz pro Arbeitsplatz"].map((b) => (
+                <span
+                  key={b}
+                  style={{
+                    fontFamily: "var(--font-plex-mono)",
+                    fontSize: 11.5,
+                    fontWeight: 600,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "#8FE0E8",
+                    border: "1px solid rgba(143,224,232,0.30)",
+                    borderRadius: 20,
+                    padding: "7px 16px",
+                  }}
+                >
+                  {b}
+                </span>
+              ))}
+            </div>
 
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 14 }}>
-            <a href={TRIAL_DOWNLOAD_URL} download style={{ display: "inline-flex", alignItems: "center", gap: 10, fontFamily: "var(--font-plex-mono)", fontSize: 12.5, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#072327", textDecoration: "none", padding: "16px 30px", borderRadius: 4, background: "#8FE0E8", border: "1.5px solid #8FE0E8", boxShadow: "0 2px 14px rgba(143,224,232,0.22)" }}>
-              Kostenlose Testversion herunterladen →
-            </a>
-            <a href="#inquiry" style={{ display: "inline-flex", alignItems: "center", gap: 10, fontFamily: "var(--font-plex-mono)", fontSize: 12.5, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#A9C9CC", textDecoration: "none", padding: "16px 30px", borderRadius: 4, background: "transparent", border: "1.5px solid rgba(143,224,232,0.4)" }}>
-              Demo oder Kauf anfragen
-            </a>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 14 }}>
+              <a href={TRIAL_DOWNLOAD_URL} download style={{ display: "inline-flex", alignItems: "center", gap: 10, fontFamily: "var(--font-plex-mono)", fontSize: 12.5, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#072327", textDecoration: "none", padding: "16px 30px", borderRadius: 4, background: "#8FE0E8", border: "1.5px solid #8FE0E8", boxShadow: "0 2px 14px rgba(143,224,232,0.22)" }}>
+                Kostenlose Testversion herunterladen →
+              </a>
+              <a href="#inquiry" style={{ display: "inline-flex", alignItems: "center", gap: 10, fontFamily: "var(--font-plex-mono)", fontSize: 12.5, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#A9C9CC", textDecoration: "none", padding: "16px 30px", borderRadius: 4, background: "transparent", border: "1.5px solid rgba(143,224,232,0.4)" }}>
+                Demo oder Kauf anfragen
+              </a>
+            </div>
+            <p style={{ fontFamily: "var(--font-barlow)", fontSize: 12.5, color: "#7FA2A6", marginTop: 14 }}>
+              14 Tage voller Funktionsumfang · kein Konto erforderlich · Revit 2025 & 2026
+            </p>
           </div>
-          <p style={{ fontFamily: "var(--font-barlow)", fontSize: 12.5, color: "#7FA2A6", marginTop: 14 }}>
-            14 Tage voller Funktionsumfang · kein Konto erforderlich · Revit 2025 & 2026
-          </p>
         </div>
       </section>
 
@@ -464,9 +477,9 @@ export function MeToolsPageDe() {
           <FadeIn>
             <div style={eyebrowStyle}>Warum es sich lohnt</div>
           </FadeIn>
-          <div className="metools-diff-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "20px 32px" }}>
+          <div className="metools-diff-grid">
             {DIFFERENTIATORS.map((d, i) => (
-              <FadeIn key={d} delay={(i % 3) * 80}>
+              <FadeIn key={d} delay={(i % 3) * 80} className="metools-diff-item">
                 <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
                   <Check size={18} color="#5AC9D4" style={{ flexShrink: 0, marginTop: 2 }} />
                   <p style={{ fontFamily: "var(--font-barlow)", fontSize: 14.5, lineHeight: 1.6, color: "#F2FBFC", margin: 0 }}>{d}</p>

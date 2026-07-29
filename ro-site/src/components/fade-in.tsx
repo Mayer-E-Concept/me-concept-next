@@ -12,9 +12,11 @@ import type { ReactNode } from "react";
 export function FadeIn({
   children,
   delay = 0,
+  className,
 }: {
   children: ReactNode;
   delay?: number;
+  className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -46,5 +48,5 @@ export function FadeIn({
     return () => observer.disconnect();
   }, [delay]);
 
-  return <div ref={ref}>{children}</div>;
+  return <div ref={ref} className={className}>{children}</div>;
 }
