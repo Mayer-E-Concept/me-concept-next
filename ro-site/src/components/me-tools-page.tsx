@@ -229,6 +229,10 @@ export function MeToolsPage() {
           box-shadow: 0 16px 40px rgba(0,0,0,0.30);
         }
         .metools-pricing-card {
+          height: 100%;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
           background: rgba(143,224,232,0.04);
           border: 1px solid rgba(143,224,232,0.14);
           border-radius: 12px;
@@ -247,7 +251,7 @@ export function MeToolsPage() {
           box-shadow: 0 12px 34px rgba(0,0,0,0.30);
         }
         @media (max-width: 767px) {
-          .metools-tools-grid { grid-template-columns: 1fr !important; }
+          .metools-tools-grid { grid-template-columns: 1fr 1fr !important; }
           .metools-diff-grid { grid-template-columns: 1fr !important; }
           .metools-pricing-grid { grid-template-columns: 1fr 1fr !important; }
           .metools-hero-badges { justify-content: center !important; }
@@ -263,6 +267,26 @@ export function MeToolsPage() {
         <div
           aria-hidden
           style={{ position: "absolute", inset: 0, backgroundImage: 'url("/assets/circuit-pattern.svg")', backgroundSize: "240px 240px", opacity: 0.06, filter: "invert(1)", pointerEvents: "none" }}
+        />
+        {/* Same blueprint grid used behind the homepage hero text, masked to
+            glow behind the headline/CTA area and fade out toward the edges. */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 0,
+            pointerEvents: "none",
+            backgroundImage: [
+              "linear-gradient(rgba(143,224,232,0.09) 1px, transparent 1px)",
+              "linear-gradient(90deg, rgba(143,224,232,0.09) 1px, transparent 1px)",
+              "linear-gradient(rgba(143,224,232,0.05) 1px, transparent 1px)",
+              "linear-gradient(90deg, rgba(143,224,232,0.05) 1px, transparent 1px)",
+            ].join(", "),
+            backgroundSize: "240px 240px, 240px 240px, 48px 48px, 48px 48px",
+            WebkitMaskImage: "radial-gradient(ellipse 65% 75% at 36% 42%, #fff 0%, #fff 50%, transparent 100%)",
+            maskImage: "radial-gradient(ellipse 65% 75% at 36% 42%, #fff 0%, #fff 50%, transparent 100%)",
+          }}
         />
         <div
           style={{
@@ -495,7 +519,7 @@ export function MeToolsPage() {
                   <h3 style={{ fontFamily: "var(--font-barlow)", fontSize: 17, fontWeight: 700, color: "#F2FBFC", marginBottom: 10 }}>{tier.name}</h3>
                   <p style={{ fontFamily: "var(--font-barlow)", fontSize: 13.5, lineHeight: 1.55, color: "#A9C9CC", margin: 0 }}>{tier.desc}</p>
                   {tier.download && (
-                    <a href={TRIAL_DOWNLOAD_URL} download style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 16, fontFamily: "var(--font-plex-mono)", fontSize: 11.5, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8FE0E8", textDecoration: "none", border: "1px solid rgba(143,224,232,0.40)", borderRadius: 4, padding: "10px 16px" }}>
+                    <a href={TRIAL_DOWNLOAD_URL} download style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: "auto", alignSelf: "flex-start", fontFamily: "var(--font-plex-mono)", fontSize: 11.5, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8FE0E8", textDecoration: "none", border: "1px solid rgba(143,224,232,0.40)", borderRadius: 4, padding: "10px 16px" }}>
                       Descarcă →
                     </a>
                   )}
