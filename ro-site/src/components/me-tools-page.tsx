@@ -73,15 +73,16 @@ const DIFFERENTIATORS = [
   "Un singur instalator, o singură licență — acoperă Revit 2025 și 2026",
 ];
 
+const TRIAL_DOWNLOAD_URL = "/downloads/ME-Tools-Setup-v1.8.0.exe";
+
 const PRICING_TIERS = [
-  { name: "Trial", desc: "Perioadă limitată, pentru evaluare completă a suitei." },
+  { name: "Trial", desc: "14 zile gratuit, pentru evaluare completă a suitei.", download: true },
   { name: "Extensie 30 de zile", desc: "Pentru proiecte care au nevoie de puțin timp suplimentar de testare." },
   { name: "Licență 1 an", desc: "Acces complet, cu actualizări, pentru un an." },
   { name: "Licență permanentă", desc: "Acces complet, fără limită de timp." },
 ];
 
 const INTEREST_OPTIONS = [
-  { value: "trial", label: "Vreau o versiune trial" },
   { value: "demo", label: "Vreau o demonstrație" },
   { value: "purchase", label: "Vreau să discut o achiziție" },
   { value: "question", label: "Am o întrebare generală" },
@@ -318,13 +319,16 @@ export function MeToolsPage() {
           </div>
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: 14 }}>
-            <a href="#inquiry" style={{ display: "inline-flex", alignItems: "center", gap: 10, fontFamily: "var(--font-plex-mono)", fontSize: 12.5, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#072327", textDecoration: "none", padding: "16px 30px", borderRadius: 4, background: "#8FE0E8", border: "1.5px solid #8FE0E8", boxShadow: "0 2px 14px rgba(143,224,232,0.22)" }}>
-              Cere o demonstrație →
+            <a href={TRIAL_DOWNLOAD_URL} download style={{ display: "inline-flex", alignItems: "center", gap: 10, fontFamily: "var(--font-plex-mono)", fontSize: 12.5, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#072327", textDecoration: "none", padding: "16px 30px", borderRadius: 4, background: "#8FE0E8", border: "1.5px solid #8FE0E8", boxShadow: "0 2px 14px rgba(143,224,232,0.22)" }}>
+              Descarcă versiunea trial gratuită →
             </a>
-            <a href="#functii" style={{ display: "inline-flex", alignItems: "center", gap: 10, fontFamily: "var(--font-plex-mono)", fontSize: 12.5, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#A9C9CC", textDecoration: "none", padding: "16px 30px", borderRadius: 4, background: "transparent", border: "1.5px solid rgba(143,224,232,0.4)" }}>
-              Vezi toate instrumentele
+            <a href="#inquiry" style={{ display: "inline-flex", alignItems: "center", gap: 10, fontFamily: "var(--font-plex-mono)", fontSize: 12.5, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#A9C9CC", textDecoration: "none", padding: "16px 30px", borderRadius: 4, background: "transparent", border: "1.5px solid rgba(143,224,232,0.4)" }}>
+              Cere o demonstrație sau o achiziție
             </a>
           </div>
+          <p style={{ fontFamily: "var(--font-barlow)", fontSize: 12.5, color: "#7FA2A6", marginTop: 14 }}>
+            14 zile funcționalitate completă · fără cont necesar · Revit 2025 & 2026
+          </p>
         </div>
       </section>
 
@@ -490,6 +494,11 @@ export function MeToolsPage() {
                 <div className="metools-pricing-card">
                   <h3 style={{ fontFamily: "var(--font-barlow)", fontSize: 17, fontWeight: 700, color: "#F2FBFC", marginBottom: 10 }}>{tier.name}</h3>
                   <p style={{ fontFamily: "var(--font-barlow)", fontSize: 13.5, lineHeight: 1.55, color: "#A9C9CC", margin: 0 }}>{tier.desc}</p>
+                  {tier.download && (
+                    <a href={TRIAL_DOWNLOAD_URL} download style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 16, fontFamily: "var(--font-plex-mono)", fontSize: 11.5, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8FE0E8", textDecoration: "none", border: "1px solid rgba(143,224,232,0.40)", borderRadius: 4, padding: "10px 16px" }}>
+                      Descarcă →
+                    </a>
+                  )}
                 </div>
               </FadeIn>
             ))}
@@ -529,9 +538,11 @@ export function MeToolsPage() {
         <div className="metools-inquiry-grid" style={{ position: "relative", maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(40px, 6vw, 100px)", alignItems: "start" }}>
           <div>
             <div style={eyebrowStyle}>Contact</div>
-            <h2 style={{ ...h2Style, marginBottom: 24, maxWidth: "18ch" }}>Cere o demonstrație sau o versiune trial</h2>
+            <h2 style={{ ...h2Style, marginBottom: 24, maxWidth: "18ch" }}>Cere o demonstrație sau o achiziție</h2>
             <p style={{ fontFamily: "var(--font-barlow)", fontSize: 15, lineHeight: 1.7, color: "#A9C9CC", marginBottom: 24, maxWidth: "44ch" }}>
-              Răspundem în 24 de ore lucrătoare. Pentru întrebări directe, scrieți-ne la{" "}
+              Versiunea trial gratuită este disponibilă mai sus pentru descărcare directă. Pentru o
+              demonstrație, achiziționarea unei licențe sau întrebări generale răspundem în 24 de ore
+              lucrătoare — sau scrieți-ne direct la{" "}
               <a href="mailto:contact@me-concept.ro" style={{ color: "#8FE0E8" }}>contact@me-concept.ro</a>.
             </p>
             <p style={{ fontFamily: "var(--font-barlow)", fontSize: 13.5, lineHeight: 1.6, color: "#7FA2A6" }}>

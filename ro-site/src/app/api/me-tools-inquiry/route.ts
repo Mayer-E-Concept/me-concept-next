@@ -5,9 +5,8 @@ import { rateLimit } from "@/lib/rate-limit";
 
 const NOTIFY_TO = "contact@me-concept.ro";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const INTERESTS = new Set(["trial", "demo", "purchase", "question"]);
+const INTERESTS = new Set(["demo", "purchase", "question"]);
 const INTEREST_LABEL: Record<string, string> = {
-  trial: "Versiune trial",
   demo: "Demonstrație",
   purchase: "Achiziție / licențiere",
   question: "Întrebare generală",
