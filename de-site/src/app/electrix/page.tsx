@@ -2,36 +2,36 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 import { SiteHeaderDe } from "@/components/site-header";
 import { SiteFooterDe } from "@/components/site-footer";
-import { MeToolsPageDe } from "@/components/me-tools-page";
+import { ElecTriXPageDe } from "@/components/electrix-page";
 
 export const metadata: Metadata = {
-  title: "ME-Tools (ElecTriX) — Revit Add-in für Elektroteams | Mayer E-Concept",
+  title: "ElecTriX — Revit Add-in für Elektroteams | Mayer E-Concept",
   description:
-    "ME-Tools (Ribbon ElecTriX): Suite aus 11+ Revit-Werkzeugen für Stromkreis-Kennzeichnung, Ebenen-Verwaltung, Familienplatzierung und Teamkoordination. Revit 2025 & 2026.",
+    "ElecTriX: Suite aus 11+ Revit-Werkzeugen für Stromkreis-Kennzeichnung, Ebenen-Verwaltung, Familienplatzierung und Teamkoordination. Revit 2025 & 2026.",
   alternates: {
-    canonical: "/me-tools",
+    canonical: "/electrix",
   },
   openGraph: {
-    title: "ME-Tools (ElecTriX) — Revit Add-in für Elektroteams",
+    title: "ElecTriX — Revit Add-in für Elektroteams",
     description: "Suite aus 11+ Revit-Werkzeugen für elektrische Dokumentation: Stromkreise, Ebenen, Familien, Teamkoordination.",
-    url: `${SITE_URL}/me-tools`,
+    url: `${SITE_URL}/electrix`,
     type: "website",
     locale: "de_DE",
     siteName: "Mayer E-Concept",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ME-Tools (ElecTriX) — Revit Add-in für Elektroteams",
+    title: "ElecTriX — Revit Add-in für Elektroteams",
     description: "Suite aus 11+ Revit-Werkzeugen für elektrische Dokumentation: Stromkreise, Ebenen, Familien, Teamkoordination.",
   },
 };
 
-export default function MeToolsDe() {
+export default function ElecTriXDe() {
   return (
     <>
       <SiteHeaderDe />
       <main>
-        <MeToolsPageDe />
+        <ElecTriXPageDe />
       </main>
       <SiteFooterDe />
     </>

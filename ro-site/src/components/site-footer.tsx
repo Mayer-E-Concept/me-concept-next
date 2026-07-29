@@ -8,7 +8,7 @@ const NAV = [
   { label: "Acasă", href: "/" },
   { label: "Servicii", href: "/#servicii" },
   { label: "Portofoliu", href: "/portofoliu" },
-  { label: "ME-Tools", href: "/me-tools" },
+  { label: "ElecTriX", href: "/electrix" },
   { label: "Despre noi", href: "/#despre" },
   { label: "Contact", href: "/#contact" },
 ];

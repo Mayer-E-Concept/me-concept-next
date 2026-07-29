@@ -2,36 +2,36 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { MeToolsPage } from "@/components/me-tools-page";
+import { ElecTriXPage } from "@/components/electrix-page";
 
 export const metadata: Metadata = {
-  title: "ME-Tools (ElecTriX) — Add-in Revit pentru echipe electrice | Mayer E-Concept",
+  title: "ElecTriX — Add-in Revit pentru echipe electrice | Mayer E-Concept",
   description:
-    "ME-Tools (ribbon ElecTriX): suită de 11+ instrumente Revit pentru etichetare de circuite, gestionare niveluri, plasare familii și coordonare de echipă. Revit 2025 & 2026.",
+    "ElecTriX: suită de 11+ instrumente Revit pentru etichetare de circuite, gestionare niveluri, plasare familii și coordonare de echipă. Revit 2025 & 2026.",
   alternates: {
-    canonical: "/me-tools",
+    canonical: "/electrix",
   },
   openGraph: {
-    title: "ME-Tools (ElecTriX) — Add-in Revit pentru echipe electrice",
+    title: "ElecTriX — Add-in Revit pentru echipe electrice",
     description: "Suită de 11+ instrumente Revit pentru documentație electrică: circuite, niveluri, familii, coordonare de echipă.",
-    url: `${SITE_URL}/me-tools`,
+    url: `${SITE_URL}/electrix`,
     type: "website",
     locale: "ro_RO",
     siteName: "Mayer E-Concept",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ME-Tools (ElecTriX) — Add-in Revit pentru echipe electrice",
+    title: "ElecTriX — Add-in Revit pentru echipe electrice",
     description: "Suită de 11+ instrumente Revit pentru documentație electrică: circuite, niveluri, familii, coordonare de echipă.",
   },
 };
 
-export default function MeTools() {
+export default function ElecTriXRo() {
   return (
     <>
       <SiteHeader />
       <main>
-        <MeToolsPage />
+        <ElecTriXPage />
       </main>
       <SiteFooter />
     </>

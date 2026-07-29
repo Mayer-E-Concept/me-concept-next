@@ -73,7 +73,7 @@ const DIFFERENTIATORS = [
   "Un singur instalator, o singură licență — acoperă Revit 2025 și 2026",
 ];
 
-const TRIAL_DOWNLOAD_URL = "/downloads/ME-Tools-Setup-v1.8.0.exe";
+const TRIAL_DOWNLOAD_URL = "/downloads/ElecTriX-Setup-v1.8.0.exe";
 
 const PRICING_TIERS = [
   { name: "Trial", desc: "14 zile gratuit, pentru evaluare completă a suitei.", download: true },
@@ -90,7 +90,7 @@ const INTEREST_OPTIONS = [
 
 function ToolCard({ icon: Icon, title, desc }: { icon: typeof Tag; title: string; desc: string }) {
   return (
-    <div className="metools-tool-card">
+    <div className="electrix-tool-card">
       <div
         style={{
           width: 40,
@@ -124,7 +124,7 @@ function ToolCard({ icon: Icon, title, desc }: { icon: typeof Tag; title: string
   );
 }
 
-export function MeToolsPage() {
+export function ElecTriXPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -158,7 +158,7 @@ export function MeToolsPage() {
     };
     setLoading(true);
     try {
-      const res = await fetch("/api/me-tools-inquiry", {
+      const res = await fetch("/api/electrix-inquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -214,7 +214,7 @@ export function MeToolsPage() {
   return (
     <>
       <style>{`
-        .metools-tool-card {
+        .electrix-tool-card {
           position: relative;
           background: #0B373D;
           border: 1px solid rgba(143,224,232,0.12);
@@ -223,12 +223,12 @@ export function MeToolsPage() {
           height: 100%;
           transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
         }
-        .metools-tool-card:hover {
+        .electrix-tool-card:hover {
           transform: translateY(-4px);
           border-color: rgba(143,224,232,0.5);
           box-shadow: 0 16px 40px rgba(0,0,0,0.30);
         }
-        .metools-pricing-card {
+        .electrix-pricing-card {
           height: 100%;
           box-sizing: border-box;
           display: flex;
@@ -239,8 +239,8 @@ export function MeToolsPage() {
           padding: 28px 24px;
           transition: border-color .25s ease, background .25s ease;
         }
-        .metools-pricing-card:hover { border-color: rgba(143,224,232,0.45); background: rgba(143,224,232,0.07); }
-        .metools-ribbon-frame {
+        .electrix-pricing-card:hover { border-color: rgba(143,224,232,0.45); background: rgba(143,224,232,0.07); }
+        .electrix-ribbon-frame {
           position: relative;
           width: 100%;
           max-width: 900px;
@@ -250,25 +250,25 @@ export function MeToolsPage() {
           border: 1px solid rgba(143,224,232,0.18);
           box-shadow: 0 12px 34px rgba(0,0,0,0.30);
         }
-        .metools-diff-grid {
+        .electrix-diff-grid {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
           gap: 20px 32px;
         }
-        .metools-diff-item {
+        .electrix-diff-item {
           flex: 0 1 calc((100% - 64px) / 3);
           min-width: 220px;
         }
         @media (max-width: 767px) {
-          .metools-tools-grid { grid-template-columns: 1fr 1fr !important; }
-          .metools-diff-item { flex-basis: 100% !important; }
-          .metools-pricing-grid { grid-template-columns: 1fr 1fr !important; }
-          .metools-hero-badges { justify-content: center !important; }
-          .metools-compare-grid { grid-template-columns: 1fr !important; }
+          .electrix-tools-grid { grid-template-columns: 1fr 1fr !important; }
+          .electrix-diff-item { flex-basis: 100% !important; }
+          .electrix-pricing-grid { grid-template-columns: 1fr 1fr !important; }
+          .electrix-hero-badges { justify-content: center !important; }
+          .electrix-compare-grid { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 480px) {
-          .metools-pricing-grid { grid-template-columns: 1fr !important; }
+          .electrix-pricing-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
 
@@ -315,25 +315,23 @@ export function MeToolsPage() {
             <h1
               style={{
                 fontFamily: "var(--font-barlow)",
-                fontSize: "clamp(32px, 5vw, 58px)",
+                fontSize: "clamp(32px, 5vw, 52px)",
                 fontWeight: 800,
                 letterSpacing: "-0.03em",
-                lineHeight: 1.08,
+                lineHeight: 1.12,
                 color: "#F2FBFC",
-                maxWidth: "18ch",
+                maxWidth: "32ch",
                 marginBottom: 24,
               }}
             >
-              Revit nu știe ce e un circuit. <span style={{ color: "#8FE0E8" }}>ME-Tools</span> știe.
+              <span style={{ color: "#8FE0E8" }}>ElecTriX</span>: etichetare de circuite, gestionare niveluri și coordonare de echipă — direct în Revit.
             </h1>
             <p style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(15px, 1.2vw, 18px)", lineHeight: 1.7, color: "#A9C9CC", maxWidth: "62ch", marginBottom: 32 }}>
               O suită profesională de instrumente pentru Revit, creată de un birou de proiectare electrică
-              pentru echipe MEP. Etichetare de circuite, gestionare niveluri, plasare familii, coordonare
-              de echipă și verificări de proiect — unsprezece instrumente sub un singur tab de ribbon,
-              numit <strong style={{ color: "#F2FBFC" }}>ElecTriX</strong>.
+              pentru echipe MEP. Unsprezece instrumente sub un singur tab de ribbon, pentru Revit 2025 și 2026.
             </p>
 
-            <div className="metools-hero-badges" style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 36 }}>
+            <div className="electrix-hero-badges" style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 36 }}>
               {["Revit 2025 & 2026", "EN · DE · RO", "Licență per stație de lucru"].map((b) => (
                 <span
                   key={b}
@@ -375,12 +373,12 @@ export function MeToolsPage() {
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
           <FadeIn>
             <div style={{ maxWidth: "760px", marginBottom: 48 }}>
-              <div style={eyebrowStyle}>De ce ME-Tools</div>
+              <div style={eyebrowStyle}>De ce ElecTriX</div>
               <h2 style={{ ...h2Style, marginBottom: 20 }}>De la etichetare manuală, la date live despre proiect</h2>
               <p style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(14px, 1.1vw, 16px)", lineHeight: 1.75, color: "#A9C9CC" }}>
                 Revit nu are un concept nativ de „circuit”. Etichetarea prizelor, întrerupătoarelor și
                 corpurilor de iluminat pe circuite se face manual, element cu element — iar verificarea
-                corectitudinii înseamnă, de obicei, un export separat în Excel. ME-Tools calculează
+                corectitudinii înseamnă, de obicei, un export separat în Excel. ElecTriX calculează
                 eticheta de circuit automat, o scrie pe fiecare element selectat, plasează adnotarea
                 corect orientată și păstrează totul interogabil direct în model, pe măsură ce proiectul
                 și echipa cresc.
@@ -389,10 +387,10 @@ export function MeToolsPage() {
           </FadeIn>
 
           <FadeIn delay={100}>
-            <div className="metools-compare-grid" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 24, alignItems: "center" }}>
+            <div className="electrix-compare-grid" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 24, alignItems: "center" }}>
               <div style={{ background: "rgba(224,123,90,0.06)", border: "1px solid rgba(224,123,90,0.25)", borderRadius: 12, padding: "26px 28px" }}>
                 <div style={{ fontFamily: "var(--font-plex-mono)", fontSize: 11, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "#E07B5A", marginBottom: 10 }}>
-                  Fără ME-Tools
+                  Fără ElecTriX
                 </div>
                 <p style={{ fontFamily: "var(--font-barlow)", fontSize: 16, color: "#F2FBFC", margin: 0, lineHeight: 1.6 }}>
                   10 circuite etichetate unul câte unul, apoi verificate manual într-un Excel separat.
@@ -401,7 +399,7 @@ export function MeToolsPage() {
               <div style={{ fontFamily: "var(--font-plex-mono)", fontSize: 13, fontWeight: 700, color: "#7FA2A6" }}>→</div>
               <div style={{ background: "rgba(143,224,232,0.06)", border: "1px solid rgba(143,224,232,0.30)", borderRadius: 12, padding: "26px 28px" }}>
                 <div style={{ fontFamily: "var(--font-plex-mono)", fontSize: 11, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "#8FE0E8", marginBottom: 10 }}>
-                  Cu ME-Tools
+                  Cu ElecTriX
                 </div>
                 <p style={{ fontFamily: "var(--font-barlow)", fontSize: 16, color: "#F2FBFC", margin: 0, lineHeight: 1.6 }}>
                   10 circuite etichetate și exportate în Excel, în sub un minut — datele rămân live în model.
@@ -439,7 +437,7 @@ export function MeToolsPage() {
               </h3>
               <p style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(14px, 1.1vw, 16px)", lineHeight: 1.75, color: "#A9C9CC", maxWidth: "76ch", marginBottom: 24 }}>
                 Selectezi orice combinație de prize, întrerupătoare și corpuri de iluminat, completezi
-                siguranța și ramura de circuit, iar ME-Tools calculează eticheta automat (ex. siguranța
+                siguranța și ramura de circuit, iar ElecTriX calculează eticheta automat (ex. siguranța
                 „1” + ramura „F2” → eticheta „1F2”), o scrie pe fiecare element și plasează o adnotare
                 corect orientată, indiferent de direcția peretelui. Sub-circuitele primesc automat
                 suffixul „_1”, „_2”.
@@ -460,7 +458,7 @@ export function MeToolsPage() {
           </FadeIn>
 
           {/* Remaining tools grid */}
-          <div className="metools-tools-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
+          <div className="electrix-tools-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
             {TOOLS.map((tool, i) => (
               <FadeIn key={tool.title} delay={(i % 3) * 80}>
                 <ToolCard icon={tool.icon} title={tool.title} desc={tool.desc} />
@@ -477,9 +475,9 @@ export function MeToolsPage() {
           <FadeIn>
             <div style={eyebrowStyle}>De ce merită</div>
           </FadeIn>
-          <div className="metools-diff-grid">
+          <div className="electrix-diff-grid">
             {DIFFERENTIATORS.map((d, i) => (
-              <FadeIn key={d} delay={(i % 3) * 80} className="metools-diff-item">
+              <FadeIn key={d} delay={(i % 3) * 80} className="electrix-diff-item">
                 <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
                   <Check size={18} color="#5AC9D4" style={{ flexShrink: 0, marginTop: 2 }} />
                   <p style={{ fontFamily: "var(--font-barlow)", fontSize: 14.5, lineHeight: 1.6, color: "#F2FBFC", margin: 0 }}>{d}</p>
@@ -503,8 +501,8 @@ export function MeToolsPage() {
 
           <FadeIn>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <div className="metools-ribbon-frame">
-                <Image src="/uploads/me-tools-ribbon.png" alt="Tab-ul ElecTriX în ribbon-ul Revit" fill style={{ objectFit: "cover" }} sizes="(max-width: 900px) 100vw, 900px" />
+              <div className="electrix-ribbon-frame">
+                <Image src="/uploads/electrix-ribbon.png" alt="Tab-ul ElecTriX în ribbon-ul Revit" fill style={{ objectFit: "cover" }} sizes="(max-width: 900px) 100vw, 900px" />
               </div>
               <p style={{ fontFamily: "var(--font-barlow)", fontSize: 13.5, color: "#A9C9CC", marginTop: 12, textAlign: "center" }}>
                 Tab-ul ElecTriX — toate cele unsprezece instrumente, într-un singur loc
@@ -525,10 +523,10 @@ export function MeToolsPage() {
             </div>
           </FadeIn>
 
-          <div className="metools-pricing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 32 }}>
+          <div className="electrix-pricing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 32 }}>
             {PRICING_TIERS.map((tier, i) => (
               <FadeIn key={tier.name} delay={i * 60}>
-                <div className="metools-pricing-card">
+                <div className="electrix-pricing-card">
                   <h3 style={{ fontFamily: "var(--font-barlow)", fontSize: 17, fontWeight: 700, color: "#F2FBFC", marginBottom: 10 }}>{tier.name}</h3>
                   <p style={{ fontFamily: "var(--font-barlow)", fontSize: 13.5, lineHeight: 1.55, color: "#A9C9CC", margin: 0 }}>{tier.desc}</p>
                   {tier.download && (
@@ -568,11 +566,11 @@ export function MeToolsPage() {
         <SectionDivider />
         <style>{`
           @media (max-width: 767px) {
-            .metools-inquiry-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+            .electrix-inquiry-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
           }
           #inquiry input::placeholder, #inquiry textarea::placeholder { color: #7FA2A6; }
         `}</style>
-        <div className="metools-inquiry-grid" style={{ position: "relative", maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(40px, 6vw, 100px)", alignItems: "start" }}>
+        <div className="electrix-inquiry-grid" style={{ position: "relative", maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(40px, 6vw, 100px)", alignItems: "start" }}>
           <div>
             <div style={eyebrowStyle}>Contact</div>
             <h2 style={{ ...h2Style, marginBottom: 24, maxWidth: "18ch" }}>Cere o demonstrație sau o achiziție</h2>

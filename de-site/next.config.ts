@@ -47,6 +47,15 @@ const nextConfig: NextConfig = {
   // (chunk-uri JS, HMR) venite de pe alt origin decât localhost, ceea ce lasă
   // pagina blocată înainte de hidratare (fără 3D, fără linii, fără animații).
   allowedDevOrigins: ["192.168.1.77"],
+  async redirects() {
+    return [
+      {
+        source: "/me-tools",
+        destination: "/electrix",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

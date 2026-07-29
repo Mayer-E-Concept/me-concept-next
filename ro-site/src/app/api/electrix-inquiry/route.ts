@@ -14,7 +14,7 @@ const INTEREST_LABEL: Record<string, string> = {
 
 export async function POST(req: Request) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
-  if (!(await rateLimit(`me-tools-inquiry:${ip}`))) {
+  if (!(await rateLimit(`electrix-inquiry:${ip}`))) {
     return NextResponse.json(
       { error: "Prea multe cereri. Încearcă din nou mai târziu." },
       { status: 429 }
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
     }
 
     if (!process.env.RESEND_API_KEY) {
-      console.error("[me-tools-inquiry] RESEND_API_KEY lipsește din environment.");
+      console.error("[electrix-inquiry] RESEND_API_KEY lipsește din environment.");
       return NextResponse.json({ error: "Serviciu indisponibil." }, { status: 503 });
     }
 
@@ -55,7 +55,7 @@ export async function POST(req: Request) {
 
     const html = `
       <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#051E27;color:#F4F2EC;padding:32px;border-radius:8px;">
-        <h2 style="color:#8FE0E8;margin:0 0 24px;">Interes nou — ME-Tools</h2>
+        <h2 style="color:#8FE0E8;margin:0 0 24px;">Interes nou — ElecTriX</h2>
         <table style="width:100%;border-collapse:collapse;">
           <tr><td style="padding:8px 0;color:rgba(244,242,236,0.55);width:120px;vertical-align:top;">Nume</td><td style="padding:8px 0;font-weight:600;">${safeName}</td></tr>
           <tr><td style="padding:8px 0;color:rgba(244,242,236,0.55);vertical-align:top;">Email</td><td style="padding:8px 0;"><a href="mailto:${safeEmail}" style="color:#8FE0E8;">${safeEmail}</a></td></tr>
@@ -68,25 +68,25 @@ export async function POST(req: Request) {
           <p style="margin:0;line-height:1.6;">${safeMessage}</p>
         </div>` : ""}
         <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:28px 0 16px;"/>
-        <p style="color:rgba(244,242,236,0.25);font-size:12px;margin:0;">Trimis din formularul ME-Tools · me-concept.ro/me-tools</p>
+        <p style="color:rgba(244,242,236,0.25);font-size:12px;margin:0;">Trimis din formularul ElecTriX · me-concept.ro/electrix</p>
       </div>`;
 
     const result = await resend.emails.send({
       from: FROM,
       to: NOTIFY_TO,
-      subject: `[ME-Tools] ${INTEREST_LABEL[interest] ?? interest}: ${name.replace(/[\r\n]/g, " ").slice(0, 80)}`,
+      subject: `[ElecTriX] ${INTEREST_LABEL[interest] ?? interest}: ${name.replace(/[\r\n]/g, " ").slice(0, 80)}`,
       html,
       replyTo: email,
     });
 
     if (result.error) {
-      console.error("[me-tools-inquiry] Resend:", result.error);
+      console.error("[electrix-inquiry] Resend:", result.error);
       return NextResponse.json({ error: "Trimiterea a eșuat." }, { status: 502 });
     }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("[me-tools-inquiry]", err);
+    console.error("[electrix-inquiry]", err);
     return NextResponse.json({ error: "Eroare internă." }, { status: 500 });
   }
 }
