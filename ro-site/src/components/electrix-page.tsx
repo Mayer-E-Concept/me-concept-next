@@ -19,24 +19,19 @@ import { FadeIn } from "@/components/fade-in";
 
 const TOOLS = [
   {
+    icon: Tag,
+    title: "Circuit Tagger",
+    desc: "Calculează automat eticheta de circuit (ex. siguranța „1” + ramura „F2” → eticheta „1F2”), o scrie pe fiecare element selectat și plasează o adnotare corect orientată — inclusiv Circuit Stats cu numărători live și export Excel.",
+  },
+  {
     icon: Layers,
     title: "Level & IFC Manager",
     desc: "Toate nivelurile proiectului, grupate automat (subsol/parter/etaj), filtrabile pe zone. Citește niveluri, unități și locație direct din IFC și semnalează neconcordanțele de unități înainte să devină probleme.",
   },
   {
-    icon: LayoutGrid,
-    title: "Family Placer",
-    desc: "Plasează mai multe familii într-un aranjament configurat — stivuit, unul lângă altul, cu spațiere personalizată — și salvează totul ca șablon reutilizabil pentru fiecare apartament sau unitate.",
-  },
-  {
     icon: Search,
     title: "Family Browser",
     desc: "Căutare și plasare rapidă pentru orice familie din bibliotecă, fără să cauți prin structura de panouri nativă a Revit.",
-  },
-  {
-    icon: Lightbulb,
-    title: "Lamp Placer",
-    desc: "Distribuție automată de corpuri de iluminat într-o încăpere, aranjare pe grilă manuală sau pe o linie trasată, cu spațiere egală în stil DIALux — pentru Rooms și MEP Spaces.",
   },
   {
     icon: MessageSquare,
@@ -262,6 +257,7 @@ export function ElecTriXPage() {
         }
         @media (max-width: 767px) {
           .electrix-tools-grid { grid-template-columns: 1fr 1fr !important; }
+          .electrix-flagship-grid { grid-template-columns: 1fr !important; }
           .electrix-diff-item { flex-basis: 100% !important; }
           .electrix-pricing-grid { grid-template-columns: 1fr 1fr !important; }
           .electrix-hero-badges { justify-content: center !important; }
@@ -421,41 +417,48 @@ export function ElecTriXPage() {
             </div>
           </FadeIn>
 
-          {/* Flagship — Circuit Tagger */}
-          <FadeIn>
-            <div style={{ background: "linear-gradient(135deg, rgba(143,224,232,0.10), rgba(143,224,232,0.02))", border: "1.5px solid rgba(143,224,232,0.35)", borderRadius: 16, padding: "clamp(28px, 4vw, 44px)", marginBottom: 24 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 18 }}>
-                <div style={{ width: 44, height: 44, borderRadius: 10, background: "#8FE0E8", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <Tag size={22} color="#072327" strokeWidth={2} />
+          {/* Flagship — Family Placer & Lamp Placer */}
+          <div className="electrix-flagship-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
+            <FadeIn>
+              <div style={{ background: "linear-gradient(135deg, rgba(143,224,232,0.10), rgba(143,224,232,0.02))", border: "1.5px solid rgba(143,224,232,0.35)", borderRadius: 16, padding: "clamp(24px, 3vw, 36px)", height: "100%" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 18 }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 10, background: "#8FE0E8", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <LayoutGrid size={22} color="#072327" strokeWidth={2} />
+                  </div>
+                  <span style={{ fontFamily: "var(--font-plex-mono)", fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8FE0E8" }}>
+                    Instrument principal
+                  </span>
                 </div>
-                <span style={{ fontFamily: "var(--font-plex-mono)", fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8FE0E8" }}>
-                  Instrumentul principal
-                </span>
+                <h3 style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(20px, 2vw, 26px)", fontWeight: 800, color: "#F2FBFC", marginBottom: 16 }}>
+                  Family Placer
+                </h3>
+                <p style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(14px, 1.1vw, 16px)", lineHeight: 1.75, color: "#A9C9CC", margin: 0 }}>
+                  Plasează mai multe familii într-un aranjament configurat — stivuit, unul lângă altul,
+                  cu spațiere personalizată — și salvează totul ca șablon reutilizabil pentru fiecare
+                  apartament sau unitate.
+                </p>
               </div>
-              <h3 style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(22px, 2.4vw, 30px)", fontWeight: 800, color: "#F2FBFC", marginBottom: 16 }}>
-                Circuit Tagger
-              </h3>
-              <p style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(14px, 1.1vw, 16px)", lineHeight: 1.75, color: "#A9C9CC", maxWidth: "76ch", marginBottom: 24 }}>
-                Selectezi orice combinație de prize, întrerupătoare și corpuri de iluminat, completezi
-                siguranța și ramura de circuit, iar ElecTriX calculează eticheta automat (ex. siguranța
-                „1” + ramura „F2” → eticheta „1F2”), o scrie pe fiecare element și plasează o adnotare
-                corect orientată, indiferent de direcția peretelui. Sub-circuitele primesc automat
-                suffixul „_1”, „_2”.
-              </p>
-              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 }}>
-                {[
-                  "Circuit Stats: grupare Clădire → Apartament → Circuit, cu numărători live și export Excel dintr-un click",
-                  "Detectează automat apartamentele copiate pe alt etaj și le reetichetează ca grup nou",
-                  "Aspectul etichetei (culoare, font, leader) e complet configurabil și oglindește stilurile native Revit",
-                ].map((t) => (
-                  <li key={t} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-                    <Check size={17} color="#8FE0E8" style={{ flexShrink: 0, marginTop: 2 }} />
-                    <span style={{ fontFamily: "var(--font-barlow)", fontSize: 14, lineHeight: 1.55, color: "#F2FBFC" }}>{t}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </FadeIn>
+            </FadeIn>
+            <FadeIn delay={80}>
+              <div style={{ background: "linear-gradient(135deg, rgba(143,224,232,0.10), rgba(143,224,232,0.02))", border: "1.5px solid rgba(143,224,232,0.35)", borderRadius: 16, padding: "clamp(24px, 3vw, 36px)", height: "100%" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 18 }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 10, background: "#8FE0E8", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Lightbulb size={22} color="#072327" strokeWidth={2} />
+                  </div>
+                  <span style={{ fontFamily: "var(--font-plex-mono)", fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8FE0E8" }}>
+                    Instrument principal
+                  </span>
+                </div>
+                <h3 style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(20px, 2vw, 26px)", fontWeight: 800, color: "#F2FBFC", marginBottom: 16 }}>
+                  Lamp Placer
+                </h3>
+                <p style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(14px, 1.1vw, 16px)", lineHeight: 1.75, color: "#A9C9CC", margin: 0 }}>
+                  Distribuție automată de corpuri de iluminat într-o încăpere, aranjare pe grilă manuală
+                  sau pe o linie trasată, cu spațiere egală în stil DIALux — pentru Rooms și MEP Spaces.
+                </p>
+              </div>
+            </FadeIn>
+          </div>
 
           {/* Remaining tools grid */}
           <div className="electrix-tools-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
