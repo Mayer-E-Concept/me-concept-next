@@ -204,19 +204,6 @@ export function PortofoliuPage() {
             pointerEvents: "none",
           }}
         />
-        {/* copper accent line top */}
-        <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 2,
-            background: "linear-gradient(90deg, transparent, #5AC9D4 30%, #5AC9D4 70%, transparent)",
-            opacity: 0.45,
-          }}
-        />
 
         <div style={{ position: "relative", zIndex: 1, maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
           {/* heading */}

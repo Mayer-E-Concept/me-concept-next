@@ -20,7 +20,7 @@ export function SectionDivider({ position = "top", color = "#5AC9D4" }: { positi
         [position]: 0,
         left: 0,
         right: 0,
-        height: 3,
+        height: 4,
         display: "flex",
         padding: "0 clamp(20px, 5vw, 60px)",
         zIndex: 2,

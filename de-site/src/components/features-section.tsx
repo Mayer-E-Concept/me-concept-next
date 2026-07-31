@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { FadeIn } from "@/components/fade-in";
+import { SectionDivider } from "@/components/section-divider";
 
 const FEATURES = [
   {
@@ -60,18 +61,7 @@ export function FeaturesSectionDe() {
       `}</style>
 
       {/* Kupferlinie oben + Schaltkreis-Textur — Premium-Sprache der dunklen Sektionen */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 2,
-          background: "linear-gradient(90deg, transparent, #5AC9D4 30%, #5AC9D4 70%, transparent)",
-          opacity: 0.45,
-        }}
-      />
+      <SectionDivider />
       <div
         aria-hidden
         style={{
