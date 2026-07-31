@@ -7,13 +7,13 @@ import { ElecTriXPageDe } from "@/components/electrix-page";
 export const metadata: Metadata = {
   title: "ElecTriX — Revit Add-in für Elektroteams | Mayer E-Concept",
   description:
-    "ElecTriX: Suite aus 11+ Revit-Werkzeugen für Stromkreis-Kennzeichnung, Ebenen-Verwaltung, Familienplatzierung und Teamkoordination. Revit 2025 & 2026.",
+    "ElecTriX: Suite aus 11+ Revit-Werkzeugen für automatisierte Familienplatzierung, Beleuchtungsplanung, Stromkreis-Kennzeichnung und Teamkoordination. Revit 2025 & 2026.",
   alternates: {
     canonical: "/electrix",
   },
   openGraph: {
     title: "ElecTriX — Revit Add-in für Elektroteams",
-    description: "Suite aus 11+ Revit-Werkzeugen für elektrische Dokumentation: Stromkreise, Ebenen, Familien, Teamkoordination.",
+    description: "Suite aus 11+ Revit-Werkzeugen für MEP-Teams: Familienplatzierung, Beleuchtungsplanung, Ebenen, Stromkreise, Teamkoordination.",
     url: `${SITE_URL}/electrix`,
     type: "website",
     locale: "de_DE",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "ElecTriX — Revit Add-in für Elektroteams",
-    description: "Suite aus 11+ Revit-Werkzeugen für elektrische Dokumentation: Stromkreise, Ebenen, Familien, Teamkoordination.",
+    description: "Suite aus 11+ Revit-Werkzeugen für MEP-Teams: Familienplatzierung, Beleuchtungsplanung, Ebenen, Stromkreise, Teamkoordination.",
   },
 };
 

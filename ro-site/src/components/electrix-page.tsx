@@ -320,7 +320,7 @@ export function ElecTriXPage() {
                 marginBottom: 24,
               }}
             >
-              <span style={{ color: "#8FE0E8" }}>ElecTriX</span>: etichetare de circuite, gestionare niveluri și coordonare de echipă — direct în Revit.
+              <span style={{ color: "#8FE0E8" }}>ElecTriX</span>: plasare automată de familii, iluminat inteligent și coordonare de echipă — direct în Revit.
             </h1>
             <p style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(15px, 1.2vw, 18px)", lineHeight: 1.7, color: "#A9C9CC", maxWidth: "62ch", marginBottom: 32 }}>
               O suită profesională de instrumente pentru Revit, creată de un birou de proiectare electrică
@@ -370,14 +370,13 @@ export function ElecTriXPage() {
           <FadeIn>
             <div style={{ maxWidth: "760px", marginBottom: 48 }}>
               <div style={eyebrowStyle}>De ce ElecTriX</div>
-              <h2 style={{ ...h2Style, marginBottom: 20 }}>De la etichetare manuală, la date live despre proiect</h2>
+              <h2 style={{ ...h2Style, marginBottom: 20 }}>De la ore de muncă repetitivă, la automatizare completă</h2>
               <p style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(14px, 1.1vw, 16px)", lineHeight: 1.75, color: "#A9C9CC" }}>
-                Revit nu are un concept nativ de „circuit”. Etichetarea prizelor, întrerupătoarelor și
-                corpurilor de iluminat pe circuite se face manual, element cu element — iar verificarea
-                corectitudinii înseamnă, de obicei, un export separat în Excel. ElecTriX calculează
-                eticheta de circuit automat, o scrie pe fiecare element selectat, plasează adnotarea
-                corect orientată și păstrează totul interogabil direct în model, pe măsură ce proiectul
-                și echipa cresc.
+                Plasarea familiilor și distribuția corpurilor de iluminat înseamnă, în mod normal, ore de
+                muncă manuală, element cu element, în fiecare apartament sau încăpere. ElecTriX
+                automatizează aceste fluxuri de lucru — de la Family Placer și Lamp Placer, până la
+                etichetarea circuitelor și restul suitei — și păstrează totul interogabil direct în
+                model, pe măsură ce proiectul și echipa cresc.
               </p>
             </div>
           </FadeIn>
@@ -389,7 +388,7 @@ export function ElecTriXPage() {
                   Fără ElecTriX
                 </div>
                 <p style={{ fontFamily: "var(--font-barlow)", fontSize: 16, color: "#F2FBFC", margin: 0, lineHeight: 1.6 }}>
-                  10 circuite etichetate unul câte unul, apoi verificate manual într-un Excel separat.
+                  40 de corpuri de iluminat plasate manual, unul câte unul, apoi verificate vizual în plan.
                 </p>
               </div>
               <div style={{ fontFamily: "var(--font-plex-mono)", fontSize: 13, fontWeight: 700, color: "#7FA2A6" }}>→</div>
@@ -398,7 +397,7 @@ export function ElecTriXPage() {
                   Cu ElecTriX
                 </div>
                 <p style={{ fontFamily: "var(--font-barlow)", fontSize: 16, color: "#F2FBFC", margin: 0, lineHeight: 1.6 }}>
-                  10 circuite etichetate și exportate în Excel, în sub un minut — datele rămân live în model.
+                  40 de corpuri de iluminat distribuite automat, cu spațiere DIALux, în câteva secunde.
                 </p>
               </div>
             </div>
@@ -413,7 +412,7 @@ export function ElecTriXPage() {
           <FadeIn>
             <div style={{ maxWidth: "700px", marginBottom: 48 }}>
               <div style={eyebrowStyle}>Instrumentele</div>
-              <h2 style={h2Style}>Unsprezece instrumente. Un singur ribbon.</h2>
+              <h2 style={h2Style}>Toate instrumentele ElecTriX, într-un singur ribbon.</h2>
             </div>
           </FadeIn>
 

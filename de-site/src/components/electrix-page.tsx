@@ -320,7 +320,7 @@ export function ElecTriXPageDe() {
                 marginBottom: 24,
               }}
             >
-              <span style={{ color: "#8FE0E8" }}>ElecTriX</span>: Stromkreis-Kennzeichnung, Ebenen-Verwaltung und Teamkoordination — direkt in Revit.
+              <span style={{ color: "#8FE0E8" }}>ElecTriX</span>: automatisierte Familienplatzierung, intelligente Beleuchtungsplanung und Teamkoordination — direkt in Revit.
             </h1>
             <p style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(15px, 1.2vw, 18px)", lineHeight: 1.7, color: "#A9C9CC", maxWidth: "62ch", marginBottom: 32 }}>
               Eine professionelle Add-in-Suite für Revit, entwickelt von einem Elektroplanungsbüro für
@@ -370,14 +370,13 @@ export function ElecTriXPageDe() {
           <FadeIn>
             <div style={{ maxWidth: "760px", marginBottom: 48 }}>
               <div style={eyebrowStyle}>Warum ElecTriX</div>
-              <h2 style={{ ...h2Style, marginBottom: 20 }}>Von manueller Kennzeichnung zu Live-Projektdaten</h2>
+              <h2 style={{ ...h2Style, marginBottom: 20 }}>Von manueller Wiederholarbeit zu voller Automatisierung</h2>
               <p style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(14px, 1.1vw, 16px)", lineHeight: 1.75, color: "#A9C9CC" }}>
-                Revit kennt von Haus aus keinen „Stromkreis“. Steckdosen, Schalter und Leuchten nach
-                Stromkreis zu kennzeichnen, passiert bislang Element für Element — und die Kontrolle
-                bedeutet meist einen separaten Excel-Export. ElecTriX berechnet die Stromkreis-Bezeichnung
-                automatisch, schreibt sie auf jedes ausgewählte Element, platziert eine korrekt
-                ausgerichtete Beschriftung und hält alles direkt im Modell abfragbar, während Projekt
-                und Team wachsen.
+                Familien platzieren und Leuchten verteilen bedeutet normalerweise Stunden manueller
+                Arbeit, Element für Element, in jeder Wohnung oder jedem Raum. ElecTriX automatisiert
+                diese Arbeitsabläufe — vom Family Placer und Lamp Placer bis zur Stromkreis-Kennzeichnung
+                und dem Rest der Suite — und hält alles direkt im Modell abfragbar, während Projekt und
+                Team wachsen.
               </p>
             </div>
           </FadeIn>
@@ -389,7 +388,7 @@ export function ElecTriXPageDe() {
                   Ohne ElecTriX
                 </div>
                 <p style={{ fontFamily: "var(--font-barlow)", fontSize: 16, color: "#F2FBFC", margin: 0, lineHeight: 1.6 }}>
-                  10 Stromkreise einzeln beschriftet, dann manuell in einer separaten Excel-Tabelle geprüft.
+                  40 Leuchten einzeln von Hand platziert, dann visuell im Plan geprüft.
                 </p>
               </div>
               <div style={{ fontFamily: "var(--font-plex-mono)", fontSize: 13, fontWeight: 700, color: "#7FA2A6" }}>→</div>
@@ -398,7 +397,7 @@ export function ElecTriXPageDe() {
                   Mit ElecTriX
                 </div>
                 <p style={{ fontFamily: "var(--font-barlow)", fontSize: 16, color: "#F2FBFC", margin: 0, lineHeight: 1.6 }}>
-                  10 Stromkreise beschriftet und nach Excel exportiert — in unter einer Minute, mit im Modell live bleibenden Daten.
+                  40 Leuchten automatisch verteilt, mit DIALux-ähnlichem Abstand, in wenigen Sekunden.
                 </p>
               </div>
             </div>
@@ -413,7 +412,7 @@ export function ElecTriXPageDe() {
           <FadeIn>
             <div style={{ maxWidth: "700px", marginBottom: 48 }}>
               <div style={eyebrowStyle}>Die Werkzeuge</div>
-              <h2 style={h2Style}>Elf Werkzeuge. Ein Ribbon.</h2>
+              <h2 style={h2Style}>Alle ElecTriX-Werkzeuge in einem Ribbon-Tab.</h2>
             </div>
           </FadeIn>
 
