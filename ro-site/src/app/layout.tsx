@@ -44,6 +44,10 @@ const OG_IMAGE = `${SITE_URL}/uploads/me-concept-proiectare-instalatii-electrice
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  // Bestätigung der Webseite für Google Search Console / Google Play Console
+  verification: {
+    google: "NMm2OV3n1nT0vwR_17J1vG1PHupwIZuxapa22f9j9vw",
+  },
   title: "ME-Concept — Instalații Electrice de Calitate",
   description:
     "Proiectare și execuție instalații electrice. Profesionalism, precizie, calitate garantată. Certificat ISO 9001:2015.",
