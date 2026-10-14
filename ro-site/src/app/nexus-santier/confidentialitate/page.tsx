@@ -16,7 +16,7 @@ export default function NexusSantierConfidentialitate() {
   return (
     <LegalPage
       title="Nexus Șantier — Politică de confidențialitate"
-      lastUpdated="Actualizată ultima dată pe 13 octombrie 2026 | Aplicația mobilă Nexus Șantier (Android / iOS) | Conformă GDPR (Reg. UE 2016/679)"
+      lastUpdated="Actualizată ultima dată pe 14 octombrie 2026 | Aplicația mobilă Nexus Șantier (Android / iOS) | Conformă GDPR (Reg. UE 2016/679)"
       sections={[
         {
           title: "1. Operatorul de date",
@@ -75,12 +75,13 @@ export default function NexusSantierConfidentialitate() {
             "În cloud (doar dacă v-ați creat cont): datele și fotografiile sunt sincronizate criptat (HTTPS/TLS) pe serverele furnizorului Supabase, în centrul de date din Frankfurt (Germania, Uniunea Europeană). Supabase acționează ca persoană împuternicită conform Art. 28 GDPR.",
             "Accesul este separat pe firme: fiecare firmă vede doar propriile date. În cadrul unei firme, angajații văd proiectele și propriile înregistrări; proprietarul și administratorii văd toate datele firmei.",
             "E-mailurile cu codul de autentificare sunt trimise prin serviciul de e-mail al furnizorului Supabase.",
+            "Asistentul AI (doar dacă v-ați creat cont): textul dictat pentru înregistrări și lista de cumpărături, respectiv fotografia unui bon, sunt trimise criptat către Anthropic PBC (SUA), pentru a fi transformate în text pentru raport, materiale sau pozițiile bonului. Anthropic acționează ca persoană împuternicită; transferul se face pe baza clauzelor contractuale standard ale UE. Datele nu sunt folosite pentru antrenarea modelelor AI și sunt păstrate de furnizor doar pe termen scurt, conform condițiilor sale comerciale. Fără cont, aplicația nu folosește AI.",
           ],
         },
         {
           title: "6. Cui transmitem datele",
           content:
-            "Datele nu sunt transmise terților, cu excepția furnizorilor tehnici menționați mai sus (Supabase – găzduire în UE; Google/Apple – recunoașterea vocală a telefonului) și a cazurilor prevăzute de lege. Rapoartele și fotografiile ajung la alte persoane (de ex. clientul dvs.) doar atunci când le trimiteți dvs. prin WhatsApp, e-mail sau altă aplicație.",
+            "Datele nu sunt transmise terților, cu excepția furnizorilor tehnici menționați mai sus (Supabase – găzduire în UE; Anthropic – asistentul AI, doar cu cont; Google/Apple – recunoașterea vocală a telefonului) și a cazurilor prevăzute de lege. Rapoartele și fotografiile ajung la alte persoane (de ex. clientul dvs.) doar atunci când le trimiteți dvs. prin WhatsApp, e-mail sau altă aplicație.",
         },
         {
           title: "7. Cât timp păstrăm datele",
