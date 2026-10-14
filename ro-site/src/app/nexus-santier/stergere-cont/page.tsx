@@ -34,7 +34,15 @@ export default function NexusSantierStergereCont() {
             "Trimiteți un e-mail la contact@me-concept.ro, de pe adresa de e-mail cu care v-ați înregistrat, cu subiectul „Ștergere cont Nexus Șantier”. Pentru siguranță, vă putem cere să confirmați solicitarea. Ștergerea se face în cel mult 30 de zile de la primirea cererii, iar dvs. primiți confirmarea pe e-mail.",
         },
         {
-          title: "3. Ce date se șterg",
+          title: "3. Ștergerea unor date, fără ștergerea contului",
+          content: [
+            "Puteți șterge oricând doar anumite date, păstrând contul: în aplicație, glisați spre stânga peste o înregistrare de lucru, o fotografie, un bon, un raport, un proiect sau un articol din lista de cumpărături și atingeți „Șterge”, apoi confirmați.",
+            "Ștergerea se transmite automat și în cloud la următoarea sincronizare. La ștergerea unui proiect se șterg și toate datele legate de el.",
+            "Dacă doriți ștergerea anumitor date și nu mai aveți acces la aplicație, scrieți-ne la contact@me-concept.ro, conform pașilor de la punctul 2.",
+          ],
+        },
+        {
+          title: "4. Ce date se șterg",
           content: [
             "Contul (adresa de e-mail și identificatorul contului).",
             "Dacă sunteți proprietarul firmei în aplicație: toate datele firmei din cloud – proiecte, înregistrări de lucru, bonuri, rapoarte, liste de cumpărături și toate fotografiile.",
@@ -43,7 +51,7 @@ export default function NexusSantierStergereCont() {
           ],
         },
         {
-          title: "4. Ce date se păstrează și cât timp",
+          title: "5. Ce date se păstrează și cât timp",
           content: [
             "Eventualele copii de siguranță tehnice ale serverului sunt eliminate în cel mult 30 de zile.",
             "Rapoartele sau fotografiile pe care le-ați trimis deja altor persoane (de ex. prin WhatsApp sau e-mail) se află la destinatari și nu pot fi șterse de noi.",
@@ -51,12 +59,12 @@ export default function NexusSantierStergereCont() {
           ],
         },
         {
-          title: "5. Firme cu mai mulți utilizatori",
+          title: "6. Firme cu mai mulți utilizatori",
           content:
             "Dacă în firma dvs. mai sunt și alți utilizatori (angajați), ștergerea contului de proprietar din aplicație nu este posibilă, pentru a nu șterge din greșeală datele colegilor. În acest caz scrieți-ne la contact@me-concept.ro și ștergem firma împreună cu datele ei, conform pașilor de la punctul 2.",
         },
         {
-          title: "6. Mai multe informații",
+          title: "7. Mai multe informații",
           content:
             "Detalii despre datele prelucrate găsiți în „Nexus Șantier — Politică de confidențialitate” (me-concept.ro/nexus-santier/confidentialitate).",
         },
