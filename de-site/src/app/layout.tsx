@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope, Inter, Oxanium, Barlow, IBM_Plex_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
+import { CookieConsent } from "@/components/cookie-consent";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -86,7 +86,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         {children}
-        <Analytics />
+        <CookieConsent />
       </body>
     </html>
   );

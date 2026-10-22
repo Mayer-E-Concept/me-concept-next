@@ -20,6 +20,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/impressum`,             changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/agb`,                   changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/cookie-richtlinie`,     changeFrequency: "yearly", priority: 0.2 },
+    { url: `${base}/nexus-santier/datenschutz`,    changeFrequency: "yearly", priority: 0.2 },
+    { url: `${base}/nexus-santier/konto-loeschen`, changeFrequency: "yearly", priority: 0.2 },
   ];
 
   const blogDe: MetadataRoute.Sitemap = DE_BLOG_SLUGS.map((slug) => ({

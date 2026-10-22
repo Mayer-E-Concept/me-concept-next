@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { openCookieSettings } from "@/components/cookie-consent";
 import { ArrowUp } from "lucide-react";
 
 const NAV = [
@@ -199,6 +200,21 @@ export function SiteFooterDe() {
                 {item.label}
               </Link>
             ))}
+            <button
+              type="button"
+              onClick={openCookieSettings}
+              style={{
+                fontFamily: "var(--font-barlow)",
+                fontSize: 12,
+                color: "rgba(169,201,204,0.35)",
+                background: "none",
+                border: "none",
+                padding: 0,
+                cursor: "pointer",
+              }}
+            >
+              Cookie-Einstellungen
+            </button>
           </div>
         </div>
       </div>
