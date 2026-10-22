@@ -182,6 +182,8 @@ export function SiteFooter() {
         >
           <p style={{ fontFamily: "var(--font-barlow)", fontSize: 13, color: "rgba(169,201,204,0.35)", margin: 0 }}>
             © {new Date().getFullYear()} Mayer E-Concept SRL. Toate drepturile rezervate.
+            <br />
+            MAYER E-CONCEPT S.R.L. · Str. Atena, Nr. 5, Ap. 1, 550049 Sibiu, România · CUI RO45533577 · Administrator: Mayer Martin · contact@me-concept.ro · +40 752 099 791
           </p>
           <div className="footer-legal-links" style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
             {LEGAL.map((item) => (
