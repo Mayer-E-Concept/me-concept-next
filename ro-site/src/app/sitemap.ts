@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/nexus-santier/confidentialitate`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/nexus-santier/stergere-cont`,     changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/electrograd/confidentialitate`,   changeFrequency: "yearly", priority: 0.2 },
+    { url: `${base}/electrograd/termeni`,            changeFrequency: "yearly", priority: 0.2 },
   ];
 
   const blogRo: MetadataRoute.Sitemap = RO_BLOG_SLUGS.map((slug) => ({

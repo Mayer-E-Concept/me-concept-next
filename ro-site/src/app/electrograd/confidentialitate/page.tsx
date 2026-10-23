@@ -16,7 +16,7 @@ export default function ElectroGradConfidentialitate() {
   return (
     <LegalPage
       title="ElectroGrad — Politică de confidențialitate"
-      lastUpdated="Actualizată ultima dată pe 22 octombrie 2026 | Aplicația mobilă ElectroGrad (Android / iOS) | Conformă GDPR (Reg. UE 2016/679)"
+      lastUpdated="Actualizată ultima dată pe 23 octombrie 2026 | Aplicația mobilă ElectroGrad (Android / iOS) | Conformă GDPR (Reg. UE 2016/679)"
       sections={[
         {
           title: "1. Operatorul de date",
@@ -33,9 +33,9 @@ export default function ElectroGradConfidentialitate() {
           content: "",
           subsections: [
             {
-              title: "3.1 Date salvate doar pe telefon",
+              title: "3.1 Date salvate pe telefon",
               content:
-                "Gradul ales, progresul la întrebări, rezultatele simulărilor, tema de afișare și – opțional – numele introdus în secțiunea „Anunță-mă când primesc data examenului”. Aceste date rămân exclusiv pe telefonul dvs. și nu ne sunt transmise.",
+                "Gradul ales, progresul la întrebări, bifele din lista de acte, numele căutat la „Statusul meu”, rezultatele simulărilor, tema de afișare. Aceste date rămân pe telefonul dvs. și nu ne sunt transmise nouă (pentru numele căutat la ANRE vezi 3.4).",
             },
             {
               title: "3.2 Achiziții (doar dacă cumpărați un pass)",
@@ -47,6 +47,11 @@ export default function ElectroGradConfidentialitate() {
               content:
                 "La pornire, aplicația verifică dacă există o versiune nouă a conținutului (întrebări, răspunsuri, corecturi) pe serverele furnizorului tehnic Expo (650 Industries, Inc., SUA). Pentru aceasta se transmit doar date tehnice necesare conexiunii (versiunea aplicației, platforma, adresa IP). Nu se transmite progresul dvs. și nici alte date personale.",
             },
+            {
+              title: "3.4 Verificarea statusului la ANRE (doar dacă o folosiți)",
+              content:
+                "Când apăsați „Verifică statusul”, aplicația trimite numele introdus direct de pe telefon către portalul public al ANRE (spv.anre.ro), pentru a-l căuta în listele publice de candidați și în Registrul electricienilor autorizați. Numele nu trece prin serverele noastre și nu îl primim. Pentru ușurință, ultimul nume căutat se păstrează doar pe telefon și îl puteți șterge oricând din aplicație. Pentru prelucrarea pe portalul său, ANRE este operator separat.",
+            },
           ],
         },
         {
@@ -54,13 +59,14 @@ export default function ElectroGradConfidentialitate() {
           content: [
             "Furnizarea funcțiilor aplicației și a actualizărilor de conținut – Art. 6(1)(b) GDPR, executarea contractului de utilizare.",
             "Verificarea achizițiilor și acordarea accesului complet – Art. 6(1)(b) GDPR.",
+            "Căutarea statusului la ANRE, la cererea dvs. – Art. 6(1)(b) GDPR.",
             "Nu folosim datele pentru publicitate, nu facem profilare și nu vindem date. Aplicația nu conține reclame și nici instrumente de urmărire (tracking).",
           ],
         },
         {
           title: "5. Cui transmitem datele",
           content:
-            "Datele nu sunt transmise terților, cu excepția furnizorilor tehnici menționați mai sus (Google / Apple pentru plată, RevenueCat pentru verificarea achiziției, Expo pentru actualizări), care acționează ca persoane împuternicite, și a cazurilor prevăzute de lege. Transferul către furnizorii din SUA se face pe baza clauzelor contractuale standard ale UE.",
+            "Datele nu sunt transmise terților, cu excepția furnizorilor tehnici menționați mai sus (Google / Apple pentru plată, RevenueCat pentru verificarea achiziției, Expo pentru actualizări), care acționează ca persoane împuternicite, a ANRE (doar numele căutat, la cererea dvs., vezi 3.4) și a cazurilor prevăzute de lege. Transferul către furnizorii din SUA se face pe baza clauzelor contractuale standard ale UE.",
         },
         {
           title: "6. Cât timp păstrăm datele",
