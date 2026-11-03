@@ -16,7 +16,7 @@ export default function ElectroGradTermeni() {
   return (
     <LegalPage
       title="ElectroGrad — Termeni și condiții"
-      lastUpdated="Actualizați ultima dată pe 23 octombrie 2026 | Aplicația mobilă ElectroGrad (Android / iOS)"
+      lastUpdated="Actualizați ultima dată pe 3 noiembrie 2026 | Aplicația mobilă ElectroGrad (Android / iOS)"
       sections={[
         {
           title: "1. Cine oferă aplicația",
@@ -54,8 +54,9 @@ export default function ElectroGradTermeni() {
         {
           title: "6. Acces complet și plată",
           content: [
-            "O parte a conținutului este gratuită. Accesul complet se cumpără ca pass pe o perioadă fixă, exclusiv prin Google Play sau App Store, la prețul afișat în magazin. Pass-ul nu se reînnoiește automat.",
-            "Pentru plată, anulare și rambursare se aplică regulile magazinului (Google Play / App Store). Cumpărarea unui pass nu este o garanție de promovare.",
+            "O parte a conținutului este gratuită (primele întrebări ale fiecărui grad și o simulare de examen). Versiunea completă se cumpără o singură dată, exclusiv prin Google Play sau App Store, la prețul afișat în magazin. Nu este un abonament și nu se reînnoiește.",
+            "Versiunea completă rămâne legată de contul de magazin cu care a fost cumpărată și poate fi restabilită după reinstalare sau pe un dispozitiv nou cu același cont („Restabilește achiziția”).",
+            "Pentru plată și rambursare se aplică regulile magazinului (Google Play / App Store). Cumpărarea versiunii complete nu este o garanție de promovare.",
           ],
         },
         {

@@ -16,7 +16,7 @@ export default function ElectroGradConfidentialitate() {
   return (
     <LegalPage
       title="ElectroGrad — Politică de confidențialitate"
-      lastUpdated="Actualizată ultima dată pe 23 octombrie 2026 | Aplicația mobilă ElectroGrad (Android / iOS) | Conformă GDPR (Reg. UE 2016/679)"
+      lastUpdated="Actualizată ultima dată pe 3 noiembrie 2026 | Aplicația mobilă ElectroGrad (Android / iOS) | Conformă GDPR (Reg. UE 2016/679)"
       sections={[
         {
           title: "1. Operatorul de date",
@@ -38,9 +38,9 @@ export default function ElectroGradConfidentialitate() {
                 "Gradul ales, progresul la întrebări, bifele din lista de acte, numele căutat la „Statusul meu”, rezultatele simulărilor, tema de afișare. Aceste date rămân pe telefonul dvs. și nu ne sunt transmise nouă (pentru numele căutat la ANRE vezi 3.4).",
             },
             {
-              title: "3.2 Achiziții (doar dacă cumpărați un pass)",
+              title: "3.2 Achiziții (doar dacă cumpărați versiunea completă)",
               content:
-                "Plata pentru accesul complet se face exclusiv prin Google Play sau App Store; noi nu primim și nu stocăm datele cardului. Pentru verificarea achiziției și a perioadei de acces folosim serviciul RevenueCat (RevenueCat, Inc., SUA), care primește de la magazin un identificator anonim al aplicației, produsul cumpărat, data și starea tranzacției. Nu primim numele, adresa de e-mail sau alte date de identificare.",
+                "Plata pentru versiunea completă se face exclusiv prin Google Play sau App Store; noi nu primim și nu stocăm datele cardului. Aplicația întreabă direct magazinul de pe telefon dacă achiziția există și reține pe telefon doar faptul că versiunea completă este deblocată. Nu folosim servere proprii sau alți furnizori pentru verificare și nu primim numele, adresa de e-mail sau alte date de identificare.",
             },
             {
               title: "3.3 Actualizări ale conținutului",
@@ -66,7 +66,7 @@ export default function ElectroGradConfidentialitate() {
         {
           title: "5. Cui transmitem datele",
           content:
-            "Datele nu sunt transmise terților, cu excepția furnizorilor tehnici menționați mai sus (Google / Apple pentru plată, RevenueCat pentru verificarea achiziției, Expo pentru actualizări), care acționează ca persoane împuternicite, a ANRE (doar numele căutat, la cererea dvs., vezi 3.4) și a cazurilor prevăzute de lege. Transferul către furnizorii din SUA se face pe baza clauzelor contractuale standard ale UE.",
+            "Datele nu sunt transmise terților, cu excepția furnizorilor tehnici menționați mai sus (Google / Apple pentru plată, Expo pentru actualizări), care acționează ca persoane împuternicite, a ANRE (doar numele căutat, la cererea dvs., vezi 3.4) și a cazurilor prevăzute de lege. Transferul către furnizorii din SUA se face pe baza clauzelor contractuale standard ale UE.",
         },
         {
           title: "6. Cât timp păstrăm datele",
