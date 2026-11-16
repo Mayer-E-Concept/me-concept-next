@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
+import { AREAS_SIBIU, BUSINESS } from "@/lib/business";
 import { SiteHeader } from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
 import { ExpertiseSection } from "@/components/expertise-section";
@@ -14,9 +15,9 @@ import { FadeIn } from "@/components/fade-in";
 const OG_IMAGE = `${SITE_URL}/uploads/me-concept-proiectare-instalatii-electrice-romania.jpg`;
 
 export const metadata: Metadata = {
-  title: "ME-Concept — Proiectare Instalații Electrice | Sibiu & Germania",
+  title: "ME-Concept — Proiectare și execuție instalații electrice | Sibiu",
   description:
-    "Proiectare instalații electrice pentru construcții rezidențiale și comerciale. Atestat ANRE, ISO 9001:2015, expertiză BIM Revit. Sibiu & Germania.",
+    "Proiectare și execuție instalații electrice în Sibiu: case, spații comerciale și industriale, fotovoltaice și stații de încărcare. Atestat ANRE, ISO 9001:2015.",
   openGraph: {
     title: "ME-Concept — Proiectare Instalații Electrice",
     description:
@@ -37,16 +38,23 @@ export const metadata: Metadata = {
 
 const orgLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: "Mayer E-Concept",
+  "@type": "Electrician",
+  "@id": `${SITE_URL}/#business`,
+  name: BUSINESS.name,
+  legalName: BUSINESS.legalName,
+  description:
+    "Proiectare și execuție instalații electrice în Sibiu și împrejurimi: case, spații comerciale și industriale, fotovoltaice și stații de încărcare. Atestat ANRE, ISO 9001:2015.",
   url: SITE_URL,
-  telephone: "+40752129500",
+  telephone: BUSINESS.phoneE164,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Strada Măslinului nr. 9",
-    addressLocality: "Sibiu",
-    addressCountry: "RO",
+    streetAddress: BUSINESS.street,
+    addressLocality: BUSINESS.city,
+    addressRegion: BUSINESS.region,
+    addressCountry: BUSINESS.country,
   },
+  areaServed: AREAS_SIBIU.map((name) => ({ "@type": "City", name })),
+  knowsAbout: ["Instalații electrice", "Proiectare instalații electrice", "Panouri fotovoltaice", "Stații de încărcare", "Casă inteligentă"],
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",

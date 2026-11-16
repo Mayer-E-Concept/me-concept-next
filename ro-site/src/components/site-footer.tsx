@@ -8,6 +8,8 @@ import { ArrowUp } from "lucide-react";
 const NAV = [
   { label: "Acasă", href: "/" },
   { label: "Servicii", href: "/#servicii" },
+  { label: "Execuție instalații Sibiu", href: "/instalatii-electrice-sibiu" },
+  { label: "Fotovoltaice și wallbox", href: "/panouri-fotovoltaice-sibiu" },
   { label: "Portofoliu", href: "/portofoliu" },
   { label: "ElecTriX", href: "/electrix" },
   { label: "Despre noi", href: "/#despre" },
@@ -184,7 +186,7 @@ export function SiteFooter() {
           <p style={{ fontFamily: "var(--font-barlow)", fontSize: 13, color: "rgba(169,201,204,0.35)", margin: 0 }}>
             © {new Date().getFullYear()} Mayer E-Concept SRL. Toate drepturile rezervate.
             <br />
-            MAYER E-CONCEPT S.R.L. · Str. Atena, Nr. 5, Ap. 1, 550049 Sibiu, România · CUI RO45533577 · Administrator: Mayer Martin · contact@me-concept.ro · +40 752 099 791
+            MAYER E-CONCEPT S.R.L. · Sediu social: Str. Atena, Nr. 5, Ap. 1, 550049 Sibiu, România · CUI RO45533577 · Administrator: Mayer Martin · Birou: Strada Măslinului nr. 9, Sibiu · +40 752 129 500
           </p>
           <div className="footer-legal-links" style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
             {LEGAL.map((item) => (

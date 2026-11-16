@@ -318,7 +318,7 @@ export function HeroSection() {
                 textAlign: "center",
               }}
             >
-              Instalații electrice sigure, eficiente, proiectate cu grijă
+              Instalații electrice sigure și eficiente, proiectate și executate în Sibiu
             </h1>
 
             <div

@@ -12,6 +12,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticRo: MetadataRoute.Sitemap = [
     { url: `${base}/`,             changeFrequency: "weekly",  priority: 1.0 },
+    { url: `${base}/instalatii-electrice-sibiu`, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${base}/panouri-fotovoltaice-sibiu`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/portofoliu`,   changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/echipa-noastra`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/povestea-mea`, changeFrequency: "yearly",  priority: 0.5 },

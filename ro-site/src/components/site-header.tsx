@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 const navItems = [
   { label: "Acasă", href: "/" },
   { label: "Despre noi", href: "/#despre" },
+  { label: "Execuție", href: "/instalatii-electrice-sibiu" },
   { label: "Echipa noastră", href: "/echipa-noastra" },
   { label: "Portofoliu", href: "/portofoliu" },
   { label: "ElecTriX", href: "/electrix" },

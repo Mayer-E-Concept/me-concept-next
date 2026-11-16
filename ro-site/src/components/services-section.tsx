@@ -18,7 +18,7 @@ const SERVICES_RIGHT = [
   { title: "Racorduri pentru Electrocasnice Mari", desc: "Puncte de alimentare suplimentare pentru electrocasnice de mari dimensiuni, mai ales în bucătărie." },
   { title: "Interfon Video pentru Siguranță", desc: "Proiectăm sisteme de interfon video pentru un plus de securitate și confort." },
   { title: "Verificarea Execuției", desc: "Oferim verificarea execuțiilor pentru a asigura conformitatea și calitatea lucrărilor realizate." },
-  { title: "Sprijin în Găsirea Electricianului Potrivit", desc: "Ajutăm clienții să găsească un electrician calificat și le oferim carnetul de sarcini, pentru a asigura că execuția se desfășoară conform proiectului." },
+  { title: "Execuție cu Atestat ANRE", desc: "Executăm instalațiile electrice în Sibiu și împrejurimi: case, spații comerciale și industriale, fotovoltaice și stații de încărcare – din aceeași mână cu proiectul." },
 ];
 
 export function ServicesSection() {
