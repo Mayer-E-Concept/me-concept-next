@@ -30,40 +30,46 @@ export default function PanouriFotovoltaiceSibiu() {
     <ServiceLanding
       path={PATH}
       eyebrow="Fotovoltaice și wallbox · Sibiu"
-      title={TITLE}
       serviceName="Montaj sisteme fotovoltaice și stații de încărcare în Sibiu"
       serviceType="Sisteme fotovoltaice și stații de încărcare"
-      intro={[
-        "Proiectăm și montăm sisteme fotovoltaice pentru case și firme și stații de încărcare (wallbox) pentru mașini electrice, în Sibiu și în împrejurimi.",
-        "Partea electrică o facem cu atestat ANRE: dimensionare, protecții, racordarea în tabloul existent și punerea în funcțiune.",
+      title={["Panouri fotovoltaice și", "stații de încărcare", "în Sibiu."]}
+      lead="Sisteme fotovoltaice pentru case și firme și wallbox-uri pentru mașini electrice – dimensionate după consumul tău și legate corect în tablou, cu atestat ANRE."
+      hero={{ src: "/uploads/Casa3-3D.jpg", alt: "Casă cu panouri fotovoltaice pe acoperiș", pos: "center 40%" }}
+      quote={{
+        text: "Meșteșug curat, planificare gândită temeinic, procese clare – asta nu ține de țară, ci de atitudine.",
+        who: "Martin Mayer",
+        role: "Elektromeister, fondator Mayer E-Concept",
+        img: { src: "/uploads/poveste.jpg", alt: "Martin Mayer, maistru electrician, fondatorul Mayer E-Concept", pos: "center 25%" },
+      }}
+      stats={[
+        { value: "A + B", label: "Atestate ANRE: proiectare și execuție" },
+        { value: "20+", label: "ani de experiență pe șantiere" },
+        { value: "ISO", label: "9001:2015 – firmă certificată" },
+        { value: "1", label: "singur partener: proiect și execuție" },
       ]}
-      blocks={[
+      chips={["Atestat ANRE A + B", "ISO 9001:2015", "Elektromeister german", "Sibiu și împrejurimi"]}
+      cta={{
+        title: "Hai să vorbim despre proiectul tău.",
+        text: "Spune-ne ce ai nevoie – primești o ofertă clară, fără surprize.",
+        img: { src: "/uploads/echipa-team.jpg", alt: "Echipa Mayer E-Concept", pos: "center 40%" },
+      }}
+      cardsTitle="Energie proprie, legată corect în tablou"
+      cards={[
         {
           title: "Sisteme fotovoltaice",
-          text: "Pentru case, pensiuni, ateliere și hale – dimensionate după consumul tău real.",
-          points: [
-            "Calcul al puterii necesare pornind de la facturile de energie",
-            "Proiectarea instalației și alegerea invertorului",
-            "Montaj, cablare, protecții și punere în funcțiune",
-            "Ajutor cu documentația tehnică pentru a deveni prosumator",
-          ],
+          text: "Pentru case, pensiuni, ateliere și hale: calculul puterii din facturile tale, proiect, invertor, montaj, protecții și ajutor cu documentația de prosumator.",
+          img: { src: "/uploads/Iluminat-Arhitctural.jpg", alt: "Casă alimentată de un sistem fotovoltaic" },
         },
         {
-          title: "Stații de încărcare (wallbox)",
-          text: "Încărcare sigură acasă sau la firmă, fără să suprasoliciți instalația.",
-          points: [
-            "Verificarea puterii disponibile și a tabloului electric",
-            "Circuit dedicat cu protecții corecte",
-            "Montaj și punere în funcțiune, și pentru parcări de firmă",
-          ],
+          title: "Stații de încărcare",
+          text: "Wallbox acasă sau la firmă, pe circuit dedicat, cu protecții corecte.",
+          img: { src: "/uploads/iStock-1192061868.jpg", alt: "Electrician care pregătește racordul pentru o stație de încărcare" },
         },
-      ]}
-      why={[
-        "Atestate ANRE de tip A și B: proiectare și execuție instalații electrice",
-        "Proiect și execuție din aceeași mână",
-        "Firmă certificată ISO 9001:2015",
-        "Maistru electrician german (Elektromeister), peste 20 de ani de experiență",
-        "Verificăm întâi instalația existentă – fotovoltaicul și wallbox-ul se leagă corect în tablou",
+        {
+          title: "Tablou și protecții",
+          text: "Verificăm întâi puterea disponibilă și tabloul existent.",
+          img: { src: "/uploads/Automatizare.jpg", alt: "Tablou electric pregătit pentru fotovoltaice" },
+        },
       ]}
       steps={[
         { title: "Discuție", text: "ne spui consumul, locul de montaj și ce vrei să alimentezi." },

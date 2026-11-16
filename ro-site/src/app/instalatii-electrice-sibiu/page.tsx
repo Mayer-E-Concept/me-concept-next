@@ -30,47 +30,62 @@ export default function InstalatiiElectriceSibiu() {
     <ServiceLanding
       path={PATH}
       eyebrow="Execuție instalații electrice · Sibiu"
-      title={TITLE}
       serviceName="Execuție instalații electrice în Sibiu"
       serviceType="Instalații electrice"
-      intro={[
-        "Proiectăm și executăm instalații electrice în Sibiu și în împrejurimi – de la o priză nouă până la instalația completă a unei case, a unui magazin sau a unei hale.",
-        "Lucrăm cu atestat ANRE pentru instalații electrice de joasă tensiune, la standardul german pe care Martin Mayer, maistru electrician (Elektromeister) cu peste 20 de ani de experiență, l-a adus în România.",
+      title={["Instalații electrice", "proiectate și executate", "în Sibiu."]}
+      lead="De la o priză nouă până la instalația completă a unei case, a unui magazin sau a unei hale – cu atestat ANRE și standardul german pe care Martin Mayer, Elektromeister cu peste 20 de ani de experiență, l-a adus în România."
+      hero={{ src: "/uploads/ME-CONCEPT-162.jpg", alt: "Echipa Mayer E-Concept pe șantier, cu planurile instalației electrice", pos: "70% center" }}
+      quote={{
+        text: "Meșteșug curat, planificare gândită temeinic, procese clare – asta nu ține de țară, ci de atitudine.",
+        who: "Martin Mayer",
+        role: "Elektromeister, fondator Mayer E-Concept",
+        img: { src: "/uploads/poveste.jpg", alt: "Martin Mayer, maistru electrician, fondatorul Mayer E-Concept", pos: "center 25%" },
+      }}
+      stats={[
+        { value: "A + B", label: "Atestate ANRE: proiectare și execuție" },
+        { value: "20+", label: "ani de experiență pe șantiere" },
+        { value: "ISO", label: "9001:2015 – firmă certificată" },
+        { value: "1", label: "singur partener: proiect și execuție" },
       ]}
-      blocks={[
+      chips={["Atestat ANRE A + B", "ISO 9001:2015", "Elektromeister german", "Sibiu și împrejurimi"]}
+      cta={{
+        title: "Hai să vorbim despre proiectul tău.",
+        text: "Spune-ne ce ai nevoie – primești o ofertă clară, fără surprize.",
+        img: { src: "/uploads/echipa-team.jpg", alt: "Echipa Mayer E-Concept", pos: "center 40%" },
+      }}
+      cardsTitle="Lucrări electrice pentru case, firme și hale"
+      cards={[
         {
           title: "Case și apartamente",
-          text: "Instalații electrice noi sau renovate, curat și conform normativului I7.",
-          points: [
-            "Prize, întrerupătoare și circuite noi, trasee îngropate sau aparente",
-            "Tablou electric nou sau înlocuirea tabloului vechi, cu protecții diferențiale",
-            "Iluminat interior și exterior, spoturi, iluminat pentru terase și grădini",
-            "Racorduri pentru plită, cuptor, boiler, pompă de căldură și aer condiționat",
-            "Casă inteligentă: lumini, jaluzele și încălzire controlate din telefon",
-            "Interfon video, rețea de date și sonerie",
-          ],
+          text: "Instalații noi sau renovate conform normativului I7: circuite, prize, iluminat interior și exterior, racorduri pentru plită, boiler, pompă de căldură și aer condiționat.",
+          img: { src: "/uploads/Iluminat-Arhitctural.jpg", alt: "Casă cu iluminat exterior executat de Mayer E-Concept" },
+        },
+        {
+          title: "Tablouri electrice",
+          text: "Tablou nou sau înlocuirea celui vechi, cu protecții diferențiale.",
+          img: { src: "/uploads/Automatizare.jpg", alt: "Tablou electric executat de Mayer E-Concept" },
         },
         {
           title: "Spații comerciale și industriale",
-          text: "Pentru birouri, magazine, restaurante, ateliere și hale – planificat ca să nu oprească activitatea.",
-          points: [
-            "Distribuție de forță, tablouri și circuite pentru utilaje",
-            "Iluminat eficient LED pentru birouri, magazine și hale",
-            "Modernizarea instalațiilor existente și extinderi",
-          ],
+          text: "Birouri, magazine, ateliere și hale: distribuție de forță și circuite pentru utilaje.",
+          img: { src: "/uploads/spati-comerciale-2.jpg", alt: "Spațiu comercial cu instalație electrică și iluminat" },
         },
         {
-          title: "Panouri fotovoltaice și stații de încărcare",
-          text: "Sisteme fotovoltaice pentru case și firme și stații de încărcare (wallbox) pentru mașini electrice, cu racordarea corectă în tabloul existent.",
+          title: "Iluminat",
+          text: "LED eficient, spoturi, șine și iluminat arhitectural.",
+          img: { src: "/uploads/Iluminat-Arhitctural2.jpg", alt: "Iluminat interior cu spoturi pe șină" },
         },
-      ]}
-      why={[
-        "Atestate ANRE de tip A și B: proiectare și execuție instalații electrice",
-        "Proiect și execuție din aceeași mână – fără pierderi între proiectant și electrician",
-        "Firmă certificată ISO 9001:2015",
-        "Maistru electrician german (Elektromeister), peste 20 de ani pe șantiere în Germania și România",
-        "Ofertă clară înainte de început și documentație la predare",
-        "Raport de lucru zilnic, semnat de client, cu orele și materialele folosite",
+        {
+          title: "Modernizare și verificare",
+          text: "Verificăm instalația veche și schimbăm doar ce trebuie.",
+          img: { src: "/uploads/iStock-1192061868.jpg", alt: "Electrician care verifică un tablou electric" },
+        },
+        {
+          title: "Fotovoltaice și wallbox",
+          text: "Sisteme fotovoltaice și stații de încărcare, legate corect în tablou.",
+          img: { src: "/uploads/Casa3-3D.jpg", alt: "Casă cu panouri fotovoltaice pe acoperiș" },
+          href: "/panouri-fotovoltaice-sibiu",
+        },
       ]}
       steps={[
         { title: "Discuție și vizită", text: "ne spui ce ai nevoie, venim să vedem locul sau pornim de la planuri." },
