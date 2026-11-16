@@ -65,7 +65,7 @@ export default function InstalatiiElectriceSibiu() {
         },
       ]}
       why={[
-        "Atestat ANRE pentru instalații electrice de joasă tensiune",
+        "Atestat ANRE de tip B: proiectare și execuție instalații electrice de joasă tensiune",
         "Proiect și execuție din aceeași mână – fără pierderi între proiectant și electrician",
         "Firmă certificată ISO 9001:2015",
         "Maistru electrician german (Elektromeister), peste 20 de ani pe șantiere în Germania și România",
@@ -82,7 +82,7 @@ export default function InstalatiiElectriceSibiu() {
       faqs={[
         {
           q: "Aveți atestat ANRE pentru execuția instalațiilor electrice?",
-          a: "Da. Mayer E-Concept are atestat ANRE (tip B / Bp) pentru instalații electrice de joasă tensiune, pentru clădiri civile și industriale.",
+          a: "Da. Mayer E-Concept are atestat ANRE de tip B, atât pentru proiectarea, cât și pentru execuția instalațiilor electrice de joasă tensiune, pentru clădiri civile și industriale.",
         },
         {
           q: "Faceți și proiectul, sau doar execuția?",

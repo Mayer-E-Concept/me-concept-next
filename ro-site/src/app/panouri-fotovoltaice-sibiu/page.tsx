@@ -59,7 +59,7 @@ export default function PanouriFotovoltaiceSibiu() {
         },
       ]}
       why={[
-        "Atestat ANRE pentru instalații electrice de joasă tensiune",
+        "Atestat ANRE de tip B: proiectare și execuție instalații electrice de joasă tensiune",
         "Proiect și execuție din aceeași mână",
         "Firmă certificată ISO 9001:2015",
         "Maistru electrician german (Elektromeister), peste 20 de ani de experiență",
