@@ -64,6 +64,7 @@ export default function PanouriFotovoltaiceSibiu() {
           title: "Stații de încărcare",
           text: "Wallbox acasă sau la firmă, pe circuit dedicat, cu protecții corecte.",
           img: { src: "/uploads/iStock-1192061868.jpg", alt: "Electrician care pregătește racordul pentru o stație de încărcare" },
+          href: "/statii-de-incarcare-sibiu",
         },
         {
           title: "Tablou și protecții",
