@@ -86,7 +86,7 @@ const T = {
 type Step = "pick" | "details" | "success";
 
 const inputBase: React.CSSProperties = {
-  background: "#0B373D",
+  background: "#155B5C",
   border: "1px solid rgba(143,224,232,0.20)",
   borderRadius: 6,
   color: "#F2FBFC",
@@ -267,7 +267,7 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
         style={{
           marginTop: 20,
           height: 52,
-          background: loading ? "#0E323D" : "#8FE0E8",
+          background: loading ? "#0D4547" : "#8FE0E8",
           border: "none",
           borderRadius: 4,
           color: loading ? "#F2FBFC" : "#072327",
@@ -302,7 +302,7 @@ export function AppointmentCalendar({ locale = "ro" }: { locale?: "ro" | "de" })
         }
         .appt-time-btn:hover:not(:disabled) { background: rgba(143,224,232,0.10); color: #F2FBFC; }
         .appt-time-btn.selected {
-          background: #8FE0E8; border-color: #8FE0E8; color: #072327;
+          background: #8FE0E8; border-color: #8FE0E8; color: #0F4A4B;
         }
         @media (max-width: 600px) {
           .appt-inner { flex-direction: column !important; }

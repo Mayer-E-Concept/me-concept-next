@@ -56,7 +56,7 @@ const SERVICES = [
 export function ExpertiseSectionDe() {
   return (
     <section
-      id="leistungen"
+      id="fachbereiche"
       style={{
         position: "relative",
         paddingTop: "clamp(72px, 9vw, 120px)",
@@ -118,7 +118,7 @@ export function ExpertiseSectionDe() {
             <FadeIn key={s.num} delay={(i % 4) * 100}>
             <div
               style={{
-                background: "#0B373D",
+                background: "#155B5C",
                 borderRadius: 12,
                 overflow: "hidden",
                 border: "1px solid rgba(143,224,232,0.08)",

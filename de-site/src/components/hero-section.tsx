@@ -75,7 +75,7 @@ export function HeroSectionDe() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "radial-gradient(130% 150% at 72% -10%, #12525B 0%, #0B373D 52%, #072327 100%)",
+        background: "radial-gradient(130% 150% at 72% -10%, #1B6C6C 0%, #155B5C 52%, #0F4A4B 100%)",
         overflow: "hidden",
       }}
     >
@@ -405,7 +405,7 @@ function HeroButton({
       href={href}
       style={{
         ...base,
-        background: "#072327",
+        background: "#0F4A4B",
         color: "#A9C9CC",
         border: "1.5px solid rgba(143,224,232,0.4)",
       }}

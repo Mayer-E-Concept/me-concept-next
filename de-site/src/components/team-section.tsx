@@ -36,12 +36,6 @@ const TEAM: TeamMember[] = [
     img: "/uploads/echipa/worker2.jpg",
   },
   {
-    name: "Marius Poenar",
-    role: "Projektmanager",
-    bio: "Koordiniert Projekte vom Konzept bis zur Fertigstellung und behält Termine sowie Kundenkommunikation stets im Blick.",
-    img: "/uploads/echipa/worker3.jpg",
-  },
-  {
     name: "Stefan Picu",
     role: "Technischer Zeichner, Front-/Backend-Entwickler",
     bio: "Erstellt technische Pläne und entwickelt interne Softwarelösungen zur Optimierung der Arbeitsabläufe im Team.",
@@ -76,7 +70,7 @@ function TeamCard({ member, large = false }: { member: TeamMember; large?: boole
   return (
     <div
       style={{
-        background: "#0B373D",
+        background: "#155B5C",
         border: "1px solid rgba(143,224,232,0.12)",
         borderRadius: 14,
         padding: "28px 18px 22px",
@@ -114,7 +108,7 @@ function TeamCard({ member, large = false }: { member: TeamMember; large?: boole
             width: "100%",
             aspectRatio: "1",
             borderRadius: photoRadius,
-            background: "linear-gradient(135deg, #0F454D, #0B373D)",
+            background: "linear-gradient(135deg, #17605F, #155B5C)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -190,7 +184,7 @@ export function TeamSectionDe() {
       <style>{`
         .team-row-all {
           display: grid;
-          grid-template-columns: repeat(4, minmax(0, 220px)) auto repeat(2, minmax(0, 220px));
+          grid-template-columns: repeat(3, minmax(0, 220px)) auto repeat(2, minmax(0, 220px));
           justify-content: center;
           align-items: stretch;
           gap: 20px;

@@ -80,7 +80,7 @@ export function PortofoliuPageDe() {
       `}</style>
 
       {/* Page Hero */}
-      <section style={{ position: "relative", background: "#051E27", overflow: "hidden" }}>
+      <section style={{ position: "relative", background: "#0C4244", overflow: "hidden" }}>
         <div
           aria-hidden
           style={{
@@ -170,7 +170,7 @@ export function PortofoliuPageDe() {
       <section
         style={{
           position: "relative",
-          background: "#071C26",
+          background: "#0B3F41",
           paddingTop: "clamp(72px, 9vw, 110px)",
           paddingBottom: "clamp(72px, 9vw, 110px)",
           overflow: "hidden",
@@ -234,7 +234,7 @@ export function PortofoliuPageDe() {
               <div
                 key={p.label}
                 style={{
-                  background: "#0B373D",
+                  background: "#155B5C",
                   border: "1px solid rgba(143,224,232,0.12)",
                   borderRadius: 10,
                   padding: "clamp(20px, 2.4vw, 32px)",
@@ -302,7 +302,7 @@ export function PortofoliuPageDe() {
       {/* Featured reference projects */}
       <section
         style={{
-          background: "#051E27",
+          background: "#0C4244",
           paddingTop: "clamp(72px, 9vw, 110px)",
           paddingBottom: "clamp(72px, 9vw, 110px)",
           position: "relative",
