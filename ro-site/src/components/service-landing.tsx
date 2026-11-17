@@ -32,7 +32,7 @@ type Props = {
   related?: { href: string; label: string };
 };
 
-const CSS = `
+export const SL_CSS = `
 .sl-hero{position:relative;min-height:min(86vh,860px);display:flex;align-items:flex-end;overflow:hidden}
 .sl-hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,35,39,.96) 0%,rgba(7,35,39,.82) 40%,rgba(7,35,39,.25) 100%),linear-gradient(0deg,rgba(7,35,39,1) 0%,rgba(7,35,39,0) 35%)}
 .sl-wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,48px);position:relative}
@@ -137,7 +137,7 @@ export function ServiceLanding(p: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
-      <style>{CSS}</style>
+      <style>{SL_CSS}</style>
       <SiteHeader />
       <main style={{ color: "#F2FBFC" }}>
         {/* Hero mit eigenem Baustellenfoto */}

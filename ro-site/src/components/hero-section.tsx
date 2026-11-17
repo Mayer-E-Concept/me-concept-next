@@ -143,26 +143,6 @@ export function HeroSection() {
         }
       `}</style>
 
-      {/* Fotografie de șantier ca fundal, sub grilă și trasee — estompată în petrol */}
-      <Image
-        src="/uploads/ME-CONCEPT-162.jpg"
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        style={{ objectFit: "cover", objectPosition: "70% center", opacity: 0.34, filter: "saturate(0.55)", zIndex: 0 }}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-          pointerEvents: "none",
-          background: "linear-gradient(90deg, rgba(7,35,39,0.55) 0%, rgba(7,35,39,0.78) 50%, rgba(7,35,39,0.55) 100%), linear-gradient(0deg, rgba(7,35,39,0.95) 0%, rgba(7,35,39,0) 30%)",
-        }}
-      />
-
       {/* Ambient background layers — NOT part of the zoomed box below, so
           they always cover the true full section, edge to edge. The lines
           layer computes true screen-space coordinates itself (see

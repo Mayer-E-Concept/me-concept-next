@@ -56,7 +56,7 @@ const SERVICES = [
 export function ExpertiseSection() {
   return (
     <section
-      id="servicii"
+      id="domenii"
       style={{
         position: "relative",
         paddingTop: "clamp(72px, 9vw, 120px)",

@@ -8,6 +8,7 @@ import { ArrowUp } from "lucide-react";
 const NAV = [
   { label: "Acasă", href: "/" },
   { label: "Servicii", href: "/#servicii" },
+  { label: "Proiectare", href: "/proiectare-instalatii-electrice" },
   { label: "Execuție instalații Sibiu", href: "/instalatii-electrice-sibiu" },
   { label: "Fotovoltaice și wallbox", href: "/panouri-fotovoltaice-sibiu" },
   { label: "Portofoliu", href: "/portofoliu" },
