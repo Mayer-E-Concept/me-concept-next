@@ -48,6 +48,8 @@ const monoLink: React.CSSProperties = {
   display: "inline-block",
 };
 
+const PLAY_URL = "https://play.google.com/store/apps/details?id=ro.mayereconcept.electrograd";
+
 const FEATURES = [
   { title: "Aproape 1.600 de întrebări", desc: "Întrebările de exemplu publicate de ANRE pe anre.ro, împărțite pe grade și capitole: electrotehnică, legislație și norme tehnice." },
   { title: "Simulare de examen", desc: "În condiții reale: 25 de întrebări, 60 de minute, promovare de la 18 răspunsuri corecte." },
@@ -92,7 +94,7 @@ export function ElectroGradPage() {
             style={{ ...wrap, display: "grid", gridTemplateColumns: "minmax(0, 1.05fr) minmax(0, 0.95fr)", gap: "clamp(32px, 5vw, 72px)", alignItems: "center", paddingTop: "clamp(140px, 18vh, 210px)", paddingBottom: "clamp(64px, 8vw, 110px)" }}
           >
             <div>
-              <div style={{ ...eyebrow, borderBottom: "none", paddingBottom: 0 }}>Aplicație mobilă · Android și iOS</div>
+              <div style={{ ...eyebrow, borderBottom: "none", paddingBottom: 0 }}>Aplicație mobilă · Android</div>
               <h1 style={{ fontFamily: "var(--font-barlow)", fontSize: "clamp(32px, 4vw, 54px)", fontWeight: 700, letterSpacing: "-0.025em", lineHeight: 1.08, color: "#F2FBFC", maxWidth: "20ch", marginBottom: 22 }}>
                 ElectroGrad: pregătire pentru examenul de autorizare ANRE
               </h1>
@@ -103,8 +105,8 @@ export function ElectroGradPage() {
                 Am construit aplicația din propria experiență. Pe lângă proiectare și execuție, vrem să-i ajutăm și pe alții să se dezvolte în meserie.
               </p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-                <a href="#functii" style={{ ...monoLink, background: "#8FE0E8", color: "#072327", borderColor: "#8FE0E8" }}>Ce găsești în aplicație</a>
-                <Link href="/electrograd/suport" style={monoLink}>Ajutor și contact</Link>
+                <a href={PLAY_URL} target="_blank" rel="noopener noreferrer" style={{ ...monoLink, background: "#8FE0E8", color: "#072327", borderColor: "#8FE0E8" }}>Descarcă din Google Play</a>
+                <a href="#functii" style={monoLink}>Ce găsești în aplicație</a>
               </div>
             </div>
             <Image

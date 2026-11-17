@@ -184,7 +184,7 @@ export function TeamSection() {
       <style>{`
         .team-row-all {
           display: grid;
-          grid-template-columns: repeat(4, minmax(0, 220px)) auto repeat(2, minmax(0, 220px));
+          grid-template-columns: repeat(3, minmax(0, 220px)) auto repeat(2, minmax(0, 220px));
           justify-content: center;
           align-items: stretch;
           gap: 20px;

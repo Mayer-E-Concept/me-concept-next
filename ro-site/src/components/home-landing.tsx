@@ -16,7 +16,10 @@ const STATS = [
 
 const CHIPS = ["Atestat ANRE A + B", "ISO 9001:2015", "Elektromeister și ingineri", "BIM · Revit"];
 
-const CARDS = [
+type Card = { title: string; text: string; img: string; alt: string; href: string; pos?: string; dim?: boolean };
+
+// Leistungen der Firma. Die eigenen Apps stehen bewusst getrennt in HomeApps.
+const CARDS: Card[] = [
   {
     title: "Execuție instalații electrice",
     text: "Case, apartamente, spații comerciale și hale. Instalații noi sau renovate, tablouri electrice și iluminat, cu atestat ANRE.",
@@ -39,14 +42,9 @@ const CARDS = [
     href: "/panouri-fotovoltaice-sibiu",
     dim: true,
   },
-  {
-    title: "Portofoliu",
-    text: "Peste 100 de proiecte: rezidențial, comerț, birouri, industrie.",
-    img: "/uploads/referinte/render-3.jpg",
-    alt: "Randare a unui proiect rezidențial din portofoliu",
-    href: "/portofoliu",
-    pos: "center bottom",
-  },
+];
+
+const APPS: Card[] = [
   {
     title: "ElecTriX",
     text: "Suita noastră de instrumente Revit pentru echipe de instalații electrice.",
@@ -58,7 +56,7 @@ const CARDS = [
   },
   {
     title: "ElectroGrad",
-    text: "Aplicația noastră pentru examenul de autorizare a electricienilor ANRE.",
+    text: "Aplicația noastră pentru examenul de autorizare a electricienilor ANRE. Disponibilă pe Google Play.",
     img: "/uploads/electrograd/feature.png",
     alt: "ElectroGrad, aplicație pentru examenul de autorizare electrician ANRE",
     href: "/electrograd",
@@ -121,7 +119,7 @@ export function HomeLanding() {
 
         <section id="servicii" className="sl-sec" style={{ scrollMarginTop: 72 }}>
           <p className="sl-eyebrow">Ce facem</p>
-          <h2 className="sl-h2">Proiectare, execuție și instrumente proprii</h2>
+          <h2 className="sl-h2">Proiectare și execuție, din aceeași mână</h2>
           <div className="sl-bento">
             {CARDS.map((c, i) => (
               <Link key={c.title} href={c.href} className="sl-card">
@@ -163,6 +161,40 @@ export function HomeLanding() {
           </figure>
         </section>
       </div>
+    </div>
+  );
+}
+
+/* Aplicațiile proprii: secțiune separată de serviciile firmei. */
+export function HomeApps() {
+  return (
+    <div className="sl-wrap" style={{ color: "#F2FBFC", paddingBottom: "clamp(72px,9vw,128px)" }}>
+      <style>{`
+        .sl-two{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:300px;gap:16px}
+        .sl-two .sl-card:first-child{grid-column:auto;grid-row:auto}
+        .sl-two .sl-card:first-child h3{font-size:clamp(22px,2vw,28px)}
+        @media (max-width:900px){.sl-two{grid-template-columns:1fr;grid-auto-rows:minmax(300px,auto)}}
+      `}</style>
+      <section id="aplicatii" className="sl-sec" style={{ scrollMarginTop: 72 }}>
+        <p className="sl-eyebrow">Software propriu</p>
+        <h2 className="sl-h2" style={{ marginBottom: 18 }}>Instrumente dezvoltate de noi</h2>
+        <p className="sl-lead" style={{ maxWidth: "68ch", marginBottom: 36 }}>
+          Pe lângă proiectare și execuție, vrem să-i ajutăm și pe alții să se dezvolte. Ce am construit din propria experiență, pentru munca noastră de zi cu zi, împărtășim mai departe.
+        </p>
+        <div className="sl-two">
+          {APPS.map((c) => (
+            <Link key={c.title} href={c.href} className="sl-card">
+              <Image src={c.img} alt={c.alt} fill sizes="(max-width:900px) 100vw, 50vw" style={{ objectFit: "cover", objectPosition: c.pos ?? "center", filter: c.dim ? "brightness(0.55)" : undefined }} />
+              <div className="sl-card-shade" />
+              <div className="sl-card-body">
+                <h3>{c.title}</h3>
+                <p>{c.text}</p>
+                <span className="sl-card-more">Vezi detalii →</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

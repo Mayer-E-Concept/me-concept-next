@@ -34,7 +34,7 @@ export default function InstalatiiElectriceSibiu() {
       serviceType="Instalații electrice"
       title={["Instalații electrice", "proiectate și executate", "în Sibiu."]}
       lead="De la o priză nouă până la instalația completă a unei case, a unui magazin sau a unei hale – cu atestat ANRE și standardul german pe care Martin Mayer, Elektromeister cu peste 20 de ani de experiență, l-a adus în România."
-      hero={{ src: "/uploads/ME-CONCEPT-162.jpg", alt: "Echipa Mayer E-Concept pe șantier, cu planurile instalației electrice", pos: "70% center" }}
+      hero={{ src: "/uploads/echipa-159.jpg", alt: "Echipa Mayer E-Concept pe șantier, discutând planurile instalației electrice", pos: "70% center" }}
       quote={{
         text: "Lucru curat, planificare temeinică, procese clare. Asta nu ține de țară, ci de atitudine.",
         who: "Martin Mayer",

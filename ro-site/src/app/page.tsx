@@ -7,7 +7,7 @@ import { ReferencesSection } from "@/components/references-section";
 import { ContactSection } from "@/components/contact-section";
 import { SiteFooter } from "@/components/site-footer";
 import { FadeIn } from "@/components/fade-in";
-import { HomeLanding } from "@/components/home-landing";
+import { HomeLanding, HomeApps } from "@/components/home-landing";
 
 const OG_IMAGE = `${SITE_URL}/uploads/me-concept-proiectare-instalatii-electrice-romania.jpg`;
 
@@ -75,6 +75,7 @@ export default function Home() {
         <HomeLanding />
         <FadeIn><AboutSection /></FadeIn>
         <FadeIn><ReferencesSection /></FadeIn>
+        <HomeApps />
         <FadeIn><ContactSection /></FadeIn>
       </main>
       <SiteFooter />
