@@ -18,7 +18,7 @@ const SERVICES_RIGHT = [
   { title: "Anschlüsse für Großgeräte", desc: "Zusätzliche Versorgungspunkte für Großgeräte, insbesondere in der Küche." },
   { title: "Video-Türsprechanlage", desc: "Wir planen Video-Türsprechanlagensysteme für zusätzliche Sicherheit und Komfort." },
   { title: "Ausführungskontrolle", desc: "Wir bieten Ausführungskontrollen an, um die Konformität und Qualität der durchgeführten Arbeiten sicherzustellen." },
-  { title: "Unterstützung bei der Elektrikersuche", desc: "Wir helfen Kunden, einen qualifizierten Elektriker zu finden, und stellen das Leistungsverzeichnis bereit, um sicherzustellen, dass die Ausführung gemäß dem Projekt verläuft." },
+  { title: "Ausführung mit ANRE-Attest", desc: "Wir führen Elektroinstallationen in Sibiu und Umgebung aus: Wohnhäuser, Gewerbe- und Industrieflächen, Photovoltaik und Ladestationen, aus derselben Hand wie die Planung." },
 ];
 
 export function ServicesSectionDe() {

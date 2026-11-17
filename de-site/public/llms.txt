@@ -1,0 +1,29 @@
+# Mayer E-Concept (ME-Concept)
+
+> Elektroplanungsbüro mit eigener Ausführung, Sitz in Sibiu (Hermannstadt), Rumänien. Elektroplanung für Projekte in Deutschland und Rumänien, Ausführung nur in Sibiu und Umgebung. ANRE-Atteste Typ A und B (Planung und Ausführung), zertifiziert nach ISO 9001:2015. Gründer: Martin Mayer, deutscher Elektromeister mit über 20 Jahren Erfahrung. Im Team arbeiten Planungsingenieure.
+
+## Leistungen
+- Elektroplanung in BIM mit Revit für Wohn-, Gewerbe- und Industriegebäude, Leistungsphasen LPH 1–8, nach HOAI, DIN und VDE.
+- Ausführung von Elektroinstallationen in Sibiu und Umgebung: Häuser, Wohnungen, Gewerbe, Werkstätten und Hallen, Verteiler, Beleuchtung, Modernisierung.
+- Photovoltaikanlagen und Ladestationen (Wallbox) in Sibiu und Umgebung.
+- Eigene Software: ElecTriX (Revit Add-in für Elektroteams) und ElectroGrad (Android-App für die rumänische ANRE-Zulassungsprüfung für Elektriker).
+
+## Referenzen (Planung in Deutschland)
+Supermarkt mit Sportflächen (LPH 1–7), Firmensitz mit Logistikzentrum (LPH 1–7), Sanierung denkmalgeschützter Wohngebäude in Haar bei München (120 Wohneinheiten, BIM-Preis Bayern 2025), Wasserstoff-Kraftwerk in Lingen (Detail- und Montageplanung).
+
+## Kontakt
+- Telefon und WhatsApp: +40 752 129 500
+- E-Mail: contact@me-concept.ro
+- Adresse: Strada Măslinului nr. 9, Sibiu, Rumänien
+- Öffnungszeiten: Montag–Freitag, 09:00–18:00 Uhr
+
+## Seiten
+- [Elektroplanung](https://me-concept.de/elektroplanung)
+- [Elektroinstallation in Sibiu](https://me-concept.de/elektroinstallation-sibiu)
+- [Photovoltaik und Wallbox in Sibiu](https://me-concept.de/photovoltaik-sibiu)
+- [Portfolio](https://me-concept.de/portofoliu)
+- [Team](https://me-concept.de/unser-team)
+- [ElecTriX](https://me-concept.de/electrix)
+- [ElectroGrad](https://me-concept.de/electrograd)
+- [Blog](https://me-concept.de/blog)
+- [Rumänische Fassung](https://me-concept.ro/)

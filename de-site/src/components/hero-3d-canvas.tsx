@@ -270,7 +270,7 @@ export function Hero3DCanvas() {
     markPhase(PH.SURF);
 
     /* ── Interior label sprites ── */
-    function makeSmallLabel(text: string, color = "#0E323D") {
+    function makeSmallLabel(text: string, color = "#0D4547") {
       const cv = document.createElement("canvas");
       cv.width = 260; cv.height = 56;
       const ctx = cv.getContext("2d")!;
@@ -300,7 +300,7 @@ export function Hero3DCanvas() {
       { text: "REVIT · BIM",      color: "#1A6F7A", local: V(-0.65,  Hw/2 - PER * 0.5, 0.55) },
       { text: "SMART HOME",       color: "#0E6E7A", local: V( 0.75,  Hw/2 - PER * 0.5, 0.55) },
       { text: "ISO 9001:2015",    color: "#1A6F7A", local: V( 0.30,  0,                0.55) },
-      { text: "HOAI · DIN · VDE", color: "#0E323D", local: V( 0.30, -Hw/2 + PER * 0.5, 0.55) },
+      { text: "HOAI · DIN · VDE", color: "#0D4547", local: V( 0.30, -Hw/2 + PER * 0.5, 0.55) },
     ];
     const labelObjects = BOX_DEFS.map((def) => {
       const sprite = makeSmallLabel(def.text, def.color);

@@ -12,6 +12,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticDe: MetadataRoute.Sitemap = [
     { url: `${base}/`,              changeFrequency: "weekly",  priority: 1.0 },
+    { url: `${base}/elektroplanung`, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${base}/elektroinstallation-sibiu`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/photovoltaik-sibiu`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/electrograd`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${base}/portofoliu`,   changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/unser-team`,   changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/meine-geschichte`, changeFrequency: "yearly", priority: 0.5 },

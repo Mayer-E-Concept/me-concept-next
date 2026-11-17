@@ -12,13 +12,13 @@ import { HomeLanding, HomeApps } from "@/components/home-landing";
 const OG_IMAGE = `${SITE_URL}/uploads/me-concept-proiectare-instalatii-electrice-romania.jpg`;
 
 export const metadata: Metadata = {
-  title: "ME-Concept — Proiectare și execuție instalații electrice | Sibiu",
+  title: "Electrician Sibiu | Proiectare și execuție instalații electrice | ME-Concept",
   description:
-    "Proiectare și execuție instalații electrice în Sibiu: case, spații comerciale și industriale, fotovoltaice și stații de încărcare. Atestat ANRE, ISO 9001:2015.",
+    "Electrician autorizat ANRE în Sibiu. Proiectare și execuție instalații electrice pentru case, spații comerciale și hale, fotovoltaice și stații de încărcare. ISO 9001:2015. Sună: +40 752 129 500.",
   openGraph: {
-    title: "ME-Concept — Proiectare Instalații Electrice",
+    title: "Electrician Sibiu | Instalații electrice proiectate și executate | ME-Concept",
     description:
-      "Proiectare instalații electrice pentru construcții rezidențiale și comerciale. Atestat ANRE, ISO 9001:2015.",
+      "Electrician autorizat ANRE în Sibiu: proiectare și execuție instalații electrice, fotovoltaice și stații de încărcare. ISO 9001:2015.",
     url: `${SITE_URL}/`,
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Mayer E-Concept — Proiectare instalații electrice" }],
     type: "website",
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ME-Concept — Proiectare Instalații Electrice",
-    description: "Proiectare instalații electrice profesionistă. Atestat ANRE, ISO 9001:2015.",
+    title: "Electrician Sibiu | Instalații electrice proiectate și executate | ME-Concept",
+    description: "Electrician autorizat ANRE în Sibiu: proiectare și execuție instalații electrice. ISO 9001:2015.",
     images: [OG_IMAGE],
   },
 };

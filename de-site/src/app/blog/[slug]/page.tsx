@@ -299,7 +299,7 @@ export default async function BlogPostPageDe({
       <SiteHeaderDe />
       <main>
         {/* Hero */}
-        <section style={{ position: "relative", background: "#051E27", overflow: "hidden" }}>
+        <section style={{ position: "relative", background: "#0C4244", overflow: "hidden" }}>
           <div
             aria-hidden
             style={{
@@ -509,7 +509,7 @@ export default async function BlogPostPageDe({
 
             {/* Sidebar */}
             <aside>
-              <div style={{ background: "#0B373D", border: "1px solid rgba(143,224,232,0.12)", borderRadius: 12, padding: "24px 24px 20px", marginBottom: 24 }}>
+              <div style={{ background: "#155B5C", border: "1px solid rgba(143,224,232,0.12)", borderRadius: 12, padding: "24px 24px 20px", marginBottom: 24 }}>
                 <Link
                   href="/blog"
                   style={{
@@ -535,7 +535,7 @@ export default async function BlogPostPageDe({
               </div>
 
               {related.length > 0 && (
-                <div style={{ background: "#0B373D", border: "1px solid rgba(143,224,232,0.12)", borderRadius: 12, padding: "24px", marginBottom: 24 }}>
+                <div style={{ background: "#155B5C", border: "1px solid rgba(143,224,232,0.12)", borderRadius: 12, padding: "24px", marginBottom: 24 }}>
                   <p style={{ fontFamily: "var(--font-plex-mono)", fontSize: "11px", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#7FA2A6", marginBottom: 16 }}>
                     Ähnliche Artikel
                   </p>
@@ -558,7 +558,7 @@ export default async function BlogPostPageDe({
               )}
 
               {/* CTA card */}
-              <div style={{ background: "#0B373D", borderRadius: 12, padding: "28px 24px" }}>
+              <div style={{ background: "#155B5C", borderRadius: 12, padding: "28px 24px" }}>
                 <p style={{ fontFamily: "var(--font-barlow)", fontSize: "15px", fontWeight: 700, color: "#F2FBFC", lineHeight: 1.4, marginBottom: 10 }}>
                   Benötigen Sie ein Elektroprojekt?
                 </p>

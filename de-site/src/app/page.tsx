@@ -1,22 +1,19 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 import { SiteHeaderDe } from "@/components/site-header";
-import { HeroSectionDe } from "@/components/hero-section";
-import { ExpertiseSectionDe } from "@/components/expertise-section";
 import { AboutSectionDe } from "@/components/about-section";
 import { ReferencesSectionDe } from "@/components/references-section";
-import { ProcessSectionDe } from "@/components/process-section";
-import { ServicesSectionDe } from "@/components/services-section";
 import { ContactSectionDe } from "@/components/contact-section";
 import { SiteFooterDe } from "@/components/site-footer";
 import { FadeIn } from "@/components/fade-in";
+import { HomeLanding, HomeApps } from "@/components/home-landing";
 
 const OG_IMAGE = `${SITE_URL}/uploads/me-concept-proiectare-instalatii-electrice-romania.jpg`;
 
 export const metadata: Metadata = {
-  title: "ME-Concept — Elektroplanung | Sibiu & Deutschland",
+  title: "ME-Concept | Elektroplanung und Ausführung | Sibiu & Deutschland",
   description:
-    "Elektroplanung für Wohn- und Gewerbebauten. ANRE-zertifiziert, ISO 9001:2015, BIM-Expertise mit Revit. Sibiu & Deutschland.",
+    "Elektroplanung für Wohn- und Gewerbebauten in Deutschland und Rumänien, Ausführung in Sibiu und Umgebung. ANRE-Attest, ISO 9001:2015, BIM mit Revit.",
   openGraph: {
     title: "ME-Concept — Elektroplanung",
     description:
@@ -67,12 +64,10 @@ export default function HomeDe() {
       />
       <SiteHeaderDe />
       <main>
-        <HeroSectionDe />
+        <HomeLanding />
         <FadeIn><AboutSectionDe /></FadeIn>
-        <FadeIn><ProcessSectionDe /></FadeIn>
-        <FadeIn><ExpertiseSectionDe /></FadeIn>
         <FadeIn><ReferencesSectionDe /></FadeIn>
-        <FadeIn><ServicesSectionDe /></FadeIn>
+        <HomeApps />
         <FadeIn><ContactSectionDe /></FadeIn>
       </main>
       <SiteFooterDe />

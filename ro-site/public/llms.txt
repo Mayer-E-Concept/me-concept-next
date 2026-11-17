@@ -1,0 +1,29 @@
+# Mayer E-Concept (ME-Concept)
+
+> Firmă de proiectare și execuție instalații electrice din Sibiu, România. Atestate ANRE tip A și B (proiectare și execuție), certificare ISO 9001:2015. Fondator: Martin Mayer, Elektromeister german cu peste 20 de ani de experiență. Echipa include ingineri proiectanți.
+
+## Ce facem
+- Execuție instalații electrice în Sibiu și împrejurimi: case, apartamente, spații comerciale, ateliere și hale, tablouri electrice, iluminat, modernizarea instalațiilor vechi.
+- Sisteme fotovoltaice și stații de încărcare (wallbox) pentru mașini electrice.
+- Proiectare instalații electrice în BIM cu Revit, pentru România și Germania (faze LPH 1–8, normative NP-I7 și PE 132, respectiv HOAI, DIN, VDE).
+- Software propriu: ElecTriX (add-in Revit pentru echipe de instalații electrice) și ElectroGrad (aplicație Android pentru examenul de autorizare a electricienilor ANRE).
+
+## Zona de execuție
+Sibiu, Șelimbăr, Cisnădie, Cristian, Șura Mare, Șura Mică, Rășinari, Sadu, Tălmaciu, Avrig, Ocna Sibiului. Pentru proiecte mai mari și alte localități din județul Sibiu.
+
+## Contact
+- Telefon și WhatsApp: +40 752 129 500
+- E-mail: contact@me-concept.ro
+- Adresă: Strada Măslinului nr. 9, Sibiu, România
+- Program: luni–vineri, 09:00–18:00
+
+## Pagini
+- [Execuție instalații electrice în Sibiu](https://me-concept.ro/instalatii-electrice-sibiu)
+- [Panouri fotovoltaice și stații de încărcare în Sibiu](https://me-concept.ro/panouri-fotovoltaice-sibiu)
+- [Proiectare instalații electrice](https://me-concept.ro/proiectare-instalatii-electrice)
+- [Portofoliu](https://me-concept.ro/portofoliu)
+- [Echipa](https://me-concept.ro/echipa-noastra)
+- [ElecTriX](https://me-concept.ro/electrix)
+- [ElectroGrad](https://me-concept.ro/electrograd)
+- [Blog](https://me-concept.ro/blog)
+- [Versiunea în germană](https://me-concept.de/)
