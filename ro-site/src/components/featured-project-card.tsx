@@ -22,7 +22,7 @@ export function FeaturedProjectCard({ project: p }: { project: FeaturedProject }
   return (
     <div
       style={{
-        background: "#0B373D",
+        background: "#155B5C",
         border: "1px solid rgba(143,224,232,0.12)",
         borderRadius: 14,
         overflow: "hidden",
@@ -51,7 +51,7 @@ export function FeaturedProjectCard({ project: p }: { project: FeaturedProject }
           style={{
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(to top, #0B373D 0%, transparent 55%)",
+            background: "linear-gradient(to top, #155B5C 0%, transparent 55%)",
           }}
         />
         {p.blurRegion && (

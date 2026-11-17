@@ -61,17 +61,17 @@
   /* shadcn semantic tokens → brand (petrol redesign) */
   --primary: #5AC9D4;
   --primary-foreground: #072327;
-  --secondary: #0F454D;
+  --secondary: #17605F;
   --secondary-foreground: #F2FBFC;
   --accent: #8FE0E8;
   --accent-foreground: #072327;
-  --background: #072327;
+  --background: #0F4A4B;
   --foreground: #F2FBFC;
-  --card: #0B373D;
+  --card: #155B5C;
   --card-foreground: #F2FBFC;
-  --popover: #0B373D;
+  --popover: #155B5C;
   --popover-foreground: #F2FBFC;
-  --muted: #0F454D;
+  --muted: #17605F;
   --muted-foreground: #A9C9CC;
   --destructive: oklch(0.577 0.245 27.325);
   --border: rgba(143,224,232,0.15);
@@ -105,10 +105,10 @@
    design_handoff_website_petrol/PROMPT.md. Deliberately separate from the
    --mec-* brand tokens above so the rest of the site is unaffected. */
 :root {
-  --petrol-bg-deep: #072327;
-  --petrol-800: #0B373D;
-  --petrol-700: #0F454D;
-  --petrol-600: #12525B;
+  --petrol-bg-deep: #0F4A4B;
+  --petrol-800: #155B5C;
+  --petrol-700: #17605F;
+  --petrol-600: #1B6C6C;
   --petrol-cyan: #5AC9D4;
   --petrol-cyan-bright: #8FE0E8;
   --petrol-amber: #EF7F28;
@@ -158,12 +158,15 @@
   body {
     @apply bg-background text-foreground font-body;
     background-color: var(--petrol-bg-deep);
+    /* Sanftes Dunkelgrün mit Lichtschimmer, darüber das Blueprint-Raster */
     background-image:
-      linear-gradient(rgba(143,224,232,0.09) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(143,224,232,0.09) 1px, transparent 1px),
+      radial-gradient(60% 45% at 75% 18%, rgba(143,224,232,0.20), transparent 70%),
+      radial-gradient(55% 40% at 12% 62%, rgba(90,201,212,0.16), transparent 70%),
+      linear-gradient(rgba(143,224,232,0.10) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(143,224,232,0.10) 1px, transparent 1px),
       linear-gradient(rgba(143,224,232,0.05) 1px, transparent 1px),
       linear-gradient(90deg, rgba(143,224,232,0.05) 1px, transparent 1px);
-    background-size: 240px 240px, 240px 240px, 48px 48px, 48px 48px;
+    background-size: auto, auto, 240px 240px, 240px 240px, 48px 48px, 48px 48px;
     background-attachment: fixed;
   }
   html {

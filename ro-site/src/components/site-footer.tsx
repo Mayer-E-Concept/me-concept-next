@@ -48,7 +48,7 @@ function BackToTopButton() {
         width: 46,
         height: 46,
         borderRadius: "50%",
-        background: "#0B373D",
+        background: "#155B5C",
         border: "1px solid rgba(143,224,232,0.30)",
         color: "#8FE0E8",
         display: "flex",
@@ -67,7 +67,7 @@ function BackToTopButton() {
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = "rgba(143,224,232,0.30)";
-        e.currentTarget.style.background = "#0B373D";
+        e.currentTarget.style.background = "#155B5C";
       }}
     >
       <ArrowUp size={20} strokeWidth={2} />
@@ -80,7 +80,7 @@ export function SiteFooter() {
     <>
     <footer
       style={{
-        background: "#072327",
+        background: "#0F4A4B",
         borderTop: "1px solid rgba(143,224,232,0.06)",
         paddingTop: 64,
         paddingBottom: 0,

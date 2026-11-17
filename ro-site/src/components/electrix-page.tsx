@@ -168,7 +168,7 @@ export function ElecTriXPage() {
   }
 
   const inputStyle: React.CSSProperties = {
-    background: "#0B373D",
+    background: "#155B5C",
     border: "1px solid rgba(143,224,232,0.20)",
     borderRadius: 4,
     color: "#F2FBFC",
@@ -211,7 +211,7 @@ export function ElecTriXPage() {
       <style>{`
         .electrix-tool-card {
           position: relative;
-          background: #0B373D;
+          background: #155B5C;
           border: 1px solid rgba(143,224,232,0.12);
           border-radius: 12px;
           padding: 26px 26px 28px;
@@ -269,7 +269,7 @@ export function ElecTriXPage() {
       `}</style>
 
       {/* HERO */}
-      <section style={{ position: "relative", background: "radial-gradient(120% 140% at 72% -10%, #12525B 0%, #0B373D 55%, #072327 100%)", overflow: "hidden" }}>
+      <section style={{ position: "relative", background: "radial-gradient(120% 140% at 72% -10%, #1B6C6C 0%, #155B5C 55%, #0F4A4B 100%)", overflow: "hidden" }}>
         <div
           aria-hidden
           style={{ position: "absolute", inset: 0, backgroundImage: 'url("/assets/circuit-pattern.svg")', backgroundSize: "240px 240px", opacity: 0.06, filter: "invert(1)", pointerEvents: "none" }}
@@ -406,7 +406,7 @@ export function ElecTriXPage() {
       </section>
 
       {/* FEATURES */}
-      <section id="functii" style={{ position: "relative", background: "#0E323D", paddingTop: "clamp(72px, 9vw, 130px)", paddingBottom: "clamp(72px, 9vw, 130px)", scrollMarginTop: 72, overflow: "hidden" }}>
+      <section id="functii" style={{ position: "relative", background: "#0D4547", paddingTop: "clamp(72px, 9vw, 130px)", paddingBottom: "clamp(72px, 9vw, 130px)", scrollMarginTop: 72, overflow: "hidden" }}>
         <SectionDivider />
         <div style={{ position: "relative", zIndex: 1, maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
           <FadeIn>
@@ -491,7 +491,7 @@ export function ElecTriXPage() {
       </section>
 
       {/* SCREENSHOTS */}
-      <section id="capturi" style={{ position: "relative", background: "#051E27", paddingTop: "clamp(72px, 9vw, 130px)", paddingBottom: "clamp(72px, 9vw, 130px)", scrollMarginTop: 72 }}>
+      <section id="capturi" style={{ position: "relative", background: "#0C4244", paddingTop: "clamp(72px, 9vw, 130px)", paddingBottom: "clamp(72px, 9vw, 130px)", scrollMarginTop: 72 }}>
         <SectionDivider />
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 clamp(20px, 5vw, 60px)" }}>
           <FadeIn>
@@ -564,7 +564,7 @@ export function ElecTriXPage() {
       </section>
 
       {/* INQUIRY */}
-      <section id="inquiry" style={{ position: "relative", background: "#051E27", paddingTop: "clamp(72px, 9vw, 130px)", paddingBottom: "clamp(72px, 9vw, 130px)", scrollMarginTop: 72, color: "#F2FBFC" }}>
+      <section id="inquiry" style={{ position: "relative", background: "#0C4244", paddingTop: "clamp(72px, 9vw, 130px)", paddingBottom: "clamp(72px, 9vw, 130px)", scrollMarginTop: 72, color: "#F2FBFC" }}>
         <SectionDivider />
         <style>{`
           @media (max-width: 767px) {

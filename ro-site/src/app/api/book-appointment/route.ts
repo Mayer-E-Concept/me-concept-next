@@ -67,7 +67,7 @@ export async function POST(req: Request) {
     });
 
     const notifyHtml = `
-      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#051E27;color:#F4F2EC;padding:32px;border-radius:8px;">
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#0C4244;color:#F4F2EC;padding:32px;border-radius:8px;">
         <h2 style="color:#1A6F7A;margin:0 0 24px;">Programare nouă primită</h2>
         <table style="width:100%;border-collapse:collapse;">
           <tr><td style="padding:8px 0;color:rgba(244,242,236,0.55);width:140px;">Client</td><td style="padding:8px 0;font-weight:600;">${safeName}</td></tr>
@@ -80,7 +80,7 @@ export async function POST(req: Request) {
       </div>`;
 
     const confirmHtml = `
-      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#051E27;color:#F4F2EC;padding:32px;border-radius:8px;">
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#0C4244;color:#F4F2EC;padding:32px;border-radius:8px;">
         <h2 style="color:#1A6F7A;margin:0 0 8px;">Programare confirmată</h2>
         <p style="color:rgba(244,242,236,0.65);margin:0 0 28px;">Bună ziua, <strong style="color:#F4F2EC;">${safeName}</strong>! Programarea ta la Mayer E-Concept a fost înregistrată.</p>
         <div style="background:rgba(26,111,122,0.12);border:1px solid rgba(26,111,122,0.30);border-radius:8px;padding:20px 24px;margin-bottom:28px;">

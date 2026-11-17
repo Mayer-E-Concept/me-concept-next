@@ -308,7 +308,7 @@ export default async function BlogPostPage({
         <section
           style={{
             position: "relative",
-            background: "#051E27",
+            background: "#0C4244",
             overflow: "hidden",
           }}
         >
@@ -635,7 +635,7 @@ export default async function BlogPostPage({
               {/* Back to blog */}
               <div
                 style={{
-                  background: "#0B373D",
+                  background: "#155B5C",
                   border: "1px solid rgba(143,224,232,0.12)",
                   borderRadius: 12,
                   padding: "24px 24px 20px",
@@ -678,7 +678,7 @@ export default async function BlogPostPage({
               {related.length > 0 && (
                 <div
                   style={{
-                    background: "#0B373D",
+                    background: "#155B5C",
                     border: "1px solid rgba(143,224,232,0.12)",
                     borderRadius: 12,
                     padding: "24px",
@@ -749,7 +749,7 @@ export default async function BlogPostPage({
               {/* CTA card */}
               <div
                 style={{
-                  background: "#0B373D",
+                  background: "#155B5C",
                   borderRadius: 12,
                   padding: "28px 24px",
                 }}

@@ -57,19 +57,19 @@ const APPS: Card[] = [
   {
     title: "ElectroGrad",
     text: "Aplicația noastră pentru examenul de autorizare a electricienilor ANRE. Disponibilă pe Google Play.",
-    img: "/uploads/electrograd/feature.png",
-    alt: "ElectroGrad, aplicație pentru examenul de autorizare electrician ANRE",
+    img: "/uploads/electrograd/card.jpg",
+    alt: "Sigla aplicației ElectroGrad",
     href: "/electrograd",
-    pos: "left center",
-    dim: true,
   },
 ];
 
 export function HomeLanding() {
   const tel = `tel:${BUSINESS.phoneE164}`;
   return (
-    <div style={{ color: "#F2FBFC" }}>
+    <div className="home-sl" style={{ color: "#F2FBFC" }}>
       <style>{SL_CSS}</style>
+      {/* Aceeași lățime și aceleași margini ca secțiunile de mai jos */}
+      <style>{`.home-sl .sl-wrap{max-width:1240px;padding:0 clamp(20px,5vw,60px)}`}</style>
 
       <section className="sl-hero">
         <Image
@@ -168,7 +168,7 @@ export function HomeLanding() {
 /* Aplicațiile proprii: secțiune separată de serviciile firmei. */
 export function HomeApps() {
   return (
-    <div className="sl-wrap" style={{ color: "#F2FBFC", paddingBottom: "clamp(72px,9vw,128px)" }}>
+    <div className="sl-wrap" style={{ color: "#F2FBFC", maxWidth: 1240, padding: "0 clamp(20px,5vw,60px) clamp(72px,9vw,128px)" }}>
       <style>{`
         .sl-two{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:300px;gap:16px}
         .sl-two .sl-card:first-child{grid-column:auto;grid-row:auto}

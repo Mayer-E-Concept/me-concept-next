@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Proiectare instalații electrice — Sibiu & Germania",
     start_url: "/",
     display: "browser",
-    background_color: "#051E27",
-    theme_color: "#051E27",
+    background_color: "#0C4244",
+    theme_color: "#0C4244",
     icons: [
       {
         src: "/icon.png",

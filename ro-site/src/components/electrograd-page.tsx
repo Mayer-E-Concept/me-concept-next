@@ -33,7 +33,7 @@ const h2: React.CSSProperties = {
   marginBottom: "clamp(32px, 4vw, 48px)",
 };
 const body: React.CSSProperties = { fontFamily: "var(--font-barlow)", fontSize: 15, lineHeight: 1.7, color: "#A9C9CC", margin: 0 };
-const card: React.CSSProperties = { background: "#0B373D", borderRadius: 12, border: "1px solid rgba(143,224,232,0.08)", padding: "24px 24px 26px" };
+const card: React.CSSProperties = { background: "#155B5C", borderRadius: 12, border: "1px solid rgba(143,224,232,0.08)", padding: "24px 24px 26px" };
 const monoLink: React.CSSProperties = {
   fontFamily: "var(--font-plex-mono)",
   fontSize: 11,
@@ -88,7 +88,7 @@ export function ElectroGradPage() {
         @media (max-width: 560px) { .eg-feature-grid { grid-template-columns: 1fr !important; } }
       `}</style>
       <main>
-        <section style={{ position: "relative", background: "radial-gradient(120% 140% at 72% -10%, #12525B 0%, #0B373D 55%, #072327 100%)", overflow: "hidden" }}>
+        <section style={{ position: "relative", background: "radial-gradient(120% 140% at 72% -10%, #1B6C6C 0%, #155B5C 55%, #0F4A4B 100%)", overflow: "hidden" }}>
           <div
             className="eg-hero-grid"
             style={{ ...wrap, display: "grid", gridTemplateColumns: "minmax(0, 1.05fr) minmax(0, 0.95fr)", gap: "clamp(32px, 5vw, 72px)", alignItems: "center", paddingTop: "clamp(140px, 18vh, 210px)", paddingBottom: "clamp(64px, 8vw, 110px)" }}
@@ -137,7 +137,7 @@ export function ElectroGradPage() {
           </div>
         </section>
 
-        <section style={{ ...sec, background: "#051E27" }}>
+        <section style={{ ...sec, background: "#0C4244" }}>
           <SectionDivider />
           <div style={wrap}>
             <div style={eyebrow}>Capturi de ecran</div>
@@ -171,7 +171,7 @@ export function ElectroGradPage() {
           </div>
         </section>
 
-        <section style={{ ...sec, background: "#051E27" }}>
+        <section style={{ ...sec, background: "#0C4244" }}>
           <SectionDivider />
           <div style={wrap}>
             <div style={eyebrow}>Aplicație independentă</div>

@@ -72,7 +72,7 @@ export function ProcessSection() {
     <section
       style={{
         position: "relative",
-        background: "#051E27",
+        background: "#0C4244",
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
       }}
@@ -94,7 +94,7 @@ export function ProcessSection() {
         .process-icon-circle {
           width: 54px; height: 54px;
           border-radius: 50%;
-          background: #051E27;
+          background: #0C4244;
           border: 1px solid rgba(143,224,232,0.35);
           display: flex; align-items: center; justify-content: center;
           margin-bottom: 22px;

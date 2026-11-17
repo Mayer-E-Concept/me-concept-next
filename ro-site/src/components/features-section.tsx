@@ -44,7 +44,7 @@ export function FeaturesSection() {
       id="servicii"
       style={{
         position: "relative",
-        background: "#0E323D",
+        background: "#0D4547",
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
         scrollMarginTop: "72px",
@@ -148,7 +148,7 @@ export function FeaturesSection() {
               onMouseLeave={() => setHoveredIdx(null)}
               style={{
                 position: "relative",
-                background: "#0B373D",
+                background: "#155B5C",
                 border: "1px solid",
                 borderRadius: 12,
                 padding: "30px 30px 32px",
