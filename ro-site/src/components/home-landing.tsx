@@ -37,10 +37,10 @@ const CARDS: Card[] = [
   {
     title: "Fotovoltaice și wallbox",
     text: "Sisteme fotovoltaice și stații de încărcare, legate corect în tablou.",
-    img: "/uploads/Casa3-3D.jpg",
-    alt: "Casă cu panouri fotovoltaice pe acoperiș",
+    img: "/uploads/pv-wallbox-schema.jpg",
+    alt: "Schemă: panouri fotovoltaice pe acoperiș, invertor și wallbox pentru mașina electrică",
     href: "/panouri-fotovoltaice-sibiu",
-    dim: true,
+    pos: "85% center",
   },
 ];
 

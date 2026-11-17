@@ -83,7 +83,7 @@ export default function InstalatiiElectriceSibiu() {
         {
           title: "Fotovoltaice și wallbox",
           text: "Sisteme fotovoltaice și stații de încărcare, legate corect în tablou.",
-          img: { src: "/uploads/Casa3-3D.jpg", alt: "Casă cu panouri fotovoltaice pe acoperiș" },
+          img: { src: "/uploads/pv-wallbox-schema.jpg", alt: "Schemă: panouri fotovoltaice pe acoperiș, invertor și wallbox", pos: "85% center" },
           href: "/panouri-fotovoltaice-sibiu",
         },
       ]}

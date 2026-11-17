@@ -34,7 +34,7 @@ export default function PanouriFotovoltaiceSibiu() {
       serviceType="Sisteme fotovoltaice și stații de încărcare"
       title={["Panouri fotovoltaice și", "stații de încărcare", "în Sibiu."]}
       lead="Sisteme fotovoltaice pentru case și firme și wallbox-uri pentru mașini electrice – dimensionate după consumul tău și legate corect în tablou, cu atestat ANRE."
-      hero={{ src: "/uploads/Casa3-3D.jpg", alt: "Casă cu panouri fotovoltaice pe acoperiș", pos: "center 40%" }}
+      hero={{ src: "/uploads/pv-wallbox-schema.jpg", alt: "Schemă: panouri fotovoltaice pe acoperiș, invertor și wallbox pentru mașina electrică", pos: "right center" }}
       quote={{
         text: "Lucru curat, planificare temeinică, procese clare. Asta nu ține de țară, ci de atitudine.",
         who: "Martin Mayer",
