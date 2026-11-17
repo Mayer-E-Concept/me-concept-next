@@ -64,6 +64,7 @@ export default function InstalatiiElectriceSibiu() {
           title: "Tablouri electrice",
           text: "Tablou nou sau înlocuirea celui vechi, cu protecții diferențiale.",
           img: { src: "/uploads/Automatizare.jpg", alt: "Tablou electric executat de Mayer E-Concept" },
+          href: "/tablouri-electrice-sibiu",
         },
         {
           title: "Spații comerciale și industriale",
