@@ -30,8 +30,8 @@ const CARDS: Card[] = [
   {
     title: "Proiectare",
     text: "Proiect electric complet în BIM cu Revit, de la branșament la smart home.",
-    img: "/uploads/Plan-Exemplu-2.png",
-    alt: "Detaliu dintr-un plan de instalații electrice",
+    img: "/uploads/blog-ghid.jpg",
+    alt: "Proiectant Mayer E-Concept lucrând la un model de clădire în Revit",
     href: "/proiectare-instalatii-electrice",
   },
   {
@@ -71,17 +71,35 @@ export function HomeLanding() {
       {/* Aceeași lățime și aceleași margini ca secțiunile de mai jos */}
       <style>{`.home-sl .sl-wrap{max-width:1240px;padding:0 clamp(20px,5vw,60px)}`}</style>
 
-      <section className="sl-hero">
-        <Image
-          src="/uploads/ME-CONCEPT-162.jpg"
-          alt="Echipa Mayer E-Concept pe șantier, cu planurile instalației electrice"
-          fill
-          priority
-          sizes="100vw"
-          style={{ objectFit: "cover", objectPosition: "70% center" }}
-        />
-        <div className="sl-hero-shade" />
+      {/* Startbild der Hauptseite: Text links auf dem Raster, Teamfoto rechts.
+          Am Handy liegt das Foto vollflächig abgedunkelt hinter dem Text. */}
+      <style>{`
+        .home-hero-img{position:absolute;top:0;bottom:0;right:0;width:64%}
+        .home-hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,#0F4A4B 0%,#0F4A4B 36%,rgba(15,74,75,.6) 45%,rgba(15,74,75,.1) 60%,rgba(15,74,75,0) 100%),linear-gradient(0deg,#0F4A4B 0%,rgba(15,74,75,0) 22%)}
+        .home-hero .sl-h1{font-size:clamp(38px,5vw,68px);max-width:11ch}
+        .home-hero .sl-lead{max-width:40ch}
+        .home-hero-text{max-width:560px}
+        @media (max-width:900px){
+          .home-hero-img{width:100%}
+          .home-hero-shade{background:linear-gradient(0deg,#0F4A4B 0%,rgba(15,74,75,.82) 45%,rgba(15,74,75,.6) 100%)}
+          .home-hero-text{max-width:none}
+          .home-hero .sl-h1{max-width:15ch}
+        }
+      `}</style>
+      <section className="sl-hero home-hero">
+        <div className="home-hero-img">
+          <Image
+            src="/uploads/blog-sfaturi.jpg"
+            alt="Echipa Mayer E-Concept la masă, discutând un plan de instalații electrice"
+            fill
+            priority
+            sizes="(max-width:900px) 100vw, 64vw"
+            style={{ objectFit: "cover", objectPosition: "88% 55%" }}
+          />
+        </div>
+        <div className="home-hero-shade" />
         <div className="sl-wrap" style={{ width: "100%", paddingTop: 140, paddingBottom: "clamp(48px,7vw,96px)" }}>
+          <div className="home-hero-text">
           <p className="sl-eyebrow">Proiectare · Execuție · Sibiu</p>
           <h1 className="sl-h1">
             Instalații electrice <em>proiectate și executate</em> în Sibiu.
@@ -103,6 +121,7 @@ export function HomeLanding() {
                 {c}
               </span>
             ))}
+          </div>
           </div>
         </div>
       </section>

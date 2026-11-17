@@ -39,8 +39,8 @@ export default function Proiectare() {
       <main>
         <section className="sl-hero" style={{ minHeight: "min(64vh, 620px)", color: "#F2FBFC" }}>
           <Image
-            src="/uploads/Plan-Exemplu-2.png"
-            alt="Detaliu dintr-un plan de instalații electrice"
+            src="/uploads/blog-ghid.jpg"
+            alt="Proiectant Mayer E-Concept lucrând la un model de clădire în Revit"
             fill
             priority
             sizes="100vw"
