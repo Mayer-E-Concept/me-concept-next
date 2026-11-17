@@ -23,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/politica-cookie-uri-ue`,        changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/nexus-santier/confidentialitate`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/nexus-santier/stergere-cont`,     changeFrequency: "yearly", priority: 0.2 },
+    { url: `${base}/electrograd`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/electrograd/confidentialitate`,   changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/electrograd/termeni`,            changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/electrograd/suport`,             changeFrequency: "yearly", priority: 0.3 },

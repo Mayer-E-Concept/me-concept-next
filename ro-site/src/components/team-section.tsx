@@ -36,12 +36,6 @@ const TEAM: TeamMember[] = [
     img: "/uploads/echipa/worker2.jpg",
   },
   {
-    name: "Marius Poenar",
-    role: "Project Manager",
-    bio: "Coordonează proiectele de la concept până la finalizare, urmărind îndeaproape termenele și comunicarea cu clienții.",
-    img: "/uploads/echipa/worker3.jpg",
-  },
-  {
     name: "Stefan Picu",
     role: "Desenator tehnic, Front/Back-End Developer",
     bio: "Realizează planuri tehnice și dezvoltă soluții software interne, optimizând fluxurile de lucru ale echipei.",

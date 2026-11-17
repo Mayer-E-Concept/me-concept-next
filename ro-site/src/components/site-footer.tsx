@@ -12,6 +12,7 @@ const NAV = [
   { label: "Fotovoltaice și wallbox", href: "/panouri-fotovoltaice-sibiu" },
   { label: "Portofoliu", href: "/portofoliu" },
   { label: "ElecTriX", href: "/electrix" },
+  { label: "ElectroGrad", href: "/electrograd" },
   { label: "Despre noi", href: "/#despre" },
   { label: "Contact", href: "/#contact" },
 ];

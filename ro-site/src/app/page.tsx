@@ -11,6 +11,7 @@ import { ServicesSection } from "@/components/services-section";
 import { ContactSection } from "@/components/contact-section";
 import { SiteFooter } from "@/components/site-footer";
 import { FadeIn } from "@/components/fade-in";
+import { PreviewCardsSection } from "@/components/preview-cards-section";
 
 const OG_IMAGE = `${SITE_URL}/uploads/me-concept-proiectare-instalatii-electrice-romania.jpg`;
 
@@ -77,10 +78,69 @@ export default function Home() {
       <main>
         <HeroSection />
         <FadeIn><AboutSection /></FadeIn>
+        <PreviewCardsSection
+          id="executie"
+          eyebrow="Execuție · Sibiu și împrejurimi"
+          title="Nu doar proiectăm. Executăm instalația, cu atestat ANRE."
+          lead="Din aceeași mână cu proiectul: instalații electrice pentru case, firme și hale, fotovoltaice și stații de încărcare. Alege domeniul și vezi detaliile pe pagina lui."
+          cta="Află mai mult"
+          cards={[
+            {
+              title: "Instalații electrice",
+              desc: "Case, apartamente, spații comerciale și hale: instalații noi sau renovate, circuite, prize și iluminat.",
+              img: "/uploads/Iluminat-Arhitctural.jpg",
+              alt: "Casă cu iluminat exterior executat de Mayer E-Concept",
+              href: "/instalatii-electrice-sibiu",
+              tag: "Execuție",
+            },
+            {
+              title: "Fotovoltaice și stații de încărcare",
+              desc: "Sisteme fotovoltaice și wallbox pentru mașina electrică, legate corect în tablou.",
+              img: "/uploads/Casa3-3D.jpg",
+              alt: "Casă cu panouri fotovoltaice pe acoperiș",
+              href: "/panouri-fotovoltaice-sibiu",
+              tag: "Execuție",
+            },
+            {
+              title: "Tablouri electrice și modernizare",
+              desc: "Tablou nou sau înlocuirea celui vechi. Verificăm instalația existentă și schimbăm doar ce trebuie.",
+              img: "/uploads/Automatizare.jpg",
+              alt: "Tablou electric executat de Mayer E-Concept",
+              href: "/instalatii-electrice-sibiu",
+              tag: "Execuție",
+            },
+          ]}
+        />
         <FadeIn><ProcessSection /></FadeIn>
         <FadeIn><ExpertiseSection /></FadeIn>
         <FadeIn><ReferencesSection /></FadeIn>
         <FadeIn><ServicesSection /></FadeIn>
+        <PreviewCardsSection
+          id="aplicatii"
+          eyebrow="Software propriu"
+          title="Instrumente dezvoltate de noi, pentru alții"
+          lead="Pe lângă proiectare și execuție, vrem să-i ajutăm și pe alții să se dezvolte. Ce am construit din propria experiență, pentru munca noastră de zi cu zi, împărtășim mai departe."
+          cta="Vezi detalii"
+          cards={[
+            {
+              title: "ElecTriX",
+              desc: "Suită de instrumente Revit pentru echipe de instalații electrice: circuite, niveluri, familii și coordonarea echipei, direct în model.",
+              img: "/uploads/Revit.png",
+              alt: "Model de instalații electrice în Revit",
+              href: "/electrix",
+              tag: "Add-in Revit",
+              imgPos: "left center",
+            },
+            {
+              title: "ElectroGrad",
+              desc: "Aplicație mobilă pentru pregătirea examenului de autorizare a electricienilor ANRE, gradele I până la IVB.",
+              img: "/uploads/electrograd/feature.png",
+              alt: "ElectroGrad, aplicație pentru examenul de autorizare electrician ANRE",
+              href: "/electrograd",
+              tag: "Aplicație mobilă",
+            },
+          ]}
+        />
         <FadeIn><ContactSection /></FadeIn>
       </main>
       <SiteFooter />

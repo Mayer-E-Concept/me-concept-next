@@ -36,7 +36,7 @@ export default function PanouriFotovoltaiceSibiu() {
       lead="Sisteme fotovoltaice pentru case și firme și wallbox-uri pentru mașini electrice – dimensionate după consumul tău și legate corect în tablou, cu atestat ANRE."
       hero={{ src: "/uploads/Casa3-3D.jpg", alt: "Casă cu panouri fotovoltaice pe acoperiș", pos: "center 40%" }}
       quote={{
-        text: "Meșteșug curat, planificare gândită temeinic, procese clare – asta nu ține de țară, ci de atitudine.",
+        text: "Lucru curat, planificare temeinică, procese clare. Asta nu ține de țară, ci de atitudine.",
         who: "Martin Mayer",
         role: "Elektromeister, fondator Mayer E-Concept",
         img: { src: "/uploads/poveste.jpg", alt: "Martin Mayer, maistru electrician, fondatorul Mayer E-Concept", pos: "center 25%" },
