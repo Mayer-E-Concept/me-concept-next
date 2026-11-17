@@ -2,15 +2,12 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 import { AREAS_SIBIU, BUSINESS } from "@/lib/business";
 import { SiteHeader } from "@/components/site-header";
-import { HeroSection } from "@/components/hero-section";
-import { ExpertiseSection } from "@/components/expertise-section";
 import { AboutSection } from "@/components/about-section";
 import { ReferencesSection } from "@/components/references-section";
-import { ProcessSection } from "@/components/process-section";
-import { ServicesSection } from "@/components/services-section";
 import { ContactSection } from "@/components/contact-section";
 import { SiteFooter } from "@/components/site-footer";
 import { FadeIn } from "@/components/fade-in";
+import { HomeLanding, HomeApps } from "@/components/home-landing";
 
 const OG_IMAGE = `${SITE_URL}/uploads/me-concept-proiectare-instalatii-electrice-romania.jpg`;
 
@@ -75,12 +72,10 @@ export default function Home() {
       />
       <SiteHeader />
       <main>
-        <HeroSection />
+        <HomeLanding />
         <FadeIn><AboutSection /></FadeIn>
-        <FadeIn><ProcessSection /></FadeIn>
-        <FadeIn><ExpertiseSection /></FadeIn>
         <FadeIn><ReferencesSection /></FadeIn>
-        <FadeIn><ServicesSection /></FadeIn>
+        <HomeApps />
         <FadeIn><ContactSection /></FadeIn>
       </main>
       <SiteFooter />

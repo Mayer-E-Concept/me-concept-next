@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0C4244"/><stop offset="1" stop-color="#17605F"/></linearGradient>
+<radialGradient id="glow" cx="0.86" cy="0.2" r="0.5"><stop offset="0" stop-color="#8FE0E8" stop-opacity="0.28"/><stop offset="1" stop-color="#8FE0E8" stop-opacity="0"/></radialGradient>
+<pattern id="g1" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#8FE0E8" stroke-opacity="0.07" stroke-width="1"/></pattern>
+<pattern id="g2" width="240" height="240" patternUnits="userSpaceOnUse"><path d="M240 0H0V240" fill="none" stroke="#8FE0E8" stroke-opacity="0.14" stroke-width="1"/></pattern>
+</defs>
+<rect width="1600" height="1000" fill="url(#bg)"/><rect width="1600" height="1000" fill="url(#g1)"/><rect width="1600" height="1000" fill="url(#g2)"/><rect width="1600" height="1000" fill="url(#glow)"/>
+<g fill="none" stroke="#8FE0E8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+<!-- Boden -->
+<path d="M620 820H1580" stroke-opacity="0.6"/>
+<!-- Haus -->
+<path d="M800 820V520H1280V820"/>
+<path d="M740 540L1040 330L1340 540"/>
+<rect x="870" y="640" width="110" height="180"/><path d="M955 735h6"/>
+<rect x="1050" y="600" width="130" height="100"/><path d="M1115 600v100M1050 650h130"/>
+<!-- Sonne -->
+<circle cx="1420" cy="230" r="48" stroke="#F2FBFC"/>
+<path d="M1420 150v-30M1420 340v-30M1340 230h-30M1530 230h-30M1363 173l-21-21M1498 308l-21-21M1363 287l-21 21M1498 152l-21 21" stroke="#F2FBFC" stroke-opacity="0.8"/>
+<!-- Wallbox + Kabel -->
+<rect x="1206" y="650" width="48" height="76" rx="10" fill="#0F4A4B"/>
+<circle cx="1230" cy="676" r="7" fill="#8FE0E8" stroke="none"/>
+<path d="M1230 726c0 60 70 30 110 52"/>
+<!-- Auto -->
+<path d="M1330 800v-28c0-10 8-18 18-20l34-6 40-38c6-6 14-9 22-9h64c10 0 19 5 25 13l24 34 20 6c8 3 13 10 13 18v30z" fill="#0F4A4B"/>
+<path d="M1392 746h150M1468 700v46" stroke-opacity="0.7"/>
+<circle cx="1382" cy="802" r="22" fill="#0C4244"/><circle cx="1532" cy="802" r="22" fill="#0C4244"/>
+<!-- Leitung PV -> Wechselrichter -> Wallbox -->
+<path d="M930 420V560H1010" stroke-dasharray="10 10" stroke="#F2FBFC" stroke-opacity="0.8"/>
+<rect x="1010" y="530" width="64" height="48" rx="6" fill="#0F4A4B" stroke="#F2FBFC"/>
+<path d="M1074 554H1230V650" stroke-dasharray="10 10" stroke="#F2FBFC" stroke-opacity="0.8"/>
+</g>
+<!-- PV-Module auf der Dachschräge -->
+<g transform="translate(772,522) rotate(-35)" stroke="#8FE0E8" stroke-width="3" fill="#1B6C6C">
+<rect x="20" y="-52" width="300" height="46" rx="3"/>
+<path d="M70 -52v46M120 -52v46M170 -52v46M220 -52v46M270 -52v46M20 -29h300" fill="none" stroke-opacity="0.85"/>
+</g>
+<g font-family="monospace" font-size="20" font-weight="700" fill="#8FE0E8" letter-spacing="3">
+<text x="760" y="380">PV</text><text x="1000" y="518" fill="#F2FBFC" font-size="15">DC/AC</text><text x="1150" y="630">WALLBOX</text>
+</g>
+</svg>

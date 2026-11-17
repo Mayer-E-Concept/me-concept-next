@@ -54,7 +54,7 @@ export async function POST(req: Request) {
     const safeMessage = escapeHtml(message).replace(/\n/g, "<br>");
 
     const html = `
-      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#051E27;color:#F4F2EC;padding:32px;border-radius:8px;">
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#0C4244;color:#F4F2EC;padding:32px;border-radius:8px;">
         <h2 style="color:#8FE0E8;margin:0 0 24px;">Interes nou — ElecTriX</h2>
         <table style="width:100%;border-collapse:collapse;">
           <tr><td style="padding:8px 0;color:rgba(244,242,236,0.55);width:120px;vertical-align:top;">Nume</td><td style="padding:8px 0;font-weight:600;">${safeName}</td></tr>

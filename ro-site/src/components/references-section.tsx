@@ -13,7 +13,7 @@ export function ReferencesSection() {
     <section
       style={{
         position: "relative",
-        background: "#071C26",
+        background: "#0B3F41",
         paddingTop: "clamp(72px, 9vw, 110px)",
         paddingBottom: "clamp(72px, 9vw, 110px)",
         overflow: "hidden",
@@ -102,7 +102,7 @@ export function ReferencesSection() {
             <FadeIn key={p.id} delay={(i % 4) * 100}>
               <div
                 style={{
-                  background: "#0B373D",
+                  background: "#155B5C",
                   border: "1px solid rgba(143,224,232,0.12)",
                   borderRadius: 12,
                   overflow: "hidden",

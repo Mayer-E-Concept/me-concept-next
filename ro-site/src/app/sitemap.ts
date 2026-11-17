@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticRo: MetadataRoute.Sitemap = [
     { url: `${base}/`,             changeFrequency: "weekly",  priority: 1.0 },
+    { url: `${base}/proiectare-instalatii-electrice`, changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/instalatii-electrice-sibiu`, changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/panouri-fotovoltaice-sibiu`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/portofoliu`,   changeFrequency: "monthly", priority: 0.8 },
@@ -23,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/politica-cookie-uri-ue`,        changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/nexus-santier/confidentialitate`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/nexus-santier/stergere-cont`,     changeFrequency: "yearly", priority: 0.2 },
+    { url: `${base}/electrograd`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/electrograd/confidentialitate`,   changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/electrograd/termeni`,            changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/electrograd/suport`,             changeFrequency: "yearly", priority: 0.3 },

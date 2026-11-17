@@ -36,7 +36,7 @@ export default function InstalatiiElectriceSibiu() {
       lead="De la o priză nouă până la instalația completă a unei case, a unui magazin sau a unei hale – cu atestat ANRE și standardul german pe care Martin Mayer, Elektromeister cu peste 20 de ani de experiență, l-a adus în România."
       hero={{ src: "/uploads/ME-CONCEPT-162.jpg", alt: "Echipa Mayer E-Concept pe șantier, cu planurile instalației electrice", pos: "70% center" }}
       quote={{
-        text: "Meșteșug curat, planificare gândită temeinic, procese clare – asta nu ține de țară, ci de atitudine.",
+        text: "Lucru curat, planificare temeinică, procese clare. Asta nu ține de țară, ci de atitudine.",
         who: "Martin Mayer",
         role: "Elektromeister, fondator Mayer E-Concept",
         img: { src: "/uploads/poveste.jpg", alt: "Martin Mayer, maistru electrician, fondatorul Mayer E-Concept", pos: "center 25%" },
@@ -83,7 +83,7 @@ export default function InstalatiiElectriceSibiu() {
         {
           title: "Fotovoltaice și wallbox",
           text: "Sisteme fotovoltaice și stații de încărcare, legate corect în tablou.",
-          img: { src: "/uploads/Casa3-3D.jpg", alt: "Casă cu panouri fotovoltaice pe acoperiș" },
+          img: { src: "/uploads/pv-wallbox-schema.jpg", alt: "Schemă: panouri fotovoltaice pe acoperiș, invertor și wallbox", pos: "85% center" },
           href: "/panouri-fotovoltaice-sibiu",
         },
       ]}

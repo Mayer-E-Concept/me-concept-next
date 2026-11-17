@@ -32,9 +32,9 @@ type Props = {
   related?: { href: string; label: string };
 };
 
-const CSS = `
+export const SL_CSS = `
 .sl-hero{position:relative;min-height:min(86vh,860px);display:flex;align-items:flex-end;overflow:hidden}
-.sl-hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,35,39,.96) 0%,rgba(7,35,39,.82) 40%,rgba(7,35,39,.25) 100%),linear-gradient(0deg,rgba(7,35,39,1) 0%,rgba(7,35,39,0) 35%)}
+.sl-hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,52,55,.96) 0%,rgba(9,52,55,.82) 40%,rgba(9,52,55,.25) 100%),linear-gradient(0deg,rgba(9,52,55,1) 0%,rgba(9,52,55,0) 35%)}
 .sl-wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,48px);position:relative}
 .sl-h1{font-family:var(--font-barlow);font-weight:800;font-size:clamp(40px,6.4vw,84px);line-height:.98;letter-spacing:-.025em;color:#F2FBFC;margin:0 0 22px;max-width:15ch}
 .sl-h1 em{font-style:normal;color:#8FE0E8}
@@ -43,11 +43,11 @@ const CSS = `
 .sl-lead{font-size:clamp(17px,1.6vw,21px);line-height:1.6;color:#C9DEDB;max-width:56ch;margin:0 0 32px}
 .sl-btn{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:16px;padding:16px 26px;border-radius:999px;text-decoration:none;transition:transform .15s ease,background .2s ease}
 .sl-btn:hover{transform:translateY(-2px)}
-.sl-btn-main{background:#8FE0E8;color:#072327}
+.sl-btn-main{background:#8FE0E8;color:#0F4A4B}
 .sl-btn-ghost{border:1.5px solid rgba(242,251,252,.35);color:#F2FBFC}
 .sl-btn-ghost:hover{background:rgba(242,251,252,.08)}
 .sl-chips{display:flex;flex-wrap:wrap;gap:10px;margin:34px 0 0}
-.sl-chip{font-family:var(--font-plex-mono);font-size:12px;letter-spacing:.06em;color:#F2FBFC;border:1px solid rgba(143,224,232,.35);background:rgba(7,35,39,.55);backdrop-filter:blur(6px);padding:8px 14px;border-radius:999px}
+.sl-chip{font-family:var(--font-plex-mono);font-size:12px;letter-spacing:.06em;color:#F2FBFC;border:1px solid rgba(143,224,232,.35);background:rgba(9,52,55,.55);backdrop-filter:blur(6px);padding:8px 14px;border-radius:999px}
 .sl-stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(143,224,232,.14);border-bottom:1px solid rgba(143,224,232,.14)}
 .sl-stat{padding:34px 20px;border-left:1px solid rgba(143,224,232,.14)}
 .sl-stat:first-child{border-left:none}
@@ -60,7 +60,7 @@ const CSS = `
 .sl-card:first-child{grid-column:span 2;grid-row:span 2}
 .sl-card img{transition:transform .6s ease}
 .sl-card:hover img{transform:scale(1.05)}
-.sl-card-shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,35,39,.95) 0%,rgba(7,35,39,.45) 45%,rgba(7,35,39,0) 75%);z-index:1}
+.sl-card-shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(9,52,55,.95) 0%,rgba(9,52,55,.45) 45%,rgba(9,52,55,0) 75%);z-index:1}
 .sl-card-body{position:relative;z-index:2;padding:24px 26px}
 .sl-card h3{font-family:var(--font-barlow);font-weight:800;font-size:clamp(22px,2vw,28px);color:#F2FBFC;margin:0 0 6px}
 .sl-card:first-child h3{font-size:clamp(28px,3vw,40px)}
@@ -80,7 +80,7 @@ const CSS = `
 .sl-step p::first-letter{text-transform:uppercase}
 .sl-areas{display:flex;flex-wrap:wrap;gap:10px}
 .sl-area{font-weight:600;font-size:16px;color:#F2FBFC;padding:12px 18px;border-radius:12px;background:rgba(143,224,232,.07);border:1px solid rgba(143,224,232,.18)}
-.sl-area:first-child{background:#8FE0E8;color:#072327}
+.sl-area:first-child{background:#8FE0E8;color:#0F4A4B}
 .sl-faq{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .sl-faq details{background:rgba(143,224,232,.05);border:1px solid rgba(143,224,232,.14);border-radius:16px;padding:20px 22px}
 .sl-faq summary{cursor:pointer;font-weight:700;font-size:17px;color:#F2FBFC;list-style:none;display:flex;justify-content:space-between;gap:16px}
@@ -89,14 +89,14 @@ const CSS = `
 .sl-faq details[open] summary:after{content:"–"}
 .sl-faq p{margin:12px 0 0;font-size:15.5px;line-height:1.65;color:#B5CFCC}
 .sl-cta{position:relative;margin-top:clamp(72px,9vw,128px);border-radius:28px;overflow:hidden;min-height:420px;display:flex;align-items:center}
-.sl-cta-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,35,39,.95) 0%,rgba(7,35,39,.75) 50%,rgba(7,35,39,.35) 100%)}
+.sl-cta-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,52,55,.95) 0%,rgba(9,52,55,.75) 50%,rgba(9,52,55,.35) 100%)}
 .sl-cta-body{position:relative;padding:clamp(32px,5vw,64px);max-width:640px}
 @media (max-width:900px){
  .sl-stats{grid-template-columns:repeat(2,1fr)}
  .sl-stat:nth-child(3){border-left:none}
  .sl-stat:nth-child(n+3){border-top:1px solid rgba(143,224,232,.14)}
  .sl-bento{grid-template-columns:1fr;grid-auto-rows:minmax(340px,auto)}
- .sl-card-shade{background:linear-gradient(0deg,rgba(7,35,39,.97) 0%,rgba(7,35,39,.75) 50%,rgba(7,35,39,.1) 85%)}
+ .sl-card-shade{background:linear-gradient(0deg,rgba(9,52,55,.97) 0%,rgba(9,52,55,.75) 50%,rgba(9,52,55,.1) 85%)}
  .sl-card:first-child{grid-column:auto;grid-row:span 1}
  .sl-quote{grid-template-columns:1fr}
  .sl-quote-img{max-width:360px}
@@ -137,7 +137,7 @@ export function ServiceLanding(p: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
-      <style>{CSS}</style>
+      <style>{SL_CSS}</style>
       <SiteHeader />
       <main style={{ color: "#F2FBFC" }}>
         {/* Hero mit eigenem Baustellenfoto */}

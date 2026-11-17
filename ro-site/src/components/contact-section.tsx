@@ -62,7 +62,7 @@ export function ContactSection() {
   }
 
   const inputStyle: React.CSSProperties = {
-    background: "#0B373D",
+    background: "#155B5C",
     border: "1px solid rgba(143,224,232,0.20)",
     borderRadius: 4,
     color: "#F2FBFC",
@@ -96,7 +96,7 @@ export function ContactSection() {
       id="contact"
       style={{
         position: "relative",
-        background: "#051E27",
+        background: "#0C4244",
         paddingTop: "clamp(72px, 9vw, 130px)",
         paddingBottom: "clamp(72px, 9vw, 130px)",
         overflow: "hidden",
@@ -333,9 +333,9 @@ export function ContactSection() {
                 gap: 10,
                 height: 56,
                 padding: "0 32px",
-                background: loading ? "#0E323D" : btnHovered ? "#8FE0E8" : "#0E323D",
+                background: loading ? "#0D4547" : btnHovered ? "#8FE0E8" : "#0D4547",
                 color: btnHovered && !loading ? "#072327" : "#F2FBFC",
-                border: `1.5px solid ${btnHovered && !loading ? "#8FE0E8" : "#0E323D"}`,
+                border: `1.5px solid ${btnHovered && !loading ? "#8FE0E8" : "#0D4547"}`,
                 borderRadius: 4,
                 fontFamily: "var(--font-plex-mono)",
                 fontSize: "12.5px",

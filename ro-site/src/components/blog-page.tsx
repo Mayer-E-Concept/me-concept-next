@@ -58,7 +58,7 @@ export function BlogPage() {
       <section
         style={{
           position: "relative",
-          background: "#051E27",
+          background: "#0C4244",
           overflow: "hidden",
         }}
       >
@@ -167,7 +167,7 @@ export function BlogPage() {
               <article
                 key={post.slug}
                 style={{
-                  background: "#0B373D",
+                  background: "#155B5C",
                   border: "1px solid rgba(143,224,232,0.12)",
                   borderRadius: 12,
                   overflow: "hidden",

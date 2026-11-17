@@ -119,7 +119,7 @@ export function SiteHeader() {
           position: fixed;
           inset: 0;
           z-index: 99990;
-          background: rgba(7,35,39,0.97);
+          background: rgba(9,52,55,0.97);
           backdrop-filter: blur(14px);
           display: flex;
           flex-direction: column;
@@ -156,7 +156,7 @@ export function SiteHeader() {
           right: 0,
           zIndex: 99999,
           padding: "18px 0",
-          backgroundColor: "rgba(7,35,39,0.96)",
+          backgroundColor: "rgba(9,52,55,0.96)",
           backdropFilter: "saturate(130%) blur(12px)",
           boxShadow: scrolled ? "0 2px 20px rgba(0,0,0,0.25)" : "none",
           transition: "background-color .3s ease, box-shadow .3s ease",
