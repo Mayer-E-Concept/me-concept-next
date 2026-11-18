@@ -89,12 +89,12 @@ export function HomeLanding() {
       <section className="sl-hero home-hero">
         <div className="home-hero-img">
           <Image
-            src="/uploads/blog-sfaturi.jpg"
-            alt="Echipa Mayer E-Concept la masă, discutând un plan de instalații electrice"
+            src="/uploads/echipa-ansamblu-rezidential.jpg"
+            alt="Martin Mayer și echipa Mayer E-Concept într-un ansamblu rezidențial din Sibiu"
             fill
             priority
             sizes="(max-width:900px) 100vw, 64vw"
-            style={{ objectFit: "cover", objectPosition: "88% 55%" }}
+            style={{ objectFit: "cover", objectPosition: "50% 30%" }}
           />
         </div>
         <div className="home-hero-shade" />
