@@ -90,7 +90,7 @@ export function HomeLanding() {
         <div className="home-hero-img">
           <Image
             src="/uploads/echipa-ansamblu-rezidential.jpg"
-            alt="Martin Mayer și echipa Mayer E-Concept într-un ansamblu rezidențial din Sibiu"
+            alt="Martin Mayer și echipa Mayer E-Concept într-un ansamblu rezidențial"
             fill
             priority
             sizes="(max-width:900px) 100vw, 64vw"
